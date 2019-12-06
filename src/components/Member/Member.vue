@@ -9,6 +9,7 @@
       <li>5</li>
       <li>6</li>
     </ul>
+    <button @click.prevent="editMemberInfo">23.Edit修改會員資料</button>
   </div>
 </template>
 <script>
