@@ -7,6 +7,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 Vue.config.productionTip = false
+axios.defaults.withCredentials = true;
 
 Vue.use(VueAxios, axios)
 
@@ -16,4 +17,23 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
+})
+
+router.beforeEach((to, from, next) => {
+  // console.log(to, from, next)
+  if (to.meta.requiresLogin) {
+    const api = `${process.env.APIPATH}/Accounts/CheckLogin`;
+    axios.get(api).then(response => {
+      console.log(response.data);
+      if (response.data == 'True') {
+        next()
+      } else {
+        next({ path: '/login' })
+      }
+    });
+  }
+  else {
+    next();
+  }
+
 })

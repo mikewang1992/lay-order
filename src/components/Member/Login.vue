@@ -26,9 +26,11 @@ export default {
       console.log(data);
       this.$http.post(url, data, config).then(response => {
         console.log(response);
-        alert(response.data);
         if (response.data == "success") {
+          alert(response.data);
           this.$router.push({ name: "Member" });
+        } else {
+          alert(response.data);
         }
       });
     }

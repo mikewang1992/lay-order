@@ -35,7 +35,10 @@ export default new Router({
     {
       path: '/member',
       name: 'Member',
-      component: Member
+      component: Member,
+      meta: {
+        requiresLogin: true
+      }
     },
     {
       path: '/',

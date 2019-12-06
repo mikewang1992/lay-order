@@ -2,12 +2,30 @@
   <div>
     <h1>Member</h1>
     <ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
+      <li>
+        Tel:
+        <input type="text" placeholder="Tel" v-model="memberInfo.Tel" required />
+      </li>
+      <li>
+        Name:
+        <input type="text" placeholder="Name" v-model="memberInfo.Name" />
+      </li>
+      <li>
+        Birth:
+        <input type="text" placeholder="Birth" v-model="memberInfo.Birth" />
+      </li>
+      <li>
+        City:
+        <input type="text" placeholder="City" v-model="memberInfo.City" />
+      </li>
+      <li>
+        Dist:
+        <input type="text" placeholder="Dist" v-model="memberInfo.Dist" />
+      </li>
+      <li>
+        NewPassword:
+        <input type="text" placeholder="NewPassword" v-model="memberInfo.NewPassword" />
+      </li>
     </ul>
     <button @click.prevent="editMemberInfo">23.Edit修改會員資料</button>
   </div>
@@ -25,7 +43,7 @@ export default {
       const url = `${process.env.APIPATH}/Accounts/ShowUser`;
       this.$http.get(url).then(response => {
         console.log(response);
-        vm.memberInfo = response.data;
+        vm.memberInfo = response.data[0];
       });
     },
     editMemberInfo() {
