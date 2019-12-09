@@ -1,12 +1,14 @@
 // vue
 import Vue from 'vue'
 import Router from 'vue-router'
-//Member
-import Login from '@/components/Member/Login'
-import Member from '@/components/Member/Member'
-import Register from '@/components/Member/Register'
-//Cusomter
+//Customer
 import Customer from '@/components/Customer/Customer'
+import Product from '@/components/Customer/Product'
+//Customer Member
+import Login from '@/components/Customer/Member/Login'
+import Member from '@/components/Customer/Member/Member'
+import Register from '@/components/Customer/Member/Register'
+
 //Counter
 import Counter from '@/components/Counter/Counter'
 //Kitchen
@@ -23,27 +25,34 @@ export default new Router({
       redirect: '/',
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: Register
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/member',
-      name: 'Member',
-      component: Member,
-      meta: {
-        requiresLogin: true
-      }
-    },
-    {
       path: '/',
       name: 'Customer',
-      component: Customer
+      component: Customer,
+      children: [
+        {
+          path: '/',
+          name: 'Product',
+          component: Product
+        },
+        {
+          path: '/register',
+          name: 'Register',
+          component: Register
+        },
+        {
+          path: '/login',
+          name: 'Login',
+          component: Login
+        },
+        {
+          path: '/member',
+          name: 'Member',
+          component: Member,
+          meta: {
+            requiresLogin: true
+          }
+        },
+      ]
     },
     {
       path: '/counter',

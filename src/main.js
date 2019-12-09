@@ -19,6 +19,8 @@ new Vue({
   template: '<App/>'
 })
 
+
+//router auth
 router.beforeEach((to, from, next) => {
   // console.log(to, from, next)
   if (to.meta.requiresLogin) {
@@ -28,6 +30,7 @@ router.beforeEach((to, from, next) => {
       if (response.data == 'True') {
         next()
       } else {
+        alert("請先登入")
         next({ path: '/login' })
       }
     });

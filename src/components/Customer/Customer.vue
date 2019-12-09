@@ -1,13 +1,18 @@
 <template>
   <div>
     <h1>Customer</h1>
+    <router-view :isOpenFromCustomer="isOpen"></router-view>
+    <Footer></Footer>
   </div>
 </template>
+
 <script>
+import Footer from "./Footer";
+
 export default {
   data() {
     return {
-      isOpen: ""
+      isOpen: false
     };
   },
   methods: {
@@ -16,25 +21,18 @@ export default {
       const url = `${process.env.APIPATH}/Company/IsOpen`;
       this.$http.get(url).then(response => {
         console.log(response);
+        vm.isOpen = response.data;
+        if (response.data == "no") {
+          vm.isOpen = true;
+        }
       });
     }
-    // editMemberInfo() {
-    //   const vm = this;
-    //   const url = `${process.env.APIPATH}/Accounts/Edit`;
-    //   const data = vm.memberInfo;
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     }
-    //   };
-    //   console.log(data);
-    //   this.$http.post(url, data, config).then(response => {
-    //     console.log(response);
-    //   });
-    // }
   },
   created() {
     this.checkOpen();
+  },
+  components: {
+    Footer
   }
 };
 </script>
