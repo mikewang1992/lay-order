@@ -34,7 +34,7 @@ input:focus {
     -moz-appearance: none;
     display: block;
     width: 100%;
-    height: calc(2.25rem + 2px);
+    height: calc(2.5rem + 2px);
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     font-weight: 400;
@@ -64,14 +64,16 @@ select.form-control {
 
     .form-control {
         border-radius: 2rem 0 0 2rem;
+        width: 60%;
     }
 
     &-append {
         border-radius: 0 2rem 2rem 0;
         padding: 0;
-        width: 30%;
+        width: 40%;
         white-space: nowrap;
         background: $color_yellow;
+        height: calc(2.5rem + 2px);
     }
 
     .btn,

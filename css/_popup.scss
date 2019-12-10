@@ -3,6 +3,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    overflow: scroll;
     width: 100%;
     height: 100%;
     background: inherit;
@@ -13,10 +14,13 @@
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-
+    @include animation;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0);
     .icon_close {
         @include icon_btn;
-        margin: 2rem auto;
+        margin: 1rem auto;
     }
 
     .p_slider {
@@ -29,12 +33,27 @@
         img {
             vertical-align: bottom;
             border-radius: 8px;
+            width: 100%;
         }
     }
 
     .popup_content {
     }
-
+    .popup_info {
+        @include shadow;
+        border-radius: 8px;
+        background: #fff;
+        padding: 30px ;
+        text-align: center;
+        h2 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: $color_default;
+        }
+        img {
+            width: 50%;
+        }
+    }
     .p_content {
         @include shadow_b;
         width: 95%;
@@ -46,6 +65,7 @@
         background: #fff;
 
         h3 {
+            font-weight: bold;
             margin: .75rem 0 .25rem 0;
         }
 

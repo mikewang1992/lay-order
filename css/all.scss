@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:700);
 @import "reset";
 @import "variables";
 @import "bootstrap-grid.min";
@@ -26,6 +27,7 @@ header {
     text-align: center;
     padding: 1rem;
     position: relative;
+
     .icon {
         @include icon_btn;
         position: absolute;
@@ -37,6 +39,7 @@ header {
         line-height: 2.2rem;
         background: #fff;
     }
+
     h1 {
         font-size: 1.4rem;
         margin: 0;
@@ -261,11 +264,36 @@ footer {
     text-align: center;
     z-index: 9;
 
+    &.fixed_bottom {
+        @include shadow;
+        padding: 0.7rem;
+
+        @include desktop-sm {
+            box-shadow: none;
+        }
+    }
+
     ul {
         display: flex;
 
         li {
+            position: relative;
             width: 25%;
+
+            .label {
+                position: absolute;
+                right: 23%;
+                top: 8%;
+                color: #fff;
+                background: $color_default;
+                border-radius: 100%;
+                height: 1.1rem;
+                width: 1.1rem;
+                text-align: center;
+                line-height: 1.1rem;
+                z-index: 9;
+                font-weight: bold;
+            }
 
             a {
                 @include animation;
@@ -319,10 +347,19 @@ footer {
         display: flex;
         background: #fff;
         margin-bottom: .75rem;
+
+        &:hover {
+            .iconfont {
+                color: $color_default;
+            }
+        }
     }
+
+
     .p_img {
         width: 40%;
         border-radius: 15px;
+
         img {
             width: 100%;
             height: 100%;
@@ -331,26 +368,32 @@ footer {
             border-radius: 15px;
         }
     }
+
     .p_info {
         width: 100%;
         padding: 1rem 1.25rem 1rem 1.25rem;
+
         .p_name h3 {
-            margin: 0 0 .5rem 0;
-            font-size: 1.2rem;
+            margin: 0;
+            font-size: 1rem;
         }
+
         .p_choose {
             margin-bottom: 0.5rem;
         }
+
         .p_num {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
+
             .count_box {
                 width: 40%;
                 font-size: 1rem;
                 font-weight: bold;
             }
+
             .p_price {
                 width: 40%;
                 font-weight: bold;
@@ -361,45 +404,89 @@ footer {
         }
     }
 }
+
+.result {
+    position: relative;
+
+    img {
+        width: 100%;
+    }
+
+    .number {
+        font-family: 'Roboto Mono', monospace;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        top: 48%;
+        color: #fff;
+        font-size: 2rem;
+        text-align: center;
+        width: 100%;
+
+        @include desktop-sm {
+            top: 55%;
+        }
+
+        &.out{
+        }
+        &.in{
+            background-image: url(../img/talk.svg);
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 130px;
+            font-size: 3rem;
+            padding-top: 1rem;
+            top: 0;
+        }
+    }
+}
+
 .status_list {
     .item {
         padding: .5rem;
     }
+
     .p_status {
-        width: 20%;
+        width: 30%;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 15px;
         background: $color_default;
-        
+
         h4 {
             color: #fff;
         }
     }
+
     .p_date {
         h3 {
-            margin: 0 0 .5rem 0;
+            margin: 0;
             font-size: .9rem;
         }
     }
+
     .p_price {
         font-size: 1.2rem;
         color: $color_default;
         font-weight: bold;
     }
+
     .icon_right {
         align-self: center;
         font-size: 1.5rem;
-        color: #777;
+        color: #bbb;
         margin-right: 0.5rem;
     }
 }
+
 .list_sm {
     .item {
         display: flex;
         padding: .5rem;
     }
+
     .p_price {
         margin: auto 1rem auto auto;
         font-size: 1.2rem;
@@ -407,44 +494,53 @@ footer {
         font-weight: bold;
     }
 }
+
 .order_list {
     @include shadow;
     border-radius: 15px;
     padding: 0.5rem .75rem;
+
     .item {
         display: flex;
         justify-content: space-between;
         border-bottom: 1px solid #F1F1F1;
-        padding: 1rem 0;
+        padding: .75rem 0;
+
         h4 {
             margin: 0;
             white-space: nowrap;
         }
+
         input {
             border: 0;
             text-align: right;
             width: 100%;
         }
+
         &:last-child {
             border: 0;
         }
+
         .form-check {
             width: 100%;
             text-align: right;
             display: flex;
             white-space: nowrap;
             justify-content: flex-end;
+
             input {
                 width: auto;
                 margin-right: 0.25rem;
             }
         }
     }
+
     .total {
         border-bottom: 4px solid #F1F1F1;
+
         span {
             font-size: 1.4rem;
-            color: $color_default;
+            color: $color_red;
             font-weight: bold;
         }
     }

@@ -11,7 +11,7 @@
 
 <body>
     <div class="page">
-        <div class="main pb-2">
+        <div class="main pb-5">
             <header>
                 <a href="index.html" class="icon iconfont icon-left"></a>
                 <h1>點菜單</h1>
@@ -114,14 +114,67 @@
 
                 </div>
                 <small class="color_red text-center d-block mt-2 mb-3">訂單總量超過20份請來電預約,餐點現做，製作時間約 25 min</small>
-                <div class="d-block text-center">
-                    <a href="result_out.html" class="btn btn_default">確認點餐</a>
-                </div>
+                <footer class="d-block text-center fixed_bottom">
+                    <a href="result_out.html" class="btn btn_default d-block btn_lg">確認點餐</a>
+                    <a href="#" class="btn btn_default d-block btn_lg open_popup">確認點餐(test)</a>
+                </footer>
             </div>
-
         </div>
     </div>
-
+    <div class="popup">
+        <a href="#" class="icon_close iconfont icon-weibiao45133 popup_close"></a>
+        <div class="popup_content col-12 col-lg-6 col-md-8">
+            <div class="popup_info">
+                <img src="img/phone.png" alt="">
+                <h2>此電話未驗證</h2>
+                <p>
+                    驗證電話加入會員^_^ <br>
+                    第一次登入送驚喜優惠
+                </p>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="電話">
+                    <span class="iconfont icon-Mobile"></span>
+                    <div class="input-group-append">
+                        <a href="#" class="btn" id="">送出驗證碼</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="phone">請輸入簡訊驗證碼</label>
+                    <span class="iconfont icon-message"></span>
+                    <input class="form-control" type="text" id="" placeholder="請輸入簡訊驗證碼" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="password">密碼</label>
+                    <span class="iconfont icon-lock"></span>
+                    <input class="form-control" type="password" id="" placeholder="密碼" autocomplete="off">
+                </div>
+                <a href="#" class="btn d-block btn_lg btn_default">確認</a>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    let popup_btn = document.querySelector(".open_popup");
+    popup_btn.addEventListener('click', openPopup);
+
+    function openPopup() {
+        let popup = document.querySelector('.popup');
+        popup.style.visibility = "visible";
+        popup.style.opacity = "1";
+        popup.style.transform = "scale(1)";
+        document.querySelector('body').style.overflow = 'hidden';
+    };
+
+    let btn_close = document.querySelector(".popup_close");
+    btn_close.addEventListener('click', hidePopup);
+
+    function hidePopup() {
+        let popup = document.querySelector('.popup');
+        popup.style.visibility = "hidden";
+        popup.style.opacity = "0";
+        popup.style.transform = "scale(0)";
+        document.querySelector('body').style.overflow = 'scroll';
+    }
+</script>
 
 </html>

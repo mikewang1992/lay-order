@@ -22,6 +22,7 @@
                 </li>
                 <li>
                     <a href="cart.html">
+                        <span class="label">5</span>
                         <img src="img/icon_footer02.png" alt="">
                         <p>點菜單</p>
                     </a>
@@ -41,7 +42,6 @@
             </ul>
         </footer>
         <div class="main">
-
             <header>
                 <img src="img/logo_nav.png" alt="">
             </header>
@@ -118,7 +118,7 @@
         </div>
     </div>
     <!-- 彈跳視窗 -->
-    <div class="popup" style="display:none;">
+    <div class="popup">
         <a href="#" class="icon_close iconfont icon-weibiao45133 popup_close"></a>
         <div class="popup_content col-12 col-lg-6 col-md-8">
             <div class="p_slider">
@@ -218,11 +218,25 @@
 </script>
 <script>
     let popup_btn = document.querySelectorAll(".open_popup");
-    popup_btn.forEach(item => item.addEventListener('click',open_popup));
-    function open_popup() {
+    popup_btn.forEach(item => item.addEventListener('click', openPopup));
+
+    function openPopup() {
         let popup = document.querySelector('.popup');
-        popup.style.display= "flex";
-        console.log('123');
+        popup.style.visibility = "visible";
+        popup.style.opacity = "1";
+        popup.style.transform = "scale(1)";
+        document.querySelector('body').style.overflow = 'hidden';
+    };
+
+    let btn_close = document.querySelector(".popup_close");
+    btn_close.addEventListener('click', hidePopup);
+
+    function hidePopup() {
+        let popup = document.querySelector('.popup');
+        popup.style.visibility = "hidden";
+        popup.style.opacity = "0";
+        popup.style.transform = "scale(0)";
+        document.querySelector('body').style.overflow = 'scroll';
     }
 </script>
 
