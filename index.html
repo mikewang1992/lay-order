@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lay Order 躺著點</title>
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/all.css">
+</head>
+
+<body>
+    <div class="page">
+        <footer>
+            <ul>
+                <li class="active">
+                    <a href="index.html">
+                        <img src="img/icon_footer01.png" alt="">
+                        <p>菜單</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="cart.html">
+                        <img src="img/icon_footer02.png" alt="">
+                        <p>點菜單</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="order.html">
+                        <img src="img/icon_footer03.png" alt="">
+                        <p>訂單狀態</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="member_sale.html">
+                        <img src="img/icon_footer04.png" alt="">
+                        <p>會員資訊</p>
+                    </a>
+                </li>
+            </ul>
+        </footer>
+        <div class="main">
+
+            <header>
+                <img src="img/logo_nav.png" alt="">
+            </header>
+            <div class="content">
+                <div class="swiper-container swiper_banner">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="img/banner.jpg" alt=""></div>
+                        <div class="swiper-slide"><img src="img/banner.jpg" alt=""></div>
+                        <div class="swiper-slide"><img src="img/banner.jpg" alt=""></div>
+                        <div class="swiper-slide"><img src="img/banner.jpg" alt=""></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="swiper-container swiper_nav">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">分類 1</div>
+                        <div class="swiper-slide">分類 2</div>
+                        <div class="swiper-slide">分類 3</div>
+                        <div class="swiper-slide">分類 4</div>
+                        <div class="swiper-slide">分類 5</div>
+                        <div class="swiper-slide">分類 6</div>
+                        <div class="swiper-slide">分類 7</div>
+                        <div class="swiper-slide">分類 8</div>
+                    </div>
+                </div>
+                <div class="product_list">
+                    <div class="col-lg-3 col-md-4 col-6 p-0">
+                        <div class="item open_popup">
+                            <div class="p_image">
+                                <img src="img/product/1.png" alt="">
+                            </div>
+                            <div class="p_info">
+                                <h3>產品名稱</h3>
+                                <p>NT$50</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6 p-0">
+                        <div class="item open_popup">
+                            <div class="p_image">
+                                <img src="img/product/1.png" alt="">
+                            </div>
+                            <div class="p_info">
+                                <h3>產品名稱</h3>
+                                <p>NT$50</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6 p-0">
+                        <div class="item open_popup">
+                            <div class="p_image">
+                                <img src="img/product/1.png" alt="">
+                            </div>
+                            <div class="p_info">
+                                <h3>產品名稱</h3>
+                                <p>NT$50</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-6 p-0">
+                        <div class="item open_popup">
+                            <div class="p_image">
+                                <img src="img/product/1.png" alt="">
+                            </div>
+                            <div class="p_info">
+                                <h3>產品名稱</h3>
+                                <p>NT$50</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 彈跳視窗 -->
+    <div class="popup" style="display:none;">
+        <a href="#" class="icon_close iconfont icon-weibiao45133 popup_close"></a>
+        <div class="popup_content col-12 col-lg-6 col-md-8">
+            <div class="p_slider">
+                <div class="swiper-container swiper_product">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="img/product/1.png" alt=""></div>
+                        <div class="swiper-slide"><img src="img/product/2.png" alt=""></div>
+                        <div class="swiper-slide"><img src="img/product/3.png" alt=""></div>
+                        <div class="swiper-slide"><img src="img/product/4.png" alt=""></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+            <div class="p_content">
+                <div class="p_info p-3">
+                    <h3>看起來就很甜的甜甜圈</h3>
+                    <small>訂單總量超過 20 份請來電預約</small>
+                    <hr>
+                    <div class="p_text">
+                        <p>
+                            雖然很甜但是很好吃，而且長得很可愛，建議你可以吃吃看或買來裝可愛也不錯唷！
+                        </p>
+                    </div>
+                    <div class="p_choose">
+                        <div class="item">
+                            <h5>冰塊</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="ice" id="inlineRadio1" value="">
+                                <label for="inlineRadio1">微冰</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="ice" id="inlineRadio2" value="">
+                                <label for="inlineRadio2">少冰</label>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <h5>甜度</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sugar" id="inlineRadio3" value="">
+                                <label for="inlineRadio3">微糖</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sugar" id="inlineRadio4" value="">
+                                <label for="inlineRadio4">少糖</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sugar" id="inlineRadio5" value="">
+                                <label for="inlineRadio5">半糖</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="popup_footer">
+                    <div class="btn btn_round btn_white count_box">
+                        <a href="#" class="count_dis">-</a>
+                        <a href="#" class="count_num">2</a>
+                        <a href="#" class="count_add">+</a>
+                    </div>
+                    <a href="#" class="btn btn_round btn_default">
+                        <span>$120</span>｜加入點菜單
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script>
+    var mySwiper = new Swiper('.swiper_banner', {
+        loop: true, // 循环模式选项
+
+        // 如果需要分页器
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    })
+    var mySwiper = new Swiper('.swiper_nav', {
+        loop: false,
+        slidesPerView: 4,
+        centeredSlides: true,
+        centeredSlidesBounds: true,
+        slideToClickedSlide: true,
+        freeMode: true,
+    })
+    var mySwiper = new Swiper('.swiper_product', {
+        loop: true, // 循环模式选项
+
+        // 如果需要分页器
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    })
+</script>
+<script>
+    let popup_btn = document.querySelectorAll(".open_popup");
+    popup_btn.forEach(item => item.addEventListener('click',open_popup));
+    function open_popup() {
+        let popup = document.querySelector('.popup');
+        popup.style.display= "flex";
+        console.log('123');
+    }
+</script>
+
+</html>
