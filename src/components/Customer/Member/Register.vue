@@ -8,8 +8,8 @@
     <input type="text" placeholder="City" v-model="registerInfo.City" />
     <input type="text" placeholder="Dist" v-model="registerInfo.Dist" />
     <button @click.prevent="register">19.註冊Create</button>
-    <input type="text" placeholder="Vertify" v-model="vertifyCode" />
-    <button @click.prevent="vertify">17.Vertify確認驗證碼</button>
+    <input type="text" placeholder="Vertify" v-model="vertifyCodes.Vertify" />
+    <button @click.prevent="vertify(registerInfo.Tel,vertifyCodes.Vertify)">17.Vertify確認驗證碼</button>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       registerInfo: {},
-      vertifyCode: ""
+      vertifyCodes: {}
     };
   },
   methods: {
@@ -31,15 +31,15 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      console.log(data);
       this.$http.post(url, data, config).then(response => {
         console.log(response);
+        alert(response.data);
       });
     },
-    vertify() {
+    vertify(tel, vertify) {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Vertify`;
-      const data = vm.vertifyCode;
+      const data = { Tel: tel, Vertify: vertify };
       const config = {
         headers: {
           "Content-Type": "application/json"

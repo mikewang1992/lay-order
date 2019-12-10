@@ -9,7 +9,11 @@
     <h3>categorys</h3>
     <ul>
       <li @click.prevent="getProducts()">全部</li>
-      <li v-for="(item,key,index) in categorys" :key="index" @click.prevent="getProducts()">{{item}}</li>
+      <li
+        v-for="(item,key,index) in categorys"
+        :key="index"
+        @click.prevent="getProducts(item.Id)"
+      >{{item.PCName}}</li>
     </ul>
     <h3>products</h3>
     <ul>
@@ -48,9 +52,9 @@ export default {
         vm.banners = response.data;
       });
     },
-    getProducts() {
+    getProducts(PCid = "") {
       const vm = this;
-      const url = `${process.env.APIPATH}/Product/GetProduct?Type=all`;
+      const url = `${process.env.APIPATH}/Product/GetProduct?PCid=${PCid}`;
       this.$http.get(url).then(response => {
         console.log(response);
         vm.products = response.data;
