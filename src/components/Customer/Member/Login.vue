@@ -59,7 +59,9 @@ export default {
       this.$http.get(url).then(response => {
         console.log(response);
         alert(response.data);
-        vm.vertifyAppear = true;
+        if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
+          vm.vertifyAppear = true;
+        }
       });
     },
     vertify(tel, vertify) {
@@ -74,6 +76,11 @@ export default {
       console.log(data);
       this.$http.post(url, data, config).then(response => {
         console.log(response);
+        if (response.data !== "驗證失敗，請重新輸入") {
+          alert("驗證成功");
+        } else {
+          alert("驗證失敗，請重新輸入");
+        }
       });
     }
   }

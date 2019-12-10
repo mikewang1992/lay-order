@@ -6,7 +6,13 @@
     <input type="text" placeholder="Name" v-model="registerInfo.Name" />
     <input type="text" placeholder="Birth" v-model="registerInfo.Birth" />
     <input type="text" placeholder="City" v-model="registerInfo.City" />
+    <select name="城市" v-model="registerInfo.City" @change="getTown(registerInfo.City)">
+      <option v-for="(item,key,index) in Counties" :key="index" :value="item">{{item}}</option>
+    </select>
     <input type="text" placeholder="Dist" v-model="registerInfo.Dist" />
+    <select name="地區" v-model="Dist">
+      <option v-for="(item,key,index) in TownShips" :key="index" :value="item">{{item}}</option>
+    </select>
     <button @click.prevent="register">19.註冊Create</button>
     <input type="text" placeholder="Vertify" v-model="vertifyCodes.Vertify" />
     <button @click.prevent="vertify(registerInfo.Tel,vertifyCodes.Vertify)">17.Vertify確認驗證碼</button>
@@ -17,8 +23,11 @@
 export default {
   data() {
     return {
-      registerInfo: {},
-      vertifyCodes: {}
+      registerInfo: { City: null },
+      vertifyCodes: {},
+      Counties: {},
+      TownShips: {},
+      Dist: null
     };
   },
   methods: {
@@ -49,7 +58,27 @@ export default {
       this.$http.post(url, data, config).then(response => {
         console.log(response);
       });
+    },
+    getCounty() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Areas/County`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        vm.Counties = response.data;
+      });
+    },
+    getTown(City) {
+      // console.log(county);
+      const vm = this;
+      const url = `${process.env.APIPATH}/Areas/Town?county=${City}`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        vm.TownShips = response.data;
+      });
     }
+  },
+  created() {
+    this.getCounty();
   }
 };
 </script>
