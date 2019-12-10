@@ -15,6 +15,7 @@
           <input type="text" class="form-control mb-1" placeholder="電話" v-model="registerInfo.Tel" />
           <span class="iconfont icon-Mobile"></span>
           <div class="input-group-append">
+            <a href="#" class="btn" id v-if="!changetoVertify">送出驗證碼</a>
             <a
               href="#"
               class="btn"
@@ -24,7 +25,19 @@
           </div>
         </div>
         <small class="pb-2 d-block text-left color_gray pl-3">電話號碼即為您的登入帳號</small>
-        <div class="form-group">
+        <div class="form-group" v-if="changetoVertify">
+          <label class="sr-only" for="phone">請輸入簡訊驗證碼</label>
+          <span class="iconfont icon-message"></span>
+          <input
+            class="form-control"
+            type="text"
+            id
+            placeholder="請輸入簡訊驗證碼"
+            autocomplete="off"
+            v-model="vertifyCodes.Vertify"
+          />
+        </div>
+        <div class="form-group" v-if="!changetoVertify">
           <label class="sr-only" for="phone">姓名</label>
           <span class="iconfont icon-user"></span>
           <input
@@ -36,7 +49,7 @@
             v-model="registerInfo.Name"
           />
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="!changetoVertify">
           <label class="sr-only" for="phone">居住地</label>
           <span class="iconfont icon-location"></span>
           <div class="d-flex">
@@ -47,7 +60,7 @@
               v-model="registerInfo.City"
               @change="getTown(registerInfo.City)"
             >
-              <option value hidden selected>城市</option>
+              <option value="城市" hidden selected>城市</option>
               <option v-for="(item,key,index) in Counties" :key="index" :value="item">{{item}}</option>
             </select>
             <select class="form-control" name id v-model="registerInfo.Dist">
@@ -56,7 +69,7 @@
             </select>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="!changetoVertify">
           <label class="sr-only" for="phone">生日</label>
           <span class="iconfont icon-birthday-cake"></span>
           <input
@@ -68,7 +81,7 @@
             v-model="registerInfo.Birth"
           />
         </div>
-        <div class="form-group mb-4">
+        <div class="form-group mb-4" v-if="!changetoVertify">
           <label class="sr-only" for="phone">密碼</label>
           <span class="iconfont icon-lock"></span>
           <input
@@ -80,7 +93,12 @@
             v-model="registerInfo.Password"
           />
         </div>
-        <a href="#" class="btn btn_default mb-2" @click.prevent="register">註冊</a>
+        <a
+          href="#"
+          class="btn btn_default mb-2"
+          @click.prevent="register"
+          v-if="!changetoVertify"
+        >註冊</a>
       </div>
     </div>
   </div>
@@ -120,10 +138,11 @@ $(document).ready(function() {
 export default {
   data() {
     return {
-      registerInfo: { City: null, Dist: null },
+      registerInfo: { City: "城市", Dist: "區域" },
       vertifyCodes: {},
       Counties: {},
-      TownShips: {}
+      TownShips: {},
+      changetoVertify: false
     };
   },
   methods: {
@@ -136,10 +155,15 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      this.$http.post(url, data, config).then(response => {
-        console.log(response);
-        alert(response.data);
-      });
+      if (vm.registerInfo.City !== "城市" && vm.registerInfo.Dist !== "區域") {
+        this.$http.post(url, data, config).then(response => {
+          console.log(response);
+          alert(response.data);
+          vm.changetoVertify = true;
+        });
+      } else {
+        alert("請選擇城市或區域");
+      }
     },
     vertify(tel, vertify) {
       const vm = this;
@@ -153,6 +177,7 @@ export default {
       console.log(data);
       this.$http.post(url, data, config).then(response => {
         console.log(response);
+        alert(response.data);
       });
     },
     getCounty() {

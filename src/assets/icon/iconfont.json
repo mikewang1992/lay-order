@@ -34,6 +34,13 @@
       "unicode_decimal": 58901
     },
     {
+      "icon_id": "5776862",
+      "name": "message",
+      "font_class": "message",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
       "icon_id": "6050696",
       "name": "location",
       "font_class": "location",
