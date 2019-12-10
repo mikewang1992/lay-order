@@ -1,6 +1,50 @@
 <template>
-  <div>
-    <h1>Login</h1>
+  <div class="page login">
+    <div class="main col-lg-4 col-md-6">
+      <div class="content">
+        <img src="img/logo.png" alt />
+        <ul class="nav_group mb-3">
+          <li>
+            <a href="login.html" class="active">登入</a>
+          </li>
+          <li>
+            <a href="register.html">註冊</a>
+          </li>
+        </ul>
+
+        <div class="form-group">
+          <label class="sr-only" for="phone">電話</label>
+          <span class="iconfont icon-Mobile"></span>
+          <input
+            class="form-control"
+            type="text"
+            id="phone"
+            placeholder="電話"
+            autocomplete="off"
+            v-model="loginInfo.Tel"
+          />
+        </div>
+        <div class="form-group mb-4">
+          <label class="sr-only" for="phone">密碼</label>
+          <span class="iconfont icon-lock"></span>
+          <input
+            class="form-control"
+            type="password"
+            id="password"
+            placeholder="密碼"
+            autocomplete="off"
+            v-model="loginInfo.Password"
+          />
+        </div>
+        <a href="index.html" class="btn btn_default mb-2" @click.prevent="login">登入</a>
+        <br />
+        <small>
+          <a href="#">忘記密碼</a>
+        </small>
+      </div>
+    </div>
+  </div>
+  <!-- <h1>Login</h1>
     <input type="text" placeholder="Tel" v-model="loginInfo.Tel" />
     <input type="text" placeholder="Password" v-model="loginInfo.Password" />
     <button @click.prevent="login">登入</button>
@@ -8,8 +52,7 @@
     <div v-if="vertifyAppear">
       <input type="text" placeholder="Vertify" v-model="vertifyCode" />
       <button @click.prevent="vertify(loginInfo.Tel,vertifyCode)">17.Vertify確認驗證碼</button>
-    </div>
-  </div>
+  </div>-->
 </template>
 <script>
 export default {
@@ -88,7 +131,4 @@ export default {
 </script>
 
 <style scope>
-#app > div {
-  background: red;
-}
 </style>
