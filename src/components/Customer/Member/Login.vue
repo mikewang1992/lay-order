@@ -5,10 +5,10 @@
         <img src="img/logo.png" alt />
         <ul class="nav_group mb-3">
           <li>
-            <a href="login.html" class="active">登入</a>
+            <router-link to="/login" class="active">登入</router-link>
           </li>
           <li>
-            <a href="register.html">註冊</a>
+            <router-link to="/register">註冊</router-link>
           </li>
         </ul>
 
@@ -44,7 +44,9 @@
       </div>
     </div>
   </div>
-  <!-- <h1>Login</h1>
+
+  <!-- Mike
+    <h1>Login</h1>
     <input type="text" placeholder="Tel" v-model="loginInfo.Tel" />
     <input type="text" placeholder="Password" v-model="loginInfo.Password" />
     <button @click.prevent="login">登入</button>
@@ -52,7 +54,8 @@
     <div v-if="vertifyAppear">
       <input type="text" placeholder="Vertify" v-model="vertifyCode" />
       <button @click.prevent="vertify(loginInfo.Tel,vertifyCode)">17.Vertify確認驗證碼</button>
-  </div>-->
+  </div>
+  -->
 </template>
 <script>
 export default {

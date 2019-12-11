@@ -7,6 +7,7 @@ import Product from '@/components/Customer/Product'
 //Customer Member
 import Login from '@/components/Customer/Member/Login'
 import Member from '@/components/Customer/Member/Member'
+import MemberCoupon from '@/components/Customer/Member/MemberCoupon'
 import Register from '@/components/Customer/Member/Register'
 
 //Counter
@@ -48,6 +49,14 @@ export default new Router({
           path: '/member',
           name: 'Member',
           component: Member,
+          meta: {
+            requiresLogin: true
+          }
+        },
+        {
+          path: '/coupon',
+          name: 'MemberCoupon',
+          component: MemberCoupon,
           meta: {
             requiresLogin: true
           }

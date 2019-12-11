@@ -5,10 +5,12 @@
         <img src="img/logo.png" alt />
         <ul class="nav_group mb-3">
           <li>
-            <a href="login.html">登入</a>
+            <router-link to="/login">登入</router-link>
+            <!-- <a href="login.html">登入</a> -->
           </li>
           <li>
-            <a href="register.html" class="active">註冊</a>
+            <router-link to="/register" class="active">註冊</router-link>
+            <!-- <a href="register.html" class="active">註冊</a> -->
           </li>
         </ul>
         <div class="input-group">
@@ -21,6 +23,7 @@
               class="btn"
               id
               @click.prevent="vertify(registerInfo.Tel,vertifyCodes.Vertify)"
+              v-if="changetoVertify"
             >送出驗證碼</a>
           </div>
         </div>
@@ -57,8 +60,8 @@
               class="form-control mr-1"
               name
               id
-              v-model="registerInfo.City"
-              @change="getTown(registerInfo.City)"
+              v-model="registerInfo.County"
+              @change="getTown(registerInfo.County)"
             >
               <option value="城市" hidden selected>城市</option>
               <option v-for="(item,key,index) in Counties" :key="index" :value="item">{{item}}</option>
@@ -79,6 +82,7 @@
             placeholder="生日"
             autocomplete="off"
             v-model="registerInfo.Birth"
+            ref="inputDate"
           />
         </div>
         <div class="form-group mb-4" v-if="!changetoVertify">
@@ -102,7 +106,8 @@
       </div>
     </div>
   </div>
-  <!-- <div>
+  <!-- Mike
+    <div>
     <h1>Register</h1>
     <input type="text" placeholder="Tel" v-model="registerInfo.Tel" />
     <input type="text" placeholder="Password" v-model="registerInfo.Password" />
@@ -123,22 +128,10 @@
 </template>
 
 <script>
-$(document).ready(function() {
-  $(function() {
-    $("#inputDate").datepicker({
-      changeMonth: true,
-      changeYear: true,
-      maxDate: new Date(),
-      language: "zh"
-    });
-  });
-});
-</script>
-<script>
 export default {
   data() {
     return {
-      registerInfo: { City: "城市", Dist: "區域" },
+      registerInfo: { County: "城市", Dist: "區域" },
       vertifyCodes: {},
       Counties: {},
       TownShips: {},
@@ -155,11 +148,17 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      if (vm.registerInfo.City !== "城市" && vm.registerInfo.Dist !== "區域") {
+      if (
+        vm.registerInfo.County !== "城市" &&
+        vm.registerInfo.Dist !== "區域"
+      ) {
         this.$http.post(url, data, config).then(response => {
           console.log(response);
           alert(response.data);
-          vm.changetoVertify = true;
+          if (response.data === "success") {
+            vm.changetoVertify = true;
+          } else if (response.data === "此電話已存在，請勿重複申請") {
+          }
         });
       } else {
         alert("請選擇城市或區域");
@@ -177,7 +176,11 @@ export default {
       console.log(data);
       this.$http.post(url, data, config).then(response => {
         console.log(response);
-        alert(response.data);
+        if (typeof response.data == "number") {
+          alert("驗證成功");
+        } else {
+          alert(response.data);
+        }
       });
     },
     getCounty() {
@@ -188,10 +191,10 @@ export default {
         vm.Counties = response.data;
       });
     },
-    getTown(City) {
+    getTown(County) {
       // console.log(county);
       const vm = this;
-      const url = `${process.env.APIPATH}/Areas/Town?county=${City}`;
+      const url = `${process.env.APIPATH}/Areas/Town?county=${County}`;
       this.$http.get(url).then(response => {
         console.log(response);
         vm.TownShips = response.data;
@@ -201,9 +204,6 @@ export default {
   created() {
     this.getCounty();
   }
-  // mounted() {
-  //   this.getCounty();
-  // }
 };
 </script>
 

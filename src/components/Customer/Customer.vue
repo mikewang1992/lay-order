@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h1>Customer</h1>
-    <router-view :isOpenFromCustomer="isOpen"></router-view>
     <Footer></Footer>
+    <router-view :isOpenFromCustomer="isOpen"></router-view>
   </div>
 </template>
 
