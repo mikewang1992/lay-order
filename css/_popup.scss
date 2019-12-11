@@ -18,9 +18,16 @@
     opacity: 0;
     visibility: hidden;
     transform: scale(0);
+
     .icon_close {
         @include icon_btn;
         margin: 1rem auto;
+    }
+
+    &.show {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
     }
 
     .p_slider {
@@ -37,23 +44,26 @@
         }
     }
 
-    .popup_content {
-    }
+    .popup_content {}
+
     .popup_info {
         @include shadow;
         border-radius: 8px;
         background: #fff;
-        padding: 30px ;
+        padding: 30px;
         text-align: center;
+
         h2 {
             font-size: 1.2rem;
             font-weight: bold;
             color: $color_default;
         }
+
         img {
             width: 50%;
         }
     }
+
     .p_content {
         @include shadow_b;
         width: 95%;
@@ -116,7 +126,6 @@
             margin-right: 0.5rem;
         }
     }
-    @include desktop_sm {
-        
-    }
+
+    @include desktop_sm {}
 }
