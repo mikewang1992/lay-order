@@ -3233,25 +3233,25 @@ p {
         bottom: 10px;
         -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15); }
-      .content .order .item.status_done .order_status {
+      .content .order .item.done .order_status {
         background: #8BBC72; }
-      .content .order .item.status_prepare .order_status {
+      .content .order .item.prepare .order_status {
         background: #72BCB3; }
-      .content .order .item.status_pay .order_status {
+      .content .order .item.paid .order_status {
         background: #F77878; }
-      .content .order .item.status_ok .order_status {
+      .content .order .item.canael .order_status {
         background: #9B9B9B; }
       .content .order .item.active {
         bottom: .5rem;
         -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25); }
-        .content .order .item.active.status_done {
+        .content .order .item.active.done {
           border: 3px solid #8BBC72; }
-        .content .order .item.active.status_prepare {
+        .content .order .item.active.prepare {
           border: 3px solid #72BCB3; }
-        .content .order .item.active.status_pay {
+        .content .order .item.active.paid {
           border: 3px solid #F77878; }
-        .content .order .item.active.status_ok {
+        .content .order .item.active.canael {
           border: 3px solid #9B9B9B; }
       .content .order .item .info li {
         line-height: 1.3; }

@@ -104,27 +104,25 @@ p {
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
       }
 
-
-
-      &.status_done {
+      &.done {
         .order_status {
           background: $color_green;
         }
       }
 
-      &.status_prepare {
+      &.prepare {
         .order_status {
           background: $color_default;
         }
       }
 
-      &.status_pay {
+      &.paid {
         .order_status {
           background: $color_red;
         }
       }
 
-      &.status_ok {
+      &.canael {
         .order_status {
           background: $color_light;
         }
@@ -134,19 +132,19 @@ p {
         bottom: .5rem;
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
 
-        &.status_done {
+        &.done {
           border: 3px solid $color_green;
         }
 
-        &.status_prepare {
+        &.prepare {
           border: 3px solid $color_default;
         }
 
-        &.status_pay {
+        &.paid {
           border: 3px solid $color_red;
         }
 
-        &.status_ok {
+        &.canael {
           border: 3px solid $color_light;
         }
       }

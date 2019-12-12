@@ -1,17 +1,14 @@
 <template>
   <div class="main">
     <div class="menu">
-      <div class="menu_lg">
-        <a href="#" class="menu_btn active">
+      <a href="#" class="menu_btn" :class="{'active':type == 'forhere'}" @click.prevent="type = 'forhere'">
           <img src="@/assets/img/icon_kit01.png" alt>
           <h3>內用</h3>
         </a>
-        <a href="#" class="menu_btn">
+        <a href="#" class="menu_btn" :class="{'active':type == 'togo'}" @click.prevent="type = 'togo'">
           <img src="@/assets/img/icon_kit02.png" alt>
           <h3>外帶</h3>
         </a>
-      </div>
-      <div class="menu_sm">
         <a href="#" class="menu_btn">
           <img src="@/assets/img/icon_kit03.png" alt>
           <h3>大單</h3>
@@ -24,20 +21,40 @@
           <img src="@/assets/img/icon_kit05.png" alt>
           <h3>已取消</h3>
         </a>
-      </div>
     </div>
     <div class="content">
       <div class="status">
         <ul>
-          <li class="active">所有</li>
-          <li>製作中</li>
-          <li>待取餐</li>
-          <li>待結帳</li>
+          <li :class="{'active':status == ''}" @click="status = ''">All</li>
+          <li :class="{'active':status == 'prepare'}" @click="status = 'prepare'">Prepare</li>
+          <li :class="{'active':status == 'done'}" @click="status = 'done'">Done</li>
         </ul>
       </div>
       <div class="order">
         <div class="list">
           <!-- 元件放這 -->
+          <div class="item" :class="item.status" v-for="(item,key,index) in productList" :key="index" @click="showDetail(item.Orderid)">
+            <div class="info">
+              <h3>
+                <span class="num">{{item.Orderid}}.</span> {{item.customer}}
+              </h3>
+              <ul>
+                <li>
+                  <span class="iconfont icon-phone"/>
+                  <p>{{item.tel}}</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-icon-time"/>
+                  <p>{{getTime(item.gettime)}} 取餐</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-dollar"/>
+                  <p>{{item.total}}</p>
+                </li>
+              </ul>
+            </div>
+            <div class="order_status">{{item.status}}</div>
+          </div>
         </div>
         <div class="pages">
           <span class="iconfont icon-fanhui"></span>
@@ -57,48 +74,48 @@
         </h2>
       </div>
       <div class="customer">
-        <ul>
+        <ul v-for="(item,key,index) in customer" :key="index">
           <li>
             <h4>取餐人</h4>
-            <p>許珊綺 0980197363</p>
+            <p>{{item.name}} {{item.tel}}</p>
           </li>
           <li>
             <h4>訂餐時間</h4>
-            <p>2019/12/01 10:23</p>
+            <p>{{item.ordertime}}</p>
           </li>
           <li>
             <h4>取餐時間</h4>
-            <p>10:23</p>
+            <p>{{item.gettime}}</p>
           </li>
         </ul>
       </div>
       <div class="order_info">
         <div class="cart_list">
           <ul>
-            <li class="item">
+            <li class="item" v-for="(item,key,index) in detail" :key="index">
               <div class="p_img">
-                <img src="@/assets/img/product/1.png" alt>
+                <img :src="'https://lay-order.rocket-coding.com/Img/product/' + 'beefrice.jpg' " alt>
               </div>
               <div class="p_info">
                 <div class="p_name">
-                  <h3>感覺就很甜的甜甜圈</h3>
+                  <h3>{{item.name}} X{{item.Qty}}</h3>
                 </div>
-                <div class="p_choose">不辣,加蒜</div>
+                <div class="p_choose">{{item.options}}</div>
               </div>
-              <div class="p_price">$500</div>
+              <div class="p_price">${{item.subtotal}}</div>
             </li>
           </ul>
         </div>
       </div>
       <div class="total">
-        <ul>
+        <ul v-for="(item,key,index) in customer" :key="index">
           <li>
             <h4>數量</h4>
-            <p>5</p>
+            <p>{{item.totalQty}}</p>
           </li>
           <li>
             <h4>總計</h4>
-            <p class="color_red">$500</p>
+            <p class="color_red">${{item.totalAmount}}</p>
           </li>
         </ul>
         <div class="checkout">
@@ -111,42 +128,63 @@
 </template>
 
 
-// <script type="text/x-template" id="cardOrder">
-// <div class="item status_prepare">
-//   <div class="info">
-//     <h3>
-//       <span class="num">001.</span> 林美麗
-//     </h3>
-//     <ul>
-//       <li>
-//         <span class="iconfont icon-phone" />
-//         <p>09123123123</p>
-//       </li>
-//       <li>
-//         <span class="iconfont icon-icon-time" />
-//         <p>12:00 取餐</p>
-//       </li>
-//       <li>
-//         <span class="iconfont icon-dollar" />
-//         <p>690</p>
-//       </li>
-//     </ul>
-//   </div>
-//   <div class="order_status">製作中</div>
-// </div>;
-// </script>
 
-// <script>
-// Vue.component('card-component',{  
-//   template: '#cardOrder',
-//   methods: {
-//   },
-//   computed: {
-//     },
-//   }
-// });
-// </script>
-
+<script>
+export default {
+  data() {
+    return {
+      status:'',
+      type:'forhere',
+      productList:{},
+      pages:'',
+      customer:'',
+      detail:'',
+    }
+  },
+  methods: {
+    getProduct(type='',status='') {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Counter/ShowOrderList?type=${type}&status=${status}&page=1`;
+      this.$http.get(url).then(response => {
+        vm.productList = response.data;
+      });
+    },
+    getTime(time){
+      const date = new Date(time);
+      let m = date.getMinutes();
+      if(m<10) {
+        m = '0'+m;
+      };
+      const newTime = `${date.getHours()}:${m}`;
+      return newTime;
+    },
+    showDetail(id){
+      const vm = this;
+      this.$http.get(`${process.env.APIPATH}/Order/ShowOrderSummary/${id}`).then(response => {
+        console.log(response.data)
+        vm.customer = response.data;
+      });
+      this.$http.get(`${process.env.APIPATH}/Order/ShowOrderDetail/${id}`).then(response => {
+        console.log(response.data)
+        vm.detail = response.data;
+      });
+    },
+  },
+  computed: {
+    filterList: function() {
+      let vm = this;
+      const url = `${process.env.APIPATH}/Counter/ShowOrderList?type=${vm.type}&status=${vm.status}&page=1`;
+      axios.get(url).then(response => {
+        vm.productList = response.data;
+        return vm.productList;
+      });
+    }
+  },
+  created() {
+    this.getProduct();
+  },
+}
+</script>
 <style scope>
 @import "../../assets/css/store.css";
 </style>
