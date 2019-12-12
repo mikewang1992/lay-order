@@ -1,0 +1,158 @@
+<template>
+  <div class="page">
+    <div class="main pb-5">
+      <header>
+        <a class="icon iconfont icon-left" @click.prevent="$router.go(-1);"></a>
+        <h1>點菜單</h1>
+      </header>
+      <div class="content">
+        <div class="cart_list">
+          <ul>
+            <li class="item">
+              <div class="p_img">
+                <img src="@/assets/img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>產品名稱</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+                <div class="p_num">
+                  <div class="btn btn_round btn_white count_box">
+                    <a href="#" class="count_dis">-</a>
+                    <a href="#" class="count_num">2</a>
+                    <a href="#" class="count_add">+</a>
+                  </div>
+                  <div class="p_price">$500</div>
+                </div>
+              </div>
+            </li>
+            <li class="item">
+              <div class="p_img">
+                <img src="@/assets/img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>產品名稱</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+                <div class="p_num">
+                  <div class="btn btn_round btn_white count_box">
+                    <a href="#" class="count_dis">-</a>
+                    <a href="#" class="count_num">2</a>
+                    <a href="#" class="count_add">+</a>
+                  </div>
+                  <div class="p_price">$500</div>
+                </div>
+              </div>
+            </li>
+            <li class="item">
+              <div class="p_img">
+                <img src="@/assets/img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>產品名稱</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+                <div class="p_num">
+                  <div class="btn btn_round btn_white count_box">
+                    <a href="#" class="count_dis">-</a>
+                    <a href="#" class="count_num">2</a>
+                    <a href="#" class="count_add">+</a>
+                  </div>
+                  <div class="p_price">$500</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="order_list">
+          <ul>
+            <li class="item total">
+              <h4>
+                共
+                <b class="color_default">5</b> 份
+              </h4>
+              <span>$600</span>
+            </li>
+            <li class="item">
+              <h4>電話</h4>
+              <input type="text" placeholder="請輸入" />
+            </li>
+            <li class="item">
+              <h4>取餐人</h4>
+              <input type="text" placeholder="請輸入" />
+            </li>
+            <li class="item">
+              <h4>取餐時間</h4>
+              <small class="color_default">製作時間約20分，請於12:20後來店取餐</small>
+            </li>
+            <li class="item">
+              <h4>
+                <input type="checkbox" id="selectTime" class="w-auto d-inline" />
+                <label for="selectTime">我要指定取餐時間</label>
+              </h4>
+              <div class="form-check">
+                <select name id>
+                  <option value="123" selected hidden>請選擇</option>
+                  <option value="123">12:20</option>
+                  <option value="123">12:40</option>
+                  <option value="123">12:50</option>
+                </select>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <small class="color_red text-center d-block mt-2 mb-3">訂單總量超過20份請來電預約,餐點現做，製作時間約 25 min</small>
+        <footer class="d-block text-center fixed_bottom">
+          <a href="result_out.html" class="btn btn_default d-block btn_lg">確認點餐</a>
+          <a href="#" class="btn btn_default d-block btn_lg open_popup">確認點餐(test)</a>
+        </footer>
+      </div>
+    </div>
+    <!---------------------------------------------- 彈跳視窗暫放div page ----------------------------------->
+    <div class="popup">
+      <a href="#" class="icon_close iconfont icon-weibiao45133 popup_close"></a>
+      <div class="popup_content col-12 col-lg-6 col-md-8">
+        <div class="popup_info">
+          <img src="@/assets/img/phone.png" alt />
+          <h2>此電話未驗證</h2>
+          <p>
+            驗證電話加入會員^_^
+            <br />第一次登入送驚喜優惠
+          </p>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="電話" />
+            <span class="iconfont icon-Mobile"></span>
+            <div class="input-group-append">
+              <a href="#" class="btn" id>送出驗證碼</a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="phone">請輸入簡訊驗證碼</label>
+            <span class="iconfont icon-message"></span>
+            <input class="form-control" type="text" id placeholder="請輸入簡訊驗證碼" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="password">密碼</label>
+            <span class="iconfont icon-lock"></span>
+            <input class="form-control" type="password" id placeholder="密碼" autocomplete="off" />
+          </div>
+          <a href="#" class="btn d-block btn_lg btn_default">確認</a>
+        </div>
+      </div>
+    </div>
+    <!---------------------------------------------- 彈跳視窗暫放div page ----------------------------------->
+  </div>
+</template>
+
+
+<script>
+export default {
+  data() {
+    return {};
+  },
+  methods: {}
+};
+</script>

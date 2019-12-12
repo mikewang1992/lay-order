@@ -4,10 +4,6 @@
   </div>
 </template>
 
-
-<script type="text/javascript" src="./assets/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="./assets/js/datepicker.min.js"></script>
-<script type="text/javascript" src="./assets/js/datepicker.zh.js"></script>
 <script>
 export default {
   name: "App"
@@ -15,5 +11,6 @@ export default {
 </script>
 
 <style>
-@import "./assets/all.css";
+@import "./assets/helpers/all.css";
+/* @import "./assets/helpers/store.css"; */
 </style>

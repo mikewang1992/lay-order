@@ -3,8 +3,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 //Customer
 import Customer from '@/components/Customer/Customer'
+////Customer Product
 import Product from '@/components/Customer/Product'
-//Customer Member
+import Cart from '@/components/Customer/Cart'
+import Order from '@/components/Customer/Order'
+import OrderInfo from '@/components/Customer/OrderInfo'
+import ResultIn from '@/components/Customer/ResultIn'
+import ResultOut from '@/components/Customer/ResultOut'
+////Customer Member
 import Login from '@/components/Customer/Member/Login'
 import Member from '@/components/Customer/Member/Member'
 import MemberCoupon from '@/components/Customer/Member/MemberCoupon'
@@ -34,6 +40,31 @@ export default new Router({
           path: '/',
           name: 'Product',
           component: Product
+        },
+        {
+          path: '/Cart',
+          name: 'Cart',
+          component: Cart
+        },
+        {
+          path: '/Order',
+          name: 'Order',
+          component: Order
+        },
+        {
+          path: '/OrderInfo',
+          name: 'OrderInfo',
+          component: OrderInfo
+        },
+        {
+          path: '/ResultIn',
+          name: 'ResultIn',
+          component: ResultIn
+        },
+        {
+          path: '/ResultOut',
+          name: 'ResultOut',
+          component: ResultOut
         },
         {
           path: '/register',

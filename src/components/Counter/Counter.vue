@@ -1,14 +1,293 @@
 <template>
-  <div>
-    <h1>Counter</h1>
+  <div class="main">
+    <div class="menu">
+      <div class="menu_lg">
+        <a href="#" class="menu_btn active">
+          <img src="img/icon_kit01.png" alt />
+          <h3>內用</h3>
+        </a>
+        <a href="#" class="menu_btn">
+          <img src="img/icon_kit02.png" alt />
+          <h3>外帶</h3>
+        </a>
+      </div>
+      <div class="menu_sm">
+        <a href="#" class="menu_btn">
+          <img src="img/icon_kit03.png" alt />
+          <h3>大單</h3>
+        </a>
+        <a href="#" class="menu_btn">
+          <img src="img/icon_kit04.png" alt />
+          <h3>已完成</h3>
+        </a>
+        <a href="#" class="menu_btn">
+          <img src="img/icon_kit05.png" alt />
+          <h3>已取消</h3>
+        </a>
+      </div>
+    </div>
+    <div class="content">
+      <div class="status">
+        <ul>
+          <li class="active">所有</li>
+          <li>製作中</li>
+          <li>待取餐</li>
+          <li>待結帳</li>
+        </ul>
+      </div>
+      <div class="order">
+        <div class="list">
+          <div class="item status_prepare">
+            <div class="info">
+              <h3>
+                <span class="num">001.</span> 林美麗
+              </h3>
+              <ul>
+                <li>
+                  <span class="iconfont icon-phone"></span>
+                  <p>09123123123</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-icon-time"></span>
+                  <p>12:00 取餐</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-dollar"></span>
+                  <p>690</p>
+                </li>
+              </ul>
+            </div>
+            <div class="order_status">製作中</div>
+          </div>
+          <div class="item status_done">
+            <div class="info">
+              <h3>
+                <span class="num">001.</span> 林美麗
+              </h3>
+              <ul>
+                <li>
+                  <span class="iconfont icon-phone"></span>
+                  <p>09123123123</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-icon-time"></span>
+                  <p>12:00 取餐</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-dollar"></span>
+                  <p>690</p>
+                </li>
+              </ul>
+            </div>
+            <div class="order_status">待取餐</div>
+          </div>
+          <div class="item status_pay">
+            <div class="info">
+              <h3>
+                <span class="num">001.</span> A桌
+              </h3>
+              <ul>
+                <li>
+                  <span class="iconfont icon-phone"></span>
+                  <p>09123123123</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-icon-time"></span>
+                  <p>12:00 取餐</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-dollar"></span>
+                  <p>690</p>
+                </li>
+              </ul>
+            </div>
+            <div class="order_status">待結帳</div>
+          </div>
+          <div class="item status_ok active">
+            <div class="info">
+              <h3>
+                <span class="num">001.</span> 林美麗
+              </h3>
+              <ul>
+                <li>
+                  <span class="iconfont icon-phone"></span>
+                  <p>09123123123</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-icon-time"></span>
+                  <p>12:00 取餐</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-dollar"></span>
+                  <p>690</p>
+                </li>
+              </ul>
+            </div>
+            <div class="order_status">已取消</div>
+          </div>
+          <div class="item status_ok">
+            <div class="info">
+              <h3>
+                <span class="num">001.</span> 林美麗
+              </h3>
+              <ul>
+                <li>
+                  <span class="iconfont icon-phone"></span>
+                  <p>09123123123</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-icon-time"></span>
+                  <p>12:00 取餐</p>
+                </li>
+                <li>
+                  <span class="iconfont icon-dollar"></span>
+                  <p>690</p>
+                </li>
+              </ul>
+            </div>
+            <div class="order_status">已完成</div>
+          </div>
+        </div>
+        <div class="pages">
+          <span class="iconfont icon-fanhui"></span>
+          <span class="active">1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+          <span>5</span>
+          <span class="iconfont icon-youjiantou"></span>
+        </div>
+      </div>
+    </div>
+    <div class="detail">
+      <div class="title">
+        <h2>
+          <span>002.</span>訂單資訊
+        </h2>
+      </div>
+      <div class="customer">
+        <ul>
+          <li>
+            <h4>取餐人</h4>
+            <p>許珊綺 0980197363</p>
+          </li>
+          <li>
+            <h4>訂餐時間</h4>
+            <p>2019/12/01 10:23</p>
+          </li>
+          <li>
+            <h4>取餐時間</h4>
+            <p>10:23</p>
+          </li>
+        </ul>
+      </div>
+      <div class="order_info">
+        <div class="cart_list">
+          <ul>
+            <li class="item">
+              <div class="p_img">
+                <img src="img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>感覺就很甜的甜甜圈</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+              </div>
+              <div class="p_price">$500</div>
+            </li>
+            <li class="item">
+              <div class="p_img">
+                <img src="img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>感覺就很甜的甜甜圈</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+              </div>
+              <div class="p_price">$500</div>
+            </li>
+            <li class="item">
+              <div class="p_img">
+                <img src="img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>感覺就很甜的甜甜圈</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+              </div>
+              <div class="p_price">$500</div>
+            </li>
+            <li class="item">
+              <div class="p_img">
+                <img src="img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>感覺就很甜的甜甜圈</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+              </div>
+              <div class="p_price">$500</div>
+            </li>
+            <li class="item">
+              <div class="p_img">
+                <img src="img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>感覺就很甜的甜甜圈</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+              </div>
+              <div class="p_price">$500</div>
+            </li>
+            <li class="item">
+              <div class="p_img">
+                <img src="img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>感覺就很甜的甜甜圈</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+              </div>
+              <div class="p_price">$500</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="total">
+        <ul>
+          <li>
+            <h4>數量</h4>
+            <p>5</p>
+          </li>
+          <li>
+            <h4>總計</h4>
+            <p class="color_red">$500</p>
+          </li>
+        </ul>
+        <div class="checkout">
+          <div class="btn btn_lg btn_gray mr-2">取消</div>
+          <div class="btn btn_lg btn_green">結帳</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {}
+};
 </script>
 
 <style scope>
-#app > div {
-  background: red;
-}
+@import "../../assets/helpers/store.css";
 </style>

@@ -1,0 +1,92 @@
+<template>
+  <div class="page">
+    <div class="main pb-2">
+      <header>
+        <a href="order.html" class="icon iconfont icon-left"></a>
+        <h1>訂單詳情</h1>
+      </header>
+      <div class="content">
+        <div class="cart_list list_sm">
+          <ul>
+            <li class="item">
+              <div class="p_img">
+                <img src="@/assets/img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>感覺就很甜的甜甜圈</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+              </div>
+              <div class="p_price">$500</div>
+            </li>
+            <li class="item">
+              <div class="p_img">
+                <img src="@/assets/img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>感覺就很甜的甜甜圈</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+              </div>
+              <div class="p_price">$500</div>
+            </li>
+            <li class="item">
+              <div class="p_img">
+                <img src="@/assets/img/product/1.png" alt />
+              </div>
+              <div class="p_info">
+                <div class="p_name">
+                  <h3>感覺就很甜的甜甜圈</h3>
+                </div>
+                <div class="p_choose">不辣,加蒜</div>
+              </div>
+              <div class="p_price">$500</div>
+            </li>
+          </ul>
+        </div>
+        <div class="order_list mb-4">
+          <ul>
+            <li class="item total">
+              <h4>
+                共
+                <b class="color_default">5</b> 份
+              </h4>
+              <span>$600</span>
+            </li>
+            <li class="item">
+              <h4>電話</h4>
+              <span>0980123123</span>
+            </li>
+            <li class="item">
+              <h4>取餐人</h4>
+              <span>林美麗</span>
+            </li>
+            <li class="item">
+              <h4>取餐時間</h4>
+              <span>2019/12/12 12:00</span>
+            </li>
+          </ul>
+        </div>
+        <div class="d-flex text-center">
+          <div class="col-6">
+            <a href="order.html" class="btn btn_lg btn_gray d-block">返回列表</a>
+          </div>
+          <div class="col-6">
+            <a href="#" class="btn btn_lg btn_default d-block">聯絡店家</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {};
+  },
+  methods: {}
+};
+</script>

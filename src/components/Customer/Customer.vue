@@ -29,15 +29,12 @@ export default {
   },
   created() {
     this.checkOpen();
-  },
-  components: {
-    Footer
   }
+  // components: {
+  //   Footer
+  // }
 };
 </script>
 
 <style scope>
-#app > div {
-  background: red;
-}
 </style>

@@ -3,14 +3,19 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+////axios
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+//Swiper 
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+
 
 Vue.config.productionTip = false
 axios.defaults.withCredentials = true;
 
 Vue.use(VueAxios, axios)
-
+Vue.use(VueAwesomeSwiper)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
