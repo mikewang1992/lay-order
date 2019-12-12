@@ -3063,7 +3063,7 @@ p {
   display: -ms-flexbox;
   display: flex;
   height: 100vh;
-  max-width: 1200px;
+  max-width: 1366px;
   margin: 0 auto;
   min-width: 980px; }
 
@@ -3147,7 +3147,8 @@ p {
       border-radius: 15px;
       -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-      margin-bottom: .75rem; }
+      margin-bottom: .75rem;
+      bottom: 0; }
       .content .order .item:hover {
         bottom: 10px;
         -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);

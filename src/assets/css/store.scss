@@ -1,0 +1,481 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:700);
+@import "reset";
+@import "variables";
+@import "bootstrap-grid.min";
+@import "icon/iconfont";
+p {
+    margin-bottom: 0;
+}
+
+.num {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.main {
+    display: flex;
+    height: 100vh;
+    max-width: 1366px;
+    margin: 0 auto;
+    min-width: 980px;
+}
+
+.menu {
+    background: $color_default;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80px;
+    align-items: center;
+
+    a.menu_btn {
+        @include animation;
+        background: rgba(255, 255, 255, 0.20);
+        color: #fff;
+        font-size: 1rem;
+        display: block;
+        margin-bottom: 1.3rem;
+        border-radius: 50px;
+        font-weight: bold;
+        padding: 0.75rem;
+        writing-mode: vertical-rl;
+        letter-spacing: 2px;
+        display: flex;
+        flex-wrap: wrap;
+
+        h3 {
+            margin: 10px auto 0 auto;
+            color: #fff;
+        }
+
+        img {
+            margin: 0 auto;
+            height: 20px;
+            filter: brightness(2);
+        }
+
+        &.active,
+        &:hover {
+            background: #fff;
+            color: $color_default;
+
+            h3 {
+                color: $color_default;
+            }
+
+            img {
+                filter: none;
+            }
+        }
+    }
+}
+
+
+.content {
+    width: 65%;
+    background: #F5F5F5;
+
+
+
+    .order {
+        padding: 1rem .7rem;
+
+        .list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .item {
+            @include animation;
+            width: 32.333%;
+            margin: 0.5%;
+            position: relative;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            margin-bottom: .75rem;
+            bottom: 0;
+
+            &:hover {
+                bottom: 10px;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+            }
+
+
+
+            &.status_done {
+                .order_status {
+                    background: $color_green;
+                }
+            }
+
+            &.status_prepare {
+                .order_status {
+                    background: $color_default;
+                }
+            }
+
+            &.status_pay {
+                .order_status {
+                    background: $color_red;
+                }
+            }
+
+            &.status_ok {
+                .order_status {
+                    background: $color_light;
+                }
+            }
+
+            &.active {
+                bottom: .5rem;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+
+                &.status_done {
+                    border: 3px solid $color_green;
+                }
+
+                &.status_prepare {
+                    border: 3px solid $color_default;
+                }
+
+                &.status_pay {
+                    border: 3px solid $color_red;
+                }
+
+                &.status_ok {
+                    border: 3px solid $color_light;
+                }
+            }
+
+            .info {
+
+
+                li {
+                    line-height: 1.3;
+                }
+
+                span {
+                    color: #000;
+                }
+
+                p {
+                    display: inline-block;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .info {
+            padding: 0.75rem;
+
+            h3 {
+                font-weight: bold;
+                color: #000;
+                margin-bottom: 0.5rem;
+                border-bottom: 1px solid rgb(230, 230, 230);
+                font-size: 1.2rem;
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        .order_status {
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: bold;
+            background: $color_default;
+            color: #fff;
+            border-radius: 0 0 10px 10px;
+            letter-spacing: 2px;
+        }
+    }
+}
+
+.status {
+    background: #fff;
+
+    ul {
+        display: flex;
+        text-align: center;
+
+        li {
+            width: 100%;
+            padding: .7rem;
+
+            &.active {
+                border-bottom: 2px solid $color_default;
+                color: $color_default;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.detail {
+    width: 35%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .title {
+        h2 {
+            span {
+                font-family: 'Roboto Mono', monospace;
+            }
+
+            padding: .7rem;
+            background: $color_default;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+
+    .customer {
+        padding: .75rem;
+
+        li {
+            display: flex;
+            margin-bottom: 0.25rem;
+
+            h4 {
+                width: 30%;
+                font-size: 0.9rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    .order_info {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        height: 60%;
+        padding: .25rem .75rem;
+        overflow-y: scroll;
+
+        .cart_list {
+            .item {
+                padding: .5rem 0;
+                box-shadow: none;
+                border-bottom: 1px solid #eee;
+                margin-bottom: 0;
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+
+                .p_price {
+                    align-self: center;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    color: $color_default;
+                    padding-right: 0.5rem;
+                }
+            }
+
+            .p_info {
+                padding: .5rem;
+
+                .p_name {
+                    font-size: 0.9rem;
+                }
+
+                .p_choose {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+
+    .total {
+        padding: 1rem;
+
+        ul {
+            margin-bottom: 1rem;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            color: #000;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid #eee;
+
+            &:last-child {
+                border-bottom: 0;
+            }
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+
+        .checkout {
+            display: flex;
+
+            .btn {
+                width: 100%;
+                padding-left: .5rem;
+                padding-right: .5rem;
+
+                &.btn_gray {
+                    background: transparent;
+                    border: 2px solid $color_light;
+                    color: $color_light;
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
+
+.pages {
+    display: flex;
+    justify-content: center;
+
+    span {
+        @include shadow_b;
+        @include animation;
+        cursor: pointer;
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        text-align: center;
+        margin: 0.25rem;
+        border-radius: 100%;
+        background: #fff;
+
+        &.active,
+        &:hover {
+            background: $color_default;
+            color: #fff;
+        }
+    }
+}
+
+// 廚房端
+.kitchen {
+    font-size: 18px;
+
+}
+
+.kitchen_list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .order_list {
+        display: flex;
+        height: 100%;
+        padding: 0.75rem;
+        overflow: hidden;
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            @include shadow;
+            border-radius: 10px;
+            width: 23%;
+            margin-left: 1%;
+            margin-right: 1%;
+            background: #fff;
+            .title {
+                padding: 0.75rem .5rem;
+                display: flex;
+                justify-content: space-between;
+                font-size: 1.3rem;
+                font-weight: bold;
+                border-bottom: 2px solid #eee;
+                padding-bottom: 0.5rem;
+
+                h3 {
+                    color: $color_default;
+                    letter-spacing: 1px;
+                }
+
+                span {
+                    font-family: 'Roboto Mono', monospace;
+                    color: #000;
+                }
+            }
+            &.go {
+                .title h3 {
+                    color: $color_red;
+                }
+            }
+            ul {
+                overflow-y: scroll;
+                li {
+                    border-bottom: 2px solid rgb(216, 216, 216);
+                    padding: .5rem .5rem .25rem .5rem;
+
+                    h4 {
+                        font-size: 1.1rem;
+                        color: #000;
+                        margin-bottom: 0.2rem;
+                    }
+
+                    .label {
+                        display: inline-block;
+                        background: $color_default;
+                        color: #fff;
+                        font-weight: bold;
+                        padding: 0.15rem .5rem;
+                        margin-right: 0.25rem;
+                        margin-bottom: 0.25rem;
+                        border-radius: 3px;
+                    }
+
+                    &.done {
+                        opacity: .4;
+                    }
+                }
+            }
+
+            .btn {
+                margin-top: auto;
+                border-radius: 0 0 10px 10px;
+            }
+        }
+    }
+
+    footer {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        padding: 0 2rem;
+
+        .pages {
+            margin: 0 auto;
+
+            span {
+                width: 2.5rem;
+                height: 2.5rem;
+                line-height: 2.3rem;
+                font-size: 1.2rem;
+                font-weight: bold;
+                border: 2px solid #4B605E;
+                box-shadow: none;
+                color: #4B605E;
+
+                &.active,
+                &:hover {
+                    background: #4B605E;
+                    color: #fff;
+                }
+            }
+        }
+
+        .thisTime {
+            margin-left: auto;
+            font-size: 1.2rem;
+        }
+    }
+}
