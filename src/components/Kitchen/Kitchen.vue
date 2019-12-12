@@ -3,25 +3,25 @@
     <div class="menu">
       <div class="menu_lg">
         <a href="#" class="menu_btn active">
-          <img src="img/icon_kit01.png" alt />
+          <img src="@/assets/img/icon_kit01.png" alt />
           <h3>內用</h3>
         </a>
         <a href="#" class="menu_btn">
-          <img src="img/icon_kit02.png" alt />
+          <img src="@/assets/img/icon_kit02.png" alt />
           <h3>外帶</h3>
         </a>
       </div>
       <div class="menu_sm">
         <a href="#" class="menu_btn">
-          <img src="img/icon_kit03.png" alt />
+          <img src="@/assets/img/icon_kit03.png" alt />
           <h3>大單</h3>
         </a>
         <a href="#" class="menu_btn">
-          <img src="img/icon_kit04.png" alt />
+          <img src="@/assets/img/icon_kit04.png" alt />
           <h3>已完成</h3>
         </a>
         <a href="#" class="menu_btn">
-          <img src="img/icon_kit05.png" alt />
+          <img src="@/assets/img/icon_kit05.png" alt />
           <h3>已取消</h3>
         </a>
       </div>
@@ -215,7 +215,10 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    
+  },
+  
 };
 </script>
 

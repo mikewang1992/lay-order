@@ -16,6 +16,8 @@ import Member from '@/components/Customer/Member/Member'
 import MemberCoupon from '@/components/Customer/Member/MemberCoupon'
 import Register from '@/components/Customer/Member/Register'
 
+
+import EmployeeLogin from '@/components/EmployeeLogin'
 //Counter
 import Counter from '@/components/Counter/Counter'
 //Kitchen
@@ -103,6 +105,11 @@ export default new Router({
       path: '/kitchen',
       name: 'Kitchen',
       component: Kitchen
+    },
+    {
+      path: '/employeeLogin',
+      name: 'EmployeeLogin',
+      component: EmployeeLogin
     },
   ]
 })
