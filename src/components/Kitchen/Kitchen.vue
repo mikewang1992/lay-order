@@ -27,14 +27,6 @@
       </div>
     </div>
     <div class="kitchen_list">
-      <div class="status">
-        <ul>
-          <li class="active">所有</li>
-          <li>製作中</li>
-          <li>待取餐</li>
-          <li>待結帳</li>
-        </ul>
-      </div>
       <div class="order_list">
         <div class="item go">
           <div class="title">
@@ -227,6 +219,6 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "../../assets/helpers/store.css";
+<style scope>
+@import "../../assets/css/store.css";
 </style>

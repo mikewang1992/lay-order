@@ -33,5 +33,5 @@ export default {
 </script>
 
 <style scope>
-  @import "../../assets/helpers/all.css";
+  @import "../../assets/css/all.css";
 </style>

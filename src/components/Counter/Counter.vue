@@ -289,5 +289,5 @@ export default {
 </script>
 
 <style scope>
-@import "../../assets/helpers/store.css";
+@import "../../assets/css/store.css";
 </style>
