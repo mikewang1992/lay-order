@@ -3,25 +3,25 @@
     <div class="menu">
       <div class="menu_lg">
         <a href="#" class="menu_btn active">
-          <img src="img/icon_kit01.png" alt />
+          <img src="@/assets/img/icon_kit01.png" alt>
           <h3>內用</h3>
         </a>
         <a href="#" class="menu_btn">
-          <img src="img/icon_kit02.png" alt />
+          <img src="@/assets/img/icon_kit02.png" alt>
           <h3>外帶</h3>
         </a>
       </div>
       <div class="menu_sm">
         <a href="#" class="menu_btn">
-          <img src="img/icon_kit03.png" alt />
+          <img src="@/assets/img/icon_kit03.png" alt>
           <h3>大單</h3>
         </a>
         <a href="#" class="menu_btn">
-          <img src="img/icon_kit04.png" alt />
+          <img src="@/assets/img/icon_kit04.png" alt>
           <h3>已完成</h3>
         </a>
         <a href="#" class="menu_btn">
-          <img src="img/icon_kit05.png" alt />
+          <img src="@/assets/img/icon_kit05.png" alt>
           <h3>已取消</h3>
         </a>
       </div>
@@ -37,116 +37,7 @@
       </div>
       <div class="order">
         <div class="list">
-          <div class="item status_prepare">
-            <div class="info">
-              <h3>
-                <span class="num">001.</span> 林美麗
-              </h3>
-              <ul>
-                <li>
-                  <span class="iconfont icon-phone"></span>
-                  <p>09123123123</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-icon-time"></span>
-                  <p>12:00 取餐</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-dollar"></span>
-                  <p>690</p>
-                </li>
-              </ul>
-            </div>
-            <div class="order_status">製作中</div>
-          </div>
-          <div class="item status_done">
-            <div class="info">
-              <h3>
-                <span class="num">001.</span> 林美麗
-              </h3>
-              <ul>
-                <li>
-                  <span class="iconfont icon-phone"></span>
-                  <p>09123123123</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-icon-time"></span>
-                  <p>12:00 取餐</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-dollar"></span>
-                  <p>690</p>
-                </li>
-              </ul>
-            </div>
-            <div class="order_status">待取餐</div>
-          </div>
-          <div class="item status_pay">
-            <div class="info">
-              <h3>
-                <span class="num">001.</span> A桌
-              </h3>
-              <ul>
-                <li>
-                  <span class="iconfont icon-phone"></span>
-                  <p>09123123123</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-icon-time"></span>
-                  <p>12:00 取餐</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-dollar"></span>
-                  <p>690</p>
-                </li>
-              </ul>
-            </div>
-            <div class="order_status">待結帳</div>
-          </div>
-          <div class="item status_ok active">
-            <div class="info">
-              <h3>
-                <span class="num">001.</span> 林美麗
-              </h3>
-              <ul>
-                <li>
-                  <span class="iconfont icon-phone"></span>
-                  <p>09123123123</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-icon-time"></span>
-                  <p>12:00 取餐</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-dollar"></span>
-                  <p>690</p>
-                </li>
-              </ul>
-            </div>
-            <div class="order_status">已取消</div>
-          </div>
-          <div class="item status_ok">
-            <div class="info">
-              <h3>
-                <span class="num">001.</span> 林美麗
-              </h3>
-              <ul>
-                <li>
-                  <span class="iconfont icon-phone"></span>
-                  <p>09123123123</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-icon-time"></span>
-                  <p>12:00 取餐</p>
-                </li>
-                <li>
-                  <span class="iconfont icon-dollar"></span>
-                  <p>690</p>
-                </li>
-              </ul>
-            </div>
-            <div class="order_status">已完成</div>
-          </div>
+          <!-- 元件放這 -->
         </div>
         <div class="pages">
           <span class="iconfont icon-fanhui"></span>
@@ -186,67 +77,7 @@
           <ul>
             <li class="item">
               <div class="p_img">
-                <img src="img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>感覺就很甜的甜甜圈</h3>
-                </div>
-                <div class="p_choose">不辣,加蒜</div>
-              </div>
-              <div class="p_price">$500</div>
-            </li>
-            <li class="item">
-              <div class="p_img">
-                <img src="img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>感覺就很甜的甜甜圈</h3>
-                </div>
-                <div class="p_choose">不辣,加蒜</div>
-              </div>
-              <div class="p_price">$500</div>
-            </li>
-            <li class="item">
-              <div class="p_img">
-                <img src="img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>感覺就很甜的甜甜圈</h3>
-                </div>
-                <div class="p_choose">不辣,加蒜</div>
-              </div>
-              <div class="p_price">$500</div>
-            </li>
-            <li class="item">
-              <div class="p_img">
-                <img src="img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>感覺就很甜的甜甜圈</h3>
-                </div>
-                <div class="p_choose">不辣,加蒜</div>
-              </div>
-              <div class="p_price">$500</div>
-            </li>
-            <li class="item">
-              <div class="p_img">
-                <img src="img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>感覺就很甜的甜甜圈</h3>
-                </div>
-                <div class="p_choose">不辣,加蒜</div>
-              </div>
-              <div class="p_price">$500</div>
-            </li>
-            <li class="item">
-              <div class="p_img">
-                <img src="img/product/1.png" alt />
+                <img src="@/assets/img/product/1.png" alt>
               </div>
               <div class="p_info">
                 <div class="p_name">
@@ -279,14 +110,42 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {};
-  },
-  methods: {}
-};
-</script>
+
+// <script type="text/x-template" id="cardOrder">
+// <div class="item status_prepare">
+//   <div class="info">
+//     <h3>
+//       <span class="num">001.</span> 林美麗
+//     </h3>
+//     <ul>
+//       <li>
+//         <span class="iconfont icon-phone" />
+//         <p>09123123123</p>
+//       </li>
+//       <li>
+//         <span class="iconfont icon-icon-time" />
+//         <p>12:00 取餐</p>
+//       </li>
+//       <li>
+//         <span class="iconfont icon-dollar" />
+//         <p>690</p>
+//       </li>
+//     </ul>
+//   </div>
+//   <div class="order_status">製作中</div>
+// </div>;
+// </script>
+
+// <script>
+// Vue.component('card-component',{  
+//   template: '#cardOrder',
+//   methods: {
+//   },
+//   computed: {
+//     },
+//   }
+// });
+// </script>
 
 <style scope>
 @import "../../assets/css/store.css";
