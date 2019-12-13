@@ -151,8 +151,31 @@
 <script>
 export default {
   data() {
-    return {};
+    return { cart: {} };
   },
-  methods: {}
+  methods: {
+    getCart() {
+      this.cart = JSON.parse(localStorage.getItem("cart"));
+      console.log(localStorage.getItem());
+    },
+    Create() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Order/Create`;
+      const data = {};
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      console.log(data);
+      this.$http.post(url, data, config).then(response => {
+        console.log(response);
+        alert("驗證成功");
+      });
+    }
+  },
+  created() {
+    this.getCart();
+  }
 };
 </script>
