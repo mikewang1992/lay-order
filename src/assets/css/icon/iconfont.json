@@ -20,6 +20,13 @@
       "unicode_decimal": 58940
     },
     {
+      "icon_id": "701863",
+      "name": "bell-ring-outline",
+      "font_class": "bellringoutline",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
       "icon_id": "809934",
       "name": "time",
       "font_class": "icon-time",
@@ -39,6 +46,13 @@
       "font_class": "left",
       "unicode": "e62d",
       "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "1176866",
+      "name": "check",
+      "font_class": "check",
+      "unicode": "e6c1",
+      "unicode_decimal": 59073
     },
     {
       "icon_id": "1433649",

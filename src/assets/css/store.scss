@@ -259,20 +259,70 @@ p {
 
     .cart_list {
       .item {
-        padding: .5rem 0;
+        padding: .25rem .5rem;
+        margin-bottom: .25rem;
         box-shadow: none;
         border-bottom: 1px solid #eee;
-        margin-bottom: 0;
+        align-items: center;
 
         &:last-child {
           border-bottom: 0;
         }
-
+        
+        .p_img {
+          position: relative;
+          width: 4rem;
+          height: 4rem;
+          flex-shrink: 0;
+          overflow: hidden;
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            display: flex;
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+          }
+        }
+        &.ready {
+          border: 1px solid $color_red;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+          .p_img {
+            &::before {
+              content: "\e696";
+              font-family: "iconfont" !important;
+              background: rgba(247, 120, 120, 0.8);
+            }
+          }
+          .p_info {
+            .p_name h3{
+              color: $color_red;
+            }
+          }
+        }
+        &.done {
+          .p_info {
+            opacity: .5;
+          }
+          .p_img {
+            &::before {
+              content: "\e6c1";
+              font-family: "iconfont" !important;
+              background: rgba(114, 188, 179, 0.8);
+            }
+          }
+        }
         .p_price {
           align-self: center;
-          font-size: 1.2rem;
+          font-size: 1rem;
           font-weight: bold;
-          color: $color_default;
+          color: #000;
           padding-right: 0.5rem;
         }
       }
@@ -282,6 +332,7 @@ p {
 
         .p_name {
           font-size: 0.9rem;
+          font-weight: bold;
         }
 
         .p_choose {

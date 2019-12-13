@@ -10,10 +10,6 @@
           <h3>外帶</h3>
         </a>
         <a href="#" class="menu_btn">
-          <img src="@/assets/img/icon_kit03.png" alt>
-          <h3>大單</h3>
-        </a>
-        <a href="#" class="menu_btn">
           <img src="@/assets/img/icon_kit04.png" alt>
           <h3>已完成</h3>
         </a>
@@ -70,7 +66,7 @@
     <div class="detail">
       <div class="title">
         <h2>
-          <span>002.</span>訂單資訊
+          <span></span>訂單資訊
         </h2>
       </div>
       <div class="customer">
@@ -81,20 +77,20 @@
           </li>
           <li>
             <h4>訂餐時間</h4>
-            <p>{{item.ordertime}}</p>
+            <p>{{getFullTime(item.ordertime)}}</p>
           </li>
           <li>
             <h4>取餐時間</h4>
-            <p>{{item.gettime}}</p>
+            <p>{{getTime(item.gettime)}}</p>
           </li>
         </ul>
       </div>
       <div class="order_info">
         <div class="cart_list">
           <ul>
-            <li class="item" v-for="(item,key,index) in detail" :key="index">
+            <li class="item" :class="item.status" v-for="(item,key,index) in detail" :key="index">
               <div class="p_img">
-                <img :src="'https://lay-order.rocket-coding.com/Img/product/' + 'beefrice.jpg' " alt>
+                <img :src="'https://lay-order.rocket-coding.com/Img/product/' + item.img " alt>
               </div>
               <div class="p_info">
                 <div class="p_name">
@@ -157,6 +153,19 @@ export default {
       };
       const newTime = `${date.getHours()}:${m}`;
       return newTime;
+    },
+    getFullTime(time){
+      const date = new Date(time);
+      let year = date.getFullYear();
+      let mon = date.getMonth();
+      let day = date.getDate();
+      let hour = date.getHours();
+      let min = date.getMinutes();
+      if(min<10) {
+        min = '0'+min;
+      };
+      const newFullDay = `${year}/${mon}/${day} ${hour}:${min}`;
+      return newFullDay;
     },
     showDetail(id){
       const vm = this;
