@@ -62,11 +62,25 @@
       "unicode_decimal": 58901
     },
     {
+      "icon_id": "5226542",
+      "name": "hourglass",
+      "font_class": "hourglass",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
       "icon_id": "5776862",
       "name": "message",
       "font_class": "message",
       "unicode": "e652",
       "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "5924774",
+      "name": "dollar-2",
+      "font_class": "dollar-",
+      "unicode": "e629",
+      "unicode_decimal": 58921
     },
     {
       "icon_id": "6050696",
@@ -121,8 +135,8 @@
       "icon_id": "7141633",
       "name": "phone",
       "font_class": "phone",
-      "unicode": "e629",
-      "unicode_decimal": 58921
+      "unicode": "e62a",
+      "unicode_decimal": 58922
     },
     {
       "icon_id": "7596163",
@@ -130,6 +144,20 @@
       "font_class": "Mobile",
       "unicode": "e62f",
       "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "8328074",
+      "name": "Delete",
+      "font_class": "Delete",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "9653107",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e6f0",
+      "unicode_decimal": 59120
     },
     {
       "icon_id": "11891857",

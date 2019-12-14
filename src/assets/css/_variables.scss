@@ -1,4 +1,7 @@
 @import "https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap";
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:700);
+@import url(https://fonts.googleapis.com/css?family=Overpass);
+
 // @font-face {
 //     font-family: 'cwTeXYen';
 //     font-style: normal;
@@ -32,6 +35,15 @@ $color_green:#8BBC72;
 }
 .w-auto {
     width: auto!important;
+}
+.font_price {
+    font-family: 'Ubuntu', sans-serif!important;
+}
+.font_en {
+    font-family: 'Overpass', sans-serif!important;
+}
+.font_bold {
+    font-weight: bold;
 }
 //bg
 @mixin bg_paper {

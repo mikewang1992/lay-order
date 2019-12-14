@@ -9,6 +9,9 @@ import VueAxios from 'vue-axios'
 //Swiper 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
+//sweetalert2
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 
 Vue.config.productionTip = false
@@ -16,6 +19,8 @@ axios.defaults.withCredentials = true;
 
 Vue.use(VueAxios, axios)
 Vue.use(VueAwesomeSwiper)
+Vue.use(VueSweetalert2)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -38,7 +38,7 @@
 export default {
   data() {
     return {
-      loginInfo: {}
+      loginInfo: {id:'cynthia',Password:'cynthia'}
     };
   },
   methods: {
