@@ -54,10 +54,10 @@ export default {
       this.$http.post(url, data, config).then(response => {
         console.log(response.data);
         if (response.data == "success") {
-          alert('登入成功！');
+          this.$swal("登入成功", "Hello！今天也要認真上班ㄛ！", "success");
           this.$router.push({ name: "Counter" });
         }else {
-          alert('登入失敗，請重新輸入！');
+          this.$swal("登入失敗", "哇勒！請重新輸入一次帳密！", "error");
         }
       });
     }

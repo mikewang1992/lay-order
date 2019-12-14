@@ -1,68 +1,79 @@
 <template>
   <div class="main">
     <div class="menu">
-      <a
-        href="#"
-        class="menu_btn"
-        :class="{'active':filterMenu.type == 'forhere'}"
-        @click.prevent="getProduct('forhere','')"
-      >
-        <img src="@/assets/img/icon_kit01.png" alt>
-        <h3>內用</h3>
-      </a>
-      <a
-        href="#"
-        class="menu_btn"
-        :class="{'active':filterMenu.type == 'togo'}"
-        @click.prevent="getProduct('togo','')"
-      >
-        <img src="@/assets/img/icon_kit02.png" alt>
-        <h3>外帶</h3>
-      </a>
-      <a
-        href="#"
-        class="menu_btn"
-        :class="{'active':filterMenu.status == 'paid'}"
-        @click.prevent="getProduct('','paid')"
-      >
-        <img src="@/assets/img/icon_kit04.png" alt>
-        <h3>已完成</h3>
-      </a>
-      <a
-        href="#"
-        class="menu_btn"
-        :class="{'active':filterMenu.status == 'cancel'}"
-        @click.prevent="getProduct('','cancel')"
-      >
-        <img src="@/assets/img/icon_kit05.png" alt>
-        <h3>已取消</h3>
-      </a>
+      <div class="menu_lg">
+        <a
+          href="#"
+          class="menu_btn"
+          :class="{'active':filterMenu.type == 'forhere'}"
+          @click.prevent="getProduct('forhere','')"
+        >
+          <img src="@/assets/img/icon_kit01.png" alt>
+          <h3>內用</h3>
+        </a>
+        <a
+          href="#"
+          class="menu_btn"
+          :class="{'active':filterMenu.type == 'togo'}"
+          @click.prevent="getProduct('togo','')"
+        >
+          <img src="@/assets/img/icon_kit02.png" alt>
+          <h3>外帶</h3>
+        </a>
+      </div>
+      <div class="menu_sm">
+        <a
+          href="#"
+          class="menu_btn"
+          :class="{'active':filterMenu.status == 'paid'}"
+          @click.prevent="getProduct('','paid')"
+        >
+          <img src="@/assets/img/icon_kit04.png" alt>
+          <h3>已完成</h3>
+        </a>
+        <a
+          href="#"
+          class="menu_btn"
+          :class="{'active':filterMenu.status == 'cancel'}"
+          @click.prevent="getProduct('','cancel')"
+        >
+          <img src="@/assets/img/icon_kit05.png" alt>
+          <h3>已取消</h3>
+        </a>
+      </div>
     </div>
     <div class="content">
       <!-- 狀態篩選 -->
       <div class="status">
         <ul v-if="filterMenu.status !== 'cancel'" v-show="filterMenu.status !== 'paid'">
-          <li :class="{'active':filterMenu.status == ''}" @click="filterMenu.status = ''">All</li>
+          <li class="font_en" :class="{'active':filterMenu.status == ''}" @click="filterMenu.status = ''">All</li>
           <li
             :class="{'active':filterMenu.status == 'prepare'}"
             @click="filterMenu.status = 'prepare'"
-          >準備中</li>
+          >
+            準備中
+            <span class="iconfont icon-hourglass"></span>
+          </li>
           <li
             v-if="filterMenu.type == 'togo'"
             :class="{'active':filterMenu.status == 'ready'}"
             @click="filterMenu.status = 'ready'"
-          >待取餐</li>
+          >
+            待取餐
+            <span class="iconfont icon-bellringoutline"></span>
+          </li>
           <li
             v-if="filterMenu.type == 'forhere'"
             :class="{'active':filterMenu.status == 'ready'}"
             @click="filterMenu.status = 'ready'"
-          >待出餐</li>
-
-          <li
-            v-if="filterMenu.type == 'forhere'"
-            :class="{'active':filterMenu.status == 'done'}"
-            @click="filterMenu.status = 'done'"
-          >待付款</li>
+          >
+            待出餐
+            <span class="iconfont icon-bellringoutline"></span>
+          </li>
+          <li :class="{'active':filterMenu.status == 'done'}" @click="filterMenu.status = 'done'">
+            待收款
+            <span class="iconfont icon-dollar-"></span>
+          </li>
         </ul>
       </div>
       <div class="order">
@@ -102,12 +113,25 @@
         </div>
         <!-- 分頁 -->
         <div class="pages">
-          <span class="iconfont page_last icon-fanhui"></span>
+          <span
+            class="iconfont page_last icon-fanhui"
+            :class="{'none':pages.curPage==1}"
+            @click="lastPage()"
+          ></span>
 
-          <span class="active">1</span>
-          <span>2</span>
+          <span
+            class="font_price"
+            v-for="item in pages.pageArr"
+            :key="item"
+            :class="{'active':item == pages.curPage}"
+            @click="pages.curPage = item"
+          >{{item}}</span>
 
-          <span class="iconfont page_next icon-youjiantou"></span>
+          <span
+            class="iconfont page_next icon-youjiantou"
+            :class="{'none':pages.curPage==pages.sum}"
+            @click="nextPage()"
+          ></span>
         </div>
       </div>
     </div>
@@ -140,7 +164,8 @@
         <!-- 所有訂單完成 -->
         <div
           class="all_done"
-          v-if="filterMenu.type == 'forhere'"
+          v-if="filterMenu.status !== 'paid'"
+          v-show="filterMenu.status !== 'cancel'"
           @click="orderdelivered(thisOrderID)"
         >
           <p>
@@ -152,7 +177,13 @@
       <div class="order_info" v-show="detail !== ''">
         <div class="cart_list">
           <ul>
-            <li class="item" :class="item.status" v-for="(item,key,index) in detail" :key="index">
+            <li
+              class="item"
+              :class="item.status"
+              v-for="(item,key,index) in detail"
+              :key="index"
+              @click="itemDelivered(thisOrderID,item.pid)"
+            >
               <div class="p_img" :id="item.pid">
                 <img
                   :src="'https://lay-order.rocket-coding.com/Img/product/'+getImg(item.img)"
@@ -182,8 +213,12 @@
             <p class="color_red font_price">${{item.totalAmount}}</p>
           </li>
         </ul>
-        <div class="checkout">
-          <div class="btn btn_lg btn_gray mr-2" @click="cancelOrder()">取消</div>
+        <div
+          class="checkout"
+          v-if="filterMenu.status !== 'paid'"
+          v-show="filterMenu.status !== 'cancel'"
+        >
+          <div class="btn btn_lg btn_gray mr-2 fz_md" @click="cancelOrder()">取消訂單</div>
           <div class="btn btn_lg btn_green" @click="checkOrder()">結帳</div>
         </div>
       </div>
@@ -200,10 +235,14 @@ export default {
         status: ""
       },
       productList: {},
-      pages: "",
       customer: "",
       detail: "",
-      thisOrderID: ""
+      thisOrderID: "",
+      pages: {
+        pageArr: [],
+        curPage: 1,
+        sum: ""
+      }
     };
   },
   methods: {
@@ -217,6 +256,9 @@ export default {
       this.$http.get(url).then(response => {
         vm.productList = response.data;
       });
+      this.detail = "";
+      this.customer = "";
+      this.getPages();
     },
     getTime(time) {
       const date = new Date(time);
@@ -230,6 +272,31 @@ export default {
     getImg(imgArr) {
       const firstImg = imgArr.split(",")[0];
       return firstImg;
+    },
+    getPages() {
+      // console.log('頁數');
+      const vm = this;
+      const url = `${process.env.APIPATH}/Counter/TotalPage`;
+      this.$http.get(url).then(response => {
+        // console.log(response.data);
+        let pages = response.data;
+        let arr = [];
+        for (let i = 1; i <= pages; i++) {
+          arr.push(i);
+        }
+        this.pages.pageArr = arr;
+        this.pages.sum = pages;
+      });
+    },
+    lastPage() {
+      if (this.pages.curPage > 1) {
+        this.pages.curPage -= 1;
+      }
+    },
+    nextPage() {
+      if (this.pages.curPage < this.pages.sum) {
+        this.pages.curPage += 1;
+      }
     },
     getFullTime(time) {
       const date = new Date(time);
@@ -277,7 +344,6 @@ export default {
             type: "success",
             title: "此訂單全數出餐完成"
           });
-          this.getProduct(this.filterMenu.type, this.filterMenu.status);
           this.showDetail(id);
         });
     },
@@ -287,8 +353,6 @@ export default {
         text: "確認要取消此筆訂單嗎？",
         type: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#72BCB3",
-        cancelButtonColor: "#9B9B9B",
         confirmButtonText: "確認",
         cancelButtonText: "取消"
       }).then(result => {
@@ -313,8 +377,6 @@ export default {
         text: "訂單完成，收錢嚕！",
         type: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#72BCB3",
-        cancelButtonColor: "#9B9B9B",
         confirmButtonText: "結帳",
         cancelButtonText: "取消"
       }).then(result => {
@@ -326,10 +388,30 @@ export default {
             .then(response => {
               // console.log(response.data);
               this.$swal("完成結帳", "發財嚕！", "success");
-              this.getProduct('','paid')
+              this.getProduct(this.filterMenu.type, this.filterMenu.status);
             });
         }
       });
+    },
+    itemDelivered(Oid, Pid) {
+      // console.log('單品送餐');
+      this.$http
+        .get(
+          `${process.env.APIPATH}/Counter/ItemDelivered?Oid=${Oid}&id=${Pid}`
+        )
+        .then(response => {
+          console.log(response.data);
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "success",
+            title: "出餐完成"
+          });
+          this.getProduct(this.filterMenu.type, this.filterMenu.status);
+          this.showDetail(Oid);
+        });
     }
   },
   computed: {},

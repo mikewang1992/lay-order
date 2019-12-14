@@ -26,9 +26,10 @@ p {
   color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   width: 80px;
   align-items: center;
+  padding: 2rem 0 ;
 
   a.menu_btn {
     @include animation;
@@ -37,13 +38,16 @@ p {
     font-size: 1rem;
     display: block;
     margin-bottom: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 50px;
     font-weight: bold;
-    padding: 0.75rem;
+    padding: 0.75rem 0;
     writing-mode: vertical-rl;
     letter-spacing: 2px;
     display: flex;
     flex-wrap: wrap;
+    width: 70%;
 
     h3 {
       margin: 10px auto 0 auto;
@@ -69,6 +73,25 @@ p {
         filter: none;
       }
     }
+
+
+  }
+  .menu_sm,.menu_lg {
+    width: 100%;
+  }
+  .menu_lg {
+    margin: auto;
+  }
+  .menu_sm {
+    a.menu_btn {
+      font-size: .5rem;
+      writing-mode: horizontal-tb;
+      letter-spacing: 0;
+      h3 {
+        margin-top: 5px;
+      }
+    }
+
   }
 }
 
@@ -200,7 +223,7 @@ p {
       //已結束
       &.paid {
         .info h3 {
-          background: $color_green;
+          background: $color_light;
 
           &::before {
             content: "\e6c1";
@@ -226,7 +249,7 @@ p {
         }
 
         &.paid {
-          border: 3px solid $color_green;
+          border: 3px solid $color_light;
         }
 
         &.cancel {
@@ -299,11 +322,12 @@ p {
       right: 1rem;
       bottom: 0;
       padding: .5rem .75rem;
-      background:#fff;
+      background: #fff;
       color: $color_default;
       box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
       border-radius: 10px 10px 0 0;
       font-weight: bold;
+
       &:hover {
         padding-bottom: 1rem;
       }
@@ -424,19 +448,20 @@ p {
   }
 
   .total {
-    padding: 1rem;
+    padding: .75rem 1rem;
 
     ul {
-      margin-bottom: 1rem;
+      margin-bottom: .5rem;
     }
 
     li {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       color: #000;
       font-weight: bold;
       font-size: 1rem;
-      padding: 0.25rem 0;
+      padding: 0.15rem 0;
       border-bottom: 1px solid #eee;
 
       &:last-child {
@@ -445,6 +470,7 @@ p {
 
       p {
         margin-bottom: 0;
+        font-size: 1.3rem;
       }
     }
 
@@ -453,14 +479,14 @@ p {
 
       .btn {
         width: 100%;
-        padding-left: .5rem;
-        padding-right: .5rem;
+        padding: .25rem 0;
 
         &.btn_gray {
           background: transparent;
           border: 2px solid $color_light;
           color: $color_light;
           width: 50%;
+          font-size: 1.1rem;
 
           &:hover {
             background: $color_light;
@@ -494,6 +520,15 @@ p {
     &:hover {
       background: $color_default;
       color: #fff;
+    }
+
+    &.none,
+    &.active.none,
+    &.none:hover {
+      background: #fff;
+      color: rgb(187, 187, 187);
+      cursor: default;
+      box-shadow: none;
     }
   }
 }

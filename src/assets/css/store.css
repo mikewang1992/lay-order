@@ -81,6 +81,9 @@ body {
 .font_bold {
   font-weight: bold; }
 
+.fz_md {
+  font-size: 1rem !important; }
+
 a {
   text-decoration: none;
   color: #72BCB3; }
@@ -3186,13 +3189,14 @@ p {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   width: 80px;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center; }
+  align-items: center;
+  padding: 2rem 0; }
   .menu a.menu_btn {
     -webkit-transition: .3s ease;
     -o-transition: .3s ease;
@@ -3202,9 +3206,11 @@ p {
     font-size: 1rem;
     display: block;
     margin-bottom: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 50px;
     font-weight: bold;
-    padding: 0.75rem;
+    padding: 0.75rem 0;
     -webkit-writing-mode: vertical-rl;
     -ms-writing-mode: tb-rl;
     writing-mode: vertical-rl;
@@ -3213,7 +3219,8 @@ p {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap; }
+    flex-wrap: wrap;
+    width: 70%; }
     .menu a.menu_btn h3 {
       margin: 10px auto 0 auto;
       color: #fff; }
@@ -3230,6 +3237,18 @@ p {
       .menu a.menu_btn.active img, .menu a.menu_btn:hover img {
         -webkit-filter: none;
         filter: none; }
+  .menu .menu_sm, .menu .menu_lg {
+    width: 100%; }
+  .menu .menu_lg {
+    margin: auto; }
+  .menu .menu_sm a.menu_btn {
+    font-size: .5rem;
+    -webkit-writing-mode: horizontal-tb;
+    -ms-writing-mode: lr-tb;
+    writing-mode: horizontal-tb;
+    letter-spacing: 0; }
+    .menu .menu_sm a.menu_btn h3 {
+      margin-top: 5px; }
 
 .content {
   width: 65%;
@@ -3325,7 +3344,7 @@ p {
         .content .order .item.cancel .info h3::before {
           content: "\e661"; }
       .content .order .item.paid .info h3 {
-        background: #8BBC72; }
+        background: #9B9B9B; }
         .content .order .item.paid .info h3::before {
           content: "\e6c1"; }
       .content .order .item.active {
@@ -3339,7 +3358,7 @@ p {
         .content .order .item.active.ready {
           border: 3px solid #F77878; }
         .content .order .item.active.paid {
-          border: 3px solid #8BBC72; }
+          border: 3px solid #9B9B9B; }
         .content .order .item.active.cancel {
           border: 3px solid #9B9B9B; }
     .content .order .order_status {
@@ -3492,9 +3511,9 @@ p {
       .detail .order_info .cart_list .p_info .p_choose {
         font-size: 0.9rem; }
   .detail .total {
-    padding: 1rem; }
+    padding: .75rem 1rem; }
     .detail .total ul {
-      margin-bottom: 1rem; }
+      margin-bottom: .5rem; }
     .detail .total li {
       display: -webkit-box;
       display: -ms-flexbox;
@@ -3502,28 +3521,32 @@ p {
       -webkit-box-pack: justify;
       -ms-flex-pack: justify;
       justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
       color: #000;
       font-weight: bold;
       font-size: 1rem;
-      padding: 0.25rem 0;
+      padding: 0.15rem 0;
       border-bottom: 1px solid #eee; }
       .detail .total li:last-child {
         border-bottom: 0; }
       .detail .total li p {
-        margin-bottom: 0; }
+        margin-bottom: 0;
+        font-size: 1.3rem; }
     .detail .total .checkout {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex; }
       .detail .total .checkout .btn {
         width: 100%;
-        padding-left: .5rem;
-        padding-right: .5rem; }
+        padding: .25rem 0; }
         .detail .total .checkout .btn.btn_gray {
           background: transparent;
           border: 2px solid #9B9B9B;
           color: #9B9B9B;
-          width: 50%; }
+          width: 50%;
+          font-size: 1.1rem; }
           .detail .total .checkout .btn.btn_gray:hover {
             background: #9B9B9B;
             color: #fff; }
@@ -3556,6 +3579,12 @@ p {
     .pages span.active, .pages span:hover {
       background: #72BCB3;
       color: #fff; }
+    .pages span.none, .pages span.active.none, .pages span.none:hover {
+      background: #fff;
+      color: #bbbbbb;
+      cursor: default;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
 
 .kitchen {
   font-size: 18px; }

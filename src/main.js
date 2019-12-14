@@ -13,13 +13,17 @@ import 'swiper/dist/css/swiper.css'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+const options = {
+  confirmButtonColor: '#72BCB3',
+  cancelButtonColor: '#9B9B9B',
+};
 
 Vue.config.productionTip = false
 axios.defaults.withCredentials = true;
 
 Vue.use(VueAxios, axios)
 Vue.use(VueAwesomeSwiper)
-Vue.use(VueSweetalert2)
+Vue.use(VueSweetalert2,options)
 
 /* eslint-disable no-new */
 new Vue({

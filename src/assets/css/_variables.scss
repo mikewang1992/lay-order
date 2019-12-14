@@ -29,7 +29,6 @@ $color_light:#9B9B9B;
 $color_red:#F77878;
 $color_yellow:#F7D078;
 $color_green:#8BBC72;
-
 .text-left {
     text-align: left !important;
 }
@@ -44,6 +43,9 @@ $color_green:#8BBC72;
 }
 .font_bold {
     font-weight: bold;
+}
+.fz_md {
+    font-size: 1rem!important;
 }
 //bg
 @mixin bg_paper {
