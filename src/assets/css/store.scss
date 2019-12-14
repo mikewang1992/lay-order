@@ -76,107 +76,162 @@ p {
 .content {
   width: 65%;
   background: #F5F5F5;
-
-
+  display: flex;
+  flex-direction: column;
 
   .order {
+    height: 100%;
     padding: 1rem .7rem;
+    display: flex;
+    flex-direction: column;
 
     .list {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
+      height: 90%;
     }
 
     .item {
       @include animation;
+      display: inline-block;
       width: 32.333%;
       margin: 0.5%;
       position: relative;
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-      margin-bottom: .75rem;
+      margin-bottom: .5rem;
       bottom: 0;
+      overflow: hidden;
+      border: 3px solid rgba(255, 255, 255, 0);
 
       &:hover {
         bottom: 10px;
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
       }
 
-      &.done {
-        .order_status {
-          background: $color_green;
-        }
-      }
-
-      &.prepare {
-        .order_status {
-          background: $color_default;
-        }
-      }
-
-      &.paid {
-        .order_status {
-          background: $color_red;
-        }
-      }
-
-      &.canael {
-        .order_status {
-          background: $color_light;
-        }
-      }
-
-      &.active {
-        bottom: .5rem;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
-
-        &.done {
-          border: 3px solid $color_green;
-        }
-
-        &.prepare {
-          border: 3px solid $color_default;
-        }
-
-        &.paid {
-          border: 3px solid $color_red;
-        }
-
-        &.canael {
-          border: 3px solid $color_light;
-        }
-      }
-
       .info {
-
-
         li {
           line-height: 1.3;
         }
 
-        span {
-          color: #000;
-        }
 
         p {
           display: inline-block;
           font-weight: bold;
         }
+
+        h3 {
+          position: relative;
+          font-weight: bold;
+          color: #fff;
+          border-bottom: 1px solid rgb(230, 230, 230);
+          font-size: 1.2rem;
+          background-color: $color_default;
+          padding: .5rem 0.75rem;
+
+          &::before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 1.3rem;
+            padding-right: 1rem;
+            font-family: "iconfont" !important;
+          }
+        }
+
+        ul {
+          padding: 0.75rem;
+        }
       }
-    }
 
-    .info {
-      padding: 0.75rem;
+      //準備中
+      &.prepare {
+        .info h3 {
+          background: $color_default;
 
-      h3 {
-        font-weight: bold;
-        color: #000;
-        margin-bottom: 0.5rem;
-        border-bottom: 1px solid rgb(230, 230, 230);
-        font-size: 1.2rem;
-        padding-bottom: 0.5rem;
+          &::before {
+            content: "\e621";
+          }
+        }
+      }
+
+      // 已完成
+      &.done {
+        .info h3 {
+          background: $color_green;
+
+          &::before {
+            content: "\e629";
+          }
+        }
+      }
+
+      //待出餐
+      &.ready {
+        .info h3 {
+          background: $color_red;
+
+          &::before {
+            content: "\e696";
+          }
+        }
+
+
+      }
+
+      //已取消
+      &.cancel {
+        .info h3 {
+          background: $color_light;
+
+          &::before {
+            content: "\e661";
+          }
+        }
+
+      }
+
+      //已結束
+      &.paid {
+        .info h3 {
+          background: $color_green;
+
+          &::before {
+            content: "\e6c1";
+          }
+        }
+      }
+
+      // 邊線
+      &.active {
+        bottom: .5rem;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+
+        &.prepare {
+          border: 3px solid $color_default;
+        }
+
+        &.done {
+          border: 3px solid $color_green;
+        }
+
+        &.ready {
+          border: 3px solid $color_red;
+        }
+
+        &.paid {
+          border: 3px solid $color_green;
+        }
+
+        &.cancel {
+          border: 3px solid $color_light;
+        }
       }
     }
 
@@ -194,6 +249,7 @@ p {
 
 .status {
   background: #fff;
+  flex-shrink: 0;
 
   ul {
     display: flex;
@@ -235,6 +291,23 @@ p {
 
   .customer {
     padding: .75rem;
+    position: relative;
+
+    .all_done {
+      @include animation;
+      position: absolute;
+      right: 1rem;
+      bottom: 0;
+      padding: .5rem .75rem;
+      background:#fff;
+      color: $color_default;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 10px 10px 0 0;
+      font-weight: bold;
+      &:hover {
+        padding-bottom: 1rem;
+      }
+    }
 
     li {
       display: flex;
@@ -256,6 +329,8 @@ p {
     height: 60%;
     padding: .25rem .75rem;
     overflow-y: scroll;
+    position: relative;
+    z-index: 9;
 
     .cart_list {
       .item {
@@ -268,13 +343,14 @@ p {
         &:last-child {
           border-bottom: 0;
         }
-        
+
         .p_img {
           position: relative;
           width: 4rem;
           height: 4rem;
           flex-shrink: 0;
           overflow: hidden;
+
           &::before {
             content: '';
             position: absolute;
@@ -288,36 +364,41 @@ p {
             align-items: center;
             justify-content: center;
             font-size: 2rem;
+            font-family: "iconfont" !important;
           }
         }
+
         &.ready {
           border: 1px solid $color_red;
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
           .p_img {
             &::before {
               content: "\e696";
-              font-family: "iconfont" !important;
               background: rgba(247, 120, 120, 0.8);
             }
           }
+
           .p_info {
-            .p_name h3{
+            .p_name h3 {
               color: $color_red;
             }
           }
         }
+
         &.done {
           .p_info {
             opacity: .5;
           }
+
           .p_img {
             &::before {
               content: "\e6c1";
-              font-family: "iconfont" !important;
               background: rgba(114, 188, 179, 0.8);
             }
           }
         }
+
         .p_price {
           align-self: center;
           font-size: 1rem;
@@ -380,6 +461,11 @@ p {
           border: 2px solid $color_light;
           color: $color_light;
           width: 50%;
+
+          &:hover {
+            background: $color_light;
+            color: #fff;
+          }
         }
       }
     }
@@ -389,6 +475,8 @@ p {
 .pages {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 10%;
 
   span {
     @include shadow_b;
