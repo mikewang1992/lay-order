@@ -31,25 +31,15 @@
             </ul>
     </footer>-->
     <div class="main">
+      <p v-if="isOpenFromCustomer" style="background:red;color:black">1.IsOpen是否營業時間:現在不開放預約</p>
       <header>
         <img src="@/assets/img/logo_nav.png" alt />
       </header>
       <div class="content">
         <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="swiper()">
-          <!-- slides -->
-          <swiper-slide>
-            <img src="@/assets/img/banner.jpg" alt />
+          <swiper-slide v-for="(item,key,index) in banners" :key="index">
+            <img :src="BannerimgUrl+item" alt />
           </swiper-slide>
-          <swiper-slide>
-            <img src="@/assets/img/banner.jpg" alt />
-          </swiper-slide>
-          <swiper-slide>
-            <img src="@/assets/img/banner.jpg" alt />
-          </swiper-slide>
-          <swiper-slide>
-            <img src="@/assets/img/banner.jpg" alt />
-          </swiper-slide>
-          <!-- Optional controls -->
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
         <swiper
@@ -58,84 +48,28 @@
           ref="mySwiper"
           @someSwiperEvent="swiper()"
         >
-          <!-- slides -->
-          <swiper-slide>分類1</swiper-slide>
-          <swiper-slide>分類2</swiper-slide>
-          <swiper-slide>分類3</swiper-slide>
-          <swiper-slide>分類4</swiper-slide>
+          <swiper-slide>
+            <a @click.prevent="getProducts()">全部</a>
+          </swiper-slide>
+          <swiper-slide v-for="(item,key,index) in categorys" :key="index">
+            <a @click.prevent="getProducts(item.Id)">{{item.PCName}}</a>
+          </swiper-slide>
         </swiper>
-        <!-- <div class="swiper-container swiper_banner">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="@/assets/img/banner.jpg" alt />
-            </div>
-            <div class="swiper-slide">
-              <img src="@/assets/img/banner.jpg" alt />
-            </div>
-            <div class="swiper-slide">
-              <img src="@/assets/img/banner.jpg" alt />
-            </div>
-            <div class="swiper-slide">
-              <img src="@/assets/img/banner.jpg" alt />
-            </div>
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-        
-        <div class="swiper-container swiper_nav">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">分類 1</div>
-            <div class="swiper-slide">分類 2</div>
-            <div class="swiper-slide">分類 3</div>
-            <div class="swiper-slide">分類 4</div>
-            <div class="swiper-slide">分類 5</div>
-            <div class="swiper-slide">分類 6</div>
-            <div class="swiper-slide">分類 7</div>
-            <div class="swiper-slide">分類 8</div>
-          </div>
-        </div>-->
+
         <div class="product_list">
-          <div class="col-lg-3 col-md-4 col-6 p-0" @click.prevent="openPopup()">
+          <div
+            class="col-lg-3 col-md-4 col-6 p-0"
+            @click.prevent="getProductDetail(item.Id)"
+            v-for="(item,key,index) in products"
+            :key="index"
+          >
             <div class="item open_popup">
               <div class="p_image">
-                <img src="@/assets/img/product/1.png" alt />
+                <img :src="ProductimgUrl+item.Img" alt />
               </div>
               <div class="p_info">
-                <h3>產品名稱</h3>
-                <p>NT$50</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6 p-0">
-            <div class="item open_popup">
-              <div class="p_image">
-                <img src="@/assets/img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <h3>產品名稱</h3>
-                <p>NT$50</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6 p-0">
-            <div class="item open_popup">
-              <div class="p_image">
-                <img src="@/assets/img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <h3>產品名稱</h3>
-                <p>NT$50</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6 p-0">
-            <div class="item open_popup">
-              <div class="p_image">
-                <img src="@/assets/img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <h3>產品名稱</h3>
-                <p>NT$50</p>
+                <h3>{{item.Name}}</h3>
+                <p>NT${{item.Price}}</p>
               </div>
             </div>
           </div>
@@ -144,12 +78,8 @@
     </div>
 
     <!---------------------------------------------- 彈跳視窗暫放div page ----------------------------------->
-    <div class="popup">
-      <a
-        href="#"
-        class="icon_close iconfont icon-weibiao45133 popup_close"
-        @click.prevent="hidePopup()"
-      ></a>
+    <div class="popup" :class="{'show':ShowPopup}">
+      <a class="icon_close iconfont icon-weibiao45133 popup_close" @click.prevent="ShowPopup=false"></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="p_slider">
           <swiper
@@ -158,62 +88,41 @@
             ref="mySwiper"
             @someSwiperEvent="swiper()"
           >
-            <!-- slides -->
-            <swiper-slide>
-              <img src="@/assets/img/product/1.png" alt />
+            <swiper-slide v-for="(item,key,index) in banners" :key="index">
+              <img :src="ProductimgUrl+productDetail[0].Img" alt />
             </swiper-slide>
-            <swiper-slide>
-              <img src="@/assets/img/product/2.png" alt />
-            </swiper-slide>
-            <swiper-slide>
-              <img src="@/assets/img/product/3.png" alt />
-            </swiper-slide>
-            <swiper-slide>
-              <img src="@/assets/img/product/4.png" alt />
-            </swiper-slide>
-            <!-- Optional controls -->
             <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
-          <!-- <div class="swiper-container swiper_product">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img src="img/product/1.png" alt />
-              </div>
-              <div class="swiper-slide">
-                <img src="img/product/2.png" alt />
-              </div>
-              <div class="swiper-slide">
-                <img src="img/product/3.png" alt />
-              </div>
-              <div class="swiper-slide">
-                <img src="img/product/4.png" alt />
-              </div>
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>-->
         </div>
         <div class="p_content">
           <div class="p_info p-3">
-            <h3>看起來就很甜的甜甜圈</h3>
+            <h3>{{productDetail[0].Name}}</h3>
             <small>訂單總量超過 20 份請來電預約</small>
             <hr />
             <div class="p_text">
-              <p>雖然很甜但是很好吃，而且長得很可愛，建議你可以吃吃看或買來裝可愛也不錯唷！</p>
+              <p>{{productDetail[0].Description}}</p>
             </div>
             <div class="p_choose">
-              <div class="item">
-                <h5>冰塊</h5>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="ice" id="inlineRadio1" value />
-                  <label for="inlineRadio1">微冰</label>
+              <div class="item" v-for="(item,key,index) in Sides" :key="index">
+                <h5>{{item.name}}</h5>
+                <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    :name="item.name"
+                    :id="`inlineRadio${key+1}`"
+                    :value="inneritem"
+                    v-model="Orders.Options"
+                  />
+                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
                 </div>
-                <div class="form-check">
+                <!-- <div class="form-check">
                   <input class="form-check-input" type="radio" name="ice" id="inlineRadio2" value />
                   <label for="inlineRadio2">少冰</label>
-                </div>
+                </div>-->
               </div>
-              <div class="item">
-                <h5>甜度</h5>
+              <!-- <div class="item" v-if="productDetail[0].Sides2">
+                <h5>{{productDetail[0].Sides2}}</h5>
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="sugar" id="inlineRadio3" value />
                   <label for="inlineRadio3">微糖</label>
@@ -227,16 +136,46 @@
                   <label for="inlineRadio5">半糖</label>
                 </div>
               </div>
+              <div class="item" v-if="productDetail[0].Sides3">
+                <h5>{{productDetail[0].Sides3}}</h5>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio3" value />
+                  <label for="inlineRadio3">微糖</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio4" value />
+                  <label for="inlineRadio4">少糖</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio5" value />
+                  <label for="inlineRadio5">半糖</label>
+                </div>
+              </div>
+              <div class="item" v-if="productDetail[0].Sides4">
+                <h5>{{productDetail[0].Sides4}}</h5>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio3" value />
+                  <label for="inlineRadio3">微糖</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio4" value />
+                  <label for="inlineRadio4">少糖</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio5" value />
+                  <label for="inlineRadio5">半糖</label>
+                </div>
+              </div>-->
             </div>
           </div>
           <div class="popup_footer">
             <div class="btn btn_round btn_white count_box">
-              <a href="#" class="count_dis">-</a>
-              <a href="#" class="count_num">2</a>
-              <a href="#" class="count_add">+</a>
+              <a href="#" class="count_dis" @click="minusQty()">-</a>
+              <a href="#" class="count_num">{{Orders.Qty}}</a>
+              <a href="#" class="count_add" @click="addQty()">+</a>
             </div>
-            <a href="#" class="btn btn_round btn_default">
-              <span>$120</span>｜加入點菜單
+            <a class="btn btn_round btn_default" @click.prevent="addToCart()">
+              <span>${{productDetail[0].Price*Orders.Qty}}</span>｜加入點菜單
             </a>
           </div>
         </div>
@@ -261,6 +200,7 @@
       >{{item.PCName}}</li>
     </ul>
     <h3>products</h3>
+
     <ul>
       <li
         v-for="(item,key,index) in products"
@@ -268,11 +208,13 @@
         @click.prevent="getProductDetail(item.Id)"
       >{{item}}</li>
     </ul>
+
     <div v-if="modalAppear" style="background:grey">
       <button @click.prevent="modalAppear=false">關掉</button>
       <p v-for="(item,key,index) in productDetail" :key="index">{{item}}</p>
       <p v-if="isOpenFromCustomer==false" style="background:blue">加入購物車</p>
     </div>
+
   </div>-->
 </template>
 <script>
@@ -285,7 +227,20 @@ export default {
       banners: {},
       products: {},
       modalAppear: false,
-      productDetail: {},
+      productDetail: {
+        0: {
+          Description: "",
+          Id: "",
+          Img: "",
+          Name: "",
+          PCid: "",
+          Price: "",
+          Slide1: "",
+          Slide2: "",
+          Slide3: "",
+          Slide4: ""
+        }
+      },
       categorys: {},
       swiperOption: {
         loop: true,
@@ -300,7 +255,12 @@ export default {
         centeredSlidesBounds: true,
         slideToClickedSlide: true,
         freeMode: true
-      }
+      },
+      ProductimgUrl: "https://lay-order.rocket-coding.com/Img/product/",
+      BannerimgUrl: "https://lay-order.rocket-coding.com/Img/BannerImg/",
+      ShowPopup: false,
+      Orders: { Qty: 1, Pid: "", Options: "", time: "" },
+      Sides: []
     };
   },
   components: {
@@ -329,16 +289,38 @@ export default {
         vm.products = response.data;
       });
     },
-    getProductDetail(Id) {
+    getProductDetail(Id, Show = true) {
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProductDetail/${Id}`;
+      vm.ShowPopup = Show;
       this.$http.get(url).then(response => {
         console.log(response);
         if (response.data[0]) {
+          vm.Sides = [];
           vm.modalAppear = true;
           vm.productDetail = response.data;
+          vm.Orders.Pid = vm.productDetail[0].PCid;
+          if (vm.productDetail[0].Sides1 !== null) {
+            vm.sidesfilter(vm.productDetail[0].Sides1);
+          }
+          if (vm.productDetail[0].Sides2 !== null) {
+            vm.sidesfilter(vm.productDetail[0].Sides2);
+          }
+          if (vm.productDetail[0].Sides3 !== null) {
+            vm.sidesfilter(vm.productDetail[0].Sides3);
+          }
+          if (vm.productDetail[0].Sides4 !== null) {
+            vm.sidesfilter(vm.productDetail[0].Sides4);
+          }
         }
       });
+    },
+    sidesfilter(str) {
+      let title = str.split(":")[0];
+      console.log(title);
+      let like = str.split(":")[1].split("、");
+      console.log(like);
+      this.Sides.push({ name: title, options: like });
     },
     getCategory() {
       const vm = this;
@@ -348,25 +330,39 @@ export default {
         vm.categorys = response.data;
       });
     },
-    openPopup() {
-      let popup = document.querySelector(".popup");
-      popup.style.visibility = "visible";
-      popup.style.opacity = "1";
-      popup.style.transform = "scale(1)";
-      document.querySelector("body").style.overflow = "hidden";
+    addToCart() {
+      alert("addtocart");
+      const vm = this;
+      localStorage.setItem("cart", JSON.stringify(this.Orders));
     },
-    hidePopup() {
-      let popup = document.querySelector(".popup");
-      popup.style.visibility = "hidden";
-      popup.style.opacity = "0";
-      popup.style.transform = "scale(0)";
-      document.querySelector("body").style.overflow = "scroll";
+    addQty() {
+      this.Orders.Qty++;
+    },
+    minusQty() {
+      if (this.Orders.Qty > 1) {
+        this.Orders.Qty--;
+      }
+    },
+    imgForceFirst(imgStr) {
+      const firstImg = imgStr.split(",")[0];
+      return firstImg;
+    }
+    // optionsPlus(str) {
+    //   alert("yes");
+    //   this.Orders.Options = str;
+    // }
+  },
+  Filters: {
+    imgForceFirst(imgStr) {
+      const firstImg = imgStr.split(",")[0];
+      return firstImg;
     }
   },
   created() {
     this.getBanners();
     this.getProducts();
     this.getCategory();
+    this.getProductDetail(2, false);
     console.log(this.isOpenFromCustomer);
   },
   mounted() {
