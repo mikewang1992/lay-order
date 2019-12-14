@@ -1,5 +1,37 @@
 <template>
   <div class="page login">
+    <footer>
+      <ul>
+        <!-- <li :class="{'active':footerActive}"> -->
+        <li>
+          <router-link to="/">
+            <img src="@/assets/img/icon_footer01.png" alt />
+            <p>菜單</p>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/cart">
+            <img src="@/assets/img/icon_footer02.png" alt />
+            <p>
+              點菜單
+              <span v-if="footerNumber>0">:{{footerNumber}}項</span>
+            </p>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/order">
+            <img src="@/assets/img/icon_footer03.png" alt />
+            <p>訂單狀態</p>
+          </router-link>
+        </li>
+        <li class="active">
+          <router-link to="/member">
+            <img src="@/assets/img/icon_footer04.png" alt />
+            <p>會員資訊</p>
+          </router-link>
+        </li>
+      </ul>
+    </footer>
     <div class="main col-lg-4 col-md-6">
       <div class="content">
         <img src="img/logo.png" alt />
@@ -148,6 +180,7 @@ export default {
           "Content-Type": "application/json"
         }
       };
+      console.log(data);
       if (
         vm.registerInfo.County !== "城市" &&
         vm.registerInfo.Dist !== "區域"
