@@ -203,12 +203,16 @@ header {
 
   .swiper-slide {
     padding: 0.75rem 0 0.75rem 0;
-
+    a {
+      color: rgba(155, 155, 155, 0.8);
+    }
     &-active {
       color: #000;
       font-weight: bold;
       position: relative;
-
+      a {
+        color: #000;
+      }
       &::before {
         content: '';
         position: absolute;
@@ -271,12 +275,14 @@ header {
       h3 {
         color: #4A4A4A;
         margin: 0 0 .3rem 0;
+        font-weight: bold;
       }
 
       p {
         margin: 0;
         color: $color_default;
         font-weight: bold;
+        font-family: $font_price;
       }
     }
   }

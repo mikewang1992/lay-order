@@ -4338,10 +4338,14 @@ header {
   margin-bottom: .5rem; }
   .swiper_nav .swiper-slide {
     padding: 0.75rem 0 0.75rem 0; }
+    .swiper_nav .swiper-slide a {
+      color: rgba(155, 155, 155, 0.8); }
     .swiper_nav .swiper-slide-active {
       color: #000;
       font-weight: bold;
       position: relative; }
+      .swiper_nav .swiper-slide-active a {
+        color: #000; }
       .swiper_nav .swiper-slide-active::before {
         content: '';
         position: absolute;
@@ -4396,11 +4400,13 @@ header {
       padding: 0.75rem; }
       .product_list .item .p_info h3 {
         color: #4A4A4A;
-        margin: 0 0 .3rem 0; }
+        margin: 0 0 .3rem 0;
+        font-weight: bold; }
       .product_list .item .p_info p {
         margin: 0;
         color: #72BCB3;
-        font-weight: bold; }
+        font-weight: bold;
+        font-family: "'Ubuntu', sans-serif"; }
 
 footer {
   position: fixed;
