@@ -1,40 +1,43 @@
 <template>
   <div class="page">
-    <Footer></Footer>
-    <!-- <footer>
-            <ul>
-                <li class="active">
-                    <a href="index.html">
-                        <img src="img/icon_footer01.png" alt="">
-                        <p>菜單</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="cart.html">
-                        <span class="label">5</span>
-                        <img src="img/icon_footer02.png" alt="">
-                        <p>點菜單</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="order.html">
-                        <img src="img/icon_footer03.png" alt="">
-                        <p>訂單狀態</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="member_sale.html">
-                        <img src="img/icon_footer04.png" alt="">
-                        <p>會員資訊</p>
-                    </a>
-                </li>
-            </ul>
-    </footer>-->
+    <footer>
+      <ul>
+        <!-- <li :class="{'active':footerActive}"> -->
+        <li class="active">
+          <router-link to="/">
+            <img src="@/assets/img/icon_footer01.png" alt />
+            <p>菜單</p>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/cart">
+            <img src="@/assets/img/icon_footer02.png" alt />
+            <p>
+              點菜單
+              <span v-if="footerNumber>0">:{{footerNumber}}項</span>
+            </p>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/order">
+            <img src="@/assets/img/icon_footer03.png" alt />
+            <p>訂單狀態</p>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/member">
+            <img src="@/assets/img/icon_footer04.png" alt />
+            <p>會員資訊</p>
+          </router-link>
+        </li>
+      </ul>
+    </footer>
     <div class="main">
       <p v-if="isOpenFromCustomer" style="background:red;color:black">1.IsOpen是否營業時間:現在不開放預約</p>
       <header>
         <img src="@/assets/img/logo_nav.png" alt />
       </header>
+      <!-- banners -->
       <div class="content">
         <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="swiper()">
           <swiper-slide v-for="(item,key,index) in banners" :key="index">
@@ -42,6 +45,7 @@
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
+        <!-- category -->
         <swiper
           class="swiper_nav"
           :options="swiperOption2"
@@ -55,7 +59,7 @@
             <a @click.prevent="getProducts(item.Id)">{{item.PCName}}</a>
           </swiper-slide>
         </swiper>
-
+        <!-- products -->
         <div class="product_list">
           <div
             class="col-lg-3 col-md-4 col-6 p-0"
@@ -77,7 +81,7 @@
       </div>
     </div>
 
-    <!---------------------------------------------- 彈跳視窗暫放div page ----------------------------------->
+    <!-- productdetail popup -->
     <div class="popup" :class="{'show':ShowPopup}">
       <a class="icon_close iconfont icon-weibiao45133 popup_close" @click.prevent="ShowPopup=false"></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
@@ -103,7 +107,7 @@
               <p>{{productDetail[0].Description}}</p>
             </div>
             <div class="p_choose">
-              <div class="item" v-for="(item,key,index) in Sides" :key="index">
+              <!-- <div class="item" v-for="(item,key,index) in Sides" :key="index">
                 <h5>{{item.name}}</h5>
                 <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
                   <input
@@ -116,10 +120,62 @@
                   />
                   <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
                 </div>
-                <!-- <div class="form-check">
-                  <input class="form-check-input" type="radio" name="ice" id="inlineRadio2" value />
-                  <label for="inlineRadio2">少冰</label>
-                </div>-->
+              </div>-->
+              <div class="item" v-for="(item,key,index) in Sides.slice(0,1)" :key="index">
+                <h5>{{item.name}}</h5>
+                <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    :name="item.name"
+                    :id="`inlineRadio${key+1}`"
+                    :value="inneritem"
+                    v-model="Orders.Options[0]"
+                  />
+                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
+                </div>
+              </div>
+              <div class="item" v-for="(item,key,index) in Sides.slice(1,2)" :key="index">
+                <h5>{{item.name}}</h5>
+                <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    :name="item.name"
+                    :id="`inlineRadio${key+1}`"
+                    :value="inneritem"
+                    v-model="Orders.Options[1]"
+                  />
+                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
+                </div>
+              </div>
+              <div class="item" v-for="(item,key,index) in Sides.slice(2,3)" :key="index">
+                <h5>{{item.name}}</h5>
+                <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    :name="item.name"
+                    :id="`inlineRadio${key+1}`"
+                    :value="inneritem"
+                    v-model="Orders.Options[2]"
+                  />
+                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
+                </div>
+              </div>
+              <div class="item" v-for="(item,key,index) in Sides.slice(3,4)" :key="index">
+                <h5>{{item.name}}</h5>
+                <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    :name="item.name"
+                    :id="`inlineRadio${key+1}`"
+                    :value="inneritem"
+                    v-model="Orders.Options[3]"
+                  />
+                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
+                </div>
               </div>
               <!-- <div class="item" v-if="productDetail[0].Sides2">
                 <h5>{{productDetail[0].Sides2}}</h5>
@@ -183,40 +239,9 @@
     </div>
     <!---------------------------------------------- 彈跳視窗暫放div page ----------------------------------->
   </div>
-  <!-- <div>
-    <p v-if="isOpenFromCustomer" style="background:green">1.IsOpen是否營業時間:現在不開放預約</p>
-    <h2>product</h2>
-    <h3>banners</h3>
-    <ul>
-      <li v-for="(item,key,index) in banners" :key="index">{{item}}</li>
-    </ul>
-    <h3>categorys</h3>
-    <ul>
-      <li @click.prevent="getProducts()">全部</li>
-      <li
-        v-for="(item,key,index) in categorys"
-        :key="index"
-        @click.prevent="getProducts(item.Id)"
-      >{{item.PCName}}</li>
-    </ul>
-    <h3>products</h3>
-
-    <ul>
-      <li
-        v-for="(item,key,index) in products"
-        :key="index"
-        @click.prevent="getProductDetail(item.Id)"
-      >{{item}}</li>
-    </ul>
-
-    <div v-if="modalAppear" style="background:grey">
-      <button @click.prevent="modalAppear=false">關掉</button>
-      <p v-for="(item,key,index) in productDetail" :key="index">{{item}}</p>
-      <p v-if="isOpenFromCustomer==false" style="background:blue">加入購物車</p>
-    </div>
-
-  </div>-->
 </template>
+
+
 <script>
 import Footer from "./Footer";
 import "swiper/dist/css/swiper.css";
@@ -224,6 +249,8 @@ import { swiper, swiperSlide } from "vue-awesome-swiper";
 export default {
   data() {
     return {
+      // footerActive: false,
+      footerNumber: 0,
       banners: {},
       products: {},
       modalAppear: false,
@@ -259,13 +286,22 @@ export default {
       ProductimgUrl: "https://lay-order.rocket-coding.com/Img/product/",
       BannerimgUrl: "https://lay-order.rocket-coding.com/Img/BannerImg/",
       ShowPopup: false,
-      Orders: { Qty: 1, Pid: "", Options: "", time: "" },
+      Orders: {
+        Qty: 1,
+        Pid: "",
+        Options: [],
+        time: "",
+        Img: "",
+        Name: "",
+        Price: ""
+      },
+      Cart: [],
       Sides: []
     };
   },
-  components: {
-    Footer
-  },
+  // components: {
+  //   Footer
+  // },
   computed: {
     swiper() {
       return this.$refs.mySwiper.swiper;
@@ -299,7 +335,10 @@ export default {
           vm.Sides = [];
           vm.modalAppear = true;
           vm.productDetail = response.data;
-          vm.Orders.Pid = vm.productDetail[0].PCid;
+          vm.Orders.Pid = vm.productDetail[0].Id;
+          vm.Orders.Img = vm.productDetail[0].Img;
+          vm.Orders.Name = vm.productDetail[0].Name;
+          vm.Orders.Price = vm.productDetail[0].Price;
           if (vm.productDetail[0].Sides1 !== null) {
             vm.sidesfilter(vm.productDetail[0].Sides1);
           }
@@ -316,11 +355,11 @@ export default {
       });
     },
     sidesfilter(str) {
-      let title = str.split(":")[0];
-      console.log(title);
-      let like = str.split(":")[1].split("、");
-      console.log(like);
-      this.Sides.push({ name: title, options: like });
+      let strleft = str.split(":")[0];
+      // console.log(title);
+      let strright = str.split(":")[1].split("、");
+      // console.log(like);
+      this.Sides.push({ name: strleft, options: strright });
     },
     getCategory() {
       const vm = this;
@@ -331,9 +370,28 @@ export default {
       });
     },
     addToCart() {
-      alert("addtocart");
+      alert("已加入購物車");
       const vm = this;
-      localStorage.setItem("cart", JSON.stringify(this.Orders));
+      vm.Cart.push(vm.Orders);
+      localStorage.setItem("totalcart", JSON.stringify(this.Cart));
+      vm.Orders = {
+        Qty: 1,
+        Pid: "",
+        Options: [],
+        time: "",
+        Img: "",
+        Name: "",
+        Price: ""
+      };
+      vm.footerNumber = JSON.parse(localStorage.getItem("totalcart")).length;
+      vm.ShowPopup = false;
+    },
+    checkFooterCart() {
+      if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
+        this.footerNumber = JSON.parse(
+          localStorage.getItem("totalcart")
+        ).length;
+      }
     },
     addQty() {
       this.Orders.Qty++;
@@ -347,10 +405,6 @@ export default {
       const firstImg = imgStr.split(",")[0];
       return firstImg;
     }
-    // optionsPlus(str) {
-    //   alert("yes");
-    //   this.Orders.Options = str;
-    // }
   },
   Filters: {
     imgForceFirst(imgStr) {
@@ -363,6 +417,7 @@ export default {
     this.getProducts();
     this.getCategory();
     this.getProductDetail(2, false);
+    this.checkFooterCart();
     console.log(this.isOpenFromCustomer);
   },
   mounted() {

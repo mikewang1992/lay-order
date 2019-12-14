@@ -8,60 +8,24 @@
       <div class="content">
         <div class="cart_list">
           <ul>
-            <li class="item">
+            <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
               <div class="p_img">
-                <img src="@/assets/img/product/1.png" alt />
+                <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img}`" alt />
               </div>
               <div class="p_info">
                 <div class="p_name">
-                  <h3>產品名稱</h3>
+                  <h3>{{item.Name}}</h3>
                 </div>
-                <div class="p_choose">不辣,加蒜</div>
+                <div class="p_choose">
+                  <span v-for="(inneritem,index) in item.Options" :key="index">{{inneritem}},</span>
+                </div>
                 <div class="p_num">
                   <div class="btn btn_round btn_white count_box">
-                    <a href="#" class="count_dis">-</a>
-                    <a href="#" class="count_num">2</a>
-                    <a href="#" class="count_add">+</a>
+                    <a href="#" class="count_dis" @click.prevent="minusQty(item,index)">-</a>
+                    <a href="#" class="count_num">{{item.Qty}}</a>
+                    <a href="#" class="count_add" @click.prevent="addQty(item)">+</a>
                   </div>
-                  <div class="p_price">$500</div>
-                </div>
-              </div>
-            </li>
-            <li class="item">
-              <div class="p_img">
-                <img src="@/assets/img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>產品名稱</h3>
-                </div>
-                <div class="p_choose">不辣,加蒜</div>
-                <div class="p_num">
-                  <div class="btn btn_round btn_white count_box">
-                    <a href="#" class="count_dis">-</a>
-                    <a href="#" class="count_num">2</a>
-                    <a href="#" class="count_add">+</a>
-                  </div>
-                  <div class="p_price">$500</div>
-                </div>
-              </div>
-            </li>
-            <li class="item">
-              <div class="p_img">
-                <img src="@/assets/img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>產品名稱</h3>
-                </div>
-                <div class="p_choose">不辣,加蒜</div>
-                <div class="p_num">
-                  <div class="btn btn_round btn_white count_box">
-                    <a href="#" class="count_dis">-</a>
-                    <a href="#" class="count_num">2</a>
-                    <a href="#" class="count_add">+</a>
-                  </div>
-                  <div class="p_price">$500</div>
+                  <div class="p_price">${{item.Price*item.Qty}}</div>
                 </div>
               </div>
             </li>
@@ -72,21 +36,21 @@
             <li class="item total">
               <h4>
                 共
-                <b class="color_default">5</b> 份
+                <b class="color_default">{{OrderQty}}</b> 份
               </h4>
-              <span>$600</span>
+              <span>${{OrderMoney}}</span>
             </li>
             <li class="item">
               <h4>電話</h4>
-              <input type="text" placeholder="請輸入" />
+              <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" />
             </li>
             <li class="item">
               <h4>取餐人</h4>
-              <input type="text" placeholder="請輸入" />
+              <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[1]" />
             </li>
             <li class="item">
               <h4>取餐時間</h4>
-              <small class="color_default">製作時間約20分，請於12:20後來店取餐</small>
+              <small class="color_default">製作時間約{{PrepareTime}}分，請於{{timeNow}}後來店取餐</small>
             </li>
             <li class="item">
               <h4>
@@ -106,7 +70,11 @@
         </div>
         <small class="color_red text-center d-block mt-2 mb-3">訂單總量超過20份請來電預約,餐點現做，製作時間約 25 min</small>
         <footer class="d-block text-center fixed_bottom">
-          <a href="result_out.html" class="btn btn_default d-block btn_lg">確認點餐</a>
+          <a
+            href="result_out.html"
+            class="btn btn_default d-block btn_lg"
+            @click.prevent="Create"
+          >確認點餐</a>
           <a href="#" class="btn btn_default d-block btn_lg open_popup">確認點餐(test)</a>
         </footer>
       </div>
@@ -151,14 +119,75 @@
 <script>
 export default {
   data() {
-    return { cart: {} };
+    return {
+      CartFromProduct: [],
+      OrderPreStorage: [],
+      // OrderPreStorage: {
+      //   Pid: "",
+      //   Options: "",
+      //   Qty: "",
+      //   time: ""
+      // },
+      ConfirmedOrder: [],
+      PrepareTime: 20,
+      OrderMemberInfo: "",
+      Login: ""
+    };
+  },
+  computed: {
+    timeNow() {
+      const date = new Date(Date.now());
+      let m = date.getMinutes() + this.PrepareTime;
+      if (m < 10) {
+        m = "0" + m;
+      }
+      const newTime = `${date.getHours()}:${m}`;
+      return newTime;
+    },
+    FullTimeNow() {
+      const date = new Date(Date.now());
+      let year = date.getFullYear();
+      let mon = date.getMonth();
+      let day = date.getDate();
+      let hour = date.getHours();
+      let min = date.getMinutes();
+      if (min < 10) {
+        min = "0" + min;
+      }
+      const newFullDay = `${year}/${mon}/${day} ${hour}:${min}`;
+      return newFullDay;
+    },
+    OrderMemberInfoSplit() {
+      return [
+        this.OrderMemberInfo.split(",")[0],
+        this.OrderMemberInfo.split(",")[1]
+      ];
+    },
+    OrderQty() {
+      let str = 0;
+      for (let i = 0; i < this.CartFromProduct.length; i++) {
+        str += this.CartFromProduct[i].Qty;
+      }
+      return str;
+    },
+    OrderMoney() {
+      let str = 0;
+      for (let i = 0; i < this.CartFromProduct.length; i++) {
+        str += this.CartFromProduct[i].Qty * this.CartFromProduct[i].Price;
+      }
+      return str;
+    }
   },
   methods: {
     getCart() {
-      this.cart = JSON.parse(localStorage.getItem("cart"));
-      console.log(localStorage.getItem());
+      const totalcart = JSON.parse(localStorage.getItem("totalcart"));
+      this.CartFromProduct = totalcart;
+      if (this.CartFromProduct == 0) {
+        alert("點菜單為空");
+        this.$router.push({ name: "Product" });
+      }
     },
-    Create() {
+    sendCart() {
       const vm = this;
       const url = `${process.env.APIPATH}/Order/Create`;
       const data = {};
@@ -172,10 +201,99 @@ export default {
         console.log(response);
         alert("驗證成功");
       });
+    },
+    getTime(time) {
+      const date = new Date(time);
+      let m = date.getMinutes();
+      if (m < 10) {
+        m = "0" + m;
+      }
+      const newTime = `${date.getHours()}:${m}`;
+      return newTime;
+    },
+    getFullTime(time) {
+      const date = new Date(time);
+      let year = date.getFullYear();
+      let mon = date.getMonth();
+      let day = date.getDate();
+      let hour = date.getHours();
+      let min = date.getMinutes();
+      if (min < 10) {
+        min = "0" + min;
+      }
+      const newFullDay = `${year}/${mon}/${day} ${hour}:${min}`;
+      return newFullDay;
+    },
+    OrderMember() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Accounts/OrderMember`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        this.OrderMemberInfo = response.data;
+      });
+    },
+    CheckLogin() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Accounts/CheckLogin`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        if (response.data === "True") {
+          this.Login = response.data;
+          this.OrderMember();
+        } else if (response.data === "False") {
+          alert("請先登入");
+          this.$router.push({ name: "Login" });
+        }
+      });
+    },
+    PreTime() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Company/PreTime`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        this.PrepareTime = response.data;
+      });
+    },
+    Create() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Accounts/Create`;
+      const data = [];
+      const predata = {
+        Pid: "",
+        Options: "",
+        Qty: "",
+        time: this.getFullTime(Date.now())
+      };
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      console.log(data);
+      // this.$http.post(url, data, config).then(response => {
+      //   console.log(response);
+      // });
+    },
+    addQty(item) {
+      return item.Qty++;
+    },
+    minusQty(item, index) {
+      if (item.Qty > 1) {
+        return item.Qty--;
+      } else {
+        alert("刪除此商品:" + item.Name);
+        console.log(index);
+        const totalcart = JSON.parse(localStorage.getItem("totalcart"));
+        totalcart.splice(index, 1);
+        localStorage.setItem("totalcart", JSON.stringify(totalcart));
+        this.getCart();
+      }
     }
   },
   created() {
+    this.CheckLogin();
     this.getCart();
+    this.PreTime();
   }
 };
 </script>

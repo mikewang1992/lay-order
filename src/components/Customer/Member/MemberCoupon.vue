@@ -1,33 +1,37 @@
 <template>
   <div class="page member">
-    <!-- <footer>
+    <footer>
       <ul>
+        <!-- <li :class="{'active':footerActive}"> -->
         <li>
-          <a href="index.html">
+          <router-link to="/">
             <img src="@/assets/img/icon_footer01.png" alt />
             <p>菜單</p>
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="cart.html">
+          <router-link to="/cart">
             <img src="@/assets/img/icon_footer02.png" alt />
-            <p>點菜單</p>
-          </a>
+            <p>
+              點菜單
+              <span v-if="footerNumber>0">:{{footerNumber}}項</span>
+            </p>
+          </router-link>
         </li>
         <li>
-          <a href="order.html">
+          <router-link to="/order">
             <img src="@/assets/img/icon_footer03.png" alt />
             <p>訂單狀態</p>
-          </a>
+          </router-link>
         </li>
         <li class="active">
-          <a href="member_sale.html">
+          <router-link to="/member">
             <img src="@/assets/img/icon_footer04.png" alt />
             <p>會員資訊</p>
-          </a>
+          </router-link>
         </li>
       </ul>
-    </footer>-->
+    </footer>
     <div class="main col-md-6 col-xl-4">
       <header>
         <h1 class="title">會員資訊</h1>
