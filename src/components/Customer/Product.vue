@@ -1,6 +1,9 @@
 <template>
   <div class="page">
     <footer>
+      <div class="nav_logo">
+        <img src="@/assets/img/logo_nav.png" alt />
+      </div>
       <ul>
         <!-- <li :class="{'active':footerActive}"> -->
         <li class="active">
@@ -33,8 +36,8 @@
       </ul>
     </footer>
     <div class="main">
-      <p v-if="isOpenFromCustomer" style="background:red;color:black">1.IsOpen是否營業時間:現在不開放預約</p>
-      <header>
+      <div v-if="isOpenFromCustomer" class="open_notice">Sorry！本時段不開放預約！</div>
+      <header class="hide_lg">
         <img src="@/assets/img/logo_nav.png" alt />
       </header>
       <!-- banners -->
@@ -69,7 +72,7 @@
           >
             <div class="item open_popup">
               <div class="p_image">
-                <img :src="ProductimgUrl+item.Img" alt />
+                <img :src="ProductimgUrl+getImg(item.Img)" alt />
               </div>
               <div class="p_info">
                 <h3>{{item.Name}}</h3>
@@ -324,6 +327,10 @@ export default {
         console.log(response);
         vm.products = response.data;
       });
+    },
+    getImg(imgArr) {
+      const firstImg = imgArr.split(",")[0];
+      return firstImg;
     },
     getProductDetail(Id, Show = true) {
       const vm = this;

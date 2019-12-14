@@ -15,13 +15,13 @@
 // }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Noto Sans TC', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
-    font-weight: normal;
-    color: #8B8B8B;
+  font-family: 'Noto Sans TC', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+  font-weight: normal;
+  color: #8B8B8B;
 }
 
 $color_default:#72BCB3;
@@ -29,323 +29,336 @@ $color_light:#9B9B9B;
 $color_red:#F77878;
 $color_yellow:#F7D078;
 $color_green:#8BBC72;
+
 .text-left {
-    text-align: left !important;
+  text-align: left !important;
 }
+
 .w-auto {
-    width: auto!important;
+  width: auto !important;
 }
+
 .font_price {
-    font-family: 'Ubuntu', sans-serif!important;
+  font-family: 'Ubuntu', sans-serif !important;
 }
+
 .font_en {
-    font-family: 'Overpass', sans-serif!important;
+  font-family: 'Overpass', sans-serif !important;
 }
+
 .font_bold {
-    font-weight: bold;
+  font-weight: bold;
 }
+
 .fz_md {
-    font-size: 1rem!important;
+  font-size: 1rem !important;
 }
+
 //bg
 @mixin bg_paper {
-    background-image: url(../img/bg_papper.png);
-    background-repeat: repeat;
-    background-size: auto;
-    background-attachment: fixed;
+  background-image: url(../img/bg_papper.png);
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
 }
 
 @mixin bg_full {
-    background-image: url(../img/full_img.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url(../img/full_img.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 //shadow
 @mixin shadow {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
 @mixin shadow_b {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 @mixin shadow_blue {
-    box-shadow: 0 2px 4px rgba(114, 188, 179, 0.25);
+  box-shadow: 0 2px 4px rgba(114, 188, 179, 0.25);
 }
 
 @mixin animation {
-    transition: .3s ease;
+  transition: .3s ease;
 }
 
 @mixin icon_btn {
-    @include shadow_b;
-    background: #fff;
-    border-radius: 100%;
-    width: 3rem;
-    height: 3rem;
-    color: $color_default;
-    text-align: center;
-    line-height: 3rem;
-    font-size: 1.6rem;
+  @include shadow_b;
+  background: #fff;
+  border-radius: 100%;
+  width: 3rem;
+  height: 3rem;
+  color: $color_default;
+  text-align: center;
+  line-height: 3rem;
+  font-size: 1.6rem;
 }
 
 // min-width
 @mixin desktop-xl {
-    @media (min-width: 1200px) {
-        @content;
-    }
+  @media (min-width: 1200px) {
+    @content;
+  }
 }
 
 @mixin desktop-lg {
-    @media (min-width: 992px) {
-        @content;
-    }
+  @media (min-width: 992px) {
+    @content;
+  }
 }
 
 @mixin desktop-md {
-    @media (min-width: 768px) {
-        @content;
-    }
+  @media (min-width: 768px) {
+    @content;
+  }
 }
 
 @mixin desktop-sm {
-    @media (min-width: 576px) {
-        @content;
-    }
+  @media (min-width: 576px) {
+    @content;
+  }
 }
 
 a {
-    text-decoration: none;
-    color: $color_default;
+  text-decoration: none;
+  color: $color_default;
 }
 
 p {
-    margin: 0 0 0.75rem 0;
-    line-height: 1.7;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.7;
 }
 
 ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 
 h1,
 h2,
 h3,
 h4 {
-    color: #000;
+  color: #000;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .color_red {
-    color: $color_red !important;
+  color: $color_red !important;
 }
 
 .bg_green {
-    background: $color_green !important;
+  background: $color_green !important;
 }
 
 .btn {
-    @include shadow_b;
-    display: inline-block;
-    font-weight: 400;
-    color: #212529;
-    text-align: center;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: transparent;
-    border: 1px solid transparent;
-    padding: 0.375rem 3rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    font-weight: bold;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  @include shadow_b;
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 3rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: bold;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-    &.d-block {
-        padding: 0.375rem 1rem;
-    }
+  &.d-block {
+    padding: 0.375rem 1rem;
+  }
 }
 
 .btn_round {
-    border-radius: 2rem;
+  border-radius: 2rem;
 }
 
 .btn_white {
-    background: #fff !important;
+  background: #fff !important;
 }
 
 .count_box {
-    display: flex;
-    justify-content: space-between;
-    padding-left: 0;
-    padding-right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0;
+  padding-right: 0;
 
-    .count_dis {
-        color: #777;
-        width: 45%;
-    }
+  .count_dis {
+    color: #777;
+    width: 45%;
+  }
 
-    .count_add {
-        color: #777;
-        width: 45%;
-    }
+  .count_add {
+    color: #777;
+    width: 45%;
+  }
 }
 
 .color_default {
-    color: $color_default !important;
+  color: $color_default !important;
 }
 
 .color_green {
-    color: $color_green !important;
+  color: $color_green !important;
 }
 
 .color_gray {
-    color: #888 !important;
+  color: #888 !important;
 }
 
 .bg_default {
-    background: $color_default !important;
+  background: $color_default !important;
 }
 
 .bg_yellow {
-    background: $color_yellow !important;
+  background: $color_yellow !important;
 }
 
 .bg_gray {
-    background: $color_light !important;
+  background: $color_light !important;
 }
 
 .btn_default {
-    border-radius: 20px;
-    background-color: $color_default;
-    border-color: $color_default;
-    color: #fff;
+  border-radius: 20px;
+  background-color: $color_default;
+  border-color: $color_default;
+  color: #fff;
 
-    &:hover {
-        background-color: darken($color_default, 20%);
-        border-color: darken($color_default, 20%);
-        color: #fff;
-    }
+  &:hover {
+    background-color: darken($color_default, 20%);
+    border-color: darken($color_default, 20%);
+    color: #fff;
+  }
 }
 
 .btn_yellow {
-    border-radius: 20px;
-    background-color: $color_yellow;
-    border-color: $color_yellow;
-    color: #fff;
+  border-radius: 20px;
+  background-color: $color_yellow;
+  border-color: $color_yellow;
+  color: #fff;
 
-    &:hover {
-        background-color: darken($color_yellow, 20%);
-        border-color: darken($color_yellow, 20%);
-        color: #fff;
-    }
+  &:hover {
+    background-color: darken($color_yellow, 20%);
+    border-color: darken($color_yellow, 20%);
+    color: #fff;
+  }
 }
 
 .btn_gray {
-    border-radius: 20px;
-    background-color: $color_light;
-    border-color: $color_light;
-    color: #fff;
+  border-radius: 20px;
+  background-color: $color_light;
+  border-color: $color_light;
+  color: #fff;
 
-    &:hover {
-        background-color: darken($color_light, 20%);
-        border-color: darken($color_light, 20%);
-        color: #fff;
-    }
+  &:hover {
+    background-color: darken($color_light, 20%);
+    border-color: darken($color_light, 20%);
+    color: #fff;
+  }
 }
 
 .btn_green {
-    border-radius: 20px;
-    background-color: $color_green;
-    border-color: $color_green;
-    color: #fff;
+  border-radius: 20px;
+  background-color: $color_green;
+  border-color: $color_green;
+  color: #fff;
 
-    &:hover {
-        background-color: darken($color_green, 20%);
-        border-color: darken($color_green, 20%);
-        color: #fff;
-    }
+  &:hover {
+    background-color: darken($color_green, 20%);
+    border-color: darken($color_green, 20%);
+    color: #fff;
+  }
 }
 
 .btn_lg {
-    padding: 0.5rem 3rem;
-    font-size: 1.2rem;
+  padding: 0.5rem 3rem;
+  font-size: 1.2rem;
 }
 
 .w-100 {
-    width: 100% !important;
+  width: 100% !important;
 }
 
 // 產品小列表
 .cart_list {
-    .item {
-        @include shadow;
-        border-radius: 15px;
-        display: flex;
-        background: #fff;
-        margin-bottom: .75rem;
+  .item {
+    @include shadow;
+    border-radius: 15px;
+    display: flex;
+    background: #fff;
+    margin-bottom: .75rem;
 
-        &:hover {
-            .iconfont {
-                color: $color_default;
-            }
-        }
+    &:hover {
+      .iconfont {
+        color: $color_default;
+      }
+    }
+  }
+
+
+  .p_img {
+    width: 40%;
+    border-radius: 15px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 15px;
+    }
+  }
+
+  .p_info {
+    width: 100%;
+    padding: 1rem 1.25rem 1rem 1.25rem;
+
+    .p_name h3 {
+      margin: 0;
+      font-size: 1rem;
     }
 
+    .p_choose {
+      margin-bottom: 0.5rem;
+    }
 
-    .p_img {
+    .p_num {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .count_box {
         width: 40%;
-        border-radius: 15px;
+        font-size: 1rem;
+        font-weight: bold;
+      }
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 15px;
-        }
+      .p_price {
+        width: 40%;
+        font-weight: bold;
+        color: $color_default;
+        font-size: 1.2rem;
+        text-align: right;
+      }
     }
+  }
+}
 
-    .p_info {
-        width: 100%;
-        padding: 1rem 1.25rem 1rem 1.25rem;
-
-        .p_name h3 {
-            margin: 0;
-            font-size: 1rem;
-        }
-
-        .p_choose {
-            margin-bottom: 0.5rem;
-        }
-
-        .p_num {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-
-            .count_box {
-                width: 40%;
-                font-size: 1rem;
-                font-weight: bold;
-            }
-
-            .p_price {
-                width: 40%;
-                font-weight: bold;
-                color: $color_default;
-                font-size: 1.2rem;
-                text-align: right;
-            }
-        }
-    }
+@include desktop-sm {
+  .hide_lg {
+    display: none;
+  }
 }

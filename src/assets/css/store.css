@@ -73,10 +73,10 @@ body {
   width: auto !important; }
 
 .font_price {
-  font-family: "Ubuntu", sans-serif !important; }
+  font-family: 'Ubuntu', sans-serif !important; }
 
 .font_en {
-  font-family: "Overpass", sans-serif !important; }
+  font-family: 'Overpass', sans-serif !important; }
 
 .font_bold {
   font-weight: bold; }
@@ -278,6 +278,10 @@ h4 {
       color: #72BCB3;
       font-size: 1.2rem;
       text-align: right; }
+
+@media (min-width: 576px) {
+  .hide_lg {
+    display: none; } }
 
 /*!
  * Bootstrap Grid v4.3.1 (https://getbootstrap.com/)
