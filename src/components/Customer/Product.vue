@@ -86,7 +86,7 @@
 
     <!-- productdetail popup -->
     <div class="popup" :class="{'show':ShowPopup}">
-      <a class="icon_close iconfont icon-weibiao45133 popup_close" @click.prevent="ShowPopup=false"></a>
+      <a class="icon_close iconfont icon-weibiao45133 popup_close" @click.prevent="ClosePopup()"></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="p_slider">
           <swiper
@@ -95,8 +95,8 @@
             ref="mySwiper"
             @someSwiperEvent="swiper()"
           >
-            <swiper-slide v-for="(item,key,index) in banners" :key="index">
-              <img :src="ProductimgUrl+productDetail[0].Img" alt />
+            <swiper-slide v-for="(item,key,index) in productDetail" :key="index">
+              <img :src="ProductimgUrl+getImg(item.Img)" alt />
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
@@ -246,7 +246,7 @@
 
 
 <script>
-import Footer from "./Footer";
+// import Footer from "./Footer";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 export default {
@@ -332,6 +332,11 @@ export default {
       const firstImg = imgArr.split(",")[0];
       return firstImg;
     },
+    getImgFull(imgArr) {
+      imgArr = [];
+      const firstImg = imgArr.split(",")[0];
+      return firstImg;
+    },
     getProductDetail(Id, Show = true) {
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProductDetail/${Id}`;
@@ -360,6 +365,18 @@ export default {
           }
         }
       });
+    },
+    ClosePopup() {
+      this.ShowPopup = false;
+      this.Orders = {
+        Qty: 1,
+        Pid: "",
+        Options: [],
+        time: "",
+        Img: "",
+        Name: "",
+        Price: ""
+      };
     },
     sidesfilter(str) {
       let strleft = str.split(":")[0];

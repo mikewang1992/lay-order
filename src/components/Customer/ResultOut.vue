@@ -20,21 +20,21 @@
             <li class="item total">
               <h4>
                 共
-                <b class="color_default">5</b> 份
+                <b class="color_default">{{OrderSummary[0].totalQty}}</b> 份
               </h4>
-              <span>$600</span>
+              <span>{{OrderSummary[0].totalAmout}}</span>
             </li>
             <li class="item">
               <h4>電話</h4>
-              <span>0980123123</span>
+              <span>{{OrderSummary[0].tel}}</span>
             </li>
             <li class="item">
               <h4>取餐人</h4>
-              <span>林美麗</span>
+              <span>{{OrderSummary[0].name}}</span>
             </li>
             <li class="item">
               <h4>取餐時間</h4>
-              <span>2019/12/12 12:00</span>
+              <span>{{getTime(OrderSummary[0].gettime)}}</span>
             </li>
           </ul>
         </div>
@@ -43,7 +43,7 @@
             <a href="#" class="btn btn_lg btn_yellow d-block">撥打電話</a>
           </div>
           <div class="col-6">
-            <a href="order.html" class="btn btn_lg btn_default d-block">訂單狀態</a>
+            <router-link class="btn btn_lg btn_default d-block">訂單狀態</router-link>
           </div>
         </div>
       </div>
@@ -54,8 +54,33 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      OrderSummary: {}
+    };
   },
-  methods: {}
+  props: ["OrderCodeFromCart"],
+  methods: {
+    ShowOrderSummary(num) {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Order/ShowOrderSummary/${num}`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        this.OrderSummary = response.data;
+      });
+    },
+    getTime(time) {
+      const date = new Date(time);
+      let m = date.getMinutes();
+      if (m < 10) {
+        m = "0" + m;
+      }
+      const newTime = `${date.getHours()}:${m}`;
+      return newTime;
+    }
+  },
+  created() {
+    this.ShowOrderSummary(2);
+    console.log(this.OrderCodeFromCart);
+  }
 };
 </script>

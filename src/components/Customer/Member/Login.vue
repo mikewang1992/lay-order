@@ -96,7 +96,8 @@ export default {
       loginInfo: {},
       resendAppear: false,
       vertifyAppear: false,
-      vertifyCode: ""
+      vertifyCode: "",
+      footerNumber: 0
     };
   },
   methods: {
@@ -160,7 +161,17 @@ export default {
           alert("驗證失敗，請重新輸入");
         }
       });
+    },
+    checkFooterCart() {
+      if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
+        this.footerNumber = JSON.parse(
+          localStorage.getItem("totalcart")
+        ).length;
+      }
     }
+  },
+  created() {
+    this.checkFooterCart();
   }
 };
 </script>

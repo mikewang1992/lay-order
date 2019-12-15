@@ -1,12 +1,10 @@
 <template>
   <div>
-
     <router-view :isOpenFromCustomer="isOpen"></router-view>
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -33,5 +31,5 @@ export default {
 </script>
 
 <style scope>
-  @import "../../assets/css/all.css";
+@import "../../assets/css/all.css";
 </style>

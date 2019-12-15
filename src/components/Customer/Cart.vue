@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <router-view :OrderCodeFromCart="OrderCode"></router-view>
     <div class="main pb-5">
       <header>
         <a class="icon iconfont icon-left" @click.prevent="$router.go(-1);"></a>
@@ -70,44 +71,83 @@
         </div>
         <small class="color_red text-center d-block mt-2 mb-3">訂單總量超過20份請來電預約,餐點現做，製作時間約 25 min</small>
         <footer class="d-block text-center fixed_bottom">
-          <a
-            href="result_out.html"
-            class="btn btn_default d-block btn_lg"
-            @click.prevent="Create"
-          >確認點餐</a>
-          <a href="#" class="btn btn_default d-block btn_lg open_popup">確認點餐(test)</a>
+          <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a>
+          <!-- <a href="#" class="btn btn_default d-block btn_lg open_popup">確認點餐(test)</a> -->
         </footer>
       </div>
     </div>
     <!---------------------------------------------- 彈跳視窗暫放div page ----------------------------------->
-    <div class="popup">
-      <a href="#" class="icon_close iconfont icon-weibiao45133 popup_close"></a>
+    <div class="popup" :class="{'show':ShowPopup}">
+      <a
+        href="#"
+        class="icon_close iconfont icon-weibiao45133 popup_close"
+        @click="ShowPopup=false"
+      ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
           <img src="@/assets/img/phone.png" alt />
-          <h2>此電話未驗證</h2>
-          <p>
-            驗證電話加入會員^_^
-            <br />第一次登入送驚喜優惠
-          </p>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="電話" />
-            <span class="iconfont icon-Mobile"></span>
-            <div class="input-group-append">
-              <a href="#" class="btn" id>送出驗證碼</a>
-            </div>
-          </div>
+          <h2>尚未登入</h2>
+          <br />
           <div class="form-group">
-            <label class="sr-only" for="phone">請輸入簡訊驗證碼</label>
+            <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
-            <input class="form-control" type="text" id placeholder="請輸入簡訊驗證碼" autocomplete="off" />
+            <input
+              class="form-control"
+              type="text"
+              id
+              placeholder="電話"
+              autocomplete="off"
+              v-model="loginInfo.Tel"
+            />
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
             <span class="iconfont icon-lock"></span>
-            <input class="form-control" type="password" id placeholder="密碼" autocomplete="off" />
+            <input
+              class="form-control"
+              type="password"
+              id
+              placeholder="密碼"
+              autocomplete="off"
+              v-model="loginInfo.Password"
+            />
           </div>
-          <a href="#" class="btn d-block btn_lg btn_default">確認</a>
+          <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <div class="popup" :class="{'show': resendAppear}">
+      <a
+        href="#"
+        class="icon_close iconfont icon-weibiao45133 popup_close"
+        @click="resendAppear=false,ShowPopup=false"
+      ></a>
+      <div class="popup_content col-12 col-lg-6 col-md-8">
+        <div class="popup_info">
+          <img src="@/assets/img/phone.png" alt />
+          <h2>手機尚未通過簡訊驗證</h2>
+          <br />
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="電話" v-model="vertifyInfo.Tel" />
+            <span class="iconfont icon-Mobile"></span>
+            <div class="input-group-append" @click="ReSendSMS()">
+              <a href="#" class="btn" id>重寄驗證碼</a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="phone">重寄驗證碼簡訊</label>
+            <span class="iconfont icon-message"></span>
+            <input
+              class="form-control"
+              type="text"
+              id
+              placeholder="請輸入簡訊驗證碼"
+              autocomplete="off"
+              v-model="vertifyInfo.Vertify"
+            />
+          </div>
+          <a class="btn btn_default mb-2" @click="vertify()">驗證手機</a>
         </div>
       </div>
     </div>
@@ -120,18 +160,17 @@
 export default {
   data() {
     return {
+      OrderCode: 1,
       CartFromProduct: [],
       OrderPreStorage: [],
-      // OrderPreStorage: {
-      //   Pid: "",
-      //   Options: "",
-      //   Qty: "",
-      //   time: ""
-      // },
       ConfirmedOrder: [],
       PrepareTime: 20,
       OrderMemberInfo: "",
-      Login: ""
+      Login: "",
+      ShowPopup: false,
+      loginInfo: {},
+      resendAppear: false,
+      vertifyInfo: { Tel: "", Vertify: "" }
     };
   },
   computed: {
@@ -181,11 +220,11 @@ export default {
   methods: {
     getCart() {
       const totalcart = JSON.parse(localStorage.getItem("totalcart"));
-      this.CartFromProduct = totalcart;
-      if (this.CartFromProduct == 0) {
+      if (totalcart === null || totalcart.length === 0) {
         alert("點菜單為空");
         this.$router.push({ name: "Product" });
       }
+      this.CartFromProduct = totalcart;
     },
     sendCart() {
       const vm = this;
@@ -241,8 +280,9 @@ export default {
           this.Login = response.data;
           this.OrderMember();
         } else if (response.data === "False") {
-          alert("請先登入");
-          this.$router.push({ name: "Login" });
+          this.Login = response.data;
+          // alert("請先登入");
+          // this.$router.push({ name: "Login" });
         }
       });
     },
@@ -254,25 +294,32 @@ export default {
         this.PrepareTime = response.data;
       });
     },
-    Create() {
+    CreateOrder() {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Create`;
       const data = [];
-      const predata = {
-        Pid: "",
-        Options: "",
-        Qty: "",
-        time: this.getFullTime(Date.now())
-      };
+      for (let i = 0; i < vm.CartFromProduct.length; i++) {
+        const predata = {
+          Pid: vm.CartFromProduct[i].Pid,
+          Options: vm.CartFromProduct[i].Options,
+          Qty: vm.CartFromProduct[i].Qty,
+          time: this.getFullTime(Date.now())
+        };
+        // for (let j = 0; j < vm.CartFromProduct[i].Options.length; j++) {
+        //   console.log("count" + j);
+        // }
+        data.push(predata);
+      }
+      console.log(data);
       const config = {
         headers: {
           "Content-Type": "application/json"
         }
       };
-      console.log(data);
-      // this.$http.post(url, data, config).then(response => {
-      //   console.log(response);
-      // });
+      this.$http.post(url, data, config).then(response => {
+        console.log(response);
+        alert(response.data);
+      });
     },
     addQty(item) {
       return item.Qty++;
@@ -288,11 +335,83 @@ export default {
         localStorage.setItem("totalcart", JSON.stringify(totalcart));
         this.getCart();
       }
+    },
+    login() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Accounts/Login`;
+      const data = vm.loginInfo;
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      if (vm.loginInfo.Tel.length === 10) {
+        if (vm.loginInfo.Tel.slice(0, 2) === "09") {
+          this.$http.post(url, data, config).then(response => {
+            console.log(response);
+            if (response.data == "success") {
+              alert(response.data);
+              vm.ShowPopup = false;
+              vm.CheckLogin();
+            } else if (response.data == "此電話號碼尚未進行驗證") {
+              alert(response.data);
+              vm.resendAppear = true;
+            } else {
+              alert(response.data);
+              this.$router.push({ name: "Register" });
+            }
+          });
+        } else {
+          alert("請輸入正確手機格式");
+        }
+      } else {
+        alert("手機長度不符");
+      }
+    },
+    ReSendSMS() {
+      const vm = this;
+      const params = vm.loginInfo.Tel;
+      const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        alert(response.data);
+        if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
+          vm.vertifyAppear = true;
+        }
+      });
+    },
+    vertify() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Accounts/Vertify`;
+      const data = vm.vertifyInfo;
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      console.log(data);
+      this.$http.post(url, data, config).then(response => {
+        console.log(response);
+        if (response.data !== "驗證失敗，請重新輸入") {
+          alert("驗證成功");
+          this.CheckLogin();
+          resendAppear = false;
+        } else {
+          alert("驗證失敗，請重新輸入");
+        }
+      });
+    },
+    CheckBeforeCreate() {
+      if (this.Login === "True") {
+        this.CreateOrder();
+      } else if (this.Login === "False") {
+        this.ShowPopup = true;
+      }
     }
   },
   created() {
-    this.CheckLogin();
     this.getCart();
+    this.CheckLogin();
     this.PreTime();
   }
 };

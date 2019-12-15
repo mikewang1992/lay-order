@@ -1,33 +1,41 @@
 <template>
   <div class="page">
-    <!-- <footer>
+    <router-view :IdFromOrder="Id"></router-view>
+    <footer>
+      <div class="nav_logo">
+        <img src="@/assets/img/logo_nav.png" alt />
+      </div>
       <ul>
+        <!-- <li :class="{'active':footerActive}"> -->
         <li>
-          <a href="index.html">
-            <img src="img/icon_footer01.png" alt />
+          <router-link to="/">
+            <img src="@/assets/img/icon_footer01.png" alt />
             <p>菜單</p>
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="cart.html">
-            <img src="img/icon_footer02.png" alt />
-            <p>點菜單</p>
-          </a>
+          <router-link to="/cart">
+            <img src="@/assets/img/icon_footer02.png" alt />
+            <p>
+              點菜單
+              <span v-if="footerNumber>0">:{{footerNumber}}項</span>
+            </p>
+          </router-link>
         </li>
-        <li class="active">
-          <a href="order.html">
-            <img src="img/icon_footer03.png" alt />
+        <li>
+          <router-link to="/order" class="active">
+            <img src="@/assets/img/icon_footer03.png" alt />
             <p>訂單狀態</p>
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="member_sale.html">
-            <img src="img/icon_footer04.png" alt />
+          <router-link to="/member">
+            <img src="@/assets/img/icon_footer04.png" alt />
             <p>會員資訊</p>
-          </a>
+          </router-link>
         </li>
       </ul>
-    </footer>-->
+    </footer>
     <div class="main pb-2">
       <header>
         <h1>訂單狀態</h1>
@@ -35,7 +43,7 @@
       <div class="content">
         <div class="cart_list status_list">
           <ul>
-            <a href="order_info.html">
+            <a>
               <li class="item">
                 <div class="p_status bg_default">
                   <h4>製作中</h4>
@@ -49,7 +57,7 @@
                 <div class="icon_right iconfont icon-right"></div>
               </li>
             </a>
-            <a href="order_info.html">
+            <a>
               <li class="item">
                 <div class="p_status bg_yellow">
                   <h4>待取餐</h4>
@@ -63,7 +71,7 @@
                 <div class="icon_right iconfont icon-right"></div>
               </li>
             </a>
-            <a href="order_info.html">
+            <a>
               <li class="item">
                 <div class="p_status bg_gray">
                   <h4>已完成</h4>
@@ -88,8 +96,31 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      Id: 1,
+      footerNumber: 0,
+      OrderStatus: {}
+    };
   },
-  methods: {}
+  methods: {
+    checkFooterCart() {
+      if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
+        this.footerNumber = JSON.parse(
+          localStorage.getItem("totalcart")
+        ).length;
+      }
+    },
+    ShowOrderStatus() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Order/ShowOrderStatus`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        this.OrderStatus = response.data;
+      });
+    }
+  },
+  created() {
+    this.checkFooterCart;
+  }
 };
 </script>

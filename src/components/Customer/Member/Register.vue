@@ -167,7 +167,8 @@ export default {
       vertifyCodes: {},
       Counties: {},
       TownShips: {},
-      changetoVertify: false
+      changetoVertify: false,
+      footerNumber: 0
     };
   },
   methods: {
@@ -232,10 +233,18 @@ export default {
         console.log(response);
         vm.TownShips = response.data;
       });
+    },
+    checkFooterCart() {
+      if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
+        this.footerNumber = JSON.parse(
+          localStorage.getItem("totalcart")
+        ).length;
+      }
     }
   },
   created() {
     this.getCounty();
+    this.checkFooterCart();
   }
 };
 </script>

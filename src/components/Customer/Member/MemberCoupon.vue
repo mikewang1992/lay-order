@@ -65,7 +65,8 @@
 export default {
   data() {
     return {
-      Vouchers: {}
+      Vouchers: {},
+      footerNumber: 0
     };
   },
   methods: {
@@ -76,10 +77,18 @@ export default {
         console.log(response);
         vm.Vouchers = response.data;
       });
+    },
+    checkFooterCart() {
+      if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
+        this.footerNumber = JSON.parse(
+          localStorage.getItem("totalcart")
+        ).length;
+      }
     }
   },
   created() {
     this.getVouchers();
+    this.checkFooterCart();
   }
 };
 </script>
