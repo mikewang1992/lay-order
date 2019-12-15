@@ -46,7 +46,11 @@
       <!-- 狀態篩選 -->
       <div class="status">
         <ul v-if="filterMenu.status !== 'cancel'" v-show="filterMenu.status !== 'paid'">
-          <li class="font_en" :class="{'active':filterMenu.status == ''}" @click="filterMenu.status = ''">All</li>
+          <li
+            class="font_en"
+            :class="{'active':filterMenu.status == ''}"
+            @click="filterMenu.status = ''"
+          >All</li>
           <li
             :class="{'active':filterMenu.status == 'prepare'}"
             @click="filterMenu.status = 'prepare'"
@@ -116,12 +120,12 @@
           <span
             class="iconfont page_last icon-fanhui"
             :class="{'none':pages.curPage==1}"
-            @click="lastPage()"
+            @click="pages.curPage-=1"
           ></span>
 
           <span
             class="font_price"
-            v-for="item in pages.pageArr"
+            v-for="item in pages.sum"
             :key="item"
             :class="{'active':item == pages.curPage}"
             @click="pages.curPage = item"
@@ -130,7 +134,7 @@
           <span
             class="iconfont page_next icon-youjiantou"
             :class="{'none':pages.curPage==pages.sum}"
-            @click="nextPage()"
+            @click="pages.curPage+=1"
           ></span>
         </div>
       </div>
@@ -239,9 +243,8 @@ export default {
       detail: "",
       thisOrderID: "",
       pages: {
-        pageArr: [],
         curPage: 1,
-        sum: ""
+        sum: ''
       }
     };
   },
@@ -276,27 +279,12 @@ export default {
     getPages() {
       // console.log('頁數');
       const vm = this;
-      const url = `${process.env.APIPATH}/Counter/TotalPage`;
+      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${
+        this.filterMenu.type
+      }&status=${this.filterMenu.status}`;
       this.$http.get(url).then(response => {
-        // console.log(response.data);
-        let pages = response.data;
-        let arr = [];
-        for (let i = 1; i <= pages; i++) {
-          arr.push(i);
-        }
-        this.pages.pageArr = arr;
-        this.pages.sum = pages;
+        this.pages.sum = response.data;
       });
-    },
-    lastPage() {
-      if (this.pages.curPage > 1) {
-        this.pages.curPage -= 1;
-      }
-    },
-    nextPage() {
-      if (this.pages.curPage < this.pages.sum) {
-        this.pages.curPage += 1;
-      }
     },
     getFullTime(time) {
       const date = new Date(time);
