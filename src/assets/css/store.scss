@@ -10,7 +10,7 @@ p {
 }
 
 .num {
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
 }
 
 .main {
@@ -29,11 +29,11 @@ p {
   justify-content: space-between;
   width: 80px;
   align-items: center;
-  padding: 2rem 0 ;
+  padding: 2rem 0;
 
   a.menu_btn {
     @include animation;
-    background: rgba(255, 255, 255, 0.20);
+    background: rgba(255, 255, 255, 0.2);
     color: #fff;
     font-size: 1rem;
     display: block;
@@ -73,38 +73,39 @@ p {
         filter: none;
       }
     }
-
-
   }
-  .menu_sm,.menu_lg {
+
+  .menu_sm,
+  .menu_lg {
     width: 100%;
   }
+
   .menu_lg {
     margin: auto;
   }
+
   .menu_sm {
     a.menu_btn {
-      font-size: .5rem;
+      font-size: 0.5rem;
       writing-mode: horizontal-tb;
       letter-spacing: 0;
+
       h3 {
         margin-top: 5px;
       }
     }
-
   }
 }
 
-
 .content {
   width: 65%;
-  background: #F5F5F5;
+  background: #f5f5f5;
   display: flex;
   flex-direction: column;
 
   .order {
     height: 100%;
-    padding: 1rem .7rem;
+    padding: 1rem 0.7rem;
     display: flex;
     flex-direction: column;
 
@@ -121,7 +122,7 @@ p {
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
       bottom: 0;
       overflow: hidden;
       border: 3px solid rgba(255, 255, 255, 0);
@@ -136,7 +137,6 @@ p {
           line-height: 1.3;
         }
 
-
         p {
           display: inline-block;
           font-weight: bold;
@@ -149,7 +149,7 @@ p {
           border-bottom: 1px solid rgb(230, 230, 230);
           font-size: 1.2rem;
           background-color: $color_default;
-          padding: .5rem 0.75rem;
+          padding: 0.5rem 0.75rem;
 
           &::before {
             content: "";
@@ -204,8 +204,6 @@ p {
             content: "\e696";
           }
         }
-
-
       }
 
       //已取消
@@ -217,7 +215,6 @@ p {
             content: "\e661";
           }
         }
-
       }
 
       //已結束
@@ -233,7 +230,7 @@ p {
 
       // 邊線
       &.active {
-        bottom: .5rem;
+        bottom: 0.5rem;
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
 
         &.prepare {
@@ -280,7 +277,7 @@ p {
 
     li {
       width: 100%;
-      padding: .7rem;
+      padding: 0.7rem;
 
       &.active {
         border-bottom: 2px solid $color_default;
@@ -301,10 +298,10 @@ p {
   .title {
     h2 {
       span {
-        font-family: 'Roboto Mono', monospace;
+        font-family: "Roboto Mono", monospace;
       }
 
-      padding: .7rem;
+      padding: 0.7rem;
       background: $color_default;
       color: #fff;
       text-align: center;
@@ -313,7 +310,7 @@ p {
   }
 
   .customer {
-    padding: .75rem;
+    padding: 0.75rem;
     position: relative;
 
     .all_done {
@@ -321,7 +318,7 @@ p {
       position: absolute;
       right: 1rem;
       bottom: 0;
-      padding: .5rem .75rem;
+      padding: 0.5rem 0.75rem;
       background: #fff;
       color: $color_default;
       box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
@@ -351,15 +348,15 @@ p {
   .order_info {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     height: 60%;
-    padding: .25rem .75rem;
+    padding: 0.25rem 0.75rem;
     overflow-y: scroll;
     position: relative;
     z-index: 9;
 
     .cart_list {
       .item {
-        padding: .25rem .5rem;
-        margin-bottom: .25rem;
+        padding: 0.25rem 0.5rem;
+        margin-bottom: 0.25rem;
         box-shadow: none;
         border-bottom: 1px solid #eee;
         align-items: center;
@@ -376,7 +373,7 @@ p {
           overflow: hidden;
 
           &::before {
-            content: '';
+            content: "";
             position: absolute;
             left: 0;
             top: 0;
@@ -412,7 +409,7 @@ p {
 
         &.done {
           .p_info {
-            opacity: .5;
+            opacity: 0.5;
           }
 
           .p_img {
@@ -433,7 +430,7 @@ p {
       }
 
       .p_info {
-        padding: .5rem;
+        padding: 0.5rem;
 
         .p_name {
           font-size: 0.9rem;
@@ -448,10 +445,10 @@ p {
   }
 
   .total {
-    padding: .75rem 1rem;
+    padding: 0.75rem 1rem;
 
     ul {
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
     }
 
     li {
@@ -479,7 +476,7 @@ p {
 
       .btn {
         width: 100%;
-        padding: .25rem 0;
+        padding: 0.25rem 0;
 
         &.btn_gray {
           background: transparent;
@@ -529,6 +526,8 @@ p {
       color: rgb(187, 187, 187);
       cursor: default;
       box-shadow: none;
+      pointer-events: none;
+      cursor: default;
     }
   }
 }
@@ -536,7 +535,6 @@ p {
 // 廚房端
 .kitchen {
   font-size: 18px;
-
 }
 
 .kitchen_list {
@@ -561,7 +559,7 @@ p {
       background: #fff;
 
       .title {
-        padding: 0.75rem .5rem;
+        padding: 0.75rem 0.5rem;
         display: flex;
         justify-content: space-between;
         font-size: 1.3rem;
@@ -575,7 +573,7 @@ p {
         }
 
         span {
-          font-family: 'Roboto Mono', monospace;
+          font-family: "Roboto Mono", monospace;
           color: #000;
         }
       }
@@ -591,7 +589,7 @@ p {
 
         li {
           border-bottom: 2px solid rgb(216, 216, 216);
-          padding: .5rem .5rem .25rem .5rem;
+          padding: 0.5rem 0.5rem 0.25rem 0.5rem;
 
           h4 {
             font-size: 1.1rem;
@@ -604,14 +602,14 @@ p {
             background: $color_default;
             color: #fff;
             font-weight: bold;
-            padding: 0.15rem .5rem;
+            padding: 0.15rem 0.5rem;
             margin-right: 0.25rem;
             margin-bottom: 0.25rem;
             border-radius: 3px;
           }
 
           &.done {
-            opacity: .4;
+            opacity: 0.4;
           }
         }
       }
@@ -639,13 +637,13 @@ p {
         line-height: 2.3rem;
         font-size: 1.2rem;
         font-weight: bold;
-        border: 2px solid #4B605E;
+        border: 2px solid #4b605e;
         box-shadow: none;
-        color: #4B605E;
+        color: #4b605e;
 
         &.active,
         &:hover {
-          background: #4B605E;
+          background: #4b605e;
           color: #fff;
         }
       }

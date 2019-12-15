@@ -3172,7 +3172,7 @@ p {
   margin-bottom: 0; }
 
 .num {
-  font-family: 'Roboto Mono', monospace; }
+  font-family: "Roboto Mono", monospace; }
 
 .main {
   display: -webkit-box;
@@ -3241,12 +3241,13 @@ p {
       .menu a.menu_btn.active img, .menu a.menu_btn:hover img {
         -webkit-filter: none;
         filter: none; }
-  .menu .menu_sm, .menu .menu_lg {
+  .menu .menu_sm,
+  .menu .menu_lg {
     width: 100%; }
   .menu .menu_lg {
     margin: auto; }
   .menu .menu_sm a.menu_btn {
-    font-size: .5rem;
+    font-size: 0.5rem;
     -webkit-writing-mode: horizontal-tb;
     -ms-writing-mode: lr-tb;
     writing-mode: horizontal-tb;
@@ -3256,7 +3257,7 @@ p {
 
 .content {
   width: 65%;
-  background: #F5F5F5;
+  background: #f5f5f5;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3266,7 +3267,7 @@ p {
   flex-direction: column; }
   .content .order {
     height: 100%;
-    padding: 1rem .7rem;
+    padding: 1rem 0.7rem;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3288,7 +3289,7 @@ p {
       border-radius: 15px;
       -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
       bottom: 0;
       overflow: hidden;
       border: 3px solid rgba(255, 255, 255, 0); }
@@ -3308,7 +3309,7 @@ p {
         border-bottom: 1px solid #e6e6e6;
         font-size: 1.2rem;
         background-color: #72BCB3;
-        padding: .5rem 0.75rem; }
+        padding: 0.5rem 0.75rem; }
         .content .order .item .info h3::before {
           content: "";
           position: absolute;
@@ -3352,7 +3353,7 @@ p {
         .content .order .item.paid .info h3::before {
           content: "\e6c1"; }
       .content .order .item.active {
-        bottom: .5rem;
+        bottom: 0.5rem;
         -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25); }
         .content .order .item.active.prepare {
@@ -3385,7 +3386,7 @@ p {
     text-align: center; }
     .status ul li {
       width: 100%;
-      padding: .7rem; }
+      padding: 0.7rem; }
       .status ul li.active {
         border-bottom: 2px solid #72BCB3;
         color: #72BCB3;
@@ -3403,15 +3404,15 @@ p {
   flex-direction: column;
   overflow: hidden; }
   .detail .title h2 {
-    padding: .7rem;
+    padding: 0.7rem;
     background: #72BCB3;
     color: #fff;
     text-align: center;
     font-weight: bold; }
     .detail .title h2 span {
-      font-family: 'Roboto Mono', monospace; }
+      font-family: "Roboto Mono", monospace; }
   .detail .customer {
-    padding: .75rem;
+    padding: 0.75rem;
     position: relative; }
     .detail .customer .all_done {
       -webkit-transition: .3s ease;
@@ -3420,7 +3421,7 @@ p {
       position: absolute;
       right: 1rem;
       bottom: 0;
-      padding: .5rem .75rem;
+      padding: 0.5rem 0.75rem;
       background: #fff;
       color: #72BCB3;
       -webkit-box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
@@ -3443,13 +3444,13 @@ p {
     -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     height: 60%;
-    padding: .25rem .75rem;
+    padding: 0.25rem 0.75rem;
     overflow-y: scroll;
     position: relative;
     z-index: 9; }
     .detail .order_info .cart_list .item {
-      padding: .25rem .5rem;
-      margin-bottom: .25rem;
+      padding: 0.25rem 0.5rem;
+      margin-bottom: 0.25rem;
       -webkit-box-shadow: none;
       box-shadow: none;
       border-bottom: 1px solid #eee;
@@ -3466,7 +3467,7 @@ p {
         flex-shrink: 0;
         overflow: hidden; }
         .detail .order_info .cart_list .item .p_img::before {
-          content: '';
+          content: "";
           position: absolute;
           left: 0;
           top: 0;
@@ -3495,7 +3496,7 @@ p {
         .detail .order_info .cart_list .item.ready .p_info .p_name h3 {
           color: #F77878; }
       .detail .order_info .cart_list .item.done .p_info {
-        opacity: .5; }
+        opacity: 0.5; }
       .detail .order_info .cart_list .item.done .p_img::before {
         content: "\e6c1";
         background: rgba(114, 188, 179, 0.8); }
@@ -3508,16 +3509,16 @@ p {
         color: #000;
         padding-right: 0.5rem; }
     .detail .order_info .cart_list .p_info {
-      padding: .5rem; }
+      padding: 0.5rem; }
       .detail .order_info .cart_list .p_info .p_name {
         font-size: 0.9rem;
         font-weight: bold; }
       .detail .order_info .cart_list .p_info .p_choose {
         font-size: 0.9rem; }
   .detail .total {
-    padding: .75rem 1rem; }
+    padding: 0.75rem 1rem; }
     .detail .total ul {
-      margin-bottom: .5rem; }
+      margin-bottom: 0.5rem; }
     .detail .total li {
       display: -webkit-box;
       display: -ms-flexbox;
@@ -3544,7 +3545,7 @@ p {
       display: flex; }
       .detail .total .checkout .btn {
         width: 100%;
-        padding: .25rem 0; }
+        padding: 0.25rem 0; }
         .detail .total .checkout .btn.btn_gray {
           background: transparent;
           border: 2px solid #9B9B9B;
@@ -3588,7 +3589,9 @@ p {
       color: #bbbbbb;
       cursor: default;
       -webkit-box-shadow: none;
-      box-shadow: none; }
+      box-shadow: none;
+      pointer-events: none;
+      cursor: default; }
 
 .kitchen {
   font-size: 18px; }
@@ -3625,7 +3628,7 @@ p {
       margin-right: 1%;
       background: #fff; }
       .kitchen_list .order_list .item .title {
-        padding: 0.75rem .5rem;
+        padding: 0.75rem 0.5rem;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -3640,7 +3643,7 @@ p {
           color: #72BCB3;
           letter-spacing: 1px; }
         .kitchen_list .order_list .item .title span {
-          font-family: 'Roboto Mono', monospace;
+          font-family: "Roboto Mono", monospace;
           color: #000; }
       .kitchen_list .order_list .item.go .title h3 {
         color: #F77878; }
@@ -3648,7 +3651,7 @@ p {
         overflow-y: scroll; }
         .kitchen_list .order_list .item ul li {
           border-bottom: 2px solid #d8d8d8;
-          padding: .5rem .5rem .25rem .5rem; }
+          padding: 0.5rem 0.5rem 0.25rem 0.5rem; }
           .kitchen_list .order_list .item ul li h4 {
             font-size: 1.1rem;
             color: #000;
@@ -3658,12 +3661,12 @@ p {
             background: #72BCB3;
             color: #fff;
             font-weight: bold;
-            padding: 0.15rem .5rem;
+            padding: 0.15rem 0.5rem;
             margin-right: 0.25rem;
             margin-bottom: 0.25rem;
             border-radius: 3px; }
           .kitchen_list .order_list .item ul li.done {
-            opacity: .4; }
+            opacity: 0.4; }
       .kitchen_list .order_list .item .btn {
         margin-top: auto;
         border-radius: 0 0 10px 10px; }
@@ -3687,12 +3690,12 @@ p {
         line-height: 2.3rem;
         font-size: 1.2rem;
         font-weight: bold;
-        border: 2px solid #4B605E;
+        border: 2px solid #4b605e;
         -webkit-box-shadow: none;
         box-shadow: none;
-        color: #4B605E; }
+        color: #4b605e; }
         .kitchen_list footer .pages span.active, .kitchen_list footer .pages span:hover {
-          background: #4B605E;
+          background: #4b605e;
           color: #fff; }
     .kitchen_list footer .thisTime {
       margin-left: auto;
