@@ -1,7 +1,7 @@
 <template>
   <div class="login_page">
     <div class="form_content">
-      <img class="mb-2" src="@/assets/img/logo_nav.png" alt>
+      <img class="mb-2" src="@/assets/img/logo.png" alt>
       <div class="form-group">
         <label class="sr-only" for="userName">帳號</label>
         <span class="iconfont icon-user"></span>
