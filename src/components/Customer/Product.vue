@@ -59,7 +59,9 @@
             @someSwiperEvent="swiper()"
           >
             <swiper-slide v-for="(item,index) in productDetail[0].Img" :key="index">
-              <img :src="ProductimgUrl+item" alt>
+              <div class="p_img_slier">
+                <img :src="ProductimgUrl+item" alt>
+              </div>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
@@ -211,6 +213,15 @@ export default {
       return this.$refs.mySwiper.swiper;
     }
   },
+  watch: {
+    ShowPopup: function() {
+      if (this.ShowPopup == true) {
+        document.querySelector("body").classList.add("overflow_hidden");
+      } else {
+        document.querySelector("body").classList.remove("overflow_hidden");
+      }
+    }
+  },
   props: ["isOpenFromCustomer"],
   methods: {
     getBanners() {
@@ -270,6 +281,20 @@ export default {
     },
     ClosePopup() {
       this.ShowPopup = false;
+      this.productDetail = {
+        0: {
+          Description: "",
+          Id: "",
+          Img: "",
+          Name: "",
+          PCid: "",
+          Price: "",
+          Slide1: "",
+          Slide2: "",
+          Slide3: "",
+          Slide4: ""
+        }
+      };
       this.Orders = {
         Qty: 1,
         Pid: "",
@@ -352,7 +377,6 @@ export default {
     this.getBanners();
     this.getProducts();
     this.getCategory();
-    this.getProductDetail(2, false);
     this.checkFooterCart();
     // console.log('是否為開放時間',this.isOpenFromCustomer);
   },

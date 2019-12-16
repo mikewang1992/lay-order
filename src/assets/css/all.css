@@ -90,6 +90,9 @@ body {
 .fz_md {
   font-size: 1rem !important; }
 
+.overflow_hidden {
+  overflow: hidden; }
+
 a {
   text-decoration: none;
   color: #72bcb3; }
@@ -3124,6 +3127,9 @@ body {
 .fz_md {
   font-size: 1rem !important; }
 
+.overflow_hidden {
+  overflow: hidden; }
+
 a {
   text-decoration: none;
   color: #72bcb3; }
@@ -3386,11 +3392,27 @@ h4 {
     position: relative;
     z-index: 9;
     border-radius: 8px;
-    background: #fff; }
-    .popup .p_slider img {
-      vertical-align: bottom;
-      border-radius: 8px;
-      width: 100%; }
+    height: 300px;
+    background-image: url(../img/load.png);
+    background-size: cover;
+    background-position: center; }
+    .popup .p_slider .p_img_slier {
+      height: 300px;
+      background: #bbbbbb; }
+      .popup .p_slider .p_img_slier img {
+        vertical-align: bottom;
+        border-radius: 8px;
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        -o-object-position: center;
+        object-position: center; }
+    @media (min-width: 576px) {
+      .popup .p_slider {
+        height: 400px; }
+        .popup .p_slider .p_img_slier {
+          height: 400px; } }
   .popup .popup_info {
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);

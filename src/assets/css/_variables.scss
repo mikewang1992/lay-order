@@ -58,7 +58,9 @@ $font_price: "'Ubuntu', sans-serif";
 .fz_md {
   font-size: 1rem !important;
 }
-
+.overflow_hidden {
+  overflow: hidden;
+}
 //bg
 @mixin bg_paper {
   background-image: url(../img/bg_papper.png);
