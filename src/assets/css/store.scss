@@ -74,22 +74,22 @@ p {
       }
     }
   }
-
   .menu_sm,
   .menu_lg {
     width: 100%;
   }
-
+  .menu_sm h3 {
+    width: 100%;
+    text-align: center;
+  }
   .menu_lg {
     margin: auto;
   }
-
   .menu_sm {
     a.menu_btn {
       font-size: 0.5rem;
       writing-mode: horizontal-tb;
       letter-spacing: 0;
-
       h3 {
         margin-top: 5px;
       }
@@ -526,8 +526,6 @@ p {
       color: rgb(187, 187, 187);
       cursor: default;
       box-shadow: none;
-      pointer-events: none;
-      cursor: default;
     }
   }
 }
@@ -578,14 +576,14 @@ p {
         }
       }
 
-      &.go {
+      &.togo {
         .title h3 {
           color: $color_red;
         }
       }
 
       ul {
-        overflow-y: scroll;
+        overflow-y: auto;
 
         li {
           border-bottom: 2px solid rgb(216, 216, 216);
@@ -606,6 +604,7 @@ p {
             margin-right: 0.25rem;
             margin-bottom: 0.25rem;
             border-radius: 3px;
+            font-size: .95rem;
           }
 
           &.done {
@@ -666,6 +665,9 @@ p {
   background-size: cover;
   background-position: center;
   text-align: center;
+  img {
+    width: 80%;
+  }
 
   .form_content {
     @include shadow;

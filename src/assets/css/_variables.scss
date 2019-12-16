@@ -19,18 +19,18 @@
 }
 
 body {
-  font-family: 'Noto Sans TC', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+  font-family: "Noto Sans TC", "微軟正黑體", "Microsoft JhengHei", sans-serif;
   font-weight: normal;
-  color: #8B8B8B;
+  color: #8b8b8b;
 }
 
-$color_default:#72BCB3;
-$color_light:#9B9B9B;
-$color_red:#F77878;
-$color_yellow:#F7D078;
-$color_green:#8BBC72;
-$font_en:"'Overpass', sans-serif";
-$font_price:"'Ubuntu', sans-serif";
+$color_default: #72bcb3;
+$color_light: #9b9b9b;
+$color_red: #f77878;
+$color_yellow: #f7d078;
+$color_green: #8bbc72;
+$font_en: "'Overpass', sans-serif";
+$font_price: "'Ubuntu', sans-serif";
 
 .text-left {
   text-align: left !important;
@@ -41,15 +41,18 @@ $font_price:"'Ubuntu', sans-serif";
 }
 
 .font_price {
-  font-family: 'Ubuntu', sans-serif !important;
+  font-family: "Ubuntu", sans-serif !important;
 }
 
 .font_en {
-  font-family: 'Overpass', sans-serif !important;
+  font-family: "Overpass", sans-serif !important;
 }
 
 .font_bold {
   font-weight: bold;
+}
+.font_lg {
+  font-size: 1.3rem;
 }
 
 .fz_md {
@@ -84,7 +87,7 @@ $font_price:"'Ubuntu', sans-serif";
 }
 
 @mixin animation {
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 @mixin icon_btn {
@@ -176,7 +179,8 @@ h4 {
   font-size: 1rem;
   line-height: 1.5;
   font-weight: bold;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   &.d-block {
     padding: 0.375rem 1rem;
@@ -300,7 +304,7 @@ h4 {
     border-radius: 15px;
     display: flex;
     background: #fff;
-    margin-bottom: .75rem;
+    margin-bottom: 0.75rem;
 
     &:hover {
       .iconfont {
@@ -308,7 +312,6 @@ h4 {
       }
     }
   }
-
 
   .p_img {
     width: 40%;
