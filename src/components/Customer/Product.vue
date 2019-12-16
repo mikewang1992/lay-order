@@ -82,11 +82,11 @@
                     class="form-check-input"
                     type="radio"
                     :name="item.name"
-                    :id="`inlineRadio${key+1}`"
+                    :id="`option1-${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[0]"
                   >
-                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
+                  <label :for="`option1-${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
               <div class="item" v-for="(item,key,index) in Sides.slice(1,2)" :key="index">
@@ -96,11 +96,11 @@
                     class="form-check-input"
                     type="radio"
                     :name="item.name"
-                    :id="`inlineRadio${key+1}`"
+                    :id="`inlineRadio2-${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[1]"
                   >
-                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
+                  <label :for="`inlineRadio2-${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
               <div class="item" v-for="(item,key,index) in Sides.slice(2,3)" :key="index">
@@ -110,11 +110,11 @@
                     class="form-check-input"
                     type="radio"
                     :name="item.name"
-                    :id="`inlineRadio${key+1}`"
+                    :id="`inlineRadio3-${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[2]"
                   >
-                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
+                  <label :for="`inlineRadio3-${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
               <div class="item" v-for="(item,key,index) in Sides.slice(3,4)" :key="index">
@@ -124,20 +124,20 @@
                     class="form-check-input"
                     type="radio"
                     :name="item.name"
-                    :id="`inlineRadio${key+1}`"
+                    :id="`inlineRadio4-${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[3]"
                   >
-                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
+                  <label :for="`inlineRadio4-${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
             </div>
           </div>
           <div class="popup_footer">
             <div class="btn btn_round btn_white count_box">
-              <a href="#" class="count_dis" @click="minusQty()">-</a>
+              <a href="#" class="count_dis" @click.prevent="minusQty()">-</a>
               <a href="#" class="count_num">{{Orders.Qty}}</a>
-              <a href="#" class="count_add" @click="addQty()">+</a>
+              <a href="#" class="count_add" @click.prevent="addQty()">+</a>
             </div>
             <a class="btn btn_round btn_default" @click.prevent="addToCart()">
               <span>${{productDetail[0].Price*Orders.Qty}}</span>｜加入點菜單
@@ -246,7 +246,7 @@ export default {
       const url = `${process.env.APIPATH}/Product/GetProductDetail/${Id}`;
       vm.ShowPopup = Show;
       this.$http.get(url).then(response => {
-        // console.log('產品細節',response);
+        console.log('產品細節',response);
         if (response.data[0]) {
           vm.Sides = [];
           vm.modalAppear = true;

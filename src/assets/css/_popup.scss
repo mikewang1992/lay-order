@@ -132,6 +132,7 @@
     h5 {
       margin: 0;
       margin-right: 0.75rem;
+      color: #444;
     }
 
     label {
@@ -144,6 +145,10 @@
     }
   }
 
-  @include desktop_sm {
+  @include desktop_md {
+    font-size: 18px;
+    .p_choose label {
+      font-size: 1.1rem;
+    }
   }
 }

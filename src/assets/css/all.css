@@ -3467,12 +3467,18 @@ h4 {
     margin-bottom: 0.5rem; }
   .popup .p_choose h5 {
     margin: 0;
-    margin-right: 0.75rem; }
+    margin-right: 0.75rem;
+    color: #444; }
   .popup .p_choose label {
     vertical-align: middle;
     font-size: 0.9rem; }
   .popup .p_choose .form-check {
     margin-right: 0.5rem; }
+  @media (min-width: 768px) {
+    .popup {
+      font-size: 18px; }
+      .popup .p_choose label {
+        font-size: 1.1rem; } }
 
 .sr-only {
   position: absolute;
