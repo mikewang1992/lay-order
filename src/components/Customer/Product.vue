@@ -72,20 +72,6 @@
               <p>{{productDetail[0].Description}}</p>
             </div>
             <div class="p_choose">
-              <!-- <div class="item" v-for="(item,key,index) in Sides" :key="index">
-                <h5>{{item.name}}</h5>
-                <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    :name="item.name"
-                    :id="`inlineRadio${key+1}`"
-                    :value="inneritem"
-                    v-model="Orders.Options"
-                  />
-                  <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
-                </div>
-              </div>-->
               <div class="item" v-for="(item,key,index) in Sides.slice(0,1)" :key="index">
                 <h5>{{item.name}}</h5>
                 <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
@@ -142,51 +128,6 @@
                   <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
-              <!-- <div class="item" v-if="productDetail[0].Sides2">
-                <h5>{{productDetail[0].Sides2}}</h5>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio3" value />
-                  <label for="inlineRadio3">微糖</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio4" value />
-                  <label for="inlineRadio4">少糖</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio5" value />
-                  <label for="inlineRadio5">半糖</label>
-                </div>
-              </div>
-              <div class="item" v-if="productDetail[0].Sides3">
-                <h5>{{productDetail[0].Sides3}}</h5>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio3" value />
-                  <label for="inlineRadio3">微糖</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio4" value />
-                  <label for="inlineRadio4">少糖</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio5" value />
-                  <label for="inlineRadio5">半糖</label>
-                </div>
-              </div>
-              <div class="item" v-if="productDetail[0].Sides4">
-                <h5>{{productDetail[0].Sides4}}</h5>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio3" value />
-                  <label for="inlineRadio3">微糖</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio4" value />
-                  <label for="inlineRadio4">少糖</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sugar" id="inlineRadio5" value />
-                  <label for="inlineRadio5">半糖</label>
-                </div>
-              </div>-->
             </div>
           </div>
           <div class="popup_footer">
