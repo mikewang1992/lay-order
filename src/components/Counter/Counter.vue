@@ -122,7 +122,7 @@
           <span
             class="iconfont page_last icon-fanhui"
             :class="{'none':pages.curPage==1}"
-            @click="pages.curPage-=1"
+            @click="pages.curPage-=1,getProduct(filterMenu.type, filterMenu.status, pages.curPage)"
           ></span>
 
           <span
@@ -130,13 +130,13 @@
             v-for="item in pages.sum"
             :key="item"
             :class="{'active':item == pages.curPage}"
-            @click="pages.curPage = item"
+            @click="pages.curPage = item,getProduct(filterMenu.type, filterMenu.status, pages.curPage)"
           >{{item}}</span>
 
           <span
             class="iconfont page_next icon-youjiantou"
             :class="{'none':pages.curPage==pages.sum}"
-            @click="pages.curPage+=1"
+            @click="pages.curPage+=1,getProduct(filterMenu.type, filterMenu.status, pages.curPage)"
           ></span>
         </div>
       </div>
@@ -193,7 +193,7 @@
             >
               <div class="p_img" :id="item.pid">
                 <img
-                  :src="'https://lay-order.rocket-coding.com/Img/product/'+getImg(item.img)"
+                  :src="'https://lay-order.rocket-coding.com/Img/product/'+item.img[0]"
                   :key="item.pid"
                 >
               </div>
@@ -275,12 +275,8 @@ export default {
       const newTime = `${date.getHours()}:${m}`;
       return newTime;
     },
-    getImg(imgArr) {
-      const firstImg = imgArr.split(",")[0];
-      return firstImg;
-    },
     getPages() {
-      // console.log('頁數');
+      console.log('頁數');
       const vm = this;
       const url = `${process.env.APIPATH}/Counter/TotalPage?type=${
         this.filterMenu.type
@@ -336,6 +332,7 @@ export default {
             title: "此訂單全數出餐完成"
           });
           this.showDetail(id);
+          this.getProduct(this.filterMenu.type, this.filterMenu.status);
         });
     },
     cancelOrder() {
@@ -385,7 +382,7 @@ export default {
       });
     },
     itemDelivered(Oid, Pid) {
-      // console.log('單品送餐');
+      console.log('單品送餐');
       this.$http
         .get(
           `${process.env.APIPATH}/Counter/ItemDelivered?Oid=${Oid}&id=${Pid}`
