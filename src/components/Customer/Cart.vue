@@ -11,7 +11,7 @@
           <ul>
             <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
               <div class="p_img">
-                <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img}`" alt />
+                <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
               </div>
               <div class="p_info">
                 <div class="p_name">
@@ -296,18 +296,23 @@ export default {
     },
     CreateOrder() {
       const vm = this;
-      const url = `${process.env.APIPATH}/Accounts/Create`;
+      const url = `${process.env.APIPATH}/Order/Create`;
       const data = [];
       for (let i = 0; i < vm.CartFromProduct.length; i++) {
         const predata = {
-          Pid: vm.CartFromProduct[i].Pid,
+          Pid: vm.CartFromProduct[i].Pid.toString(),
           Options: vm.CartFromProduct[i].Options,
-          Qty: vm.CartFromProduct[i].Qty,
+          Qty: vm.CartFromProduct[i].Qty.toString(),
           time: this.getFullTime(Date.now())
         };
-        // for (let j = 0; j < vm.CartFromProduct[i].Options.length; j++) {
-        //   console.log("count" + j);
-        // }
+        let str = "";
+        for (let j = 0; j < vm.CartFromProduct[i].Options.length; j++) {
+          str = str + vm.CartFromProduct[i].Options[j] + ",";
+        }
+        if (str.substr(-1) === ",") {
+          str = str.substring(0, str.length - 1);
+        }
+        predata.Options = str;
         data.push(predata);
       }
       console.log(data);

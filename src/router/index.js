@@ -29,86 +29,86 @@ Vue.use(Router)
 
 export default new Router({
     routes: [{
-            path: '*',
-            redirect: '/',
+        path: '*',
+        redirect: '/',
+    },
+    {
+        path: '/',
+        name: 'Customer',
+        component: Customer,
+        children: [{
+            path: '/',
+            name: 'Product',
+            component: Product
         },
         {
-            path: '/',
-            name: 'Customer',
-            component: Customer,
+            path: '/Cart',
+            name: 'Cart',
+            component: Cart,
             children: [{
-                    path: '/',
-                    name: 'Product',
-                    component: Product
-                },
-                {
-                    path: '/Cart',
-                    name: 'Cart',
-                    component: Cart,
-                    children: [{
-                            path: '/Cart/ResultIn',
-                            name: 'ResultIn',
-                            component: ResultIn
-                        },
-                        {
-                            path: '/Cart/ResultOut',
-                            name: 'ResultOut',
-                            component: ResultOut
-                        }
-                    ]
-                },
-                {
-                    path: '/Order',
-                    name: 'Order',
-                    component: Order,
-                    children: [{
-                        path: '/Order/OrderInfo',
-                        name: 'OrderInfo',
-                        component: OrderInfo
-                    }]
-                },
-                {
-                    path: '/register',
-                    name: 'Register',
-                    component: Register
-                },
-                {
-                    path: '/login',
-                    name: 'Login',
-                    component: Login
-                },
-                {
-                    path: '/member',
-                    name: 'Member',
-                    component: Member,
-                    meta: {
-                        requiresLogin: true
-                    }
-                },
-                {
-                    path: '/coupon',
-                    name: 'MemberCoupon',
-                    component: MemberCoupon,
-                    meta: {
-                        requiresLogin: true
-                    }
-                },
+                path: '/Cart/ResultIn',
+                name: 'ResultIn',
+                component: ResultIn
+            },
+            {
+                path: '/Cart/ResultOut',
+                name: 'ResultOut',
+                component: ResultOut
+            }
             ]
         },
         {
-            path: '/counter',
-            name: 'Counter',
-            component: Counter
+            path: '/Order',
+            name: 'Order',
+            component: Order,
+            // children: [{
+            //     path: '/Order/OrderInfo',
+            //     name: 'OrderInfo',
+            //     component: OrderInfo
+            // }]
         },
         {
-            path: '/kitchen',
-            name: 'Kitchen',
-            component: Kitchen
+            path: '/register',
+            name: 'Register',
+            component: Register
         },
         {
-            path: '/employeeLogin',
-            name: 'EmployeeLogin',
-            component: EmployeeLogin
+            path: '/login',
+            name: 'Login',
+            component: Login
         },
+        {
+            path: '/member',
+            name: 'Member',
+            component: Member,
+            meta: {
+                requiresLogin: true
+            }
+        },
+        {
+            path: '/coupon',
+            name: 'MemberCoupon',
+            component: MemberCoupon,
+            meta: {
+                requiresLogin: true
+            }
+        },
+        ]
+    },
+    {
+        path: '/counter',
+        name: 'Counter',
+        component: Counter
+    },
+    {
+        path: '/kitchen',
+        name: 'Kitchen',
+        component: Kitchen
+    },
+    {
+        path: '/employeeLogin',
+        name: 'EmployeeLogin',
+        component: EmployeeLogin
+    },
     ]
 })

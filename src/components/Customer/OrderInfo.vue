@@ -2,7 +2,8 @@
   <div class="page">
     <div class="main pb-2">
       <header>
-        <router-link to="/Order" class="icon iconfont icon-left"></router-link>
+        <a href class="icon iconfont icon-left" @click.prevent="goback()"></a>
+        <!-- <router-link to="/Order" class="icon iconfont icon-left"></router-link> -->
         <h1>訂單詳情</h1>
       </header>
       <div class="content">
@@ -118,12 +119,15 @@ export default {
       }
       const newTime = `${date.getHours()}:${m}`;
       return newTime;
+    },
+    goback() {
+      this.$emit("passevent");
     }
   },
   created() {
     console.log(this.IdFromOrder);
-    this.ShowOrderDetail(this.IdFromOrder);
     this.ShowOrderSummary(this.IdFromOrder);
+    this.ShowOrderDetail(this.IdFromOrder);
   }
 };
 </script>

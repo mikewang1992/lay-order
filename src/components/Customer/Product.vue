@@ -59,20 +59,20 @@
             <a @click.prevent="getProducts()">全部</a>
           </swiper-slide>
           <swiper-slide v-for="(item,key,index) in categorys" :key="index">
-            <a @click.prevent="getProducts(item.Id)">{{item.PCName}}</a>
+            <a @click.prevent="getProducts(item.PCid)">{{item.PCName}}</a>
           </swiper-slide>
         </swiper>
         <!-- products -->
         <div class="product_list">
           <div
             class="col-lg-3 col-md-4 col-6 p-0"
-            @click.prevent="getProductDetail(item.Id)"
+            @click.prevent="getProductDetail(item.Pid)"
             v-for="(item,key,index) in products"
             :key="index"
           >
             <div class="item open_popup">
               <div class="p_image">
-                <img :src="ProductimgUrl+getImg(item.Img)" alt />
+                <img :src="ProductimgUrl+item.Img[0]" alt />
               </div>
               <div class="p_info">
                 <h3>{{item.Name}}</h3>
@@ -95,8 +95,8 @@
             ref="mySwiper"
             @someSwiperEvent="swiper()"
           >
-            <swiper-slide v-for="(item,key,index) in productDetail" :key="index">
-              <img :src="ProductimgUrl+getImg(item.Img)" alt />
+            <swiper-slide v-for="(item,index) in productDetail[0].Img" :key="index">
+              <img :src="ProductimgUrl+item" alt />
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
@@ -338,6 +338,7 @@ export default {
       return firstImg;
     },
     getProductDetail(Id, Show = true) {
+      console.log(Id);
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProductDetail/${Id}`;
       vm.ShowPopup = Show;
@@ -347,7 +348,7 @@ export default {
           vm.Sides = [];
           vm.modalAppear = true;
           vm.productDetail = response.data;
-          vm.Orders.Pid = vm.productDetail[0].Id;
+          vm.Orders.Pid = vm.productDetail[0].Pid;
           vm.Orders.Img = vm.productDetail[0].Img;
           vm.Orders.Name = vm.productDetail[0].Name;
           vm.Orders.Price = vm.productDetail[0].Price;
