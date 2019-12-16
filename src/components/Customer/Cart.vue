@@ -220,7 +220,7 @@ export default {
     getCart() {
       const totalcart = JSON.parse(localStorage.getItem("totalcart"));
       if (totalcart === null || totalcart.length === 0) {
-        alert("點菜單為空");
+        this.$swal("點菜單沒有東西唷", "", "warning");
         this.$router.push({ name: "Product" });
       }
       this.CartFromProduct = totalcart;
@@ -237,7 +237,7 @@ export default {
       console.log(data);
       this.$http.post(url, data, config).then(response => {
         console.log(response);
-        alert("驗證成功");
+        this.$swal("驗證成功", "", "success");
       });
     },
     getTime(time) {
@@ -322,7 +322,7 @@ export default {
       };
       this.$http.post(url, data, config).then(response => {
         console.log(response);
-        alert(response.data);
+        this.$swal(response.data, "", "info");
       });
     },
     addQty(item) {
@@ -332,7 +332,14 @@ export default {
       if (item.Qty > 1) {
         return item.Qty--;
       } else {
-        alert("刪除此商品:" + item.Name);
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          type: "success",
+          title: "你怎麼不要我了Q__Q"
+        });
         console.log(index);
         const totalcart = JSON.parse(localStorage.getItem("totalcart"));
         totalcart.splice(index, 1);
@@ -354,22 +361,22 @@ export default {
           this.$http.post(url, data, config).then(response => {
             console.log(response);
             if (response.data == "success") {
-              alert(response.data);
+              this.$swal("登入成功", "", "success");
               vm.ShowPopup = false;
               vm.CheckLogin();
             } else if (response.data == "此電話號碼尚未進行驗證") {
-              alert(response.data);
+              this.$swal("此電話號碼尚未進行驗證", "", "warning");
               vm.resendAppear = true;
             } else {
-              alert(response.data);
+              this.$swal(response.data, "", "info");
               this.$router.push({ name: "Register" });
             }
           });
         } else {
-          alert("請輸入正確手機格式");
+          this.$swal("請輸入正確手機格式", "", "warning");
         }
       } else {
-        alert("手機長度不符");
+        this.$swal("手機長度不符", "", "warning");
       }
     },
     ReSendSMS() {
@@ -378,9 +385,11 @@ export default {
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
         console.log(response);
-        alert(response.data);
         if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
           vm.vertifyAppear = true;
+          this.$swal("哇哩咧！", "已寄發3次驗證碼，請您再次確認電話是否正確", "warning");
+        }else {
+          this.$swal(response.data, "", "info");
         }
       });
     },
@@ -397,11 +406,11 @@ export default {
       this.$http.post(url, data, config).then(response => {
         console.log(response);
         if (response.data !== "驗證失敗，請重新輸入") {
-          alert("驗證成功");
+          this.$swal("驗證成功", "", "success");
           this.CheckLogin();
           resendAppear = false;
         } else {
-          alert("驗證失敗，請重新輸入");
+          this.$swal("驗證失敗，請重新輸入", "", "error");
         }
       });
     },
@@ -420,3 +429,9 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+footer ul {
+  display: none;
+}
+</style>
