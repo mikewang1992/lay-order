@@ -1,11 +1,11 @@
 <template>
-  <div class="main pb-2" v-if="!ShowOrderInfo">
+  <div class="main pb-2">
     <OrderInfo :IdFromOrder="Id" v-if="ShowOrderInfo" @passevent="takeevent"></OrderInfo>
     <!-- <router-view :IdFromOrder="Id" v-if="ShowOrderInfo"></router-view> -->
-    <header>
+    <header v-if="!ShowOrderInfo">
       <h1>訂單狀態</h1>
     </header>
-    <div class="content">
+    <div class="content" v-if="!ShowOrderInfo">
       <div class="cart_list status_list">
         <ul>
           <a v-for="(item,index) in OrderStatus" :key="index">
