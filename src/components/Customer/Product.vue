@@ -219,7 +219,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Banners/GetBanners`;
       this.$http.get(url).then(response => {
-        console.log(response);
+        console.log('所有banner',response);
         vm.banners = response.data;
       });
     },
@@ -227,7 +227,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProduct?PCid=${PCid}`;
       this.$http.get(url).then(response => {
-        console.log(response);
+        console.log('產品列表',response);
         vm.products = response.data;
       });
     },
@@ -241,12 +241,12 @@ export default {
       return firstImg;
     },
     getProductDetail(Id, Show = true) {
-      console.log(Id);
+      console.log('產品細節ID',Id);
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProductDetail/${Id}`;
       vm.ShowPopup = Show;
       this.$http.get(url).then(response => {
-        console.log(response);
+        console.log('產品細節',response);
         if (response.data[0]) {
           vm.Sides = [];
           vm.modalAppear = true;
@@ -293,7 +293,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetCategory`;
       this.$http.get(url).then(response => {
-        console.log(response);
+        console.log('分類列表',response);
         vm.categorys = response.data;
       });
     },
@@ -353,12 +353,10 @@ export default {
     this.getCategory();
     this.getProductDetail(2, false);
     this.checkFooterCart();
-    console.log(this.isOpenFromCustomer);
+    console.log('是否為開放時間',this.isOpenFromCustomer);
   },
   mounted() {
-    // current swiper instance
-    // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
-    console.log("this is current swiper instance object", this.swiper);
+    // console.log("查看所有 swiper 方法", this.swiper);
     this.swiper.slideTo(3, 1000, false);
   }
 };
