@@ -3604,7 +3604,7 @@ p {
       pointer-events: none; }
 
 .kitchen {
-  font-size: 18px; }
+  font-size: 16px; }
 
 .kitchen_list {
   display: -webkit-box;
@@ -3645,7 +3645,7 @@ p {
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
         justify-content: space-between;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: bold;
         border-bottom: 2px solid #eee;
         padding-bottom: 0.5rem; }
@@ -3692,23 +3692,17 @@ p {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    padding: 0 2rem; }
+    padding: 0 2rem;
+    height: 10%;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    font-size: 20px; }
     .kitchen_list footer .pages {
-      margin: 0 auto; }
-      .kitchen_list footer .pages span {
-        width: 2.5rem;
-        height: 2.5rem;
-        line-height: 2.3rem;
-        font-size: 1.2rem;
-        font-weight: bold;
-        border: 2px solid #4b605e;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        color: #4b605e; }
-        .kitchen_list footer .pages span.active, .kitchen_list footer .pages span:hover {
-          background: #4b605e;
-          color: #fff; }
+      margin: 0 auto;
+      width: 90%;
+      padding-left: 10%; }
     .kitchen_list footer .thisTime {
+      width: 10%;
       margin-left: auto;
       font-size: 1.2rem; }
 

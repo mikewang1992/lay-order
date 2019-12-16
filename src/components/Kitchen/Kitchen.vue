@@ -86,15 +86,29 @@
         </div>
       </div>
       <footer>
+        <!-- 分頁 -->
         <div class="pages">
-          <span class="iconfont icon-fanhui"></span>
-          <span class="active">1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
-          <span class="iconfont icon-youjiantou"></span>
+          <span
+            class="iconfont page_last icon-fanhui"
+            :class="{'none':pages.curPage==1}"
+            @click="pages.curPage-=1,getOrderList(filterMenu.type, filterMenu.status, pages.curPage)"
+          ></span>
+
+          <span
+            class="font_price"
+            v-for="item in pages.sum"
+            :key="item"
+            :class="{'active':item == pages.curPage}"
+            @click="pages.curPage = item,getOrderList(filterMenu.type, filterMenu.status, pages.curPage)"
+          >{{item}}</span>
+
+          <span
+            class="iconfont page_next icon-youjiantou"
+            :class="{'none':pages.curPage==pages.sum}"
+            @click="pages.curPage+=1,getOrderList(filterMenu.type, filterMenu.status, pages.curPage)"
+          ></span>
         </div>
+        <!-- 時間 -->
         <div class="thisTime">
           <span>11</span>
           <span>30</span>
@@ -112,12 +126,15 @@ export default {
         type: "",
         status: ""
       },
+      pages: {
+        curPage: 1,
+        sum: ""
+      },
       orderList: ""
     };
   },
   methods: {
     getOrderList(type, status, pages = "1") {
-      console.log("123");
       const vm = this;
       this.filterMenu.type = type;
       this.filterMenu.status = status;
@@ -126,9 +143,19 @@ export default {
       }/Kitchen/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
         vm.orderList = response.data;
-        console.log(response.data);
+        // console.log("產品列表", response.data);
+        if (response.data == "") {
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "info",
+            title: "本分類不前沒產品唷"
+          });
+        }
       });
-      // this.getPages();
+      this.getPages();
     },
     getTime(time) {
       const date = new Date(time);
@@ -138,10 +165,20 @@ export default {
       }
       const newTime = `${date.getHours()}:${m}`;
       return newTime;
+    },
+    getPages() {
+      // console.log("頁數");
+      const vm = this;
+      const url = `${process.env.APIPATH}/Kitchen/TotalPage?type=${
+        this.filterMenu.type
+      }&status=${this.filterMenu.status}`;
+      this.$http.get(url).then(response => {
+        this.pages.sum = response.data;
+      });
     }
   },
   created() {
-    this.getOrderList("forhere", "");
+    this.getOrderList("", "");
   }
 };
 </script>
