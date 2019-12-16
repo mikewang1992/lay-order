@@ -1,171 +1,106 @@
 <template>
-  <div class="page member">
-    <footer>
-      <ul>
-        <!-- <li :class="{'active':footerActive}"> -->
-        <li>
-          <router-link to="/">
-            <img src="@/assets/img/icon_footer01.png" alt />
-            <p>菜單</p>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/cart">
-            <img src="@/assets/img/icon_footer02.png" alt />
-            <p>
-              點菜單
-              <span v-if="footerNumber>0">:{{footerNumber}}項</span>
-            </p>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/order">
-            <img src="@/assets/img/icon_footer03.png" alt />
-            <p>訂單狀態</p>
-          </router-link>
-        </li>
-        <li class="active">
-          <router-link to="/member">
-            <img src="@/assets/img/icon_footer04.png" alt />
-            <p>會員資訊</p>
-          </router-link>
-        </li>
-      </ul>
-    </footer>
-    <div class="main col-md-6 col-xl-4">
-      <header>
-        <h1 class="title">會員資訊</h1>
-      </header>
-      <div class="content">
-        <div class="row mb-2">
-          <div class="col-sm-8 offset-sm-2">
-            <ul class="nav_group">
-              <li>
-                <router-link to="/coupon">我的優惠券</router-link>
-              </li>
-              <li>
-                <router-link to="/member" class="active">個人資訊</router-link>
-              </li>
-            </ul>
-          </div>
+  <div class="main col-md-6 col-xl-4">
+    <header>
+      <h1 class="title">會員資訊</h1>
+    </header>
+    <div class="content">
+      <div class="row mb-2">
+        <div class="col-sm-8 offset-sm-2">
+          <ul class="nav_group">
+            <li>
+              <router-link to="/coupon">我的優惠券</router-link>
+            </li>
+            <li>
+              <router-link to="/member" class="active">個人資訊</router-link>
+            </li>
+          </ul>
         </div>
-        <div class="row text-center">
-          <div class="ml-auto mr-auto mb-3">
-            <h2 class="mb-1">{{memberInfo.Tel}}</h2>
-            <small class="color_red">若需修改電話號碼，請重新註冊</small>
-          </div>
+      </div>
+      <div class="row text-center">
+        <div class="ml-auto mr-auto mb-3">
+          <h2 class="mb-1">{{memberInfo.Tel}}</h2>
+          <small class="color_red">若需修改電話號碼，請重新註冊</small>
+        </div>
 
-          <div class="col-sm-8 offset-sm-2">
-            <div class="form-group">
-              <label class="sr-only" for="phone">電話</label>
-              <span class="iconfont icon-Mobile"></span>
-              <input
-                class="form-control"
-                type="text"
-                id
-                placeholder="電話"
-                v-model="memberInfo.Tel"
-                autocomplete="off"
-                disabled
-              />
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="phone">姓名</label>
-              <span class="iconfont icon-user"></span>
-              <input
-                class="form-control"
-                type="text"
-                id
-                placeholder="姓名"
-                v-model="memberInfo.Name"
-                autocomplete="off"
-              />
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="phone">居住地</label>
-              <span class="iconfont icon-location"></span>
-              <div class="d-flex">
-                <select
-                  class="form-control mr-1"
-                  name
-                  id
-                  v-model="memberInfo.County"
-                  @change="getTown(memberInfo.County)"
-                >
-                  <option :value="memberInfo.County" hidden selected>{{memberInfo.County}}</option>
-                  <option v-for="(item,key,index) in Counties" :key="index" :value="item">{{item}}</option>
-                </select>
-                <select class="form-control" name id v-model="memberInfo.Dist">
-                  <option :value="memberInfo.Dist" hidden selected>{{memberInfo.Dist}}</option>
-                  <option v-for="(item,key,index) in TownShips" :key="index" :value="item">{{item}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="phone">生日</label>
-              <span class="iconfont icon-birthday-cake"></span>
-              <input
-                class="form-control"
-                type="date"
-                id="inputDate"
-                placeholder="生日"
-                autocomplete="off"
-                v-model="memberInfo.Birth"
-              />
-            </div>
-            <div class="form-group mb-4">
-              <label class="sr-only" for="phone">密碼</label>
-              <span class="iconfont icon-lock"></span>
-              <input
-                class="form-control"
-                type="password"
-                id
-                placeholder="密碼"
-                autocomplete="off"
-                v-model="memberInfo.NewPassword"
-              />
-            </div>
-            <a href="#" class="btn btn_default mb-2" @click.prevent="editMemberInfo">修改</a>
-            <br />
-            <small>
-              <a href="login.html" class="color_gray">登出</a>
-            </small>
+        <div class="col-sm-8 offset-sm-2">
+          <div class="form-group">
+            <label class="sr-only" for="phone">電話</label>
+            <span class="iconfont icon-Mobile"></span>
+            <input
+              class="form-control"
+              type="text"
+              id
+              placeholder="電話"
+              v-model="memberInfo.Tel"
+              autocomplete="off"
+              disabled
+            >
           </div>
+          <div class="form-group">
+            <label class="sr-only" for="phone">姓名</label>
+            <span class="iconfont icon-user"></span>
+            <input
+              class="form-control"
+              type="text"
+              id
+              placeholder="姓名"
+              v-model="memberInfo.Name"
+              autocomplete="off"
+            >
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="phone">居住地</label>
+            <span class="iconfont icon-location"></span>
+            <div class="d-flex">
+              <select
+                class="form-control mr-1"
+                name
+                id
+                v-model="memberInfo.County"
+                @change="getTown(memberInfo.County)"
+              >
+                <option :value="memberInfo.County" hidden selected>{{memberInfo.County}}</option>
+                <option v-for="(item,key,index) in Counties" :key="index" :value="item">{{item}}</option>
+              </select>
+              <select class="form-control" name id v-model="memberInfo.Dist">
+                <option :value="memberInfo.Dist" hidden selected>{{memberInfo.Dist}}</option>
+                <option v-for="(item,key,index) in TownShips" :key="index" :value="item">{{item}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="phone">生日</label>
+            <span class="iconfont icon-birthday-cake"></span>
+            <input
+              class="form-control"
+              type="date"
+              id="inputDate"
+              placeholder="生日"
+              autocomplete="off"
+              v-model="memberInfo.Birth"
+            >
+          </div>
+          <div class="form-group mb-4">
+            <label class="sr-only" for="phone">密碼</label>
+            <span class="iconfont icon-lock"></span>
+            <input
+              class="form-control"
+              type="password"
+              id
+              placeholder="密碼"
+              autocomplete="off"
+              v-model="memberInfo.NewPassword"
+            >
+          </div>
+          <a href="#" class="btn btn_default mb-2" @click.prevent="editMemberInfo">修改</a>
+          <br>
+          <small>
+            <a href="login.html" class="color_gray">登出</a>
+          </small>
         </div>
       </div>
     </div>
   </div>
-  <!--Mike 
-    <div>
-    <h1>Member</h1>
-    <ul>
-      <li>
-        Tel:
-        <input type="text" placeholder="Tel" v-model="memberInfo.Tel" required />
-      </li>
-      <li>
-        Name:
-        <input type="text" placeholder="Name" v-model="memberInfo.Name" />
-      </li>
-      <li>
-        Birth:
-        <input type="text" placeholder="Birth" v-model="memberInfo.Birth" />
-      </li>
-      <li>
-        City:
-        <input type="text" placeholder="City" v-model="memberInfo.City" />
-      </li>
-      <li>
-        Dist:
-        <input type="text" placeholder="Dist" v-model="memberInfo.Dist" />
-      </li>
-      <li>
-        NewPassword:
-        <input type="text" placeholder="NewPassword" v-model="memberInfo.NewPassword" />
-      </li>
-    </ul>
-    <button @click.prevent="editMemberInfo">23.Edit修改會員資料</button>
-  </div>-->
 </template>
 
 <script>
