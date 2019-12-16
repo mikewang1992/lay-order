@@ -76,12 +76,17 @@
             <span class="time">{{getTime(item.gettime)}}</span>
           </div>
           <ul>
-            <li v-for="(pItem,key,index) in item.product" :class="pItem.status" :key="index" @click="completeOrderItem(item.orderid,pItem.Id)">
+            <li
+              v-for="(pItem,key,index) in item.product"
+              :class="{'done':pItem.status == 'done'}"
+              :key="index"
+              @click="completeOrderItem(item.orderid,pItem.Id)"
+            >
               <h4>{{pItem.ProductName}}</h4>
               <span class="label">{{pItem.option}}</span>
             </li>
           </ul>
-          <a href="#" class="btn btn_green btn_lg">準備完成</a>
+          <a href="#" class="btn btn_green btn_lg" v-if="filterMenu.status !== 'cancel'" v-show="filterMenu.status !== 'paid'" @click="completeOrder(item.orderid)">準備完成</a>
         </div>
       </div>
       <footer>
@@ -130,7 +135,7 @@ export default {
         sum: ""
       },
       orderList: "",
-      thisOrderId:''
+      thisOrderId: ""
     };
   },
   methods: {
@@ -151,7 +156,7 @@ export default {
             showConfirmButton: false,
             timer: 3000,
             type: "info",
-            title: "本分類不前沒產品唷"
+            title: "本分類目前沒產品唷"
           });
         }
       });
@@ -176,27 +181,47 @@ export default {
         this.pages.sum = response.data;
       });
     },
-    completeOrderItem(Oid,Pid) {
-      console.log("單品備餐：",'產品ID',Oid,'產品ID',Pid);
-      // this.$http
-      //   .get(
-      //     `${
-      //       process.env.APIPATH
-      //     }/Kitchen/CompleteOrderItem?Oid=${Oid}&id=${Pid}`
-      //   )
-      //   .then(response => {
-      //     console.log(response.data);
-      //     this.$swal({
-      //       toast: true,
-      //       position: "top-end",
-      //       showConfirmButton: false,
-      //       timer: 3000,
-      //       type: "success",
-      //       title: "出餐完成"
-      //     });
-      //     this.getProduct(this.filterMenu.type, this.filterMenu.status);
-      //     this.showDetail(Oid);
-      //   });
+    completeOrderItem(Oid, Pid) {
+      console.log("單品備餐：", "產品ID", Oid, "產品ID", Pid);
+      this.$http
+        .get(
+          `${
+            process.env.APIPATH
+          }/Kitchen/CompleteOrderItem?Oid=${Oid}&id=${Pid}`
+        )
+        .then(response => {
+          console.log(response.data);
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "success",
+            title: "本產品備餐完成"
+          });
+          this.getOrderList(this.filterMenu.type, this.filterMenu.status);
+        });
+    },
+    completeOrder(Oid) {
+      console.log("整單備餐完成：",Oid);
+      this.$http
+        .get(
+          `${
+            process.env.APIPATH
+          }/Kitchen/CompleteOrder/${Oid}`
+        )
+        .then(response => {
+          console.log(response.data);
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "success",
+            title: "本產品備餐完成"
+          });
+          this.getOrderList(this.filterMenu.type, this.filterMenu.status);
+        });
     }
   },
   created() {
