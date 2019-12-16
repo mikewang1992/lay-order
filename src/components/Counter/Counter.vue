@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <!-- 左選單 -->
     <div class="menu">
       <div class="menu_lg">
         <a
@@ -42,6 +43,7 @@
         </a>
       </div>
     </div>
+    <!-- 產品列表 content -->
     <div class="content">
       <!-- 狀態篩選 -->
       <div class="status">
@@ -139,6 +141,7 @@
         </div>
       </div>
     </div>
+    <!-- 訂單資訊 content -->
     <div class="detail">
       <!-- 詳情標題 -->
       <div class="title">
