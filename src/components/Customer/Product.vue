@@ -240,15 +240,6 @@ export default {
         vm.products = response.data;
       });
     },
-    getImg(imgArr) {
-      const firstImg = imgArr.split(",")[0];
-      return firstImg;
-    },
-    getImgFull(imgArr) {
-      imgArr = [];
-      const firstImg = imgArr.split(",")[0];
-      return firstImg;
-    },
     getProductDetail(Id, Show = true) {
       // console.log('產品細節ID',Id);
       const vm = this;
