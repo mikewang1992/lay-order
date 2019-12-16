@@ -227,7 +227,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProduct?PCid=${PCid}`;
       this.$http.get(url).then(response => {
-        console.log('產品列表',response);
+        // console.log('產品列表',response);
         vm.products = response.data;
       });
     },
@@ -241,12 +241,12 @@ export default {
       return firstImg;
     },
     getProductDetail(Id, Show = true) {
-      console.log('產品細節ID',Id);
+      // console.log('產品細節ID',Id);
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProductDetail/${Id}`;
       vm.ShowPopup = Show;
       this.$http.get(url).then(response => {
-        console.log('產品細節',response);
+        // console.log('產品細節',response);
         if (response.data[0]) {
           vm.Sides = [];
           vm.modalAppear = true;
@@ -284,16 +284,14 @@ export default {
     },
     sidesfilter(str) {
       let strleft = str.split(":")[0];
-      // console.log(title);
       let strright = str.split(":")[1].split("、");
-      // console.log(like);
       this.Sides.push({ name: strleft, options: strright });
     },
     getCategory() {
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetCategory`;
       this.$http.get(url).then(response => {
-        console.log('分類列表',response);
+        // console.log('分類列表',response);
         vm.categorys = response.data;
       });
     },
@@ -353,7 +351,7 @@ export default {
     this.getCategory();
     this.getProductDetail(2, false);
     this.checkFooterCart();
-    console.log('是否為開放時間',this.isOpenFromCustomer);
+    // console.log('是否為開放時間',this.isOpenFromCustomer);
   },
   mounted() {
     // console.log("查看所有 swiper 方法", this.swiper);
