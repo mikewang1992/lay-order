@@ -357,7 +357,14 @@ export default {
       });
     },
     addToCart() {
-      alert("已加入購物車");
+      this.$swal({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        type: "success",
+        title: "成功加入點菜單"
+      });
       const vm = this;
       vm.Cart.push(vm.Orders);
       localStorage.setItem("totalcart", JSON.stringify(this.Cart));
