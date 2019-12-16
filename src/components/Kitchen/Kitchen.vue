@@ -71,13 +71,12 @@
         >
           <div class="title">
             <h3>
-              <!-- 外帶 -->
               <em class="num font_en">{{item.orderid}}.{{item.customer}}</em>
             </h3>
             <span class="time">{{getTime(item.gettime)}}</span>
           </div>
           <ul>
-            <li v-for="(pItem,key,index) in item.product" :key="index">
+            <li v-for="(pItem,key,index) in item.product" :class="pItem.status" :key="index" @click="completeOrderItem(item.orderid,pItem.Id)">
               <h4>{{pItem.ProductName}}</h4>
               <span class="label">{{pItem.option}}</span>
             </li>
@@ -130,7 +129,8 @@ export default {
         curPage: 1,
         sum: ""
       },
-      orderList: ""
+      orderList: "",
+      thisOrderId:''
     };
   },
   methods: {
@@ -175,6 +175,28 @@ export default {
       this.$http.get(url).then(response => {
         this.pages.sum = response.data;
       });
+    },
+    completeOrderItem(Oid,Pid) {
+      console.log("單品備餐：",'產品ID',Oid,'產品ID',Pid);
+      // this.$http
+      //   .get(
+      //     `${
+      //       process.env.APIPATH
+      //     }/Kitchen/CompleteOrderItem?Oid=${Oid}&id=${Pid}`
+      //   )
+      //   .then(response => {
+      //     console.log(response.data);
+      //     this.$swal({
+      //       toast: true,
+      //       position: "top-end",
+      //       showConfirmButton: false,
+      //       timer: 3000,
+      //       type: "success",
+      //       title: "出餐完成"
+      //     });
+      //     this.getProduct(this.filterMenu.type, this.filterMenu.status);
+      //     this.showDetail(Oid);
+      //   });
     }
   },
   created() {
