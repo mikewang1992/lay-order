@@ -332,7 +332,7 @@ export default {
             title: "此訂單全數出餐完成"
           });
           this.showDetail(id);
-          this.getProduct(this.filterMenu.type, this.filterMenu.status);
+          this.getProduct(this.filterMenu.type, this.filterMenu.status,this.pages.curPage);
         });
     },
     cancelOrder() {
@@ -352,7 +352,7 @@ export default {
             .then(response => {
               console.log(response.data);
               this.$swal("成功取消", "本筆訂單已移動至取消訂單", "success");
-              this.getProduct(this.filterMenu.type, this.filterMenu.status);
+              this.getProduct(this.filterMenu.type, this.filterMenu.status,this.pages.curPage);
             });
         }
       });
@@ -376,7 +376,7 @@ export default {
             .then(response => {
               // console.log(response.data);
               this.$swal("完成結帳", "發財嚕！", "success");
-              this.getProduct(this.filterMenu.type, this.filterMenu.status);
+              this.getProduct(this.filterMenu.type, this.filterMenu.status,this.pages.curPage);
             });
         }
       });
@@ -397,7 +397,7 @@ export default {
             type: "success",
             title: "出餐完成"
           });
-          this.getProduct(this.filterMenu.type, this.filterMenu.status);
+          this.getProduct(this.filterMenu.type, this.filterMenu.status,this.pages.curPage);
           this.showDetail(Oid);
         });
     }
