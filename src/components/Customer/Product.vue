@@ -1,89 +1,51 @@
 <template>
-  <div class="page">
-    <footer>
-      <div class="nav_logo">
-        <img src="@/assets/img/logo_nav.png" alt />
-      </div>
-      <ul>
-        <!-- <li :class="{'active':footerActive}"> -->
-        <li class="active">
-          <router-link to="/">
-            <img src="@/assets/img/icon_footer01.png" alt />
-            <p>菜單</p>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/cart">
-            <img src="@/assets/img/icon_footer02.png" alt />
-            <p>
-              點菜單
-              <span v-if="footerNumber>0">:{{footerNumber}}項</span>
-            </p>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/order">
-            <img src="@/assets/img/icon_footer03.png" alt />
-            <p>訂單狀態</p>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/member">
-            <img src="@/assets/img/icon_footer04.png" alt />
-            <p>會員資訊</p>
-          </router-link>
-        </li>
-      </ul>
-    </footer>
-    <div class="main">
-      <div v-if="isOpenFromCustomer" class="open_notice">Sorry！本時段不開放預約！</div>
-      <header class="hide_lg">
-        <img src="@/assets/img/logo_nav.png" alt />
-      </header>
-      <!-- banners -->
-      <div class="content">
-        <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="swiper()">
-          <swiper-slide v-for="(item,key,index) in banners" :key="index">
-            <img :src="BannerimgUrl+item" alt />
-          </swiper-slide>
-          <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
-        <!-- category -->
-        <swiper
-          class="swiper_nav"
-          :options="swiperOption2"
-          ref="mySwiper"
-          @someSwiperEvent="swiper()"
+  <div class="main">
+    <div v-if="isOpenFromCustomer" class="open_notice">Sorry！本時段不開放預約！</div>
+    <header class="hide_lg">
+      <img src="@/assets/img/logo_nav.png" alt>
+    </header>
+    <!-- banners -->
+    <div class="content">
+      <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="swiper()">
+        <swiper-slide v-for="(item,key,index) in banners" :key="index">
+          <img :src="BannerimgUrl+item" alt>
+        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
+      <!-- category -->
+      <swiper
+        class="swiper_nav"
+        :options="swiperOption2"
+        ref="mySwiper"
+        @someSwiperEvent="swiper()"
+      >
+        <swiper-slide>
+          <a @click.prevent="getProducts()">全部</a>
+        </swiper-slide>
+        <swiper-slide v-for="(item,key,index) in categorys" :key="index">
+          <a @click.prevent="getProducts(item.PCid)">{{item.PCName}}</a>
+        </swiper-slide>
+      </swiper>
+      <!-- products -->
+      <div class="product_list">
+        <div
+          class="col-lg-3 col-md-4 col-6 p-0"
+          @click.prevent="getProductDetail(item.Pid)"
+          v-for="(item,key,index) in products"
+          :key="index"
         >
-          <swiper-slide>
-            <a @click.prevent="getProducts()">全部</a>
-          </swiper-slide>
-          <swiper-slide v-for="(item,key,index) in categorys" :key="index">
-            <a @click.prevent="getProducts(item.PCid)">{{item.PCName}}</a>
-          </swiper-slide>
-        </swiper>
-        <!-- products -->
-        <div class="product_list">
-          <div
-            class="col-lg-3 col-md-4 col-6 p-0"
-            @click.prevent="getProductDetail(item.Pid)"
-            v-for="(item,key,index) in products"
-            :key="index"
-          >
-            <div class="item open_popup">
-              <div class="p_image">
-                <img :src="ProductimgUrl+item.Img[0]" alt />
-              </div>
-              <div class="p_info">
-                <h3>{{item.Name}}</h3>
-                <p>NT${{item.Price}}</p>
-              </div>
+          <div class="item open_popup">
+            <div class="p_image">
+              <img :src="ProductimgUrl+item.Img[0]" alt>
+            </div>
+            <div class="p_info">
+              <h3>{{item.Name}}</h3>
+              <p>NT${{item.Price}}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- productdetail popup -->
     <div class="popup" :class="{'show':ShowPopup}">
       <a class="icon_close iconfont icon-weibiao45133 popup_close" @click.prevent="ClosePopup()"></a>
@@ -96,7 +58,7 @@
             @someSwiperEvent="swiper()"
           >
             <swiper-slide v-for="(item,index) in productDetail[0].Img" :key="index">
-              <img :src="ProductimgUrl+item" alt />
+              <img :src="ProductimgUrl+item" alt>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
@@ -105,7 +67,7 @@
           <div class="p_info p-3">
             <h3>{{productDetail[0].Name}}</h3>
             <small>訂單總量超過 20 份請來電預約</small>
-            <hr />
+            <hr>
             <div class="p_text">
               <p>{{productDetail[0].Description}}</p>
             </div>
@@ -134,7 +96,7 @@
                     :id="`inlineRadio${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[0]"
-                  />
+                  >
                   <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
@@ -148,7 +110,7 @@
                     :id="`inlineRadio${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[1]"
-                  />
+                  >
                   <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
@@ -162,7 +124,7 @@
                     :id="`inlineRadio${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[2]"
-                  />
+                  >
                   <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
@@ -176,7 +138,7 @@
                     :id="`inlineRadio${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[3]"
-                  />
+                  >
                   <label :for="`inlineRadio${key+1}`">{{inneritem}}</label>
                 </div>
               </div>

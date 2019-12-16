@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div class="page">
+    <Footer></Footer>
     <router-view :isOpenFromCustomer="isOpen"></router-view>
   </div>
 </template>
 
 <script>
+import Footer from './Footer';
 export default {
   data() {
     return {
@@ -26,6 +28,9 @@ export default {
   },
   created() {
     this.checkOpen();
+  },
+  components: {
+    Footer
   }
 };
 </script>
