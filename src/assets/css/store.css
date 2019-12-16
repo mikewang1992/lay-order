@@ -3505,6 +3505,11 @@ p {
         opacity: 0.5; }
       .detail .order_info .cart_list .item.done .p_img::before {
         content: "\e6c1";
+        background: rgba(137, 188, 112, 0.8); }
+      .detail .order_info .cart_list .item.prepare .p_info {
+        opacity: 0.5; }
+      .detail .order_info .cart_list .item.prepare .p_img::before {
+        content: "\E621";
         background: rgba(114, 188, 179, 0.8); }
       .detail .order_info .cart_list .item .p_price {
         -ms-flex-item-align: center;
@@ -3595,7 +3600,8 @@ p {
       color: #bbbbbb;
       cursor: default;
       -webkit-box-shadow: none;
-      box-shadow: none; }
+      box-shadow: none;
+      pointer-events: none; }
 
 .kitchen {
   font-size: 18px; }
@@ -3669,7 +3675,7 @@ p {
             margin-right: 0.25rem;
             margin-bottom: 0.25rem;
             border-radius: 3px;
-            font-size: .95rem; }
+            font-size: 0.95rem; }
           .kitchen_list .order_list .item ul li.done {
             opacity: 0.4; }
       .kitchen_list .order_list .item .btn {
