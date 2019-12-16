@@ -1,81 +1,80 @@
 <template>
-  <div class="page">
+  <div class="main pb-5">
     <router-view :OrderCodeFromCart="OrderCode"></router-view>
-    <div class="main pb-5">
-      <header>
-        <a class="icon iconfont icon-left" @click.prevent="$router.go(-1);"></a>
-        <h1>點菜單</h1>
-      </header>
-      <div class="content">
-        <div class="cart_list">
-          <ul>
-            <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
-              <div class="p_img">
-                <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
+    <header>
+      <a class="icon iconfont icon-left" @click.prevent="$router.go(-1);"></a>
+      <h1>點菜單</h1>
+    </header>
+    <div class="content">
+      <div class="cart_list">
+        <ul>
+          <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
+            <div class="p_img">
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
+            </div>
+            <div class="p_info">
+              <div class="p_name">
+                <h3>{{item.Name}}</h3>
               </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>{{item.Name}}</h3>
-                </div>
-                <div class="p_choose">
-                  <span v-for="(inneritem,index) in item.Options" :key="index">{{inneritem}},</span>
-                </div>
-                <div class="p_num">
-                  <div class="btn btn_round btn_white count_box">
-                    <a href="#" class="count_dis" @click.prevent="minusQty(item,index)">-</a>
-                    <a href="#" class="count_num">{{item.Qty}}</a>
-                    <a href="#" class="count_add" @click.prevent="addQty(item)">+</a>
-                  </div>
-                  <div class="p_price">${{item.Price*item.Qty}}</div>
-                </div>
+              <div class="p_choose">
+                <span v-for="(inneritem,index) in item.Options" :key="index">{{inneritem}},</span>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div class="order_list">
-          <ul>
-            <li class="item total">
-              <h4>
-                共
-                <b class="color_default">{{OrderQty}}</b> 份
-              </h4>
-              <span>${{OrderMoney}}</span>
-            </li>
-            <li class="item">
-              <h4>電話</h4>
-              <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" />
-            </li>
-            <li class="item">
-              <h4>取餐人</h4>
-              <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[1]" />
-            </li>
-            <li class="item">
-              <h4>取餐時間</h4>
-              <small class="color_default">製作時間約{{PrepareTime}}分，請於{{timeNow}}後來店取餐</small>
-            </li>
-            <li class="item">
-              <h4>
-                <input type="checkbox" id="selectTime" class="w-auto d-inline" />
-                <label for="selectTime">我要指定取餐時間</label>
-              </h4>
-              <div class="form-check">
-                <select name id>
-                  <option value="123" selected hidden>請選擇</option>
-                  <option value="123">12:20</option>
-                  <option value="123">12:40</option>
-                  <option value="123">12:50</option>
-                </select>
+              <div class="p_num">
+                <div class="btn btn_round btn_white count_box">
+                  <a href="#" class="count_dis" @click.prevent="minusQty(item,index)">-</a>
+                  <a href="#" class="count_num">{{item.Qty}}</a>
+                  <a href="#" class="count_add" @click.prevent="addQty(item)">+</a>
+                </div>
+                <div class="p_price">${{item.Price*item.Qty}}</div>
               </div>
-            </li>
-          </ul>
-        </div>
-        <small class="color_red text-center d-block mt-2 mb-3">訂單總量超過20份請來電預約,餐點現做，製作時間約 25 min</small>
-        <footer class="d-block text-center fixed_bottom">
-          <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a>
-          <!-- <a href="#" class="btn btn_default d-block btn_lg open_popup">確認點餐(test)</a> -->
-        </footer>
+            </div>
+          </li>
+        </ul>
       </div>
+      <div class="order_list">
+        <ul>
+          <li class="item total">
+            <h4>
+              共
+              <b class="color_default">{{OrderQty}}</b> 份
+            </h4>
+            <span>${{OrderMoney}}</span>
+          </li>
+          <li class="item">
+            <h4>電話</h4>
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]">
+          </li>
+          <li class="item">
+            <h4>取餐人</h4>
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[1]">
+          </li>
+          <li class="item">
+            <h4>取餐時間</h4>
+            <small class="color_default">製作時間約{{PrepareTime}}分，請於{{timeNow}}後來店取餐</small>
+          </li>
+          <li class="item">
+            <h4>
+              <input type="checkbox" id="selectTime" class="w-auto d-inline">
+              <label for="selectTime">我要指定取餐時間</label>
+            </h4>
+            <div class="form-check">
+              <select name id>
+                <option value="123" selected hidden>請選擇</option>
+                <option value="123">12:20</option>
+                <option value="123">12:40</option>
+                <option value="123">12:50</option>
+              </select>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <small class="color_red text-center d-block mt-2 mb-3">訂單總量超過20份請來電預約,餐點現做，製作時間約 25 min</small>
+      <footer class="d-block text-center fixed_bottom">
+        <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a>
+        <!-- <a href="#" class="btn btn_default d-block btn_lg open_popup">確認點餐(test)</a> -->
+      </footer>
     </div>
+
     <!---------------------------------------------- 彈跳視窗暫放div page ----------------------------------->
     <div class="popup" :class="{'show':ShowPopup}">
       <a
@@ -85,9 +84,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt />
+          <img src="@/assets/img/phone.png" alt>
           <h2>尚未登入</h2>
-          <br />
+          <br>
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -98,7 +97,7 @@
               placeholder="電話"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            />
+            >
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -110,7 +109,7 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            />
+            >
           </div>
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
         </div>
@@ -125,11 +124,11 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt />
+          <img src="@/assets/img/phone.png" alt>
           <h2>手機尚未通過簡訊驗證</h2>
-          <br />
+          <br>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="電話" v-model="vertifyInfo.Tel" />
+            <input type="text" class="form-control" placeholder="電話" v-model="vertifyInfo.Tel">
             <span class="iconfont icon-Mobile"></span>
             <div class="input-group-append" @click="ReSendSMS()">
               <a href="#" class="btn" id>重寄驗證碼</a>
@@ -145,7 +144,7 @@
               placeholder="請輸入簡訊驗證碼"
               autocomplete="off"
               v-model="vertifyInfo.Vertify"
-            />
+            >
           </div>
           <a class="btn btn_default mb-2" @click="vertify()">驗證手機</a>
         </div>
