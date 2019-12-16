@@ -1,7 +1,7 @@
 <template>
   <div class="main col-lg-4 col-md-6">
     <div class="content">
-      <img src="img/logo.png" alt>
+      <img src="img/logo.png" alt />
       <ul class="nav_group mb-3">
         <li>
           <router-link to="/login">登入</router-link>
@@ -13,7 +13,7 @@
         </li>
       </ul>
       <div class="input-group">
-        <input type="text" class="form-control mb-1" placeholder="電話" v-model="registerInfo.Tel">
+        <input type="text" class="form-control mb-1" placeholder="電話" v-model="registerInfo.Tel" />
         <span class="iconfont icon-Mobile"></span>
         <div class="input-group-append">
           <a href="#" class="btn" id v-if="!changetoVertify">送出驗證碼</a>
@@ -37,7 +37,7 @@
           placeholder="請輸入簡訊驗證碼"
           autocomplete="off"
           v-model="vertifyCodes.Vertify"
-        >
+        />
       </div>
       <div class="form-group" v-if="!changetoVertify">
         <label class="sr-only" for="phone">姓名</label>
@@ -49,7 +49,7 @@
           placeholder="姓名"
           autocomplete="off"
           v-model="registerInfo.Name"
-        >
+        />
       </div>
       <div class="form-group" v-if="!changetoVertify">
         <label class="sr-only" for="phone">居住地</label>
@@ -82,7 +82,7 @@
           autocomplete="off"
           v-model="registerInfo.Birth"
           ref="inputDate"
-        >
+        />
       </div>
       <div class="form-group mb-4" v-if="!changetoVertify">
         <label class="sr-only" for="phone">密碼</label>
@@ -94,7 +94,7 @@
           placeholder="密碼"
           autocomplete="off"
           v-model="registerInfo.Password"
-        >
+        />
       </div>
       <a href="#" class="btn btn_default mb-2" @click.prevent="register" v-if="!changetoVertify">註冊</a>
     </div>

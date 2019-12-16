@@ -12,7 +12,7 @@
             <li class="item">
               <div
                 class="p_status"
-                :class="{'bg_default':item.status=='prepare','bg_yellow':item.status=='done','bg_gray':item.status=='paid'}"
+                :class="{'bg_default':item.status==='prepare','bg_yellow':item.status==='ready'||item.status==='done','bg_gray':item.status==='paid'||item.status==='cancel'}"
               >
                 <h4>{{filterTranslate(item.status)}}</h4>
               </div>
@@ -63,12 +63,14 @@ export default {
     filterTranslate(str) {
       if (str === "prepare") {
         return "準備中";
-      }
-      if (str === "prepare") {
-        return "準備中";
-      }
-      if (str === "prepare") {
-        return "準備中";
+      } else if (str === "ready") {
+        return "備餐完成";
+      } else if (str === "done") {
+        return "已送餐";
+      } else if (str === "paid") {
+        return "已付款";
+      } else if (str === "cancel") {
+        return "已取消";
       }
     },
     getFullTime(time) {

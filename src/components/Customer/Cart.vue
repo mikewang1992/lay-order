@@ -1,16 +1,16 @@
 <template>
   <div class="main pb-5">
-    <router-view :OrderCodeFromCart="OrderCode"></router-view>
-    <header>
+    <router-view :OrderCodeFromCart="OrderCode" v-if="ShowResult"></router-view>
+    <header v-if="!ShowResult">
       <a class="icon iconfont icon-left" @click.prevent="$router.go(-1);"></a>
       <h1>點菜單</h1>
     </header>
-    <div class="content">
+    <div class="content" v-if="!ShowResult">
       <div class="cart_list">
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
-              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
             </div>
             <div class="p_info">
               <div class="p_name">
@@ -42,11 +42,11 @@
           </li>
           <li class="item">
             <h4>電話</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]">
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" />
           </li>
           <li class="item">
             <h4>取餐人</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[1]">
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[1]" />
           </li>
           <li class="item">
             <h4>取餐時間</h4>
@@ -54,7 +54,7 @@
           </li>
           <li class="item">
             <h4>
-              <input type="checkbox" id="selectTime" class="w-auto d-inline">
+              <input type="checkbox" id="selectTime" class="w-auto d-inline" />
               <label for="selectTime">我要指定取餐時間</label>
             </h4>
             <div class="form-check">
@@ -84,9 +84,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt>
+          <img src="@/assets/img/phone.png" alt />
           <h2>尚未登入</h2>
-          <br>
+          <br />
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -97,7 +97,7 @@
               placeholder="電話"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            >
+            />
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -109,7 +109,7 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            >
+            />
           </div>
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
         </div>
@@ -124,11 +124,11 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt>
+          <img src="@/assets/img/phone.png" alt />
           <h2>手機尚未通過簡訊驗證</h2>
-          <br>
+          <br />
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="電話" v-model="vertifyInfo.Tel">
+            <input type="text" class="form-control" placeholder="電話" v-model="vertifyInfo.Tel" />
             <span class="iconfont icon-Mobile"></span>
             <div class="input-group-append" @click="ReSendSMS()">
               <a href="#" class="btn" id>重寄驗證碼</a>
@@ -144,7 +144,7 @@
               placeholder="請輸入簡訊驗證碼"
               autocomplete="off"
               v-model="vertifyInfo.Vertify"
-            >
+            />
           </div>
           <a class="btn btn_default mb-2" @click="vertify()">驗證手機</a>
         </div>
@@ -169,7 +169,8 @@ export default {
       ShowPopup: false,
       loginInfo: {},
       resendAppear: false,
-      vertifyInfo: { Tel: "", Vertify: "" }
+      vertifyInfo: { Tel: "", Vertify: "" },
+      ShowResult: false
     };
   },
   computed: {
@@ -321,10 +322,21 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
-        if(response == 'fail') {
+        if (response == "fail") {
           this.$swal(response, "", "info");
-        }else {
-          this.$swal('訂餐成功', "", "success");
+        } else {
+          this.$swal("訂餐成功", "", "success");
+          vm.OrderCode = response.data;
+          localStorage.removeItem("totalcart");
+          const url = `${process.env.APIPATH}/Accounts/IsTable`;
+          this.$http.get(url).then(response => {
+            vm.ShowResult = true;
+            if (response.data === "外帶") {
+              this.$router.push({ name: "ResultOut" });
+            } else {
+              this.$router.push({ name: "ResultIn" });
+            }
+          });
         }
       });
     },
@@ -390,8 +402,12 @@ export default {
         console.log(response);
         if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
           vm.vertifyAppear = true;
-          this.$swal("哇哩咧！", "已寄發3次驗證碼，請您再次確認電話是否正確", "warning");
-        }else {
+          this.$swal(
+            "哇哩咧！",
+            "已寄發3次驗證碼，請您再次確認電話是否正確",
+            "warning"
+          );
+        } else {
           this.$swal(response.data, "", "info");
         }
       });

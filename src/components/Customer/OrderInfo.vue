@@ -10,7 +10,7 @@
         <ul>
           <li class="item" v-for="(item,index) in OrderDetail" :key="index">
             <div class="p_img">
-              <img :src="ProductimgUrl+item.img" alt>
+              <img :src="ProductimgUrl+item.img" alt />
             </div>
             <div class="p_info">
               <div class="p_name">
