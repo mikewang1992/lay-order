@@ -133,8 +133,11 @@ export default {
       };
       console.log(data);
       this.$http.post(url, data, config).then(response => {
-        console.log(response);
-        alert(response.data);
+        if (response.data == "success") {
+          this.$swal("修改成功", "", "success");
+        } else {
+          this.$swal(response.data, "", "info");
+        }
       });
     },
     getCounty() {
