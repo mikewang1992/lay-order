@@ -6,7 +6,7 @@
     </header>
     <!-- banners -->
     <div class="content">
-      <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="swiper()">
+      <swiper :options="swiperSingle" ref="mySwiper" @someSwiperEvent="swiper()">
         <swiper-slide v-for="(item,key,index) in banners" :key="index">
           <img :src="BannerimgUrl+item" alt>
         </swiper-slide>
@@ -15,7 +15,7 @@
       <!-- category -->
       <swiper
         class="swiper_nav"
-        :options="swiperOption2"
+        :options="swiperCategory"
         ref="mySwiper"
         @someSwiperEvent="swiper()"
       >
@@ -52,7 +52,7 @@
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="p_slider">
           <swiper
-            :options="swiperOption"
+            :options="swiperSingle"
             class="swiper_product"
             ref="mySwiper"
             @someSwiperEvent="swiper()"
@@ -175,13 +175,13 @@ export default {
         }
       },
       categorys: {},
-      swiperOption: {
+      swiperSingle: {
         loop: true,
         pagination: {
           el: ".swiper-pagination"
         }
       },
-      swiperOption2: {
+      swiperCategory: {
         loop: false,
         slidesPerView: 4,
         centeredSlides: true,
@@ -205,9 +205,6 @@ export default {
       Sides: []
     };
   },
-  // components: {
-  //   Footer
-  // },
   computed: {
     swiper() {
       return this.$refs.mySwiper.swiper;
@@ -219,7 +216,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Banners/GetBanners`;
       this.$http.get(url).then(response => {
-        console.log('所有banner',response);
+        console.log("所有banner", response);
         vm.banners = response.data;
       });
     },
