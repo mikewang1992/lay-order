@@ -18,12 +18,13 @@
         :options="swiperCategory"
         ref="mySwiper"
         @someSwiperEvent="swiper()"
+        @transitionStart="cateChange"
       >
         <swiper-slide>
-          <a @click.prevent="getProducts()">全部</a>
+          <a id @click.prevent="getProducts()">全部</a>
         </swiper-slide>
         <swiper-slide v-for="(item,key,index) in categorys" :key="index">
-          <a @click.prevent="getProducts(item.PCid)">{{item.PCName}}</a>
+          <a @click.prevent="getProducts(item.PCid)" :id="item.PCid">{{item.PCName}}</a>
         </swiper-slide>
       </swiper>
       <!-- products -->
@@ -186,8 +187,8 @@ export default {
         slidesPerView: 4,
         centeredSlides: true,
         centeredSlidesBounds: true,
-        slideToClickedSlide: true,
-        freeMode: true
+        slideToClickedSlide: true
+        // freeMode: true
       },
       ProductimgUrl: "https://lay-order.rocket-coding.com/Img/product/",
       BannerimgUrl: "https://lay-order.rocket-coding.com/Img/BannerImg/",
@@ -216,7 +217,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Banners/GetBanners`;
       this.$http.get(url).then(response => {
-        console.log("所有banner", response);
+        // console.log("所有banner", response.data);
         vm.banners = response.data;
       });
     },
@@ -288,9 +289,14 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetCategory`;
       this.$http.get(url).then(response => {
-        // console.log('分類列表',response);
+        // console.log("分類列表", response.data);
         vm.categorys = response.data;
       });
+    },
+    cateChange() {
+      let nowCategoryID = document.querySelector(".swiper-slide-active a").id;
+      // console.log('分類id',nowCategoryID);
+      this.getProducts(nowCategoryID);
     },
     addToCart() {
       this.$swal({
