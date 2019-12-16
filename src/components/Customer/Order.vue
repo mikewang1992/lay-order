@@ -1,68 +1,31 @@
 <template>
-  <div class="page">
+  <div class="main pb-2" v-if="!ShowOrderInfo">
     <OrderInfo :IdFromOrder="Id" v-if="ShowOrderInfo" @passevent="takeevent"></OrderInfo>
     <!-- <router-view :IdFromOrder="Id" v-if="ShowOrderInfo"></router-view> -->
-    <footer>
-      <div class="nav_logo">
-        <img src="@/assets/img/logo_nav.png" alt />
-      </div>
-      <ul>
-        <!-- <li :class="{'active':footerActive}"> -->
-        <li>
-          <router-link to="/">
-            <img src="@/assets/img/icon_footer01.png" alt />
-            <p>菜單</p>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/cart">
-            <img src="@/assets/img/icon_footer02.png" alt />
-            <p>
-              點菜單
-              <span v-if="footerNumber>0">:{{footerNumber}}項</span>
-            </p>
-          </router-link>
-        </li>
-        <li class="active">
-          <router-link to="/order">
-            <img src="@/assets/img/icon_footer03.png" alt />
-            <p>訂單狀態</p>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/member">
-            <img src="@/assets/img/icon_footer04.png" alt />
-            <p>會員資訊</p>
-          </router-link>
-        </li>
-      </ul>
-    </footer>
-    <div class="main pb-2" v-if="!ShowOrderInfo">
-      <header>
-        <h1>訂單狀態</h1>
-      </header>
-      <div class="content">
-        <div class="cart_list status_list">
-          <ul>
-            <a v-for="(item,index) in OrderStatus" :key="index">
-              <li class="item">
-                <div
-                  class="p_status"
-                  :class="{'bg_default':item.status=='prepare','bg_yellow':item.status=='done','bg_gray':item.status=='paid'}"
-                >
-                  <h4>{{filterTranslate(item.status)}}</h4>
+    <header>
+      <h1>訂單狀態</h1>
+    </header>
+    <div class="content">
+      <div class="cart_list status_list">
+        <ul>
+          <a v-for="(item,index) in OrderStatus" :key="index">
+            <li class="item">
+              <div
+                class="p_status"
+                :class="{'bg_default':item.status=='prepare','bg_yellow':item.status=='done','bg_gray':item.status=='paid'}"
+              >
+                <h4>{{filterTranslate(item.status)}}</h4>
+              </div>
+              <div class="p_info">
+                <div class="p_date">
+                  <h3>{{getFullTime(item.time)}} 取餐</h3>
                 </div>
-                <div class="p_info">
-                  <div class="p_date">
-                    <h3>{{getFullTime(item.time)}} 取餐</h3>
-                  </div>
-                  <div class="p_price">${{item.total}}</div>
-                </div>
-                <div class="icon_right iconfont icon-right" @click.prevent="GoOrderInfo(item.id)"></div>
-              </li>
-            </a>
-          </ul>
-        </div>
+                <div class="p_price">${{item.total}}</div>
+              </div>
+              <div class="icon_right iconfont icon-right" @click.prevent="GoOrderInfo(item.id)"></div>
+            </li>
+          </a>
+        </ul>
       </div>
     </div>
   </div>
