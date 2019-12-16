@@ -321,8 +321,11 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
-        console.log(response);
-        this.$swal(response.data, "", "info");
+        if(response == 'fail') {
+          this.$swal(response, "", "info");
+        }else {
+          this.$swal('訂餐成功', "", "success");
+        }
       });
     },
     addQty(item) {
