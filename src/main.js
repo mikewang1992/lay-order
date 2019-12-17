@@ -44,7 +44,14 @@ router.beforeEach((to, from, next) => {
       if (response.data == 'True') {
         next()
       } else {
-        alert("請先登入")
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          type: "info",
+          title: "請先登入唷"
+        });
         next({ path: '/login' })
       }
     });
