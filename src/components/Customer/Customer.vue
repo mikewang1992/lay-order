@@ -28,7 +28,6 @@ export default {
   },
   created() {
     this.checkOpen();
-    document.querySelector('.page').classList.remove('test');
   },
   components: {
     Footer
