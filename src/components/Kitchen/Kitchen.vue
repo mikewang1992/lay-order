@@ -78,7 +78,7 @@
           <ul>
             <li
               v-for="(pItem,key,index) in item.product"
-              :class="{'done':pItem.status == 'done'}"
+              :class="pItem.status"
               :key="index"
               @click="completeOrderItem(item.orderid,pItem.Id)"
             >
