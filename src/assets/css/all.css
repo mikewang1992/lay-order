@@ -4509,13 +4509,12 @@ footer {
           -webkit-filter: brightness(0.4);
           filter: brightness(0.4);
           opacity: 0.5; }
-      footer ul li .router-link-active a,
-      footer ul li .router-link-active p, footer ul li.active a,
+      footer ul li.active a,
       footer ul li.active p, footer ul li:hover a,
       footer ul li:hover p {
         color: #72bcb3;
         font-weight: bold; }
-      footer ul li .router-link-active img, footer ul li.active img, footer ul li:hover img {
+      footer ul li.active img, footer ul li:hover img {
         -webkit-filter: brightness(1);
         filter: brightness(1);
         opacity: 1; }
