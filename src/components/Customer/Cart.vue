@@ -464,7 +464,7 @@ export default {
     }
   },
   beforeCreate() {},
-  created() {
+  mounted() {
     document.querySelector("footer ul").classList.add("d-none");
     this.getCart();
     this.CheckLogin();
