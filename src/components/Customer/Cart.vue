@@ -43,6 +43,7 @@
           <li class="item">
             <h4>電話</h4>
             <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" />
+            <!-- <input type="text" placeholder="請輸入" v-model="loginInfo.Tel"/> -->
           </li>
           <li class="item">
             <h4>取餐人</h4>
@@ -167,7 +168,7 @@ export default {
       OrderMemberInfo: "",
       Login: "",
       ShowPopup: false,
-      loginInfo: {},
+      loginInfo: { Tel: "", Password: "" },
       resendAppear: false,
       vertifyInfo: { Tel: "", Vertify: "" },
       ShowResult: false
@@ -298,6 +299,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Order/Create`;
       const data = [];
+
       for (let i = 0; i < vm.CartFromProduct.length; i++) {
         const predata = {
           Pid: vm.CartFromProduct[i].Pid.toString(),
@@ -445,6 +447,7 @@ export default {
     this.getCart();
     this.CheckLogin();
     this.PreTime();
+    console.log(OrderQty);
   }
 };
 </script>
