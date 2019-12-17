@@ -1,7 +1,7 @@
 <template>
-  <div class="main col-lg-4 col-md-6">
+  <div class="main col-lg-4 col-md-6 login_content">
     <div class="content">
-      <img src="img/logo.png" alt />
+      <img src="@/assets/img/logo.png" alt />
       <ul class="nav_group mb-3">
         <li>
           <router-link to="/login">登入</router-link>
@@ -202,22 +202,4 @@ export default {
 </script>
 
 <style scope lang="scss">
-.page {
-  background-image: url(../../../assets/img/full_img.png) !important;
-  background-repeat: no-repeat;
-  background-size: cover;
-  align-items: center;
-  .login {
-    max-width: 400px;
-    background: #fff;
-  }
-}
-@media (min-width: 576px) {
-  footer {
-    max-width: 400px;
-  }
-  .page .content img {
-    display: none;
-  }
-}
 </style>
