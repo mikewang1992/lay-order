@@ -10,7 +10,7 @@
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
-              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
             </div>
             <div class="p_info">
               <div class="p_name">
@@ -43,19 +43,20 @@
           <li class="item">
             <h4>電話</h4>
             <!-- <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" /> -->
-            <input type="text" placeholder="請輸入" v-model="loginInfo.Tel" />
+            <input type="phone" placeholder="請輸入" maxlength="10" required v-model="loginInfo.Tel">
           </li>
           <li class="item">
             <h4>取餐人</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]" />
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]">
           </li>
           <li class="item">
             <h4>取餐時間</h4>
             <small class="color_default">製作時間約{{PrepareTime}}分，請於{{timeNow}}後來店取餐</small>
+            <!-- <small class="color_default">我要指定於今天來店取餐</small> -->
           </li>
           <li class="item">
             <h4>
-              <input type="checkbox" id="selectTime" class="w-auto d-inline" />
+              <input type="checkbox" id="selectTime" class="w-auto d-inline">
               <label for="selectTime">我要指定取餐時間</label>
             </h4>
             <div class="form-check">
@@ -85,9 +86,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt />
+          <img src="@/assets/img/phone.png" alt>
           <h2>尚未登入</h2>
-          <br />
+          <br>
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -96,9 +97,10 @@
               type="text"
               id
               placeholder="電話"
+              maxlength="10"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            />
+            >
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -110,10 +112,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            />
+            >
           </div>
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
-          <br />
+          <br>
           <small>
             <router-link to="/register" class="color_gray">前往註冊</router-link>
           </small>
@@ -129,11 +131,12 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt />
+          <img src="@/assets/img/phone.png" alt>
           <h2>手機尚未通過簡訊驗證</h2>
-          <br />
+          <br>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="電話" v-model="vertifyInfo.Tel" />
+            <input type="text" class="form-control" placeholder="電話" maxlength="10" v-model="vertifyInfo.Tel">
+            maxlength="10"
             <span class="iconfont icon-Mobile"></span>
             <div class="input-group-append" @click="ReSendSMS()">
               <a href="#" class="btn" id>重寄驗證碼</a>
@@ -149,7 +152,7 @@
               placeholder="請輸入簡訊驗證碼"
               autocomplete="off"
               v-model="vertifyInfo.Vertify"
-            />
+            >
           </div>
           <a class="btn btn_default mb-2" @click="vertify()">驗證手機</a>
         </div>
@@ -256,15 +259,6 @@ export default {
         this.$swal("驗證成功", "", "success");
       });
     },
-    getTime(time) {
-      const date = new Date(time);
-      let m = date.getMinutes();
-      if (m < 10) {
-        m = "0" + m;
-      }
-      const newTime = `${date.getHours()}:${m}`;
-      return newTime;
-    },
     getFullTime(time) {
       const date = new Date(time);
       let year = date.getFullYear();
@@ -368,20 +362,30 @@ export default {
         return item.Qty--;
       } else {
         this.$swal({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          type: "success",
-          title: "你怎麼不要我了Q__Q"
+          title: "確定刪除這個產品嗎?",
+          text: "你怎麼不要我了Q__Q",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonText: "確認",
+          cancelButtonText: "取消"
+        }).then(result => {
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "success",
+            title: "你怎麼這樣~~Q____Q"
+          });
+          console.log(index);
+          const totalcart = JSON.parse(localStorage.getItem("totalcart"));
+          totalcart.splice(index, 1);
+          localStorage.setItem("totalcart", JSON.stringify(totalcart));
+          this.getCart();
         });
-        console.log(index);
-        const totalcart = JSON.parse(localStorage.getItem("totalcart"));
-        totalcart.splice(index, 1);
-        localStorage.setItem("totalcart", JSON.stringify(totalcart));
-        this.getCart();
       }
     },
+    // 登入註冊
     login() {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Login`;
