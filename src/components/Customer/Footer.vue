@@ -80,7 +80,7 @@ export default {
       } else {
         document.querySelector(".page").classList.remove("login");
       }
-      if (this.pageActive == "order" || this.pageActive == "cart") {
+      if (this.pageActive == "cart"|| this.pageActive == "ResultOut"|| this.pageActive == "ResultIn") {
         document.querySelector("footer ul").classList.add("d-none");
       } else {
         document.querySelector("footer ul").classList.add("d-flex");
