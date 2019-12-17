@@ -13,7 +13,13 @@
         </li>
       </ul>
       <div class="input-group">
-        <input type="text" class="form-control mb-1" placeholder="電話" v-model="registerInfo.Tel" />
+        <input
+          type="text"
+          class="form-control mb-1"
+          maxlength="10"
+          placeholder="電話"
+          v-model="registerInfo.Tel"
+        />
         <span class="iconfont icon-Mobile"></span>
         <div class="input-group-append">
           <a href="#" class="btn" id v-if="!changetoVertify">送出驗證碼</a>
@@ -37,6 +43,7 @@
           placeholder="請輸入簡訊驗證碼"
           autocomplete="off"
           v-model="vertifyCodes.Vertify"
+          maxlength="6"
         />
       </div>
       <div class="form-group" v-if="!changetoVertify">
@@ -135,6 +142,8 @@ export default {
             this.$swal("註冊成功", "歡迎歡迎！", "success");
           } else if (response.data === "此電話已存在，請勿重複申請") {
             this.$swal("此電話已存在，請勿重複申請", "再給你個機會", "warning");
+          } else {
+            this.$swal(response.data, "", "warning");
           }
         });
       } else {

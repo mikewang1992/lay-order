@@ -76,7 +76,7 @@
       </footer>
     </div>
 
-    <!---------------------------------------------- 彈跳視窗暫放div page ----------------------------------->
+    <!-----------------登入poppup----------------------->
     <div class="popup" :class="{'show':ShowPopup}">
       <a
         href="#"
@@ -113,10 +113,14 @@
             />
           </div>
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
+          <br />
+          <small>
+            <router-link to="/register" class="color_gray">前往註冊</router-link>
+          </small>
         </div>
       </div>
     </div>
-    <!--  -->
+    <!-----------------重新驗證poppup----------------------->
     <div class="popup" :class="{'show': resendAppear}">
       <a
         href="#"
@@ -444,7 +448,7 @@ export default {
     }
   },
   created() {
-    document.querySelector('footer ul').classList.add('d-none');
+    document.querySelector("footer ul").classList.add("d-none");
     this.getCart();
     this.CheckLogin();
     this.PreTime();
@@ -454,5 +458,4 @@ export default {
 </script>
 
 <style scope lang="scss">
-
 </style>
