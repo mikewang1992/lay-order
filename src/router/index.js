@@ -7,7 +7,6 @@ import Customer from '@/components/Customer/Customer'
 import Product from '@/components/Customer/Product'
 import Cart from '@/components/Customer/Cart'
 import Order from '@/components/Customer/Order'
-import OrderInfo from '@/components/Customer/OrderInfo'
 import ResultIn from '@/components/Customer/ResultIn'
 import ResultOut from '@/components/Customer/ResultOut'
 ////Customer Member
@@ -61,11 +60,9 @@ export default new Router({
             path: '/Order',
             name: 'Order',
             component: Order,
-            // children: [{
-            //     path: '/Order/OrderInfo',
-            //     name: 'OrderInfo',
-            //     component: OrderInfo
-            // }]
+            meta: {
+                requiresLogin: true
+            }
         },
         {
             path: '/register',

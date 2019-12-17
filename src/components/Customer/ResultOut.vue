@@ -92,3 +92,8 @@ export default {
   }
 };
 </script>
+<style scoped lang="scss">
+footer ul {
+  display: none;
+}
+</style>
