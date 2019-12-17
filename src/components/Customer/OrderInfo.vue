@@ -21,30 +21,6 @@
             </div>
             <div class="p_price">{{item.subtotal}}</div>
           </li>
-          <!-- <li class="item">
-              <div class="p_img">
-                <img src="@/assets/img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>感覺就很甜的甜甜圈</h3>
-                </div>
-                <div class="p_choose">不辣,加蒜</div>
-              </div>
-              <div class="p_price">$500</div>
-            </li>
-            <li class="item">
-              <div class="p_img">
-                <img src="@/assets/img/product/1.png" alt />
-              </div>
-              <div class="p_info">
-                <div class="p_name">
-                  <h3>感覺就很甜的甜甜圈</h3>
-                </div>
-                <div class="p_choose">不辣,加蒜</div>
-              </div>
-              <div class="p_price">$500</div>
-          </li>-->
         </ul>
       </div>
       <div class="order_list mb-4">
@@ -72,10 +48,10 @@
       </div>
       <div class="d-flex text-center">
         <div class="col-6">
-          <router-link to="/Order" class="btn btn_lg btn_gray d-block">返回列表</router-link>
+          <a href class="btn btn_lg btn_gray d-block" @click.prevent="goback()">返回列表</a>
         </div>
         <div class="col-6">
-          <a href="#" class="btn btn_lg btn_default d-block">聯絡店家</a>
+          <a :href="`tel:${ShopPhone}`" class="btn btn_lg btn_default d-block">聯絡店家</a>
         </div>
       </div>
     </div>
@@ -86,8 +62,9 @@
 export default {
   data() {
     return {
-      OrderDetail: {},
-      OrderSummary: {},
+      OrderDetail: [],
+      OrderSummary: [{ totalQty: 1 }],
+      ShopPhone: "",
       ProductimgUrl: "https://lay-order.rocket-coding.com/Img/product/"
     };
   },
@@ -109,6 +86,14 @@ export default {
         this.OrderSummary = response.data;
       });
     },
+    GetTel() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Company/GetTel`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        this.ShopPhone = response.data;
+      });
+    },
     getTime(time) {
       const date = new Date(time);
       let m = date.getMinutes();
@@ -124,8 +109,10 @@ export default {
   },
   created() {
     console.log(this.IdFromOrder);
-    this.ShowOrderSummary(this.IdFromOrder);
     this.ShowOrderDetail(this.IdFromOrder);
-  }
+    this.ShowOrderSummary(this.IdFromOrder);
+    this.GetTel();
+  },
+  mounted() {}
 };
 </script>

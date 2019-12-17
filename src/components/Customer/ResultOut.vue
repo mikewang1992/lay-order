@@ -39,7 +39,7 @@
       </div>
       <div class="d-flex text-center">
         <div class="col-6">
-          <a href="#" class="btn btn_lg btn_yellow d-block">撥打電話</a>
+          <a :href="`tel:${ShopPhone}`" class="btn btn_lg btn_yellow d-block">撥打電話</a>
         </div>
         <div class="col-6">
           <router-link to="/order" class="btn btn_lg btn_default d-block">訂單狀態</router-link>
@@ -53,7 +53,8 @@
 export default {
   data() {
     return {
-      OrderSummary: {}
+      OrderSummary: {},
+      ShopPhone: ""
     };
   },
   props: ["OrderCodeFromCart"],
@@ -64,6 +65,14 @@ export default {
       this.$http.get(url).then(response => {
         console.log(response);
         this.OrderSummary = response.data;
+      });
+    },
+    GetTel() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Company/GetTel`;
+      this.$http.get(url).then(response => {
+        console.log(response);
+        this.ShopPhone = response.data;
       });
     },
     getTime(time) {
@@ -79,6 +88,7 @@ export default {
   created() {
     this.ShowOrderSummary(this.OrderCodeFromCart);
     console.log(this.OrderCodeFromCart);
+    this.GetTel();
   }
 };
 </script>
