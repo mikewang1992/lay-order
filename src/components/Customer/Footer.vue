@@ -82,7 +82,7 @@ export default {
         this.pageActive == "coupon" ||
         this.pageActive == "register"
       ) {
-        console.log("login新增css");
+        // console.log("login新增css");
         document.querySelector(".page").classList.add("login");
       } else {
         document.querySelector(".page").classList.remove("login");

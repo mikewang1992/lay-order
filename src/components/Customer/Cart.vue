@@ -86,8 +86,8 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt>
-          <h2>尚未登入</h2>
+          <img src="@/assets/img/login_img.png" alt>
+          <h2>請先登入會員</h2>
           <br>
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
@@ -117,48 +117,82 @@
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
           <br>
           <small>
-            <router-link to="/register" class="color_gray">前往註冊</router-link>
+            <a @click.prevent="registerAppear=true,ShowPopup=false" class="color_gray">立即註冊</a>
           </small>
         </div>
       </div>
     </div>
-    <!-----------------重新驗證poppup----------------------->
-    <div class="popup" :class="{'show': resendAppear}">
+    <!-----------------註冊poppup----------------------->
+    <div class="popup" :class="{'show': registerAppear}">
       <a
         href="#"
         class="icon_close iconfont icon-weibiao45133 popup_close"
-        @click="resendAppear=false,ShowPopup=false"
+        @click="registerAppear=false,ShowPopup=false"
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
           <img src="@/assets/img/phone.png" alt>
-          <h2>手機尚未通過簡訊驗證</h2>
+          <h2>驗證手機，立即加入會員！</h2>
           <br>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="電話" maxlength="10" v-model="vertifyInfo.Tel">
-            maxlength="10"
-            <span class="iconfont icon-Mobile"></span>
-            <div class="input-group-append" @click="ReSendSMS()">
-              <a href="#" class="btn" id>重寄驗證碼</a>
+          <div v-if="reInfo">
+            <div class="form-group">
+              <label class="sr-only" for="phone">電話</label>
+              <span class="iconfont icon-message"></span>
+              <input
+                type="phone"
+                class="form-control"
+                placeholder="電話"
+                maxlength="10"
+                v-model="registerInfo.Tel"
+              >
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="userName">姓名</label>
+              <span class="iconfont icon-user"></span>
+              <input
+                class="form-control"
+                type="userName"
+                placeholder="請輸入姓名"
+                autocomplete="off"
+                v-model="registerInfo.Name"
+              >
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="password">密碼</label>
+              <span class="iconfont icon-lock"></span>
+              <input
+                class="form-control"
+                type="password"
+                id
+                placeholder="請設定密碼"
+                autocomplete="off"
+                v-model="registerInfo.Password"
+              >
+            </div>
+            <a class="btn btn_default mb-2" @click="register()">確認</a>
+          </div>
+          <div class="mr-4 ml-4" v-if="reVertify">
+            <p>簡訊驗證碼已發送至 {{registerInfo.Tel}}</p>
+            <div class="form-group">
+              <label class="sr-only" for="phone">簡訊驗證碼</label>
+              <span class="iconfont icon-message"></span>
+              <input
+                class="form-control"
+                type="text"
+                id
+                placeholder="請輸入簡訊驗證碼"
+                autocomplete="off"
+                v-model="vertifyInfo.Vertify"
+              >
+            </div>
+            <div class="d-flex">
+              <a class="btn d-block w-100 btn_yellow mb-2 mr-1" @click="ReSendSMS()">重新發送</a>
+              <a class="btn btn_default w-100 mb-2 ml-1" @click="vertify()">確認</a>
             </div>
           </div>
-          <div class="form-group">
-            <label class="sr-only" for="phone">重寄驗證碼簡訊</label>
-            <span class="iconfont icon-message"></span>
-            <input
-              class="form-control"
-              type="text"
-              id
-              placeholder="請輸入簡訊驗證碼"
-              autocomplete="off"
-              v-model="vertifyInfo.Vertify"
-            >
-          </div>
-          <a class="btn btn_default mb-2" @click="vertify()">驗證手機</a>
         </div>
       </div>
     </div>
-    <!---------------------------------------------- 彈跳視窗暫放div page ----------------------------------->
   </div>
 </template>
 
@@ -176,7 +210,10 @@ export default {
       Login: "",
       ShowPopup: false,
       loginInfo: { Tel: "", Password: "" },
-      resendAppear: false,
+      registerAppear: false,
+      reInfo: true,
+      reVertify: false,
+      registerInfo: { Tel: "", Password: "", Name: "" },
       vertifyInfo: { Tel: "", Vertify: "" },
       ShowResult: false
     };
@@ -253,9 +290,9 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      console.log(data);
+      // console.log(data);
       this.$http.post(url, data, config).then(response => {
-        console.log(response);
+        // console.log(response);
         this.$swal("驗證成功", "", "success");
       });
     },
@@ -276,7 +313,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/OrderMember`;
       this.$http.get(url).then(response => {
-        console.log(response);
+        // console.log(response);
         vm.OrderMemberInfo = response.data.split(",");
         vm.loginInfo.Tel = vm.OrderMemberInfo[0];
 
@@ -288,7 +325,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/CheckLogin`;
       this.$http.get(url).then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.data === "True") {
           this.Login = response.data;
           this.OrderMember();
@@ -303,7 +340,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Company/PreTime`;
       this.$http.get(url).then(response => {
-        console.log(response);
+        // console.log(response);
         this.PrepareTime = response.data;
       });
     },
@@ -329,7 +366,7 @@ export default {
         predata.Options = str;
         data.push(predata);
       }
-      console.log(data);
+      // console.log(data);
       const config = {
         headers: {
           "Content-Type": "application/json"
@@ -377,7 +414,7 @@ export default {
             type: "success",
             title: "你怎麼這樣~~Q____Q"
           });
-          console.log(index);
+          // console.log(index);
           const totalcart = JSON.parse(localStorage.getItem("totalcart"));
           totalcart.splice(index, 1);
           localStorage.setItem("totalcart", JSON.stringify(totalcart));
@@ -398,34 +435,80 @@ export default {
       if (vm.loginInfo.Tel.length === 10) {
         if (vm.loginInfo.Tel.slice(0, 2) === "09") {
           this.$http.post(url, data, config).then(response => {
-            console.log(response);
+            // console.log(response);
             if (response.data == "success") {
               this.$swal("登入成功", "", "success");
               vm.ShowPopup = false;
               vm.CheckLogin();
-            } else if (response.data == "此電話號碼尚未進行驗證") {
-              this.$swal("此電話號碼尚未進行驗證", "", "warning");
-              vm.resendAppear = true;
-              vm.vertifyInfo.Tel = vm.loginInfo.Tel;
             } else {
-              this.$swal(response.data, "", "info");
-              this.$router.push({ name: "Register" });
+              console.log(response);
             }
           });
         } else {
-          this.$swal("請輸入正確手機格式", "", "warning");
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "warning",
+            title: "請輸入正確手機格式"
+          });
         }
       } else {
-        this.$swal("手機長度不符", "", "warning");
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          type: "warning",
+          title: "手機長度不符"
+        });
       }
+    },
+    register() {
+      const vm = this;
+      const data = vm.registerInfo;
+      const url = `${process.env.APIPATH}/Accounts/Create?${data}`;
+
+      if ((data.Tel !== "" && data.Name !== "") && data.Password !== "") {
+        console.log("送出");
+        this.reInfo = false;
+        this.reVertify = true;
+        this.vertifyInfo.Tel = data.Tel;
+      } else {
+        this.$swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          type: "warning",
+          title: "請輸入所有內容"
+        });
+      }
+      // this.$http.get(url).then(response => {
+      //   console.log(response);
+      //   if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
+      //     console.log(response);
+      //     vm.vertifyAppear = true;
+      //     this.$swal(
+      //       "哇哩咧！",
+      //       "已寄發3次驗證碼，請您再次確認電話是否正確",
+      //       "warning"
+      //     );
+      //   } else {
+      //     console.log(response);
+      //     this.$swal(response.data, "", "info");
+      //   }
+      // });
     },
     ReSendSMS() {
       const vm = this;
-      const params = vm.loginInfo.Tel;
+      const params = vm.registerInfo.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
+          console.log(response);
           vm.vertifyAppear = true;
           this.$swal(
             "哇哩咧！",
@@ -433,6 +516,7 @@ export default {
             "warning"
           );
         } else {
+          console.log(response);
           this.$swal(response.data, "", "info");
         }
       });
@@ -446,24 +530,75 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      console.log(data);
+      // console.log(data);
       this.$http.post(url, data, config).then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.data !== "驗證失敗，請重新輸入") {
-          this.$swal("驗證成功", "", "success");
-          this.CheckLogin();
-          resendAppear = false;
+          this.$swal("驗證成功", "歡迎繼續點餐", "success");
+          registerAppear = false;
+          this.$router.push({ name: "Cart" });
         } else {
-          this.$swal("驗證失敗，請重新輸入", "", "error");
+          this.$swal("驗證失敗", "請重新輸入或是重新發送驗證碼", "error");
         }
       });
     },
     CheckBeforeCreate() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Accounts/Login`;
+      const data = vm.loginInfo;
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
       if (this.Login === "True") {
         this.CreateOrder();
       } else if (this.Login === "False") {
-        this.ShowPopup = true;
-        // vm.loginInfo.Tel;
+        // console.log("未登入");
+        if (vm.loginInfo.Tel.length === 10) {
+          if (vm.loginInfo.Tel.slice(0, 2) === "09") {
+            this.$http.post(url, data, config).then(response => {
+              console.log(response);
+              if (response.data == "登入失敗") {
+                this.ShowPopup = true;
+                vm.loginInfo.Tel;
+                console.log("你還沒登入，showLogin");
+              } else {
+                console.log("此電話號碼還沒驗證，立即註冊");
+                this.$swal({
+                  title: "此電話號碼還沒驗證",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: "立即註冊",
+                  cancelButtonText: "使用其他帳號"
+                }).then(result => {
+                  console.log("打開註冊popup");
+                  this.registerInfo.Tel = this.loginInfo.Tel;
+                  this.registerAppear = true;
+                  this.ShowPopup = false;
+                });
+              }
+            });
+          } else {
+            this.$swal({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              type: "warning",
+              title: "請輸入正確手機格式"
+            });
+          }
+        } else {
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "warning",
+            title: "手機長度不符"
+          });
+        }
       }
     }
   },
