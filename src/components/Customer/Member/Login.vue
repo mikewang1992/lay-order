@@ -126,9 +126,8 @@ export default {
         console.log(response);
         if (response.data === "已寄發3次驗證碼，請您再次確認電話是否正確") {
           this.$swal(response.data, "", "warning");
-        } else {
+        } else if (response.data === "success") {
           this.$swal(response.data, "", "info");
-          vm.vertifyAppear = false;
         }
       });
     },
