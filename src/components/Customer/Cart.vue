@@ -10,7 +10,7 @@
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
-              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
             </div>
             <div class="p_info">
               <div class="p_name">
@@ -43,11 +43,11 @@
           <li class="item">
             <h4>電話</h4>
             <!-- <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" /> -->
-            <input type="text" placeholder="請輸入" v-model="loginInfo.Tel">
+            <input type="text" placeholder="請輸入" v-model="loginInfo.Tel" />
           </li>
           <li class="item">
             <h4>取餐人</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]">
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]" />
           </li>
           <li class="item">
             <h4>取餐時間</h4>
@@ -55,7 +55,7 @@
           </li>
           <li class="item">
             <h4>
-              <input type="checkbox" id="selectTime" class="w-auto d-inline">
+              <input type="checkbox" id="selectTime" class="w-auto d-inline" />
               <label for="selectTime">我要指定取餐時間</label>
             </h4>
             <div class="form-check">
@@ -85,9 +85,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt>
+          <img src="@/assets/img/phone.png" alt />
           <h2>尚未登入</h2>
-          <br>
+          <br />
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -98,7 +98,7 @@
               placeholder="電話"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            >
+            />
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -110,10 +110,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            >
+            />
           </div>
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
-          <br>
+          <br />
           <small>
             <router-link to="/register" class="color_gray">前往註冊</router-link>
           </small>
@@ -129,11 +129,11 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt>
+          <img src="@/assets/img/phone.png" alt />
           <h2>手機尚未通過簡訊驗證</h2>
-          <br>
+          <br />
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="電話" v-model="vertifyInfo.Tel">
+            <input type="text" class="form-control" placeholder="電話" v-model="vertifyInfo.Tel" />
             <span class="iconfont icon-Mobile"></span>
             <div class="input-group-append" @click="ReSendSMS()">
               <a href="#" class="btn" id>重寄驗證碼</a>
@@ -149,7 +149,7 @@
               placeholder="請輸入簡訊驗證碼"
               autocomplete="off"
               v-model="vertifyInfo.Vertify"
-            >
+            />
           </div>
           <a class="btn btn_default mb-2" @click="vertify()">驗證手機</a>
         </div>
@@ -191,7 +191,7 @@ export default {
     FullTimeNow() {
       const date = new Date(Date.now());
       let year = date.getFullYear();
-      let mon = date.getMonth();
+      let mon = date.getMonth() + 1;
       let day = date.getDate();
       let hour = date.getHours();
       let min = date.getMinutes();
@@ -226,17 +226,20 @@ export default {
     getCart() {
       const totalcart = JSON.parse(localStorage.getItem("totalcart"));
       if (totalcart === null || totalcart.length === 0) {
+        localStorage.setItem("totalcart", JSON.stringify([]));
         this.$swal({
           title: "點菜單沒有東西唷",
           text: "請至菜單選擇商品^__^",
-          icon: "warning",
+          type: "warning",
           showCancelButton: false,
           confirmButtonText: "回到菜單",
           reverseButtons: true
-        }).then(result => {});
-        this.$router.push({ name: "Product" });
+        }).then(result => {
+          this.$router.push({ name: "Product" });
+        });
+      } else {
+        this.CartFromProduct = totalcart;
       }
-      this.CartFromProduct = totalcart;
     },
     sendCart() {
       const vm = this;
@@ -265,7 +268,7 @@ export default {
     getFullTime(time) {
       const date = new Date(time);
       let year = date.getFullYear();
-      let mon = date.getMonth();
+      let mon = date.getMonth() + 1;
       let day = date.getDate();
       let hour = date.getHours();
       let min = date.getMinutes();
@@ -344,7 +347,7 @@ export default {
         } else {
           this.$swal("訂餐成功", "", "success");
           vm.OrderCode = response.data;
-          localStorage.removeItem("totalcart");
+          localStorage.setItem("totalcart", JSON.stringify([]));
           const url = `${process.env.APIPATH}/Accounts/IsTable`;
           this.$http.get(url).then(response => {
             vm.ShowResult = true;
@@ -460,12 +463,12 @@ export default {
       }
     }
   },
+  beforeCreate() {},
   created() {
     document.querySelector("footer ul").classList.add("d-none");
     this.getCart();
     this.CheckLogin();
     this.PreTime();
-    console.log(OrderQty);
   }
 };
 </script>

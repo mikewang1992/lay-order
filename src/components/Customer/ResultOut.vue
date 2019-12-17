@@ -53,7 +53,7 @@
 export default {
   data() {
     return {
-      OrderSummary: {},
+      OrderSummary: [{ totalQty: 1 }],
       ShopPhone: ""
     };
   },

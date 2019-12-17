@@ -9,7 +9,7 @@
           :class="{'active':filterMenu.type == 'forhere'}"
           @click.prevent="getProduct('forhere','')"
         >
-          <img src="@/assets/img/icon_kit01.png" alt>
+          <img src="@/assets/img/icon_kit01.png" alt />
           <h3>內用</h3>
         </a>
         <a
@@ -18,7 +18,7 @@
           :class="{'active':filterMenu.type == 'togo'}"
           @click.prevent="getProduct('togo','')"
         >
-          <img src="@/assets/img/icon_kit02.png" alt>
+          <img src="@/assets/img/icon_kit02.png" alt />
           <h3>外帶</h3>
         </a>
       </div>
@@ -29,7 +29,7 @@
           :class="{'active':filterMenu.status == 'paid'}"
           @click.prevent="getProduct('','paid')"
         >
-          <img src="@/assets/img/icon_kit04.png" alt>
+          <img src="@/assets/img/icon_kit04.png" alt />
           <h3>已完成</h3>
         </a>
         <a
@@ -38,7 +38,7 @@
           :class="{'active':filterMenu.status == 'cancel'}"
           @click.prevent="getProduct('','cancel')"
         >
-          <img src="@/assets/img/icon_kit05.png" alt>
+          <img src="@/assets/img/icon_kit05.png" alt />
           <h3>已取消</h3>
         </a>
       </div>
@@ -100,17 +100,17 @@
               </h3>
               <ul>
                 <li>
-                  <span class="iconfont icon-phone"/>
+                  <span class="iconfont icon-phone" />
                   <p class="font_en">{{item.tel}}</p>
                 </li>
                 <li>
-                  <span class="iconfont icon-icon-time"/>
+                  <span class="iconfont icon-icon-time" />
                   <p>
                     <b class="font_en">{{getTime(item.gettime)}}</b> 取餐
                   </p>
                 </li>
                 <li>
-                  <span class="iconfont icon-dollar"/>
+                  <span class="iconfont icon-dollar" />
                   <p class="font_en">{{item.total}}</p>
                 </li>
               </ul>
@@ -195,7 +195,7 @@
                 <img
                   :src="'https://lay-order.rocket-coding.com/Img/product/'+item.img[0]"
                   :key="item.pid"
-                >
+                />
               </div>
               <div class="p_info">
                 <div class="p_name">
@@ -247,7 +247,7 @@ export default {
       thisOrderID: "",
       pages: {
         curPage: 1,
-        sum: ''
+        sum: ""
       }
     };
   },
@@ -256,9 +256,7 @@ export default {
       const vm = this;
       this.filterMenu.type = type;
       this.filterMenu.status = status;
-      const url = `${
-        process.env.APIPATH
-      }/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
+      const url = `${process.env.APIPATH}/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
         vm.productList = response.data;
       });
@@ -276,11 +274,9 @@ export default {
       return newTime;
     },
     getPages() {
-      console.log('頁數');
+      console.log("頁數");
       const vm = this;
-      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${
-        this.filterMenu.type
-      }&status=${this.filterMenu.status}`;
+      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${this.filterMenu.type}&status=${this.filterMenu.status}`;
       this.$http.get(url).then(response => {
         this.pages.sum = response.data;
       });
@@ -288,7 +284,7 @@ export default {
     getFullTime(time) {
       const date = new Date(time);
       let year = date.getFullYear();
-      let mon = date.getMonth();
+      let mon = date.getMonth() + 1;
       let day = date.getDate();
       let hour = date.getHours();
       let min = date.getMinutes();
@@ -332,7 +328,11 @@ export default {
             title: "此訂單全數出餐完成"
           });
           this.showDetail(id);
-          this.getProduct(this.filterMenu.type, this.filterMenu.status,this.pages.curPage);
+          this.getProduct(
+            this.filterMenu.type,
+            this.filterMenu.status,
+            this.pages.curPage
+          );
         });
     },
     cancelOrder() {
@@ -352,7 +352,11 @@ export default {
             .then(response => {
               console.log(response.data);
               this.$swal("成功取消", "本筆訂單已移動至取消訂單", "success");
-              this.getProduct(this.filterMenu.type, this.filterMenu.status,this.pages.curPage);
+              this.getProduct(
+                this.filterMenu.type,
+                this.filterMenu.status,
+                this.pages.curPage
+              );
             });
         }
       });
@@ -376,13 +380,17 @@ export default {
             .then(response => {
               // console.log(response.data);
               this.$swal("完成結帳", "發財嚕！", "success");
-              this.getProduct(this.filterMenu.type, this.filterMenu.status,this.pages.curPage);
+              this.getProduct(
+                this.filterMenu.type,
+                this.filterMenu.status,
+                this.pages.curPage
+              );
             });
         }
       });
     },
     itemDelivered(Oid, Pid) {
-      console.log('單品送餐');
+      console.log("單品送餐");
       this.$http
         .get(
           `${process.env.APIPATH}/Counter/ItemDelivered?Oid=${Oid}&id=${Pid}`
@@ -397,7 +405,11 @@ export default {
             type: "success",
             title: "出餐完成"
           });
-          this.getProduct(this.filterMenu.type, this.filterMenu.status,this.pages.curPage);
+          this.getProduct(
+            this.filterMenu.type,
+            this.filterMenu.status,
+            this.pages.curPage
+          );
           this.showDetail(Oid);
         });
     }

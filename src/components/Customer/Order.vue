@@ -78,7 +78,7 @@ export default {
     getFullTime(time) {
       const date = new Date(time);
       let year = date.getFullYear();
-      let mon = date.getMonth();
+      let mon = date.getMonth() + 1;
       let day = date.getDate();
       let hour = date.getHours();
       let min = date.getMinutes();

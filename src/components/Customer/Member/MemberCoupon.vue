@@ -31,7 +31,7 @@
 export default {
   data() {
     return {
-      Vouchers: {},
+      Vouchers: [],
       footerNumber: 0
     };
   },
@@ -41,7 +41,21 @@ export default {
       const url = `${process.env.APIPATH}/Accounts/Voucher`;
       this.$http.get(url).then(response => {
         console.log(response);
-        vm.Vouchers = response.data;
+        if (response.data.length === 0) {
+          // this.$swal("目前沒有任何優惠券", "", "warning");
+          this.$swal({
+            title: "目前沒有任何優惠券",
+            text: "聯繫小編拿更多優惠券",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonText: "個人資訊",
+            reverseButtons: true
+          }).then(result => {
+            this.$router.push({ name: "Member" });
+          });
+        } else {
+          vm.Vouchers = response.data;
+        }
       });
     },
     checkFooterCart() {
