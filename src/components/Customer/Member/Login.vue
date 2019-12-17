@@ -21,6 +21,7 @@
           placeholder="電話"
           autocomplete="off"
           v-model="loginInfo.Tel"
+          maxlength="10"
         >
       </div>
       <div class="form-group mb-4">
