@@ -337,8 +337,10 @@ export default {
       };
       vm.footerNumber = JSON.parse(localStorage.getItem("totalcart")).length;
       vm.ShowPopup = false;
+      this.checkFooterCart();
     },
     checkFooterCart() {
+      // console.log("確認點菜單數量");
       if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
         this.footerNumber = JSON.parse(
           localStorage.getItem("totalcart")

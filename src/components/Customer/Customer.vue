@@ -22,12 +22,13 @@ export default {
         vm.isOpen = response.data;
         if (response.data == "no") {
           vm.isOpen = true;
-        }
+        };
       });
     }
   },
   created() {
     this.checkOpen();
+    document.querySelector('.page').classList.remove('test');
   },
   components: {
     Footer

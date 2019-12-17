@@ -1,7 +1,7 @@
 <template>
-  <div class="main login col-lg-4 col-md-6">
+  <div class="main login_content col-lg-4 col-md-6">
     <div class="content">
-      <img src="img/logo.png" alt />
+      <img src="img/logo.png" alt>
       <ul class="nav_group mb-3">
         <li>
           <router-link to="/login" class="active">登入</router-link>
@@ -22,7 +22,7 @@
           autocomplete="off"
           v-model="loginInfo.Tel"
           maxlength="10"
-        />
+        >
       </div>
       <div class="form-group mb-4">
         <label class="sr-only" for="phone">密碼</label>
@@ -34,10 +34,10 @@
           placeholder="密碼"
           autocomplete="off"
           v-model="loginInfo.Password"
-        />
+        >
       </div>
       <a href="index.html" class="btn btn_default mb-2" @click.prevent="login">登入</a>
-      <br />
+      <br>
       <small>
         <a href="#">忘記密碼</a>
       </small>
@@ -134,23 +134,6 @@ export default {
 </script>
 
 
-<style scope lang="scss">
-.page {
-  background-image: url(../../../assets/img/full_img.png) !important;
-  background-repeat: no-repeat;
-  background-size: cover;
-  align-items: center;
-  .login {
-    max-width: 400px;
-    background: #fff;
-  }
-}
-@media (min-width: 576px) {
-  footer {
-    max-width: 400px;
-  }
-  .page .content img {
-    display: none;
-  }
-}
+<style scoped lang="scss">
+
 </style>
