@@ -55,20 +55,22 @@ export default {
       }
     },
     checkFooterCart() {
-      // console.log("確認點菜單數量");
+      console.log("確認點菜單數量");
       if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
         this.footerNumber = JSON.parse(
           localStorage.getItem("totalcart")
         ).length;
+      }else{
+        this.footerNumber = 0;
       }
     },
     checkTable() {
       const url = `${process.env.APIPATH}/Accounts/IsTable`;
       this.$http.get(url).then(response => {
         if (response.data === "外帶") {
-          console.log("外帶");
+          // console.log("外帶");
         } else {
-          console.log("內用");
+          // console.log("內用");
         }
       });
     },
