@@ -42,8 +42,8 @@
           </li>
           <li class="item">
             <h4>電話</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" />
-            <!-- <input type="text" placeholder="請輸入" v-model="loginInfo.Tel"/> -->
+            <!-- <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" /> -->
+            <input type="text" placeholder="請輸入" v-model="loginInfo.Tel" />
           </li>
           <li class="item">
             <h4>取餐人</h4>
@@ -388,6 +388,7 @@ export default {
             } else if (response.data == "此電話號碼尚未進行驗證") {
               this.$swal("此電話號碼尚未進行驗證", "", "warning");
               vm.resendAppear = true;
+              vm.vertifyInfo.Tel = vm.loginInfo.Tel;
             } else {
               this.$swal(response.data, "", "info");
               this.$router.push({ name: "Register" });
@@ -444,6 +445,7 @@ export default {
         this.CreateOrder();
       } else if (this.Login === "False") {
         this.ShowPopup = true;
+        // vm.loginInfo.Tel;
       }
     }
   },

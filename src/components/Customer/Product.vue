@@ -358,6 +358,10 @@ export default {
     imgForceFirst(imgStr) {
       const firstImg = imgStr.split(",")[0];
       return firstImg;
+    },
+    checkCart() {
+      const vm = this;
+      vm.Cart = JSON.parse(localStorage.getItem("totalcart"));
     }
   },
   Filters: {
@@ -371,6 +375,7 @@ export default {
     this.getProducts();
     this.getCategory();
     this.checkFooterCart();
+    this.checkCart();
     // console.log('是否為開放時間',this.isOpenFromCustomer);
   },
   mounted() {
