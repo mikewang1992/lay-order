@@ -1,7 +1,7 @@
 <template>
   <div class="main login_content col-lg-4 col-md-6">
     <div class="content">
-      <img src="@/assets/img/logo.png" alt>
+      <img src="@/assets/img/logo.png" alt />
       <ul class="nav_group mb-3">
         <li>
           <router-link to="/login" class="active">登入</router-link>
@@ -11,7 +11,7 @@
         </li>
       </ul>
 
-      <div class="form-group">
+      <div class="form-group" v-if="!vertifyAppear">
         <label class="sr-only" for="phone">電話</label>
         <span class="iconfont icon-Mobile"></span>
         <input
@@ -22,9 +22,9 @@
           autocomplete="off"
           v-model="loginInfo.Tel"
           maxlength="10"
-        >
+        />
       </div>
-      <div class="form-group mb-4">
+      <div class="form-group mb-4" v-if="!vertifyAppear">
         <label class="sr-only" for="phone">密碼</label>
         <span class="iconfont icon-lock"></span>
         <input
@@ -34,10 +34,43 @@
           placeholder="密碼"
           autocomplete="off"
           v-model="loginInfo.Password"
-        >
+        />
       </div>
-      <a href="index.html" class="btn btn_default mb-2" @click.prevent="login">登入</a>
-      <br>
+      <a
+        href="index.html"
+        class="btn btn_default mb-2"
+        @click.prevent="login"
+        v-if="!vertifyAppear"
+      >登入</a>
+      <!--  -->
+      <div class="input-group" v-if="vertifyAppear">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="電話"
+          v-model="loginInfo.Tel"
+          maxlength="10"
+        />
+        <span class="iconfont icon-Mobile"></span>
+        <div class="input-group-append">
+          <a href="#" class="btn" id @click.prevent="ReSendSMS()">重寄驗證碼</a>
+        </div>
+      </div>
+      <div class="form-group" v-if="vertifyAppear">
+        <label class="sr-only" for="phone">重寄驗證碼簡訊</label>
+        <span class="iconfont icon-message"></span>
+        <input
+          class="form-control"
+          type="text"
+          id
+          placeholder="請輸入簡訊驗證碼"
+          autocomplete="off"
+          v-model="vertifyCode"
+        />
+      </div>
+      <a class="btn btn_default mb-2" @click.prevent="vertify()" v-if="vertifyAppear">驗證手機</a>
+      <!--  -->
+      <br />
       <small>
         <a href="#">忘記密碼</a>
       </small>
@@ -49,7 +82,6 @@ export default {
   data() {
     return {
       loginInfo: {},
-      resendAppear: false,
       vertifyAppear: false,
       vertifyCode: "",
       footerNumber: 0
@@ -74,7 +106,7 @@ export default {
               this.$router.push({ name: "Member" });
             } else if (response.data == "此電話號碼尚未進行驗證") {
               this.$swal(response.data, "請驗證您的電話號碼！", "warning");
-              vm.resendAppear = true;
+              vm.vertifyAppear = true;
             } else {
               this.$swal("哎呦！登入失敗", response.data, "warning");
             }
@@ -92,18 +124,18 @@ export default {
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
         console.log(response);
-        if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
-          vm.vertifyAppear = true;
+        if (response.data === "已寄發3次驗證碼，請您再次確認電話是否正確") {
           this.$swal(response.data, "", "warning");
         } else {
           this.$swal(response.data, "", "info");
+          vm.vertifyAppear = false;
         }
       });
     },
-    vertify(tel, vertify) {
+    vertify() {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Vertify`;
-      const data = { Tel: tel, Vertify: vertify };
+      const data = { Tel: vm.loginInfo.Tel, Vertify: vm.vertifyCode };
       const config = {
         headers: {
           "Content-Type": "application/json"
@@ -114,8 +146,10 @@ export default {
         console.log(response);
         if (response.data !== "驗證失敗，請重新輸入") {
           this.$swal("驗證成功", "YA", "success");
+          vm.vertifyAppear = false;
         } else {
           this.$swal("驗證失敗，請重新輸入", "QQ", "warning");
+          vm.vertifyCode = "";
         }
       });
     },
@@ -135,5 +169,4 @@ export default {
 
 
 <style scoped lang="scss">
-
 </style>
