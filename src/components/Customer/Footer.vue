@@ -52,12 +52,6 @@ export default {
         vm.pageActive = nowURL;
       } else {
         vm.pageActive = nowURL;
-      };
-      if (this.pageActive == 'login') {
-        // console.log("login新增css");
-        document.querySelector(".page").classList.add("login");
-      }else {
-        document.querySelector(".page").classList.remove("login");
       }
     },
     checkFooterCart() {
@@ -66,18 +60,47 @@ export default {
         this.footerNumber = JSON.parse(
           localStorage.getItem("totalcart")
         ).length;
-      };
+      }
+    },
+    checkTable() {
+      const url = `${process.env.APIPATH}/Accounts/IsTable`;
+      this.$http.get(url).then(response => {
+        if (response.data === "外帶") {
+          console.log("外帶");
+        } else {
+          console.log("內用");
+        }
+      });
+    },
+    changePageClass() {
+      console.log("切換頁面class");
+      if (this.pageActive == "login" || this.pageActive == "member") {
+        console.log("login新增css");
+        document.querySelector(".page").classList.add("login");
+      } else {
+        document.querySelector(".page").classList.remove("login");
+      }
+      if (this.pageActive == "order" || this.pageActive == "cart") {
+        document.querySelector("footer ul").classList.add("d-none");
+      } else {
+        document.querySelector("footer ul").classList.add("d-flex");
+      }
     }
   },
   watch: {
     $route(to, from) {
       this.footerActive();
       this.checkFooterCart();
+      this.changePageClass();
     }
   },
   created() {
     this.footerActive();
     this.checkFooterCart();
+    this.checkTable();
+  },
+  mounted() {
+    this.changePageClass();
   }
 };
 </script>
