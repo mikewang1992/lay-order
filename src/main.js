@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
       if (response.data == 'True') {
         next()
       } else {
-        this.$swal({
+        Vue.swal({
           toast: true,
           position: "top-end",
           showConfirmButton: false,

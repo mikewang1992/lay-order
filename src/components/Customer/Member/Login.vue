@@ -1,7 +1,7 @@
 <template>
   <div class="main login_content col-lg-4 col-md-6">
     <div class="content">
-      <img src="img/logo.png" alt>
+      <img src="@/assets/img/logo.png" alt>
       <ul class="nav_group mb-3">
         <li>
           <router-link to="/login" class="active">登入</router-link>
