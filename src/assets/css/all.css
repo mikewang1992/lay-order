@@ -4232,6 +4232,22 @@ select.form-control {
       -webkit-box-align: center;
       -ms-flex-align: center;
       align-items: center; } }
+  .page.login {
+    background-image: url(../img/full_img.png) !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    .page.login .login_content {
+      max-width: 400px;
+      background: #fff; }
+    @media (min-width: 576px) {
+      .page.login footer {
+        max-width: 400px;
+        background-size: 30% auto; }
+      .page.login .content img {
+        display: none; } }
 
 header {
   text-align: center;
@@ -4469,11 +4485,12 @@ footer {
   footer.fixed_bottom {
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    padding: 0.7rem; }
+    padding: 1rem 0.7rem; }
     @media (min-width: 576px) {
       footer.fixed_bottom {
         -webkit-box-shadow: none;
-        box-shadow: none; } }
+        box-shadow: none;
+        background: transparent; } }
   footer ul {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -4482,6 +4499,7 @@ footer {
       position: relative;
       width: 25%; }
       footer ul li .label {
+        font-family: "'Ubuntu', sans-serif";
         position: absolute;
         right: 23%;
         top: 8%;
@@ -4509,13 +4527,12 @@ footer {
           -webkit-filter: brightness(0.4);
           filter: brightness(0.4);
           opacity: 0.5; }
-      footer ul li .router-link-active a,
-      footer ul li .router-link-active p, footer ul li.active a,
+      footer ul li.active a,
       footer ul li.active p, footer ul li:hover a,
       footer ul li:hover p {
         color: #72bcb3;
         font-weight: bold; }
-      footer ul li .router-link-active img, footer ul li.active img, footer ul li:hover img {
+      footer ul li.active img, footer ul li:hover img {
         -webkit-filter: brightness(1);
         filter: brightness(1);
         opacity: 1; }
@@ -4638,7 +4655,8 @@ footer {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
-  padding: 0.5rem 0.75rem; }
+  padding: 0.5rem 0.75rem;
+  background: #fff; }
   .order_list .item {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -4676,3 +4694,14 @@ footer {
       font-size: 1.4rem;
       color: #f77878;
       font-weight: bold; }
+  @media (min-width: 768px) {
+    .order_list {
+      width: 60%;
+      margin: 0 auto; } }
+
+.cart_list {
+  width: 100%; }
+  @media (min-width: 768px) {
+    .cart_list {
+      width: 60%;
+      margin: 0 auto; } }

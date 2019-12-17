@@ -14,11 +14,29 @@
   min-height: 100vh;
   background-image: url(../img/full_img.png);
   background-size: cover;
-
   @include desktop-sm {
     @include bg_paper;
     flex-direction: column;
     align-items: center;
+  }
+  &.login {
+    background-image: url(../img/full_img.png) !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+    .login_content {
+      max-width: 400px;
+      background: #fff;
+    }
+    @include desktop-sm {
+      footer {
+        max-width: 400px;
+        background-size: 30% auto;
+      }
+      .content img {
+        display: none;
+      }
+    }
   }
 }
 
@@ -311,10 +329,11 @@ footer {
 
   &.fixed_bottom {
     @include shadow;
-    padding: 0.7rem;
+    padding: 1rem 0.7rem;
 
     @include desktop-sm {
       box-shadow: none;
+      background: transparent;
     }
   }
 
@@ -326,6 +345,7 @@ footer {
       width: 25%;
 
       .label {
+        font-family: $font_price;
         position: absolute;
         right: 23%;
         top: 8%;
@@ -357,8 +377,6 @@ footer {
           opacity: 0.5;
         }
       }
-
-      .router-link-active,
       &.active,
       &:hover {
         a,
@@ -526,6 +544,7 @@ footer {
   @include shadow;
   border-radius: 15px;
   padding: 0.5rem 0.75rem;
+  background: #fff;
 
   .item {
     display: flex;
@@ -570,5 +589,16 @@ footer {
       color: $color_red;
       font-weight: bold;
     }
+  }
+  @include desktop-md {
+    width: 60%;
+    margin: 0 auto;
+  }
+}
+.cart_list {
+  width: 100%;
+  @include desktop-md {
+    width: 60%;
+    margin: 0 auto;
   }
 }

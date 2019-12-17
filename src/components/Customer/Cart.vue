@@ -444,6 +444,7 @@ export default {
     }
   },
   created() {
+    document.querySelector('footer ul').classList.add('d-none');
     this.getCart();
     this.CheckLogin();
     this.PreTime();
@@ -452,8 +453,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-footer ul {
-  display: none;
-}
+<style scope lang="scss">
+
 </style>

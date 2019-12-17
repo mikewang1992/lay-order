@@ -4,28 +4,26 @@
       <img src="@/assets/img/logo_nav.png" alt>
     </div>
     <ul>
-      <li :class="{'active':footerActive == 'pageHome'}">
+      <li :class="{'active':pageActive=='home'}">
         <router-link to="/Product">
           <img src="@/assets/img/icon_footer01.png" alt>
           <p>菜單</p>
         </router-link>
       </li>
-      <li :class="{'active':footerActive=='pageOrder'}">
+      <li :class="{'active':pageActive=='cart'}">
         <router-link to="/cart">
           <img src="@/assets/img/icon_footer02.png" alt>
-          <p>
-            點菜單
-            <!-- <span v-if="footerNumber>0">:{{footerNumber}}項</span> -->
-          </p>
+          <p>點菜單</p>
+          <span class="label" v-if="footerNumber<20">{{footerNumber}}</span>
         </router-link>
       </li>
-      <li :class="{'active':footerActive=='pageStatus'}">
+      <li :class="{'active':pageActive=='order'}">
         <router-link to="/order">
           <img src="@/assets/img/icon_footer03.png" alt>
           <p>訂單狀態</p>
         </router-link>
       </li>
-      <li :class="{'active':footerActive=='pageMember'}">
+      <li :class="{'active':pageActive=='member'}">
         <router-link to="/member">
           <img src="@/assets/img/icon_footer04.png" alt>
           <p>會員中心</p>
@@ -39,16 +37,47 @@
 export default {
   data() {
     return {
-      footerActive: ""
+      pageActive: "",
+      footerNumber: ""
     };
   },
   methods: {
-    urltest() {
-      console.log();
+    footerActive() {
+      // 判斷目前頁面
+      let vm = this;
+      let nowURL = location.href.split("#/")[1];
+      this.pageActive = nowURL;
+      if (nowURL == "") {
+        nowURL = "home";
+        vm.pageActive = nowURL;
+      } else {
+        vm.pageActive = nowURL;
+      };
+      if (this.pageActive == 'login') {
+        // console.log("login新增css");
+        document.querySelector(".page").classList.add("login");
+      }else {
+        document.querySelector(".page").classList.remove("login");
+      }
+    },
+    checkFooterCart() {
+      // console.log("確認點菜單數量");
+      if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
+        this.footerNumber = JSON.parse(
+          localStorage.getItem("totalcart")
+        ).length;
+      };
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.footerActive();
+      this.checkFooterCart();
     }
   },
   created() {
-    this.urltest();
+    this.footerActive();
+    this.checkFooterCart();
   }
 };
 </script>
