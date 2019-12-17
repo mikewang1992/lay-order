@@ -3349,9 +3349,9 @@ p {
         background: #8bbc72; }
         .content .order .item.done .info h3::before {
           content: "\e629"; }
-      .content .order .item.ready .info h3 {
+      .content .order .item.ready .info h3, .content .order .item.finish .info h3 {
         background: #f77878; }
-        .content .order .item.ready .info h3::before {
+        .content .order .item.ready .info h3::before, .content .order .item.finish .info h3::before {
           content: "\e696"; }
       .content .order .item.cancel .info h3 {
         background: #9b9b9b; }
@@ -3369,7 +3369,7 @@ p {
           border: 3px solid #72bcb3; }
         .content .order .item.active.done {
           border: 3px solid #8bbc72; }
-        .content .order .item.active.ready {
+        .content .order .item.active.ready, .content .order .item.active.finish {
           border: 3px solid #f77878; }
         .content .order .item.active.paid {
           border: 3px solid #9b9b9b; }
@@ -3663,7 +3663,7 @@ p {
       .kitchen_list .order_list .item ul {
         overflow-y: auto; }
         .kitchen_list .order_list .item ul li {
-          border-bottom: 2px solid #d8d8d8;
+          border-bottom: 1px solid #eaeaea;
           padding: 0.5rem 0.5rem 0.25rem 0.5rem; }
           .kitchen_list .order_list .item ul li h4 {
             font-size: 1.1rem;
@@ -3671,7 +3671,7 @@ p {
             margin-bottom: 0.2rem; }
           .kitchen_list .order_list .item ul li .label {
             display: inline-block;
-            background: #72bcb3;
+            background: #f77878;
             color: #fff;
             font-weight: bold;
             padding: 0.15rem 0.5rem;
@@ -3679,8 +3679,10 @@ p {
             margin-bottom: 0.25rem;
             border-radius: 3px;
             font-size: 0.95rem; }
-          .kitchen_list .order_list .item ul li.done {
+          .kitchen_list .order_list .item ul li.done, .kitchen_list .order_list .item ul li.ready {
             opacity: 0.4; }
+            .kitchen_list .order_list .item ul li.done .label, .kitchen_list .order_list .item ul li.ready .label {
+              background: #72bcb3; }
       .kitchen_list .order_list .item .btn {
         margin-top: auto;
         border-radius: 0 0 10px 10px; }
@@ -3739,3 +3741,10 @@ p {
   @media (min-width: 576px) {
     .login_page {
       background-image: url(../img/full_img.png); } }
+
+.cart_list {
+  width: 100%; }
+  @media (min-width: 768px) {
+    .cart_list {
+      width: 100%;
+      margin: 0 auto; } }
