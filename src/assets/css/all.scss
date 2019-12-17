@@ -24,11 +24,22 @@
     background-repeat: no-repeat;
     background-size: cover;
     align-items: center;
+    padding-bottom: 100px;
     .login_content {
       max-width: 400px;
       background: #fff;
+      border-radius: 0;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    footer {
+      background-color: #fff;
+      ul {
+        background-color: #fff;
+      }
     }
     @include desktop-sm {
+      padding: 50px 20px;
       footer {
         max-width: 400px;
         background-size: 30% auto;
@@ -184,17 +195,9 @@ header {
 }
 
 // 會員
-.member {
-  .main {
-    background-image: url(../img/bg_member.png);
-    background-size: contain;
-    background-position: top center;
-
-    @include desktop-sm {
-      background-image: url(../img/title_circle.jpg);
-      background-size: 20%;
-      background-position: left top;
-    }
+@include desktop-sm {
+  .member.main header{
+    display: none;
   }
 }
 

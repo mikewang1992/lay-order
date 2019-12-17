@@ -1,61 +1,27 @@
 <template>
-  <div class="page member">
-    <footer>
-      <ul>
-        <!-- <li :class="{'active':footerActive}"> -->
-        <li>
-          <router-link to="/">
-            <img src="@/assets/img/icon_footer01.png" alt />
-            <p>菜單</p>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/cart">
-            <img src="@/assets/img/icon_footer02.png" alt />
-            <p>
-              點菜單
-              <span v-if="footerNumber>0">:{{footerNumber}}項</span>
-            </p>
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/order">
-            <img src="@/assets/img/icon_footer03.png" alt />
-            <p>訂單狀態</p>
-          </router-link>
-        </li>
-        <li class="active">
-          <router-link to="/member">
-            <img src="@/assets/img/icon_footer04.png" alt />
-            <p>會員資訊</p>
-          </router-link>
-        </li>
-      </ul>
-    </footer>
-    <div class="main col-md-6 col-xl-4">
-      <header>
-        <h1 class="title">會員資訊</h1>
-      </header>
-      <div class="content">
-        <div class="row">
-          <div class="col-sm-8 offset-sm-2">
-            <ul class="nav_group mb-3">
-              <li>
-                <router-link to="/coupon" class="active">我的優惠券</router-link>
-              </li>
-              <li>
-                <router-link to="/member">個人資訊</router-link>
-              </li>
-            </ul>
-          </div>
+  <div class="main member login_content col-md-6 col-xl-4">
+    <header>
+      <h1 class="title">會員資訊</h1>
+    </header>
+    <div class="content">
+      <div class="row">
+        <div class="col-sm-12">
+          <ul class="nav_group mb-3">
+            <li>
+              <router-link to="/coupon" class="active">我的優惠券</router-link>
+            </li>
+            <li>
+              <router-link to="/member">個人資訊</router-link>
+            </li>
+          </ul>
         </div>
-        <div class="card_list">
-          <div class="item" v-for="(item,key,index) in Vouchers" :key="index">
-            <h2>{{item.Title}}</h2>
-            <p>{{item.Content}}</p>
-            <p>{{item.StartTime}}</p>
-            <p>{{item.EndTime}}</p>
-          </div>
+      </div>
+      <div class="card_list">
+        <div class="item" v-for="(item,key,index) in Vouchers" :key="index">
+          <h2>{{item.Title}}</h2>
+          <p>{{item.Content}}</p>
+          <p>{{item.StartTime}}</p>
+          <p>{{item.EndTime}}</p>
         </div>
       </div>
     </div>

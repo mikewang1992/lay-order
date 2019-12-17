@@ -77,6 +77,7 @@ export default {
       if (
         this.pageActive == "login" ||
         this.pageActive == "member" ||
+        this.pageActive == "coupon" ||
         this.pageActive == "register"
       ) {
         console.log("login新增css");

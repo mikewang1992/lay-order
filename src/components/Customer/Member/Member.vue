@@ -1,11 +1,11 @@
 <template>
-  <div class="main col-md-6 col-xl-4">
+  <div class="main member login_content col-md-6 col-xl-4">
     <header>
       <h1 class="title">會員資訊</h1>
     </header>
     <div class="content">
       <div class="row mb-2">
-        <div class="col-sm-8 offset-sm-2">
+        <div class="col-sm-12">
           <ul class="nav_group">
             <li>
               <router-link to="/coupon">我的優惠券</router-link>
@@ -22,7 +22,7 @@
           <small class="color_red">若需修改電話號碼，請重新註冊</small>
         </div>
 
-        <div class="col-sm-8 offset-sm-2">
+        <div class="col-sm-12">
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-Mobile"></span>

@@ -4238,16 +4238,26 @@ select.form-control {
     background-size: cover;
     -webkit-box-align: center;
     -ms-flex-align: center;
-    align-items: center; }
+    align-items: center;
+    padding-bottom: 100px; }
     .page.login .login_content {
       max-width: 400px;
-      background: #fff; }
+      background: #fff;
+      border-radius: 0;
+      padding-top: 1rem;
+      padding-bottom: 1rem; }
+    .page.login footer {
+      background-color: #fff; }
+      .page.login footer ul {
+        background-color: #fff; }
     @media (min-width: 576px) {
-      .page.login footer {
-        max-width: 400px;
-        background-size: 30% auto; }
-      .page.login .content img {
-        display: none; } }
+      .page.login {
+        padding: 50px 20px; }
+        .page.login footer {
+          max-width: 400px;
+          background-size: 30% auto; }
+        .page.login .content img {
+          display: none; } }
 
 header {
   text-align: center;
@@ -4370,15 +4380,9 @@ header {
       .login .content img {
         width: 50%; } }
 
-.member .main {
-  background-image: url(../img/bg_member.png);
-  background-size: contain;
-  background-position: top center; }
-  @media (min-width: 576px) {
-    .member .main {
-      background-image: url(../img/title_circle.jpg);
-      background-size: 20%;
-      background-position: left top; } }
+@media (min-width: 576px) {
+  .member.main header {
+    display: none; } }
 
 .card_list .item {
   -webkit-box-shadow: 0 2px 4px rgba(114, 188, 179, 0.25);
