@@ -2,13 +2,13 @@
   <div class="main">
     <div v-if="this.isOpenFromCustomer==='no'" class="open_notice">Sorry！本時段不開放預約！</div>
     <header class="hide_lg">
-      <img src="@/assets/img/logo_nav.png" alt>
+      <img src="@/assets/img/logo_nav.png" alt />
     </header>
     <!-- banners -->
     <div class="content">
       <swiper :options="swiperSingle" ref="mySwiper" @someSwiperEvent="swiper()">
         <swiper-slide v-for="(item,key,index) in banners" :key="index">
-          <img :src="BannerimgUrl+item" alt>
+          <img :src="BannerimgUrl+item" alt />
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
@@ -37,7 +37,7 @@
         >
           <div class="item open_popup">
             <div class="p_image">
-              <img :src="ProductimgUrl+item.Img[0]" alt>
+              <img :src="ProductimgUrl+item.Img[0]" alt />
             </div>
             <div class="p_info">
               <h3>{{item.Name}}</h3>
@@ -60,7 +60,7 @@
           >
             <swiper-slide v-for="(item,index) in productDetail[0].Img" :key="index">
               <div class="p_img_slier">
-                <img :src="ProductimgUrl+item" alt>
+                <img :src="ProductimgUrl+item" alt />
               </div>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
@@ -70,7 +70,7 @@
           <div class="p_info p-3">
             <h3>{{productDetail[0].Name}}</h3>
             <small>訂單總量超過 20 份請來電預約</small>
-            <hr>
+            <hr />
             <div class="p_text">
               <p>{{productDetail[0].Description}}</p>
             </div>
@@ -85,7 +85,7 @@
                     :id="`option1-${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[0]"
-                  >
+                  />
                   <label :for="`option1-${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
@@ -99,7 +99,7 @@
                     :id="`inlineRadio2-${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[1]"
-                  >
+                  />
                   <label :for="`inlineRadio2-${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
@@ -113,7 +113,7 @@
                     :id="`inlineRadio3-${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[2]"
-                  >
+                  />
                   <label :for="`inlineRadio3-${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
@@ -127,7 +127,7 @@
                     :id="`inlineRadio4-${key+1}`"
                     :value="inneritem"
                     v-model="Orders.Options[3]"
-                  >
+                  />
                   <label :for="`inlineRadio4-${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
@@ -361,7 +361,9 @@ export default {
     },
     checkCart() {
       const vm = this;
-      vm.Cart = JSON.parse(localStorage.getItem("totalcart"));
+      if (JSON.parse(localStorage.getItem("totalcart"))) {
+        vm.Cart = JSON.parse(localStorage.getItem("totalcart"));
+      }
     }
   },
   Filters: {

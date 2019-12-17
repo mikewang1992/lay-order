@@ -47,7 +47,7 @@
           </li>
           <li class="item">
             <h4>取餐人</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[1]" />
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]" />
           </li>
           <li class="item">
             <h4>取餐時間</h4>
@@ -273,7 +273,11 @@ export default {
       const url = `${process.env.APIPATH}/Accounts/OrderMember`;
       this.$http.get(url).then(response => {
         console.log(response);
-        this.OrderMemberInfo = response.data;
+        vm.OrderMemberInfo = response.data.split(",");
+        vm.loginInfo.Tel = vm.OrderMemberInfo[0];
+
+        // this.OrderMemberInfo.split(",")[0],
+        // this.OrderMemberInfo.split(",")[1]
       });
     },
     CheckLogin() {
