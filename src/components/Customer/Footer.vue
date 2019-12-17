@@ -10,7 +10,7 @@
           <p>菜單</p>
         </router-link>
       </li>
-      <li :class="{'active':pageActive=='cart'}">
+      <li :class="{'active':pageActive=='cart'}" class="footer_cart">
         <router-link to="/cart">
           <img src="@/assets/img/icon_footer02.png" alt>
           <p>點菜單</p>
@@ -73,7 +73,7 @@ export default {
       });
     },
     changePageClass() {
-      console.log("切換頁面class");
+      // console.log("切換頁面class");
       if (this.pageActive == "login" || this.pageActive == "member") {
         console.log("login新增css");
         document.querySelector(".page").classList.add("login");
