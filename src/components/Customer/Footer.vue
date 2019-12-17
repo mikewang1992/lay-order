@@ -74,13 +74,21 @@ export default {
     },
     changePageClass() {
       // console.log("切換頁面class");
-      if (this.pageActive == "login" || this.pageActive == "member") {
+      if (
+        this.pageActive == "login" ||
+        this.pageActive == "member" ||
+        this.pageActive == "register"
+      ) {
         console.log("login新增css");
         document.querySelector(".page").classList.add("login");
       } else {
         document.querySelector(".page").classList.remove("login");
       }
-      if (this.pageActive == "cart"|| this.pageActive == "Cart/ResultOut"|| this.pageActive == "Cart/ResultIn") {
+      if (
+        this.pageActive == "cart" ||
+        this.pageActive == "Cart/ResultOut" ||
+        this.pageActive == "Cart/ResultIn"
+      ) {
         document.querySelector("footer ul").classList.add("d-none");
       } else {
         document.querySelector("footer ul").classList.add("d-flex");
