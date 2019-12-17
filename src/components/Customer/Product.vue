@@ -374,7 +374,6 @@ export default {
     this.getBanners();
     this.getProducts();
     this.getCategory();
-    this.checkFooterCart();
     this.checkCart();
     // console.log('是否為開放時間',this.isOpenFromCustomer);
   },
