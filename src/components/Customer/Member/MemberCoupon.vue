@@ -20,8 +20,8 @@
         <div class="item" v-for="(item,key,index) in Vouchers" :key="index">
           <h2>{{item.Title}}</h2>
           <p>{{item.Content}}</p>
-          <p>{{item.StartTime}}</p>
-          <p>{{item.EndTime}}</p>
+          <p>使用期限:</p>
+          <p>{{getFullTime(item.StartTime)}} ~ {{getFullTime(item.EndTime)}}</p>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@ export default {
             text: "聯繫小編拿更多優惠券",
             type: "warning",
             showCancelButton: false,
-            confirmButtonText: "個人資訊",
+            confirmButtonText: "回個人資訊",
             reverseButtons: true
           }).then(result => {
             this.$router.push({ name: "Member" });
@@ -64,6 +64,19 @@ export default {
           localStorage.getItem("totalcart")
         ).length;
       }
+    },
+    getFullTime(time) {
+      const date = new Date(time);
+      let year = date.getFullYear();
+      let mon = date.getMonth() + 1;
+      let day = date.getDate();
+      let hour = date.getHours();
+      let min = date.getMinutes();
+      if (min < 10) {
+        min = "0" + min;
+      }
+      const newFullDay = `${year}/${mon}/${day} ${hour}:${min}`;
+      return newFullDay;
     }
   },
   created() {
