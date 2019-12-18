@@ -1,11 +1,12 @@
 <template>
-  <div class="main pb-5">
+  <div class="main pb-0">
     <router-view :OrderCodeFromCart="OrderCode" v-if="ShowResult"></router-view>
+    <!-----------------購物車主體----------------------->
     <header v-if="!ShowResult">
       <a class="icon iconfont icon-left" @click.prevent="$router.go(-1);"></a>
       <h1>點菜單</h1>
     </header>
-    <div class="content" v-if="!ShowResult">
+    <div class="content mb-5" v-if="!ShowResult">
       <div class="cart_list">
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
@@ -54,7 +55,7 @@
             <small class="color_default">製作時間約{{PrepareTime}}分，請於{{timeNow}}後來店取餐</small>
             <!-- <small class="color_default">我要指定於今天來店取餐</small> -->
           </li>
-          <!-- <li class="item">
+          <li class="item">
             <h4>
               <input type="checkbox" id="selectTime" class="w-auto d-inline">
               <label for="selectTime">我要指定取餐時間</label>
@@ -67,7 +68,7 @@
                 <option value="123">12:50</option>
               </select>
             </div>
-          </li> -->
+          </li>
         </ul>
       </div>
       <small class="color_red text-center d-block mt-2 mb-3">訂單總量超過20份請來電預約,餐點現做，製作時間約 25 min</small>
@@ -604,12 +605,13 @@ export default {
       }
     }
   },
-  beforeCreate() {},
-  mounted() {
-    document.querySelector("footer ul").classList.add("d-none");
+  created() {
     this.getCart();
     this.CheckLogin();
     this.PreTime();
+  },
+  mounted() {
+    document.querySelector("footer ul").classList.add("d-none");
   }
 };
 </script>
