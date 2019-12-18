@@ -10,7 +10,7 @@
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
-              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
             </div>
             <div class="p_info">
               <div class="p_name">
@@ -43,11 +43,11 @@
           <li class="item">
             <h4>電話</h4>
             <!-- <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" /> -->
-            <input type="phone" placeholder="請輸入" maxlength="10" required v-model="loginInfo.Tel">
+            <input type="phone" placeholder="請輸入" maxlength="10" required v-model="loginInfo.Tel" />
           </li>
           <li class="item">
             <h4>取餐人</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]">
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]" />
           </li>
           <li class="item">
             <h4>取餐時間</h4>
@@ -56,7 +56,7 @@
           </li>
           <li class="item">
             <h4>
-              <input type="checkbox" id="selectTime" class="w-auto d-inline">
+              <input type="checkbox" id="selectTime" class="w-auto d-inline" />
               <label for="selectTime">我要指定取餐時間</label>
             </h4>
             <div class="form-check">
@@ -86,9 +86,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/login_img.png" alt>
+          <img src="@/assets/img/login_img.png" alt />
           <h2>請先登入會員</h2>
-          <br>
+          <br />
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -100,7 +100,7 @@
               maxlength="10"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            >
+            />
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -112,10 +112,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            >
+            />
           </div>
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
-          <br>
+          <br />
           <small>
             <a @click.prevent="registerAppear=true,ShowPopup=false" class="color_gray">立即註冊</a>
           </small>
@@ -131,9 +131,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt>
+          <img src="@/assets/img/phone.png" alt />
           <h2>驗證手機，立即加入會員！</h2>
-          <br>
+          <br />
           <div v-if="reInfo">
             <div class="form-group">
               <label class="sr-only" for="phone">電話</label>
@@ -144,7 +144,7 @@
                 placeholder="電話"
                 maxlength="10"
                 v-model="registerInfo.Tel"
-              >
+              />
             </div>
             <div class="form-group">
               <label class="sr-only" for="userName">姓名</label>
@@ -155,7 +155,7 @@
                 placeholder="請輸入姓名"
                 autocomplete="off"
                 v-model="registerInfo.Name"
-              >
+              />
             </div>
             <div class="form-group">
               <label class="sr-only" for="password">密碼</label>
@@ -167,7 +167,7 @@
                 placeholder="請設定密碼"
                 autocomplete="off"
                 v-model="registerInfo.Password"
-              >
+              />
             </div>
             <a class="btn btn_default mb-2" @click="register()">確認</a>
           </div>
@@ -183,7 +183,7 @@
                 placeholder="請輸入簡訊驗證碼"
                 autocomplete="off"
                 v-model="vertifyInfo.Vertify"
-              >
+              />
             </div>
             <div class="d-flex">
               <a class="btn d-block w-100 btn_yellow mb-2 mr-1" @click="ReSendSMS()">重新發送</a>
@@ -435,13 +435,15 @@ export default {
       if (vm.loginInfo.Tel.length === 10) {
         if (vm.loginInfo.Tel.slice(0, 2) === "09") {
           this.$http.post(url, data, config).then(response => {
-            // console.log(response);
+            console.log(response);
             if (response.data == "success") {
               this.$swal("登入成功", "", "success");
               vm.ShowPopup = false;
               vm.CheckLogin();
+            } else if (response.data === "此電話號碼尚未進行驗證") {
+              this.$swal(response.data, "", "warning");
             } else {
-              console.log(response);
+              this.$swal(response.data, "", "warning");
             }
           });
         } else {
@@ -470,7 +472,7 @@ export default {
       const data = vm.registerInfo;
       const url = `${process.env.APIPATH}/Accounts/Create?${data}`;
 
-      if ((data.Tel !== "" && data.Name !== "") && data.Password !== "") {
+      if (data.Tel !== "" && data.Name !== "" && data.Password !== "") {
         console.log("送出");
         this.reInfo = false;
         this.reVertify = true;
@@ -506,9 +508,8 @@ export default {
       const params = vm.registerInfo.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
-        // console.log(response);
+        console.log(response);
         if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
-          console.log(response);
           vm.vertifyAppear = true;
           this.$swal(
             "哇哩咧！",
@@ -564,9 +565,8 @@ export default {
                 vm.loginInfo.Tel;
                 console.log("你還沒登入，showLogin");
               } else {
-                console.log("此電話號碼還沒驗證，立即註冊");
                 this.$swal({
-                  title: "此電話號碼還沒驗證",
+                  title: response.data,
                   type: "warning",
                   showCancelButton: true,
                   confirmButtonText: "立即註冊",
