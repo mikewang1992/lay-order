@@ -172,7 +172,8 @@
             <a class="btn btn_default mb-2" @click="register()">確認</a>
           </div>
           <div class="mr-4 ml-4" v-if="reVertify">
-            <p>簡訊驗證碼已發送至 {{registerInfo.Tel}}</p>
+            <p>簡訊驗證碼已發送至 {{loginInfo.Tel}}</p>
+            <!-- <p>簡訊驗證碼已發送至 {{registerInfo.Tel}}</p> -->
             <div class="form-group">
               <label class="sr-only" for="phone">簡訊驗證碼</label>
               <span class="iconfont icon-message"></span>
@@ -442,6 +443,10 @@ export default {
               vm.CheckLogin();
             } else if (response.data === "此電話號碼尚未進行驗證") {
               this.$swal(response.data, "", "warning");
+              this.registerAppear = true;
+              this.reInfo = false;
+              this.reVertify = true;
+              this.vertifyInfo.Tel = this.loginInfo.Tel;
             } else {
               this.$swal(response.data, "", "warning");
             }
@@ -505,7 +510,7 @@ export default {
     },
     ReSendSMS() {
       const vm = this;
-      const params = vm.registerInfo.Tel;
+      const params = vm.loginInfo.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
         console.log(response);
@@ -531,7 +536,7 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      // console.log(data);
+      console.log(data);
       this.$http.post(url, data, config).then(response => {
         // console.log(response);
         if (response.data !== "驗證失敗，請重新輸入") {
@@ -562,7 +567,7 @@ export default {
               console.log(response);
               if (response.data == "登入失敗") {
                 this.ShowPopup = true;
-                vm.loginInfo.Tel;
+                // vm.loginInfo.Tel;
                 console.log("你還沒登入，showLogin");
               } else {
                 this.$swal({

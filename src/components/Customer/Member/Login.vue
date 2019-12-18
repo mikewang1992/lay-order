@@ -65,6 +65,7 @@
           id
           placeholder="請輸入簡訊驗證碼"
           autocomplete="off"
+          maxlength="6"
           v-model="vertifyCode"
         />
       </div>
@@ -143,12 +144,15 @@ export default {
       console.log(data);
       this.$http.post(url, data, config).then(response => {
         console.log(response);
-        if (response.data !== "驗證失敗，請重新輸入") {
-          this.$swal("驗證成功", "YA", "success");
-          vm.vertifyAppear = false;
-        } else {
+        if (
+          response.data === "驗證碼輸入失敗3次，請重新取得驗證碼" ||
+          response.data === "驗證失敗，請重新輸入"
+        ) {
           this.$swal("驗證失敗，請重新輸入", "QQ", "warning");
           vm.vertifyCode = "";
+        } else {
+          this.$swal("驗證成功", "YA", "success");
+          vm.vertifyAppear = false;
         }
       });
     },
