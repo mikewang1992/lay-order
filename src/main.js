@@ -12,10 +12,13 @@ import 'swiper/dist/css/swiper.css'
 //sweetalert2
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+// VueTimepicker
+import VueTimepicker from 'vue2-timepicker'
+import 'vue2-timepicker/dist/VueTimepicker.css'
 
 const options = {
-  confirmButtonColor: '#72BCB3',
-  cancelButtonColor: '#9B9B9B',
+    confirmButtonColor: '#72BCB3',
+    cancelButtonColor: '#9B9B9B',
 };
 
 Vue.config.productionTip = false
@@ -27,55 +30,54 @@ Vue.use(VueSweetalert2, options)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })
 
 
 //router auth
 router.beforeEach((to, from, next) => {
-  // console.log(to, from, next)
-  if (to.meta.requiresLogin) {
-    const api = `${process.env.APIPATH}/Accounts/CheckLogin`;
-    axios.get(api).then(response => {
-      console.log(response.data);
-      if (response.data == 'True') {
-        next()
-      } else {
-        Vue.swal({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          type: "info",
-          title: "請先登入唷"
+    // console.log(to, from, next)
+    if (to.meta.requiresLogin) {
+        const api = `${process.env.APIPATH}/Accounts/CheckLogin`;
+        axios.get(api).then(response => {
+            console.log(response.data);
+            if (response.data == 'True') {
+                next()
+            } else {
+                Vue.swal({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    type: "info",
+                    title: "請先登入唷"
+                });
+                next({ path: '/login' })
+            }
         });
-        next({ path: '/login' })
-      }
-    });
-  } else if (to.meta.requiresEmployeeLogin) {
-    const api = `${process.env.APIPATH}/Kitchen/ShowOrderList?type=&&status=&&page=1`;
-    axios.get(api).then(response => {
-      console.log(response.data);
-      if (response.data == '未登入') {
-        Vue.swal({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          type: "info",
-          title: "請先登入唷"
+    } else if (to.meta.requiresEmployeeLogin) {
+        const api = `${process.env.APIPATH}/Kitchen/ShowOrderList?type=&&status=&&page=1`;
+        axios.get(api).then(response => {
+            console.log(response.data);
+            if (response.data == '未登入') {
+                Vue.swal({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    type: "info",
+                    title: "請先登入唷"
+                });
+                next({ path: '/EmployeeLogin' })
+            } else {
+                next()
+            }
         });
-        next({ path: '/EmployeeLogin' })
-      } else {
-        next()
-      }
-    });
-  }
-  else {
-    next();
-  }
+    } else {
+        next();
+    }
 
 })

@@ -10,7 +10,7 @@
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
-              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
             </div>
             <div class="p_info">
               <div class="p_name">
@@ -43,34 +43,47 @@
           <li class="item">
             <h4>電話</h4>
             <!-- <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" /> -->
-            <input type="phone" placeholder="請輸入" maxlength="10" required v-model="loginInfo.Tel">
+            <input type="phone" placeholder="請輸入" maxlength="10" required v-model="loginInfo.Tel" />
           </li>
           <li class="item">
             <h4>取餐人</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]">
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]" />
           </li>
           <li class="item">
             <h4>取餐時間</h4>
             <small class="color_default">製作時間約{{PrepareTime}}分，請於{{timeNow}}後來店取餐</small>
             <!-- <small class="color_default">我要指定於今天來店取餐</small> -->
           </li>
-          <!-- <li class="item">
+          <li class="item">
             <h4>
-              <input type="checkbox" id="selectTime" class="w-auto d-inline">
+              <input type="checkbox" id="selectTime" class="w-auto d-inline" />
               <label for="selectTime">我要指定取餐時間</label>
             </h4>
+            <vue-timepicker
+              :hour-range="TimePickerLimit"
+              :minute-range="[[0,59]]"
+              :format="yourFormat"
+              v-model="yourStringTimeValue"
+              close-on-complete
+              hide-disabled-hours
+              hide-disabled-minutes
+              hour-label="時"
+              minute-label="分"
+            ></vue-timepicker>
             <div class="form-check">
-              <select name id>
+              <!-- <select name id>
                 <option value="123" selected hidden>請選擇</option>
                 <option value="123">12:20</option>
                 <option value="123">12:40</option>
                 <option value="123">12:50</option>
-              </select>
+              </select>-->
             </div>
-          </li> -->
+          </li>
         </ul>
       </div>
-      <small class="color_red text-center d-block mt-2 mb-3">訂單總量超過20份請來電預約,餐點現做，製作時間約 25 min</small>
+      <small
+        class="color_red text-center d-block mt-2 mb-3"
+      >訂單總量超過20份請來電預約,餐點現做，製作時間約 {{PrepareTime}} min</small>
       <footer class="d-block text-center fixed_bottom">
         <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a>
         <!-- <a href="#" class="btn btn_default d-block btn_lg open_popup">確認點餐(test)</a> -->
@@ -86,9 +99,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/login_img.png" alt>
+          <img src="@/assets/img/login_img.png" alt />
           <h2>請先登入會員</h2>
-          <br>
+          <br />
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -100,7 +113,7 @@
               maxlength="10"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            >
+            />
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -112,10 +125,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            >
+            />
           </div>
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
-          <br>
+          <br />
           <small>
             <a @click.prevent="registerAppear=true,ShowPopup=false" class="color_gray">立即註冊</a>
           </small>
@@ -131,9 +144,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt>
+          <img src="@/assets/img/phone.png" alt />
           <h2>驗證手機，立即加入會員！</h2>
-          <br>
+          <br />
           <div v-if="reInfo">
             <div class="form-group">
               <label class="sr-only" for="phone">電話</label>
@@ -144,7 +157,7 @@
                 placeholder="電話"
                 maxlength="10"
                 v-model="registerInfo.Tel"
-              >
+              />
             </div>
             <div class="form-group">
               <label class="sr-only" for="userName">姓名</label>
@@ -155,7 +168,7 @@
                 placeholder="請輸入姓名"
                 autocomplete="off"
                 v-model="registerInfo.Name"
-              >
+              />
             </div>
             <div class="form-group">
               <label class="sr-only" for="password">密碼</label>
@@ -167,7 +180,7 @@
                 placeholder="請設定密碼"
                 autocomplete="off"
                 v-model="registerInfo.Password"
-              >
+              />
             </div>
             <a class="btn btn_default mb-2" @click="register()">確認</a>
           </div>
@@ -184,7 +197,7 @@
                 placeholder="請輸入簡訊驗證碼"
                 autocomplete="off"
                 v-model="vertifyInfo.Vertify"
-              >
+              />
             </div>
             <div class="d-flex">
               <!-- <a class="btn d-block w-100 btn_yellow mb-2 mr-1" @click="ReSendSMS()">重新發送</a> -->
@@ -199,12 +212,12 @@
 
 
 <script>
+import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
 export default {
   data() {
     return {
       OrderCode: 1,
       CartFromProduct: [],
-      OrderPreStorage: [],
       ConfirmedOrder: [],
       PrepareTime: 20,
       OrderMemberInfo: "",
@@ -216,9 +229,18 @@ export default {
       reVertify: false,
       registerInfo: { Tel: "", Password: "", Name: "" },
       vertifyInfo: { Tel: "", Vertify: "" },
-      ShowResult: false
+      ShowResult: false,
+      // 時間data
+      yourFormat: "HH:mm",
+      TimePickerLimit: [[]],
+      yourData: {
+        HH: "00",
+        mm: "00"
+      },
+      yourStringTimeValue: "00:00"
     };
   },
+  components: { VueTimepicker },
   computed: {
     timeNow() {
       const date = new Date(Date.now());
@@ -281,6 +303,15 @@ export default {
       } else {
         this.CartFromProduct = totalcart;
       }
+    },
+    getTime(time) {
+      const date = new Date(time);
+      let m = date.getMinutes();
+      if (m < 10) {
+        m = "0" + m;
+      }
+      const newTime = `${date.getHours()}:${m}`;
+      return newTime;
     },
     getFullTime(time) {
       const date = new Date(time);
@@ -499,7 +530,7 @@ export default {
           type: "warning",
           title: "請輸入所有內容"
         });
-      };
+      }
     },
     ReSendSMS() {
       const vm = this;
@@ -602,6 +633,23 @@ export default {
           });
         }
       }
+    },
+    getShopTime() {
+      // const vm = this;
+      // const url = `${process.env.APIPATH}/Accounts/`;
+      // this.$http.get(url).then(response => {
+      //   console.log(response);
+      // });
+      const faketime1 = "2019-12-18T08:30:00";
+      const faketime2 = "2019-12-18T22:30:00";
+      console.log(this.getTime(faketime1).split(":")[0]);
+      console.log(this.getTime(faketime2).split(":")[0]);
+      this.TimePickerLimit = [
+        [
+          this.getTime(faketime1).split(":")[0],
+          this.getTime(faketime2).split(":")[0] - 1
+        ]
+      ];
     }
   },
   beforeCreate() {},
@@ -610,6 +658,7 @@ export default {
     this.getCart();
     this.CheckLogin();
     this.PreTime();
+    this.getShopTime();
   }
 };
 </script>
