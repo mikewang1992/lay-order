@@ -23,7 +23,7 @@ axios.defaults.withCredentials = true;
 
 Vue.use(VueAxios, axios)
 Vue.use(VueAwesomeSwiper)
-Vue.use(VueSweetalert2,options)
+Vue.use(VueSweetalert2, options)
 
 /* eslint-disable no-new */
 new Vue({
@@ -53,6 +53,24 @@ router.beforeEach((to, from, next) => {
           title: "請先登入唷"
         });
         next({ path: '/login' })
+      }
+    });
+  } else if (to.meta.requiresEmployeeLogin) {
+    const api = `${process.env.APIPATH}/Kitchen/ShowOrderList?type=&&status=&&page=1`;
+    axios.get(api).then(response => {
+      console.log(response.data);
+      if (response.data == '未登入') {
+        Vue.swal({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          type: "info",
+          title: "請先登入唷"
+        });
+        next({ path: '/EmployeeLogin' })
+      } else {
+        next()
       }
     });
   }

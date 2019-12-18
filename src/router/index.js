@@ -95,12 +95,18 @@ export default new Router({
     {
         path: '/counter',
         name: 'Counter',
-        component: Counter
+        component: Counter,
+        meta: {
+            requiresEmployeeLogin: true
+        }
     },
     {
         path: '/kitchen',
         name: 'Kitchen',
-        component: Kitchen
+        component: Kitchen,
+        meta: {
+            requiresEmployeeLogin: true
+        }
     },
     {
         path: '/employeeLogin',
