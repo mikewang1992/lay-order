@@ -10,7 +10,7 @@
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
-              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
             </div>
             <div class="p_info">
               <div class="p_name">
@@ -43,20 +43,20 @@
           <li class="item">
             <h4>電話</h4>
             <!-- <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" /> -->
-            <input type="phone" placeholder="請輸入" maxlength="10" required v-model="loginInfo.Tel" />
+            <input type="phone" placeholder="請輸入" maxlength="10" required v-model="loginInfo.Tel">
           </li>
           <li class="item">
             <h4>取餐人</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]" />
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]">
           </li>
           <li class="item">
             <h4>取餐時間</h4>
             <small class="color_default">製作時間約{{PrepareTime}}分，請於{{timeNow}}後來店取餐</small>
             <!-- <small class="color_default">我要指定於今天來店取餐</small> -->
           </li>
-          <li class="item">
+          <!-- <li class="item">
             <h4>
-              <input type="checkbox" id="selectTime" class="w-auto d-inline" />
+              <input type="checkbox" id="selectTime" class="w-auto d-inline">
               <label for="selectTime">我要指定取餐時間</label>
             </h4>
             <div class="form-check">
@@ -67,7 +67,7 @@
                 <option value="123">12:50</option>
               </select>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
       <small class="color_red text-center d-block mt-2 mb-3">訂單總量超過20份請來電預約,餐點現做，製作時間約 25 min</small>
@@ -86,9 +86,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/login_img.png" alt />
+          <img src="@/assets/img/login_img.png" alt>
           <h2>請先登入會員</h2>
-          <br />
+          <br>
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -100,7 +100,7 @@
               maxlength="10"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            />
+            >
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -112,10 +112,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            />
+            >
           </div>
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
-          <br />
+          <br>
           <small>
             <a @click.prevent="registerAppear=true,ShowPopup=false" class="color_gray">立即註冊</a>
           </small>
@@ -131,20 +131,20 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt />
+          <img src="@/assets/img/phone.png" alt>
           <h2>驗證手機，立即加入會員！</h2>
-          <br />
+          <br>
           <div v-if="reInfo">
             <div class="form-group">
               <label class="sr-only" for="phone">電話</label>
-              <span class="iconfont icon-message"></span>
+              <span class="iconfont icon-Mobile"></span>
               <input
                 type="phone"
                 class="form-control"
                 placeholder="電話"
                 maxlength="10"
                 v-model="registerInfo.Tel"
-              />
+              >
             </div>
             <div class="form-group">
               <label class="sr-only" for="userName">姓名</label>
@@ -155,7 +155,7 @@
                 placeholder="請輸入姓名"
                 autocomplete="off"
                 v-model="registerInfo.Name"
-              />
+              >
             </div>
             <div class="form-group">
               <label class="sr-only" for="password">密碼</label>
@@ -167,7 +167,7 @@
                 placeholder="請設定密碼"
                 autocomplete="off"
                 v-model="registerInfo.Password"
-              />
+              >
             </div>
             <a class="btn btn_default mb-2" @click="register()">確認</a>
           </div>
@@ -184,10 +184,10 @@
                 placeholder="請輸入簡訊驗證碼"
                 autocomplete="off"
                 v-model="vertifyInfo.Vertify"
-              />
+              >
             </div>
             <div class="d-flex">
-              <a class="btn d-block w-100 btn_yellow mb-2 mr-1" @click="ReSendSMS()">重新發送</a>
+              <!-- <a class="btn d-block w-100 btn_yellow mb-2 mr-1" @click="ReSendSMS()">重新發送</a> -->
               <a class="btn btn_default w-100 mb-2 ml-1" @click="vertify()">確認</a>
             </div>
           </div>
@@ -281,21 +281,6 @@ export default {
       } else {
         this.CartFromProduct = totalcart;
       }
-    },
-    sendCart() {
-      const vm = this;
-      const url = `${process.env.APIPATH}/Order/Create`;
-      const data = {};
-      const config = {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      };
-      // console.log(data);
-      this.$http.post(url, data, config).then(response => {
-        // console.log(response);
-        this.$swal("驗證成功", "", "success");
-      });
     },
     getFullTime(time) {
       const date = new Date(time);
@@ -474,14 +459,37 @@ export default {
     },
     register() {
       const vm = this;
+      const url = `${process.env.APIPATH}/Accounts/Create`;
       const data = vm.registerInfo;
-      const url = `${process.env.APIPATH}/Accounts/Create?${data}`;
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
 
       if (data.Tel !== "" && data.Name !== "" && data.Password !== "") {
         console.log("送出");
-        this.reInfo = false;
-        this.reVertify = true;
+
         this.vertifyInfo.Tel = data.Tel;
+        this.$http.post(url, data, config).then(response => {
+          console.log(response);
+          if (response.data === "success") {
+            this.reInfo = false;
+            this.reVertify = true;
+            this.$swal({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              type: "success",
+              title: "註冊成功，請驗證您的手機號碼"
+            });
+          } else if (response.data === "此電話已存在，請勿重複申請") {
+            this.$swal("此電話已存在，請勿重複申請", "再給你個機會", "warning");
+          } else {
+            this.$swal(response.data, "", "warning");
+          }
+        });
       } else {
         this.$swal({
           toast: true,
@@ -491,22 +499,7 @@ export default {
           type: "warning",
           title: "請輸入所有內容"
         });
-      }
-      // this.$http.get(url).then(response => {
-      //   console.log(response);
-      //   if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
-      //     console.log(response);
-      //     vm.vertifyAppear = true;
-      //     this.$swal(
-      //       "哇哩咧！",
-      //       "已寄發3次驗證碼，請您再次確認電話是否正確",
-      //       "warning"
-      //     );
-      //   } else {
-      //     console.log(response);
-      //     this.$swal(response.data, "", "info");
-      //   }
-      // });
+      };
     },
     ReSendSMS() {
       const vm = this;
@@ -514,7 +507,7 @@ export default {
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
         console.log(response);
-        if (response.data !== "已寄發3次驗證碼，請您再次確認電話是否正確") {
+        if (response.data == "已寄發3次驗證碼，請您再次確認電話是否正確") {
           vm.vertifyAppear = true;
           this.$swal(
             "哇哩咧！",
@@ -540,11 +533,15 @@ export default {
       this.$http.post(url, data, config).then(response => {
         // console.log(response);
         if (response.data !== "驗證失敗，請重新輸入") {
-          this.$swal("驗證成功", "歡迎繼續點餐", "success");
+          this.$swal("驗證成功", "觀迎繼續點餐", "success");
           registerAppear = false;
-          this.$router.push({ name: "Cart" });
+          ShowPopup = false;
+          reInfo = true;
+          reVertify = false;
+          this.OrderMemberInfo[0] = this.vertifyInfo.Tel;
+          this.OrderMemberInfo[1] = this.registerInfo.Name;
         } else {
-          this.$swal("驗證失敗", "請重新輸入或是重新發送驗證碼", "error");
+          this.$swal("驗證失敗", "請重新進行簡訊驗證", "error");
         }
       });
     },
@@ -573,7 +570,7 @@ export default {
                 this.$swal({
                   title: response.data,
                   type: "warning",
-                  showCancelButton: true,
+                  showCancelButton: false,
                   confirmButtonText: "立即註冊",
                   cancelButtonText: "使用其他帳號"
                 }).then(result => {
