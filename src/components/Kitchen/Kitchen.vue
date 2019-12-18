@@ -113,10 +113,10 @@
           ></span>
         </div>
         <!-- 時間 -->
-        <div class="thisTime">
+        <!-- <div class="thisTime">
           <span>11</span>
           <span>30</span>
-        </div>
+        </div> -->
       </footer>
     </div>
   </div>
