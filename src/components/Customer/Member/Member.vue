@@ -182,6 +182,4 @@ export default {
   }
 };
 </script>
-
-<style scope>
-</style>
+<style src="../../../assets/css/all.css" scoped></style>

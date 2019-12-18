@@ -92,8 +92,4 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss">
-footer ul {
-  display: none;
-}
-</style>
+<style src="../../assets/css/all.css" scoped></style>

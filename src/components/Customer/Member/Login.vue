@@ -170,6 +170,4 @@ export default {
 };
 </script>
 
-
-<style scoped lang="scss">
-</style>
+<style src="../../../assets/css/all.css" scoped></style>

@@ -34,9 +34,6 @@
     </div>
   </div>
 </template>
-<style scope>
-@import "../assets/css/store.css";
-</style>
 
 <script>
 export default {
@@ -79,3 +76,4 @@ export default {
   }
 };
 </script>
+<style src="../assets/css/store.css" scoped></style>

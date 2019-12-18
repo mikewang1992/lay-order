@@ -614,5 +614,4 @@ export default {
 };
 </script>
 
-<style scope lang="scss">
-</style>
+<style src="../../assets/css/all.css" scoped></style>

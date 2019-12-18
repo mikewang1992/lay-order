@@ -525,6 +525,4 @@ export default {
   }
 };
 </script>
-<style scope>
-@import "../../assets/css/store.css";
-</style>
+<style src="../../assets/css/store.css" scoped></style>

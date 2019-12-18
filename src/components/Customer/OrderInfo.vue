@@ -116,3 +116,4 @@ export default {
   mounted() {}
 };
 </script>
+<style src="../../assets/css/all.css" scoped></style>

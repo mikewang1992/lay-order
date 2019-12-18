@@ -10,7 +10,3 @@ export default {
 };
 </script>
 
-<style>
-/* @import "./assets/helpers/all.css"; */
-/* @import "./assets/helpers/store.css"; */
-</style>

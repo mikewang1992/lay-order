@@ -34,7 +34,3 @@ export default {
   }
 };
 </script>
-
-<style scope>
-@import "../../assets/css/all.css";
-</style>
