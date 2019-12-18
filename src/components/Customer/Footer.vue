@@ -23,7 +23,7 @@
           <p>訂單狀態</p>
         </router-link>
       </li>
-      <li :class="{'active':pageActive=='member'}">
+      <li :class="{'active':pageActive=='member'|| pageActive=='coupon'}">
         <router-link to="/member">
           <img src="@/assets/img/icon_footer04.png" alt>
           <p>會員中心</p>

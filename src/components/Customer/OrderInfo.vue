@@ -46,7 +46,7 @@
           </li>
         </ul>
       </div>
-      <div class="d-flex text-center">
+      <div class="d-flex text-center pb-5 mb-3">
         <div class="col-6">
           <a href class="btn btn_lg btn_gray d-block" @click.prevent="goback()">返回列表</a>
         </div>
