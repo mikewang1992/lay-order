@@ -70,6 +70,7 @@
               hide-disabled-minutes
               hour-label="時"
               minute-label="分"
+              @open="resetBussinessHours()"
             ></vue-timepicker>
             <div class="form-check">
               <!-- <select name id>
@@ -689,6 +690,23 @@ export default {
           ];
         }
       });
+    },
+    // 也許尚未完善?
+    resetBussinessHours() {
+      const vm = this;
+      vm.businesshours[0] = vm.getTime(Date.now());
+      if (vm.businesshours[1].split(":")[1] == "00") {
+        vm.HourLimit = [
+          [
+            vm.businesshours[0].split(":")[0],
+            vm.businesshours[1].split(":")[0] - 1
+          ]
+        ];
+      } else {
+        vm.HourLimit = [
+          [vm.businesshours[0].split(":")[0], vm.businesshours[1].split(":")[0]]
+        ];
+      }
     }
   },
   created() {
