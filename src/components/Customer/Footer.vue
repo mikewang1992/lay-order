@@ -45,10 +45,9 @@ export default {
     return {
       pageActive: "",
       footerNumber: "",
-      forhere: false,
-      tableNum:''
     };
   },
+  props: ["forhere","tableNum"],
   methods: {
     footerActive() {
       // 判斷目前頁面
@@ -71,21 +70,6 @@ export default {
       } else {
         this.footerNumber = 0;
       }
-    },
-    checkTable() {
-      const url = `${process.env.APIPATH}/Accounts/IsTable`;
-      this.$http.get(url).then(response => {
-        // console.log('確認內用還外帶：',response.data);
-        if (response.data === "內用") {
-          this.forhere = true;
-          const vm = this;
-          const url = `${process.env.APIPATH}/Accounts/OrderMember`;
-          this.$http.get(url).then(response => {
-            this.tableNum = response.data.split(',')[1][0];
-          });
-        } else {
-        }
-      });
     },
     changePageClass() {
       // console.log("切換頁面class，現在是",this.pageActive);
@@ -120,13 +104,11 @@ export default {
       this.footerActive();
       this.checkFooterCart();
       this.changePageClass();
-      this.checkTable();
     }
   },
   created() {
     this.footerActive();
     this.checkFooterCart();
-    this.checkTable();
   },
   mounted() {
     this.changePageClass();

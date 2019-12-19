@@ -47,11 +47,11 @@
         </ul>
       </div>
       <div class="d-flex text-center pb-5 mb-3">
-        <div class="col-6">
-          <a href class="btn btn_lg btn_gray d-block" @click.prevent="goback()">返回列表</a>
+        <div class="w-100">
+          <a href class="btn btn_lg btn_gray d-block mr-1 ml-1" @click.prevent="goback()">返回列表</a>
         </div>
-        <div class="col-6">
-          <a :href="`tel:${ShopPhone}`" class="btn btn_lg btn_default d-block">聯絡店家</a>
+        <div class="w-100" v-if="forhere">
+          <a :href="`tel:${ShopPhone}`" class="btn btn_lg btn_default d-block ml-1 mr-1">聯絡店家</a>
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@ export default {
       ProductimgUrl: "https://lay-order.rocket-coding.com/Img/product/"
     };
   },
-  props: ["IdFromOrder"],
+  props: ["IdFromOrder","forhere"],
   methods: {
     ShowOrderDetail(num) {
       const vm = this;

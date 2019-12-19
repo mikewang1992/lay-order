@@ -33,8 +33,20 @@
           </li>
         </ul>
       </div>
-      <!-- 顧客資訊 -->
-      <div class="order_list">
+      <!-- 內用顧客資訊 -->
+      <div class="order_list" v-if="forhere">
+        <ul>
+          <li class="item total pt-0 pb-0">
+            <h4>
+              共
+              <b class="color_default">{{OrderQty}}</b> 份
+            </h4>
+            <span>${{OrderMoney}}</span>
+          </li>
+        </ul>
+      </div>
+      <!-- 外帶顧客資訊 -->
+      <div class="order_list" v-if="!forhere">
         <form action>
           <ul>
             <li class="item total">
@@ -105,6 +117,7 @@
       </div>
       <small
         class="color_red text-center d-block mt-2 mb-3"
+        v-if="!forhere"
       >訂單總量超過20份請來電預約,餐點現做，製作時間約 {{PrepareTime}} min</small>
       <footer class="d-block text-center fixed_bottom">
         <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a>
@@ -219,8 +232,9 @@
                 v-model="vertifyInfo.Vertify"
               >
             </div>
-              <button type="submit" class="btn btn_default mb-2">確認</button><br>
-              <a href="#" @click.prevent="ReSendSMS" class="d-block">重新發送驗證碼</a>
+            <button type="submit" class="btn btn_default mb-2">確認</button>
+            <br>
+            <a href="#" @click.prevent="ReSendSMS" class="d-block">重新發送驗證碼</a>
           </form>
         </div>
       </div>
@@ -255,6 +269,7 @@ export default {
       ShowTimeSelect: false
     };
   },
+  props:["forhere"],
   components: { VueTimepicker },
   computed: {
     FullTimeNow() {
@@ -585,7 +600,7 @@ export default {
         // console.log("送出註冊資訊");
         this.vertifyInfo.Tel = data.Tel;
         this.$http.post(url, data, config).then(response => {
-          console.log('註冊結果：',response.data);
+          console.log("註冊結果：", response.data);
           if (response.data === "success") {
             vm.showVertify = true;
             this.vertifyCodes.Tel = vm.registerInfo.Tel;
