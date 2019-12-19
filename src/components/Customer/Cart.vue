@@ -52,12 +52,18 @@
           </li>
           <li class="item">
             <h4>取餐時間</h4>
-            <small class="color_default">製作時間約{{PrepareTime}}分，請於{{timeNow}}後來店取餐</small>
+            <small class="color_default">製作時間約{{PrepareTime}}分，請於{{yourStringTimeValue}}後來店取餐</small>
             <!-- <small class="color_default">我要指定於今天來店取餐</small> -->
           </li>
           <li class="item">
             <h4>
-              <input type="checkbox" id="selectTime" class="w-auto d-inline" />
+              <input
+                type="checkbox"
+                id="selectTime"
+                class="w-auto d-inline"
+                v-model="ShowTimeSelect"
+                @click="CleanTimeBtn()"
+              />
               <label for="selectTime">我要指定取餐時間</label>
             </h4>
             <vue-timepicker
@@ -66,10 +72,13 @@
               :format="yourFormat"
               v-model="yourStringTimeValue"
               close-on-complete
+              hide-clear-button
               hide-disabled-hours
               hide-disabled-minutes
               hour-label="時"
               minute-label="分"
+              @open="resetBussinessHours()"
+              v-if="ShowTimeSelect"
             ></vue-timepicker>
             <div class="form-check">
               <!-- <select name id>
@@ -232,27 +241,15 @@ export default {
       vertifyInfo: { Tel: "", Vertify: "" },
       ShowResult: false,
       // 時間data
-      businesshours: [],
-      yourFormat: "HH:mm",
+      businesshours: ["00,00", "00,00"],
       HourLimit: [[]],
-      yourData: {
-        HH: "00",
-        mm: "00"
-      },
-      yourStringTimeValue: "00:00"
+      yourFormat: "HH:mm",
+      yourStringTimeValue: "00:00",
+      ShowTimeSelect: false
     };
   },
   components: { VueTimepicker },
   computed: {
-    timeNow() {
-      const date = new Date(Date.now());
-      let m = date.getMinutes() + this.PrepareTime;
-      if (m < 10) {
-        m = "0" + m;
-      }
-      const newTime = `${date.getHours()}:${m}`;
-      return newTime;
-    },
     FullTimeNow() {
       const date = new Date(Date.now());
       let year = date.getFullYear();
@@ -397,7 +394,8 @@ export default {
           Pid: vm.CartFromProduct[i].Pid.toString(),
           Options: vm.CartFromProduct[i].Options,
           Qty: vm.CartFromProduct[i].Qty.toString(),
-          time: vm.getFullTime(Date.now())
+          orderTime: vm.FullTimeNow,
+          getTime: vm.yourStringTimeValue
         };
         let str = "";
         for (let j = 0; j < vm.CartFromProduct[i].Options.length; j++) {
@@ -409,7 +407,7 @@ export default {
         predata.Options = str;
         data.push(predata);
       }
-      // console.log(data);
+      console.log(data);
       const config = {
         headers: {
           "Content-Type": "application/json"
@@ -665,13 +663,14 @@ export default {
       const url = `${process.env.APIPATH}/Company/BusinessHours`;
       this.$http.get(url).then(response => {
         console.log(response.data);
-        vm.businesshours = response.data;
-        console.log(vm.businesshours[0].split(":")[0]);
-        console.log(vm.businesshours[1].split(":")[0]);
+        // vm.businesshours = response.data;
+        vm.businesshours[0] = vm.getTime(vm.TimeWithPrepare(vm.PrepareTime));
+        vm.businesshours[1] = response.data[1];
         vm.yourStringTimeValue = vm.businesshours[0];
         //  vm.HourLimit = [
         //   [vm.businesshours[0].split(":")[0], vm.businesshours[1].split(":")[0]]
         // ];
+        //
         if (vm.businesshours[1].split(":")[1] == "00") {
           vm.HourLimit = [
             [
@@ -688,6 +687,37 @@ export default {
           ];
         }
       });
+    },
+    // 也許尚未完善?
+    resetBussinessHours() {
+      const vm = this;
+      vm.businesshours[0] = vm.getTime(vm.TimeWithPrepare(vm.PrepareTime));
+      if (vm.businesshours[1].split(":")[1] == "00") {
+        vm.HourLimit = [
+          [
+            vm.businesshours[0].split(":")[0],
+            vm.businesshours[1].split(":")[0] - 1
+          ]
+        ];
+      } else {
+        vm.HourLimit = [
+          [vm.businesshours[0].split(":")[0], vm.businesshours[1].split(":")[0]]
+        ];
+      }
+    },
+    TimeWithPrepare(prepare) {
+      var d = new Date();
+      var year = d.getFullYear();
+      var month = d.getMonth();
+      var day = d.getDate();
+      var hour = d.getHours();
+      var min = d.getMinutes();
+      var s = d.getSeconds();
+      d = new Date(year, month, day, hour, min + prepare, s);
+      return d;
+    },
+    CleanTimeBtn() {
+      this.yourStringTimeValue = this.businesshours[0];
     }
   },
   created() {
@@ -698,7 +728,6 @@ export default {
   },
   mounted() {
     document.querySelector("footer ul").classList.add("d-none");
-    this.getShopTime();
   }
 };
 </script>
