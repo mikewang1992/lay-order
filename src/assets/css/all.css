@@ -3529,6 +3529,8 @@ input:focus {
   margin-bottom: .75rem; }
   .form-control:focus {
     border-radius: 2rem; }
+  .form-control.form-warning {
+    border: 1px solid #f77878; }
 
 select.form-control {
   padding-left: 2.3rem; }
