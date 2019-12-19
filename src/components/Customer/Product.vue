@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div v-if="this.isOpenFromCustomer==='no'" class="open_notice">Sorry！本時段不開放預約！</div>
+    <div v-if="isOpenFromCustomer==false" class="open_notice">Sorry！本時段不開放預約！</div>
     <header class="hide_lg">
       <img src="@/assets/img/logo_nav.png" alt />
     </header>
@@ -74,7 +74,7 @@
             <div class="p_text">
               <p>{{productDetail[0].Description}}</p>
             </div>
-            <div class="p_choose">
+            <div class="p_choose" v-if="isOpenFromCustomer==true">
               <div class="item" v-for="(item,key,index) in Sides.slice(0,1)" :key="index">
                 <h5>{{item.name}}</h5>
                 <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
@@ -133,7 +133,7 @@
               </div>
             </div>
           </div>
-          <div class="popup_footer">
+          <div class="popup_footer" v-if="isOpenFromCustomer==true">
             <div class="btn btn_round btn_white count_box">
               <a href="#" class="count_dis" @click.prevent="minusQty()">-</a>
               <a href="#" class="count_num">{{Orders.Qty}}</a>
@@ -245,7 +245,7 @@ export default {
       const url = `${process.env.APIPATH}/Product/GetProductDetail/${Id}`;
       vm.ShowPopup = Show;
       this.$http.get(url).then(response => {
-        console.log("產品細節", response);
+        console.log("產品細節", response.data);
         if (response.data[0]) {
           vm.Sides = [];
           vm.modalAppear = true;

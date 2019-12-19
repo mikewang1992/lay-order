@@ -10,7 +10,7 @@ import Footer from './Footer';
 export default {
   data() {
     return {
-      isOpen: false
+      isOpen: true
     };
   },
   methods: {
@@ -18,9 +18,11 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Company/IsOpen`;
       this.$http.get(url).then(response => {
-        // console.log('是否為營業時間',response.data);
+        console.log('是否為營業時間',response.data);
         vm.isOpen = response.data;
         if (response.data == "no") {
+          vm.isOpen = false;
+        }else {
           vm.isOpen = true;
         };
       });
