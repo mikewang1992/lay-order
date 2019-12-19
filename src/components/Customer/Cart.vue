@@ -52,7 +52,9 @@
           </li>
           <li class="item">
             <h4>取餐時間</h4>
-            <small class="color_default">製作時間約{{PrepareTime}}分，請於{{timeNow}}後來店取餐</small>
+            <small
+              class="color_default"
+            >製作時間約{{PrepareTime}}分，請於{{TimeWithPrepare(this.PrepareTime)}}後來店取餐</small>
             <!-- <small class="color_default">我要指定於今天來店取餐</small> -->
           </li>
           <li class="item">
@@ -245,15 +247,6 @@ export default {
   },
   components: { VueTimepicker },
   computed: {
-    timeNow() {
-      const date = new Date(Date.now());
-      let m = date.getMinutes() + this.PrepareTime;
-      if (m < 10) {
-        m = "0" + m;
-      }
-      const newTime = `${date.getHours()}:${m}`;
-      return newTime;
-    },
     FullTimeNow() {
       const date = new Date(Date.now());
       let year = date.getFullYear();
@@ -707,6 +700,17 @@ export default {
           [vm.businesshours[0].split(":")[0], vm.businesshours[1].split(":")[0]]
         ];
       }
+    },
+    TimeWithPrepare(prepare) {
+      var d = new Date();
+      var year = d.getFullYear();
+      var month = d.getMonth();
+      var day = d.getDate();
+      var hour = d.getHours();
+      var min = d.getMinutes();
+      var s = d.getSeconds();
+      d = new Date(year, month, day, hour, min + prepare, s);
+      return d;
     }
   },
   created() {
