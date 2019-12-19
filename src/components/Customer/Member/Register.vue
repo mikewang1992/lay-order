@@ -1,18 +1,91 @@
 <template>
   <div class="main col-lg-4 col-md-6 login_content">
     <div class="content">
-      <img src="@/assets/img/logo.png" alt />
+      <img src="@/assets/img/logo.png" alt>
       <ul class="nav_group mb-3">
         <li>
           <router-link to="/login">登入</router-link>
-          <!-- <a href="login.html">登入</a> -->
         </li>
         <li>
           <router-link to="/register" class="active">註冊</router-link>
-          <!-- <a href="register.html" class="active">註冊</a> -->
         </li>
       </ul>
-      <div class="input-group">
+      <!-- 註冊 div -->
+      <div v-if="!changetoVertify">
+        <div class="form-group mb-1">
+          <label class="sr-only" for="phone">電話</label>
+          <span class="iconfont icon-Mobile"></span>
+          <input
+            class="form-control"
+            type="phone"
+            id
+            placeholder="電話"
+            autocomplete="off"
+            v-model="registerInfo.Tel"
+          >
+        </div>
+        <small class="pb-2 d-block text-left color_gray pl-3">電話號碼即為您的登入帳號</small>
+        <div class="form-group">
+          <label class="sr-only" for="phone">姓名</label>
+          <span class="iconfont icon-user"></span>
+          <input
+            class="form-control"
+            type="text"
+            id
+            placeholder="姓名"
+            autocomplete="off"
+            v-model="registerInfo.Name"
+          >
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="phone">密碼</label>
+          <span class="iconfont icon-lock"></span>
+          <input
+            class="form-control"
+            type="password"
+            id
+            placeholder="密碼"
+            autocomplete="off"
+            v-model="registerInfo.Password"
+          >
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="phone">生日</label>
+          <span class="iconfont icon-birthday-cake"></span>
+          <input
+            class="form-control"
+            type="date"
+            id="inputDate"
+            placeholder="生日"
+            autocomplete="off"
+            v-model="registerInfo.Birth"
+            ref="inputDate"
+          >
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="phone">居住地</label>
+          <span class="iconfont icon-location"></span>
+          <div class="d-flex">
+            <select
+              class="form-control mr-1"
+              name
+              id
+              v-model="registerInfo.County"
+              @change="getTown(registerInfo.County)"
+            >
+              <option value="城市" hidden selected>城市</option>
+              <option v-for="(item,key,index) in Counties" :key="index" :value="item">{{item}}</option>
+            </select>
+            <select class="form-control" name id v-model="registerInfo.Dist">
+              <option value="區域" hidden selected>區域</option>
+              <option v-for="(item,key,index) in TownShips" :key="index" :value="item">{{item}}</option>
+            </select>
+          </div>
+        </div>
+        <a href="#" class="btn btn_default mb-2" @click.prevent="register">註冊</a>
+      </div>
+      <!-- 輸入驗證碼 div -->
+      <!-- <div class="input-group">
         <input
           type="text"
           class="form-control mb-1"
@@ -32,8 +105,7 @@
           >送出驗證碼</a>
         </div>
       </div>
-      <small class="pb-2 d-block text-left color_gray pl-3">電話號碼即為您的登入帳號</small>
-      <div class="form-group" v-if="changetoVertify">
+      <div class="form-group" v-if="!changetoVertify">
         <label class="sr-only" for="phone">請輸入簡訊驗證碼</label>
         <span class="iconfont icon-message"></span>
         <input
@@ -46,64 +118,7 @@
           maxlength="6"
         />
       </div>
-      <div class="form-group" v-if="!changetoVertify">
-        <label class="sr-only" for="phone">姓名</label>
-        <span class="iconfont icon-user"></span>
-        <input
-          class="form-control"
-          type="text"
-          id
-          placeholder="姓名"
-          autocomplete="off"
-          v-model="registerInfo.Name"
-        />
-      </div>
-      <div class="form-group" v-if="!changetoVertify">
-        <label class="sr-only" for="phone">居住地</label>
-        <span class="iconfont icon-location"></span>
-        <div class="d-flex">
-          <select
-            class="form-control mr-1"
-            name
-            id
-            v-model="registerInfo.County"
-            @change="getTown(registerInfo.County)"
-          >
-            <option value="城市" hidden selected>城市</option>
-            <option v-for="(item,key,index) in Counties" :key="index" :value="item">{{item}}</option>
-          </select>
-          <select class="form-control" name id v-model="registerInfo.Dist">
-            <option value="區域" hidden selected>區域</option>
-            <option v-for="(item,key,index) in TownShips" :key="index" :value="item">{{item}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group" v-if="!changetoVertify">
-        <label class="sr-only" for="phone">生日</label>
-        <span class="iconfont icon-birthday-cake"></span>
-        <input
-          class="form-control"
-          type="date"
-          id="inputDate"
-          placeholder="生日"
-          autocomplete="off"
-          v-model="registerInfo.Birth"
-          ref="inputDate"
-        />
-      </div>
-      <div class="form-group mb-4" v-if="!changetoVertify">
-        <label class="sr-only" for="phone">密碼</label>
-        <span class="iconfont icon-lock"></span>
-        <input
-          class="form-control"
-          type="password"
-          id
-          placeholder="密碼"
-          autocomplete="off"
-          v-model="registerInfo.Password"
-        />
-      </div>
-      <a href="#" class="btn btn_default mb-2" @click.prevent="register" v-if="!changetoVertify">註冊</a>
+      <a href="#" class="btn btn_default mb-2" @click.prevent="register">確認</a> -->
     </div>
   </div>
 </template>
