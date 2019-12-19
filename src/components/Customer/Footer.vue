@@ -55,7 +55,7 @@ export default {
       }
     },
     checkFooterCart() {
-      console.log("Footer確認點菜單數量");
+      // console.log("Footer確認點菜單數量");
       if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
         this.footerNumber = JSON.parse(
           localStorage.getItem("totalcart")
@@ -75,14 +75,14 @@ export default {
       });
     },
     changePageClass() {
-      console.log("切換頁面class，現在是",this.pageActive);
+      // console.log("切換頁面class，現在是",this.pageActive);
       if (
         this.pageActive == "login" ||
         this.pageActive == "member" ||
         this.pageActive == "coupon" ||
         this.pageActive == "register"
       ) {
-        console.log("login新增css");
+        // console.log("login新增css");
         document.querySelector(".page").classList.add("login");
       } else {
         document.querySelector(".page").classList.remove("login");
@@ -92,11 +92,11 @@ export default {
         this.pageActive == "Cart/ResultOut" ||
         this.pageActive == "Cart/ResultIn"
       ) {
-        console.log('隱藏footer')
+        // console.log('隱藏footer')
         document.querySelector("footer ul").classList.remove("d-flex");
         document.querySelector("footer ul").classList.add("d-none");
       } else {
-        console.log('顯示footer')
+        // console.log('顯示footer')
         document.querySelector("footer ul").classList.add("d-flex");
         document.querySelector("footer ul").classList.remove("d-none");
       }
