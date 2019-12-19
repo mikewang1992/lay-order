@@ -60,8 +60,8 @@
               <label for="selectTime">我要指定取餐時間</label>
             </h4>
             <vue-timepicker
-              :hour-range="TimePickerLimit"
-              :minute-range="[[0,59]]"
+              :hour-range="HourLimit"
+              :minute-range="MinutesLimit"
               :format="yourFormat"
               v-model="yourStringTimeValue"
               close-on-complete
@@ -231,8 +231,9 @@ export default {
       vertifyInfo: { Tel: "", Vertify: "" },
       ShowResult: false,
       // 時間data
+      businesshours: [],
       yourFormat: "HH:mm",
-      TimePickerLimit: [[]],
+      HourLimit: [[]],
       yourData: {
         HH: "00",
         mm: "00"
@@ -283,8 +284,32 @@ export default {
         str += this.CartFromProduct[i].Qty * this.CartFromProduct[i].Price;
       }
       return str;
+    },
+    MinutesLimit() {
+      const selectedhour = this.yourStringTimeValue.split(":")[0];
+      const selectedminutes = this.yourStringTimeValue.split(":")[1];
+      const starthour = this.businesshours[0].split(":")[0];
+      const startminutes = this.businesshours[0].split(":")[1];
+      const endhour = this.businesshours[1].split(":")[0];
+      const endminutes = this.businesshours[1].split(":")[1];
+
+      //如果所選小時==開始營業小時,回傳開始營業分鐘限制,否則回傳無限制
+      if (selectedhour == starthour) {
+        return [[startminutes, 59]];
+      }
+      //如果所選小時==結束營業小時,且分鐘數不等於00就回傳無限制,否則回傳限制
+      else if (selectedhour == endhour) {
+        if (endminutes == "00") {
+          return [[0, 59]];
+        } else {
+          return [[0, endminutes]];
+        }
+      } else {
+        return [[0, 59]];
+      }
     }
   },
+  watch: {},
   methods: {
     getCart() {
       const totalcart = JSON.parse(localStorage.getItem("totalcart"));
@@ -371,7 +396,7 @@ export default {
           Pid: vm.CartFromProduct[i].Pid.toString(),
           Options: vm.CartFromProduct[i].Options,
           Qty: vm.CartFromProduct[i].Qty.toString(),
-          time: this.getFullTime(Date.now())
+          time: vm.getFullTime(Date.now())
         };
         let str = "";
         for (let j = 0; j < vm.CartFromProduct[i].Options.length; j++) {
@@ -634,22 +659,34 @@ export default {
         }
       }
     },
-    getShopTime() {
-      // const vm = this;
-      // const url = `${process.env.APIPATH}/Accounts/`;
-      // this.$http.get(url).then(response => {
-      //   console.log(response);
-      // });
-      const faketime1 = "2019-12-18T08:30:00";
-      const faketime2 = "2019-12-18T22:30:00";
-      console.log(this.getTime(faketime1).split(":")[0]);
-      console.log(this.getTime(faketime2).split(":")[0]);
-      this.TimePickerLimit = [
-        [
-          this.getTime(faketime1).split(":")[0],
-          this.getTime(faketime2).split(":")[0] - 1
-        ]
-      ];
+    getBusinessHours() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Company/BusinessHours`;
+      this.$http.get(url).then(response => {
+        console.log(response.data);
+        vm.businesshours = response.data;
+        console.log(vm.businesshours[0].split(":")[0]);
+        console.log(vm.businesshours[1].split(":")[0]);
+        vm.yourStringTimeValue = vm.businesshours[0];
+        //  vm.HourLimit = [
+        //   [vm.businesshours[0].split(":")[0], vm.businesshours[1].split(":")[0]]
+        // ];
+        if (vm.businesshours[1].split(":")[1] == "00") {
+          vm.HourLimit = [
+            [
+              vm.businesshours[0].split(":")[0],
+              vm.businesshours[1].split(":")[0] - 1
+            ]
+          ];
+        } else {
+          vm.HourLimit = [
+            [
+              vm.businesshours[0].split(":")[0],
+              vm.businesshours[1].split(":")[0]
+            ]
+          ];
+        }
+      });
     }
   },
   beforeCreate() {},
@@ -658,7 +695,7 @@ export default {
     this.getCart();
     this.CheckLogin();
     this.PreTime();
-    this.getShopTime();
+    this.getBusinessHours();
   }
 };
 </script>
