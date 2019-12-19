@@ -4542,6 +4542,30 @@ footer {
         -webkit-filter: brightness(1);
         filter: brightness(1);
         opacity: 1; }
+      footer ul li.forhere {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center; }
+        footer ul li.forhere a {
+          background: #72bcb3;
+          padding: 0.25rem 0.75rem;
+          border-radius: 8px;
+          pointer-events: none;
+          cursor: default; }
+          footer ul li.forhere a p {
+            color: #fff; }
+          footer ul li.forhere a h3 {
+            font-family: "'Ubuntu', sans-serif";
+            color: #fff;
+            font-size: 2rem;
+            line-height: 1;
+            font-weight: bold; }
   @media (min-width: 576px) {
     footer {
       position: static;

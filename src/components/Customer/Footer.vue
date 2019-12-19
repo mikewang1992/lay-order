@@ -23,10 +23,16 @@
           <p>訂單狀態</p>
         </router-link>
       </li>
-      <li :class="{'active':pageActive=='member'|| pageActive=='coupon'}">
+      <li :class="{'active':pageActive=='member'|| pageActive=='coupon'}" v-if="!forhere">
         <router-link to="/member">
           <img src="@/assets/img/icon_footer04.png" alt>
           <p>會員中心</p>
+        </router-link>
+      </li>
+      <li class="forhere" v-if="forhere">
+        <router-link to="/">
+          <h3 class="fz_en">{{tableNum}}</h3>
+          <p>內用桌號</p>
         </router-link>
       </li>
     </ul>
@@ -38,7 +44,9 @@ export default {
   data() {
     return {
       pageActive: "",
-      footerNumber: ""
+      footerNumber: "",
+      forhere: false,
+      tableNum:''
     };
   },
   methods: {
@@ -60,17 +68,22 @@ export default {
         this.footerNumber = JSON.parse(
           localStorage.getItem("totalcart")
         ).length;
-      }else{
+      } else {
         this.footerNumber = 0;
       }
     },
     checkTable() {
       const url = `${process.env.APIPATH}/Accounts/IsTable`;
       this.$http.get(url).then(response => {
-        if (response.data === "外帶") {
-          // console.log("外帶");
+        // console.log('確認內用還外帶：',response.data);
+        if (response.data === "內用") {
+          this.forhere = true;
+          const vm = this;
+          const url = `${process.env.APIPATH}/Accounts/OrderMember`;
+          this.$http.get(url).then(response => {
+            this.tableNum = response.data.split(',')[1][0];
+          });
         } else {
-          // console.log("內用");
         }
       });
     },
@@ -86,7 +99,7 @@ export default {
         document.querySelector(".page").classList.add("login");
       } else {
         document.querySelector(".page").classList.remove("login");
-      };
+      }
       if (
         this.pageActive == "cart" ||
         this.pageActive == "Cart/ResultOut" ||
