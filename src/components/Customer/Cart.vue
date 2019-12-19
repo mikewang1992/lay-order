@@ -232,7 +232,7 @@ export default {
       vertifyInfo: { Tel: "", Vertify: "" },
       ShowResult: false,
       // 時間data
-      businesshours: [],
+      businesshours: ["00,00", "00,00"],
       yourFormat: "HH:mm",
       HourLimit: [[]],
       yourData: {
@@ -665,13 +665,14 @@ export default {
       const url = `${process.env.APIPATH}/Company/BusinessHours`;
       this.$http.get(url).then(response => {
         console.log(response.data);
-        vm.businesshours = response.data;
-        console.log(vm.businesshours[0].split(":")[0]);
-        console.log(vm.businesshours[1].split(":")[0]);
+        // vm.businesshours = response.data;
+        vm.businesshours[0] = vm.getTime(Date.now());
+        vm.businesshours[1] = response.data[1];
         vm.yourStringTimeValue = vm.businesshours[0];
         //  vm.HourLimit = [
         //   [vm.businesshours[0].split(":")[0], vm.businesshours[1].split(":")[0]]
         // ];
+        //
         if (vm.businesshours[1].split(":")[1] == "00") {
           vm.HourLimit = [
             [
@@ -698,7 +699,6 @@ export default {
   },
   mounted() {
     document.querySelector("footer ul").classList.add("d-none");
-    this.getShopTime();
   }
 };
 </script>
