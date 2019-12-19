@@ -209,17 +209,25 @@ header {
 // 優惠券
 .card_list {
   .item {
-    @include shadow_blue;
-    padding: 0.75rem 1.75rem;
+    @include shadow_b;
+    padding: 0.75rem .75rem;
     background: #fff;
     margin-bottom: 10px;
     border-radius: 5px;
     text-align: justify;
+    border-left: 5px solid $color_default;
 
     h2 {
       color: #000;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
       margin-bottom: 0.35rem;
+    }
+    p {
+      margin-bottom: 0!important;
+    }
+    span {
+      color: $color_red;
     }
   }
 }

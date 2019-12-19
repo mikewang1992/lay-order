@@ -4393,17 +4393,23 @@ header {
     display: none; } }
 
 .card_list .item {
-  -webkit-box-shadow: 0 2px 4px rgba(114, 188, 179, 0.25);
-  box-shadow: 0 2px 4px rgba(114, 188, 179, 0.25);
-  padding: 0.75rem 1.75rem;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 0.75rem .75rem;
   background: #fff;
   margin-bottom: 10px;
   border-radius: 5px;
-  text-align: justify; }
+  text-align: justify;
+  border-left: 5px solid #72bcb3; }
   .card_list .item h2 {
     color: #000;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
     margin-bottom: 0.35rem; }
+  .card_list .item p {
+    margin-bottom: 0 !important; }
+  .card_list .item span {
+    color: #f77878; }
 
 .swiper_nav {
   text-align: center;
