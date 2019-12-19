@@ -4212,6 +4212,9 @@ select.form-control {
 .swal2-title {
   font-size: 1.2rem !important; }
 
+.time-picker input {
+  border-radius: 5px !important; }
+
 .page {
   display: -webkit-box;
   display: -ms-flexbox;
