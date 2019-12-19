@@ -1,11 +1,12 @@
 <template>
-  <div class="main pb-5">
+  <div class="main pb-0">
     <router-view :OrderCodeFromCart="OrderCode" v-if="ShowResult"></router-view>
+    <!-----------------購物車主體----------------------->
     <header v-if="!ShowResult">
       <a class="icon iconfont icon-left" @click.prevent="$router.go(-1);"></a>
       <h1>點菜單</h1>
     </header>
-    <div class="content" v-if="!ShowResult">
+    <div class="content mb-5" v-if="!ShowResult">
       <div class="cart_list">
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
@@ -689,13 +690,15 @@ export default {
       });
     }
   },
-  beforeCreate() {},
-  mounted() {
-    document.querySelector("footer ul").classList.add("d-none");
+  created() {
     this.getCart();
     this.CheckLogin();
     this.PreTime();
     this.getBusinessHours();
+  },
+  mounted() {
+    document.querySelector("footer ul").classList.add("d-none");
+    this.getShopTime();
   }
 };
 </script>
