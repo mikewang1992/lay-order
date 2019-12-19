@@ -420,10 +420,6 @@ p {
           }
         }
         &.prepare {
-          .p_info {
-            opacity: 0.5;
-          }
-
           .p_img {
             &::before {
               content: "\E621";

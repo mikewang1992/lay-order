@@ -171,6 +171,7 @@ export default {
         if (response.data === "success") {
           this.$swal("登出成功", "", "success");
           this.$router.push({ name: "Login" });
+          localStorage.setItem("totalcart", JSON.stringify([]));
         }
       });
     }

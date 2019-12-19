@@ -35,4 +35,4 @@ export default {
 };
 </script>
 
-<style src="../../assets/css/all.css" scoped></style>
+<style src="../../assets/css/all.css" scope></style>

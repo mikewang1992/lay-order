@@ -11,7 +11,7 @@
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
-              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
             </div>
             <div class="p_info">
               <div class="p_name">
@@ -24,7 +24,7 @@
                 <div class="btn btn_round btn_white count_box">
                   <a href="#" class="count_dis" @click.prevent="minusQty(item,index)">-</a>
                   <a href="#" class="count_num">{{item.Qty}}</a>
-                  <a href="#" class="count_add" @click.prevent="addQty(item)">+</a>
+                  <a href="#" class="count_add" @click.prevent="item.Qty++">+</a>
                 </div>
                 <div class="p_price">${{item.Price*item.Qty}}</div>
               </div>
@@ -44,26 +44,29 @@
           <li class="item">
             <h4>電話</h4>
             <!-- <input type="text" placeholder="請輸入" :value="OrderMemberInfoSplit[0]" /> -->
-            <input type="phone" placeholder="請輸入" maxlength="10" required v-model="loginInfo.Tel" />
+            <input type="phone" placeholder="請輸入" maxlength="10" required v-model="loginInfo.Tel">
           </li>
           <li class="item">
             <h4>取餐人</h4>
-            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]" />
+            <input type="text" placeholder="請輸入" :value="OrderMemberInfo[1]">
           </li>
-          <li class="item">
+          <li class="item" v-if="!ShowTimeSelect">
             <h4>取餐時間</h4>
-            <small class="color_default">製作時間約{{PrepareTime}}分，請於{{yourStringTimeValue}}後來店取餐</small>
-            <!-- <small class="color_default">我要指定於今天來店取餐</small> -->
+            <p class="color_default mb-0">製作時間約 {{PrepareTime}} 分，請於 {{yourStringTimeValue}} 後來店取餐</p>
+          </li>
+          <li class="item" v-if="ShowTimeSelect">
+            <h4>取餐時間</h4>
+            <p class="color_default mb-0">我要指定取餐時間，於 {{yourStringTimeValue}} 來店取餐</p>
           </li>
           <li class="item">
-            <h4>
+            <h4 class="mr-3">
               <input
                 type="checkbox"
                 id="selectTime"
                 class="w-auto d-inline"
                 v-model="ShowTimeSelect"
                 @click="CleanTimeBtn()"
-              />
+              >
               <label for="selectTime">我要指定取餐時間</label>
             </h4>
             <vue-timepicker
@@ -80,14 +83,6 @@
               @open="resetBussinessHours()"
               v-if="ShowTimeSelect"
             ></vue-timepicker>
-            <div class="form-check">
-              <!-- <select name id>
-                <option value="123" selected hidden>請選擇</option>
-                <option value="123">12:20</option>
-                <option value="123">12:40</option>
-                <option value="123">12:50</option>
-              </select>-->
-            </div>
           </li>
         </ul>
       </div>
@@ -109,9 +104,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/login_img.png" alt />
+          <img src="@/assets/img/login_img.png" alt>
           <h2>請先登入會員</h2>
-          <br />
+          <br>
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -123,7 +118,7 @@
               maxlength="10"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            />
+            >
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -135,10 +130,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            />
+            >
           </div>
           <a href="#" class="btn btn_default mb-2" @click="login()">登入</a>
-          <br />
+          <br>
           <small>
             <a @click.prevent="registerAppear=true,ShowPopup=false" class="color_gray">立即註冊</a>
           </small>
@@ -154,9 +149,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt />
+          <img src="@/assets/img/phone.png" alt>
           <h2>驗證手機，立即加入會員！</h2>
-          <br />
+          <br>
           <div v-if="reInfo">
             <div class="form-group">
               <label class="sr-only" for="phone">電話</label>
@@ -167,7 +162,7 @@
                 placeholder="電話"
                 maxlength="10"
                 v-model="registerInfo.Tel"
-              />
+              >
             </div>
             <div class="form-group">
               <label class="sr-only" for="userName">姓名</label>
@@ -178,7 +173,7 @@
                 placeholder="請輸入姓名"
                 autocomplete="off"
                 v-model="registerInfo.Name"
-              />
+              >
             </div>
             <div class="form-group">
               <label class="sr-only" for="password">密碼</label>
@@ -190,7 +185,7 @@
                 placeholder="請設定密碼"
                 autocomplete="off"
                 v-model="registerInfo.Password"
-              />
+              >
             </div>
             <a class="btn btn_default mb-2" @click="register()">確認</a>
           </div>
@@ -207,7 +202,7 @@
                 placeholder="請輸入簡訊驗證碼"
                 autocomplete="off"
                 v-model="vertifyInfo.Vertify"
-              />
+              >
             </div>
             <div class="d-flex">
               <!-- <a class="btn d-block w-100 btn_yellow mb-2 mr-1" @click="ReSendSMS()">重新發送</a> -->
@@ -245,7 +240,7 @@ export default {
       HourLimit: [[]],
       yourFormat: "HH:mm",
       yourStringTimeValue: "00:00",
-      ShowTimeSelect: false
+      ShowTimeSelect: true
     };
   },
   components: { VueTimepicker },
@@ -305,12 +300,21 @@ export default {
       } else {
         return [[0, 59]];
       }
+    },
+    PreTime() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Company/PreTime`;
+      this.$http.get(url).then(response => {
+        // console.log('餐點準備時間：',response.data);
+        this.PrepareTime = response.data;
+      });
     }
   },
   watch: {},
   methods: {
     getCart() {
       const totalcart = JSON.parse(localStorage.getItem("totalcart"));
+      // console.log('取得點菜單產品：',totalcart);
       if (totalcart === null || totalcart.length === 0) {
         localStorage.setItem("totalcart", JSON.stringify([]));
         this.$swal({
@@ -349,39 +353,26 @@ export default {
       const newFullDay = `${year}/${mon}/${day} ${hour}:${min}`;
       return newFullDay;
     },
-    OrderMember() {
-      const vm = this;
-      const url = `${process.env.APIPATH}/Accounts/OrderMember`;
-      this.$http.get(url).then(response => {
-        // console.log(response);
-        vm.OrderMemberInfo = response.data.split(",");
-        vm.loginInfo.Tel = vm.OrderMemberInfo[0];
-
-        // this.OrderMemberInfo.split(",")[0],
-        // this.OrderMemberInfo.split(",")[1]
-      });
-    },
     CheckLogin() {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/CheckLogin`;
       this.$http.get(url).then(response => {
-        // console.log(response);
+        // console.log('是否為登入狀態：',response.data);
         if (response.data === "True") {
           this.Login = response.data;
           this.OrderMember();
         } else if (response.data === "False") {
           this.Login = response.data;
-          // alert("請先登入");
-          // this.$router.push({ name: "Login" });
         }
       });
     },
-    PreTime() {
+    OrderMember() {
       const vm = this;
-      const url = `${process.env.APIPATH}/Company/PreTime`;
+      const url = `${process.env.APIPATH}/Accounts/OrderMember`;
       this.$http.get(url).then(response => {
-        // console.log(response);
-        this.PrepareTime = response.data;
+        // console.log('取得會員資訊',response);
+        vm.OrderMemberInfo = response.data.split(",");
+        vm.loginInfo.Tel = vm.OrderMemberInfo[0];
       });
     },
     CreateOrder() {
@@ -407,7 +398,7 @@ export default {
         predata.Options = str;
         data.push(predata);
       }
-      console.log(data);
+      // console.log('POST 餐點資訊：',data);
       const config = {
         headers: {
           "Content-Type": "application/json"
@@ -432,34 +423,33 @@ export default {
         }
       });
     },
-    addQty(item) {
-      return item.Qty++;
-    },
     minusQty(item, index) {
       if (item.Qty > 1) {
         return item.Qty--;
       } else {
         this.$swal({
-          title: "確定刪除這個產品嗎?",
+          title: "你要移除這個產品嗎?",
           text: "你怎麼不要我了Q__Q",
           type: "warning",
           showCancelButton: true,
           confirmButtonText: "確認",
           cancelButtonText: "取消"
         }).then(result => {
-          this.$swal({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            type: "success",
-            title: "你怎麼這樣~~Q____Q"
-          });
-          // console.log(index);
-          const totalcart = JSON.parse(localStorage.getItem("totalcart"));
-          totalcart.splice(index, 1);
-          localStorage.setItem("totalcart", JSON.stringify(totalcart));
-          this.getCart();
+          if (result.value) {
+            this.$swal({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              type: "success",
+              title: "你怎麼這樣~~Q____Q"
+            });
+            // console.log(index);
+            const totalcart = JSON.parse(localStorage.getItem("totalcart"));
+            totalcart.splice(index, 1);
+            localStorage.setItem("totalcart", JSON.stringify(totalcart));
+            this.getCart();
+          }
         });
       }
     },
@@ -658,6 +648,7 @@ export default {
         }
       }
     },
+    // 營業時間
     getBusinessHours() {
       const vm = this;
       const url = `${process.env.APIPATH}/Company/BusinessHours`;
@@ -723,7 +714,6 @@ export default {
   created() {
     this.getCart();
     this.CheckLogin();
-    this.PreTime();
     this.getBusinessHours();
   },
   mounted() {
