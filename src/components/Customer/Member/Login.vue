@@ -108,10 +108,10 @@ export default {
       if (vm.loginInfo.Tel.length === 10) {
         if (vm.loginInfo.Tel.slice(0, 2) === "09") {
           this.$http.post(url, data, config).then(response => {
-            console.log(response);
+            // console.log(response);
             if (response.data == "success") {
               this.$swal("登入成功", "歡迎一起躺著點！", "success");
-              this.$router.push({ name: "Member" });
+              this.$router.push({ name: "Product" });
             } else if (response.data == "此電話號碼尚未進行驗證") {
               this.$swal(response.data, "請驗證您的電話號碼！", "warning");
               vm.vertifyAppear = true;
@@ -126,12 +126,13 @@ export default {
         this.$swal("哎呀！手機長度不符", "", "warning");
       }
     },
+    // 忘記密碼
     ReSendSMS() {
       const vm = this;
       const params = vm.loginInfo.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
-        console.log("重新發送驗證碼結果", response);
+        // console.log("重新發送驗證碼結果", response);
         if (response.data == "已寄發3次驗證碼，請您再次確認電話是否正確") {
           this.$swal(
             "已寄發3次驗證碼，請您再次確認電話是否正確",
@@ -164,7 +165,7 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
-        console.log("驗證簡訊結果", response);
+        // console.log("驗證簡訊結果", response);
         if (typeof response.data == "number") {
           vm.changePasswordID = response.data;
           vm.changePasswordAppear = true;
@@ -186,7 +187,7 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
-        console.log("修改密碼結果", response.data);
+        // console.log("修改密碼結果", response.data);
         if (response.data == "success") {
           this.$swal("修改成功", "歡迎一起躺著點！", "success");
           this.$router.push({ name: "Product" });
@@ -194,9 +195,50 @@ export default {
           this.$swal("QQ 失敗", response.data, "warning");
         }
       });
+    },
+    // 自動登入
+    CheckLogin() {
+      const vm = this;
+      let url = `${process.env.APIPATH}/Accounts/CheckLogin`;
+      this.$http.get(url).then(response => {
+        console.log("是否為登入狀態：", response.data);
+        if (response.data === "False") {
+          let href = location.href.split("login")[1];
+          console.log(href);
+          if (href !== "") {
+            const vm = this;
+            const url = `${process.env.APIPATH}/Accounts/Login`;
+            const data = {
+              Tel:href.split('?')[1].split('&')[1],
+              Password:href.split('?')[1].split('&')[0],
+            };
+            console.log(href.split('?')[1].split('&')[0]);
+            const config = {
+              headers: {
+                "Content-Type": "application/json"
+              }
+            };
+            this.$http.post(url, data, config).then(response => {
+              console.log(response.data);
+              if (response.data == "success") {
+                this.$swal(" 歡迎使用自助點餐工具 ^__^ ", "選擇喜歡的餐點加入點菜單吧！", "success");
+                this.$router.push({ name: "Product" });
+              } else {
+                this.$swal(
+                  "Sorry >__<，連結失敗",
+                  "請洽櫃檯人員處理，謝謝您",
+                  "warning"
+                );
+              }
+            });
+          }
+        }
+      });
     }
   },
-  created() {}
+  created() {
+    this.CheckLogin();
+  }
 };
 </script>
 

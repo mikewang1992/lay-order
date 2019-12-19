@@ -120,6 +120,7 @@ export default {
       this.footerActive();
       this.checkFooterCart();
       this.changePageClass();
+      this.checkTable();
     }
   },
   created() {

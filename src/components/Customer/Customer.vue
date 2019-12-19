@@ -18,7 +18,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Company/IsOpen`;
       this.$http.get(url).then(response => {
-        console.log('是否為營業時間',response.data);
+        // console.log('是否為營業時間',response.data);s
         vm.isOpen = response.data;
         if (response.data == "no") {
           vm.isOpen = false;
