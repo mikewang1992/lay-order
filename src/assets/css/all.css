@@ -4210,7 +4210,8 @@ select.form-control {
   border: none; }
 
 .swal2-title {
-  font-size: 1.2rem !important; }
+  font-size: 1.3rem !important;
+  color: #72bcb3 !important; }
 
 .time-picker input {
   border-radius: 5px !important; }
