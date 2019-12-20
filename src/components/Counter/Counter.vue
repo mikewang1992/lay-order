@@ -256,7 +256,7 @@ export default {
         curPage: 1,
         sum: ""
       },
-      websocketData: []
+      messages: []
     };
   },
   methods: {
@@ -509,12 +509,24 @@ export default {
     },
     websocket() {
       //下面對應到網址的部份
-      let hub = $.hubConnection("http://localhost:8080");
+      let hub = $.hubConnection("https://lay-order.rocket-coding.com");
+      console.log(hub);
       //下面對應了.net的DefaultHub
       let proxy = hub.createHubProxy("DefaultHub");
-      proxy.on("Get", data => (this.websocketData = data));
+      console.log(proxy);
+      proxy.on("Get", data => (this.messages = data));
       //一開始就先去呼叫Get，以確保畫面一開始就有預設的資料
-      hub.start().done(() => proxy.invoke("Get"));
+      hub.start().done(() => {
+        proxy
+          .invoke("Get", { message: "hello" })
+          .done(function() {
+            console.log("websocketok");
+          })
+          .fail(function(error) {
+            console.log("websocketfail");
+            console.log(error);
+          });
+      });
     }
   },
   computed: {},
