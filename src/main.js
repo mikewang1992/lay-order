@@ -15,7 +15,8 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 // VueTimepicker
 import VueTimepicker from 'vue2-timepicker'
 import 'vue2-timepicker/dist/VueTimepicker.css'
-
+// 
+import 'signalr'
 const options = {
     confirmButtonColor: '#72BCB3',
     cancelButtonColor: '#9B9B9B',
