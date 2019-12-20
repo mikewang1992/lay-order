@@ -269,7 +269,7 @@ export default {
       ShowTimeSelect: false
     };
   },
-  props:["forhere"],
+  props: ["forhere", "isOpenFromCustomer"],
   components: { VueTimepicker },
   computed: {
     FullTimeNow() {
@@ -342,20 +342,34 @@ export default {
     getCart() {
       const totalcart = JSON.parse(localStorage.getItem("totalcart"));
       // console.log('取得點菜單產品：',totalcart);
-      if (totalcart === null || totalcart.length === 0) {
-        localStorage.setItem("totalcart", JSON.stringify([]));
+      console.log("營業時間", this.isOpenFromCustomer);
+      if (this.isOpenFromCustomer == false) {
         this.$swal({
-          title: "點菜單沒有東西唷",
-          text: "請至菜單選擇商品^__^",
-          type: "warning",
-          showCancelButton: false,
-          confirmButtonText: "回到菜單",
-          reverseButtons: true
-        }).then(result => {
-          this.$router.push({ name: "Product" });
-        });
+            title: "目前非營業時間",
+            text: "不開放點餐唷",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonText: "看看菜單",
+            reverseButtons: true
+          }).then(result => {
+            // this.$router.push({ name: "Product" });
+          });
       } else {
-        this.CartFromProduct = totalcart;
+        if (totalcart === null || totalcart.length === 0) {
+          localStorage.setItem("totalcart", JSON.stringify([]));
+          this.$swal({
+            title: "點菜單沒有東西唷",
+            text: "請至菜單選擇商品^__^",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonText: "回到菜單",
+            reverseButtons: true
+          }).then(result => {
+            this.$router.push({ name: "Product" });
+          });
+        } else {
+          this.CartFromProduct = totalcart;
+        }
       }
     },
     getTime(time) {
