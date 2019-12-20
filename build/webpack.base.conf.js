@@ -1,9 +1,9 @@
-'use strict'
+
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+const webpack = require('webpack')
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -19,7 +19,8 @@ function getService() {
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: process.env.NODE_ENV === 'development' ? './src/main.js' : './src/main.build.js'
+    app: './src/main.js'
+    // app: process.env.NODE_ENV === 'development' ? './src/main.js' : './src/main.build.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -32,12 +33,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
-      "pages": resolve('src/pages'),
-      "components": resolve('src/components'),
-      "services": getService(),
-      "utilitys": resolve('src/utilitys'),
-      "images": resolve('src/assets/images')
+      '@': resolve('src')
     }
   },
   plugins: [
