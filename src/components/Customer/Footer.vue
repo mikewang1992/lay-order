@@ -14,7 +14,7 @@
         <router-link to="/cart">
           <img src="@/assets/img/icon_footer02.png" alt>
           <p>點菜單</p>
-          <span class="label" v-if="footerNumber<20">{{footerNumber}}</span>
+          <span class="label font_price" v-if="footerNumber<20">{{footerNumber}}</span>
         </router-link>
       </li>
       <li :class="{'active':pageActive=='order'}">
@@ -44,16 +44,18 @@ export default {
   data() {
     return {
       pageActive: "",
-      footerNumber: "",
+      footerNumber: ""
     };
   },
-  props: ["forhere","tableNum"],
+  props: ["forhere", "tableNum"],
   methods: {
     footerActive() {
       // 判斷目前頁面
       let vm = this;
-      let nowURL = location.href.split("#/")[1];
-      this.pageActive = nowURL;
+      let nowURL = location.href;
+      var index = nowURL.lastIndexOf("/");
+      nowURL = nowURL.substring(index + 1, nowURL.length);
+      console.log('目前頁面：',nowURL)
       if (nowURL == "") {
         nowURL = "home";
         vm.pageActive = nowURL;
@@ -72,14 +74,14 @@ export default {
       }
     },
     changePageClass() {
-      // console.log("切換頁面class，現在是",this.pageActive);
+      console.log("切換頁面class，現在是", this.pageActive);
       if (
         this.pageActive == "login" ||
         this.pageActive == "member" ||
         this.pageActive == "coupon" ||
         this.pageActive == "register"
       ) {
-        // console.log("login新增css");
+        console.log("login新增css");
         document.querySelector(".page").classList.add("login");
       } else {
         document.querySelector(".page").classList.remove("login");

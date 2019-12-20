@@ -8,7 +8,7 @@
     </header>
     <div class="content mb-5" v-if="!ShowResult">
       <!-- 訂單資訊 -->
-      <div class="cart_list">
+      <div class="cart_list col-md-6 offset-md-3 p-0">
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
@@ -34,7 +34,7 @@
         </ul>
       </div>
       <!-- 內用顧客資訊 -->
-      <div class="order_list" v-if="forhere">
+      <div class="order_list col-md-6 offset-md-3" v-if="forhere">
         <ul>
           <li class="item total pt-0 pb-0">
             <h4>
@@ -46,7 +46,7 @@
         </ul>
       </div>
       <!-- 外帶顧客資訊 -->
-      <div class="order_list" v-if="!forhere">
+      <div class="order_list col-md-6 offset-md-3" v-if="!forhere">
         <form action>
           <ul>
             <li class="item total">
@@ -80,7 +80,7 @@
             </li>
             <li class="item" v-if="!ShowTimeSelect">
               <h4>取餐時間</h4>
-              <p class="color_default mb-0">備餐約 {{PrepareTime}} 分，請於 {{yourStringTimeValue}} 後來店取餐</p>
+              <p class="color_default mb-0">請於 {{yourStringTimeValue}} 後來店取餐</p>
             </li>
             <li class="item" v-if="ShowTimeSelect">
               <h4>取餐時間</h4>
@@ -118,9 +118,9 @@
       <small
         class="color_red text-center d-block mt-2 mb-3"
         v-if="!forhere"
-      >訂單總量超過20份請來電預約,餐點現做，製作時間約 {{PrepareTime}} min</small>
+      >訂單總量超過20份請來電預約<br/>餐點現做，備餐時間約 {{PrepareTime}} min</small>
       <footer class="d-block text-center fixed_bottom">
-        <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a>
+        <div class="col-md-6 offset-md-3"><a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a></div>
       </footer>
     </div>
 

@@ -41,7 +41,7 @@
             </div>
             <div class="p_info">
               <h3>{{item.Name}}</h3>
-              <p>NT${{item.Price}}</p>
+              <p class="font_price">NT${{item.Price}}</p>
             </div>
           </div>
         </div>
@@ -134,7 +134,7 @@
             </div>
           </div>
           <div class="popup_footer" v-if="isOpenFromCustomer==true">
-            <div class="btn btn_round btn_white count_box">
+            <div class="col-4 btn btn_round btn_white count_box">
               <a href="#" class="count_dis" @click.prevent="minusQty()">-</a>
               <a href="#" class="count_num">{{Orders.Qty}}</a>
               <a href="#" class="count_add" @click.prevent="addQty()">+</a>
