@@ -8,7 +8,7 @@
         <div class="col-sm-12">
           <ul class="nav_group mb-3">
             <li>
-              <router-link to="/coupon" class="active">我的優惠券</router-link>
+              <router-link to="/coupon" class="active">活動訊息</router-link>
             </li>
             <li>
               <router-link to="/member">個人資訊</router-link>
@@ -20,8 +20,7 @@
         <div class="item" v-for="(item,key,index) in Vouchers" :key="index">
           <h2>{{item.Title}}</h2>
           <p>{{item.Content}}</p>
-          <p>使用期限:</p>
-          <p>{{getFullTime(item.StartTime)}} ~ {{getFullTime(item.EndTime)}}</p>
+          <p>截止日期：<span class="font_en">{{getFullTime(item.EndTime)}}</span></p>
         </div>
       </div>
     </div>
@@ -40,7 +39,7 @@ export default {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Voucher`;
       this.$http.get(url).then(response => {
-        console.log(response);
+        console.log(response.data);
         if (response.data.length === 0) {
           // this.$swal("目前沒有任何優惠券", "", "warning");
           this.$swal({

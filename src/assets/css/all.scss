@@ -6,7 +6,13 @@
 @import "popup";
 @import "form";
 @import "datepicker.min";
-
+.swal2-title {
+  font-size: 1.3rem!important;
+  color: $color_default!important;
+}
+.time-picker input {
+  border-radius: 5px!important;
+}
 .page {
   display: flex;
   flex-wrap: wrap;
@@ -196,7 +202,7 @@ header {
 
 // 會員
 @include desktop-sm {
-  .member.main header{
+  .member.main header {
     display: none;
   }
 }
@@ -204,17 +210,25 @@ header {
 // 優惠券
 .card_list {
   .item {
-    @include shadow_blue;
-    padding: 0.75rem 1.75rem;
+    @include shadow_b;
+    padding: 0.75rem .75rem;
     background: #fff;
     margin-bottom: 10px;
     border-radius: 5px;
     text-align: justify;
+    border-left: 5px solid $color_default;
 
     h2 {
       color: #000;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
       margin-bottom: 0.35rem;
+    }
+    p {
+      margin-bottom: 0!important;
+    }
+    span {
+      color: $color_red;
     }
   }
 }
@@ -393,6 +407,28 @@ footer {
           opacity: 1;
         }
       }
+      &.forhere {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        a {
+          background: $color_default;
+          padding: 0.25rem 0.75rem;
+          border-radius: 8px;
+          pointer-events: none;
+          cursor: default;
+          p {
+            color: #fff;
+          }
+          h3 {
+            font-family: "'Ubuntu', sans-serif";
+            color: #fff;
+            font-size: 2rem;
+            line-height: 1;
+            font-weight: bold;
+          }
+        }
+      }
     }
   }
 
@@ -554,6 +590,7 @@ footer {
     justify-content: space-between;
     border-bottom: 1px solid #f1f1f1;
     padding: 0.75rem 0;
+    align-items: center;
 
     h4 {
       margin: 0;
@@ -564,6 +601,7 @@ footer {
       border: 0;
       text-align: right;
       width: 100%;
+      font-size: 1rem;
     }
 
     &:last-child {

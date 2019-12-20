@@ -50,7 +50,9 @@ input:focus {
     &:focus {
         border-radius: 2rem;
     }
-
+    &.form-warning {
+        border: 1px solid $color_red;
+    }
 }
 
 select.form-control {

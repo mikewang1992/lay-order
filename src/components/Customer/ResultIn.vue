@@ -26,10 +26,10 @@
         </ul>
       </div>
       <div class="d-flex text-center">
-        <div class="col-6">
+        <div class="w-100 mr-1 ml-1" v-if="forhere">
           <a :href="`tel:${ShopPhone}`" class="btn btn_yellow btn_lg d-block">撥打電話</a>
         </div>
-        <div class="col-6">
+        <div class="w-100 mr-1 ml-1">
           <router-link to="/order" class="btn btn_lg btn_default d-block">訂單狀態</router-link>
         </div>
       </div>
@@ -46,7 +46,7 @@ export default {
       ShopPhone: ""
     };
   },
-  props: ["OrderCodeFromCart"],
+  props: ["OrderCodeFromCart","forhere"],
   methods: {
     ShowOrderSummary(num) {
       const vm = this;

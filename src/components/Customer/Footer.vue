@@ -23,10 +23,16 @@
           <p>訂單狀態</p>
         </router-link>
       </li>
-      <li :class="{'active':pageActive=='member'|| pageActive=='coupon'}">
+      <li :class="{'active':pageActive=='member'|| pageActive=='coupon'}" v-if="!forhere">
         <router-link to="/member">
           <img src="@/assets/img/icon_footer04.png" alt>
           <p>會員中心</p>
+        </router-link>
+      </li>
+      <li class="forhere" v-if="forhere">
+        <router-link to="/">
+          <h3 class="fz_en">{{tableNum}}</h3>
+          <p>內用桌號</p>
         </router-link>
       </li>
     </ul>
@@ -38,9 +44,10 @@ export default {
   data() {
     return {
       pageActive: "",
-      footerNumber: ""
+      footerNumber: "",
     };
   },
+  props: ["forhere","tableNum"],
   methods: {
     footerActive() {
       // 判斷目前頁面
@@ -55,48 +62,38 @@ export default {
       }
     },
     checkFooterCart() {
-      console.log("Footer確認點菜單數量");
+      // console.log("Footer確認點菜單數量");
       if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
         this.footerNumber = JSON.parse(
           localStorage.getItem("totalcart")
         ).length;
-      }else{
+      } else {
         this.footerNumber = 0;
       }
     },
-    checkTable() {
-      const url = `${process.env.APIPATH}/Accounts/IsTable`;
-      this.$http.get(url).then(response => {
-        if (response.data === "外帶") {
-          // console.log("外帶");
-        } else {
-          // console.log("內用");
-        }
-      });
-    },
     changePageClass() {
-      console.log("切換頁面class，現在是",this.pageActive);
+      // console.log("切換頁面class，現在是",this.pageActive);
       if (
         this.pageActive == "login" ||
         this.pageActive == "member" ||
         this.pageActive == "coupon" ||
         this.pageActive == "register"
       ) {
-        console.log("login新增css");
+        // console.log("login新增css");
         document.querySelector(".page").classList.add("login");
       } else {
         document.querySelector(".page").classList.remove("login");
-      };
+      }
       if (
         this.pageActive == "cart" ||
         this.pageActive == "Cart/ResultOut" ||
         this.pageActive == "Cart/ResultIn"
       ) {
-        console.log('隱藏footer')
+        // console.log('隱藏footer')
         document.querySelector("footer ul").classList.remove("d-flex");
         document.querySelector("footer ul").classList.add("d-none");
       } else {
-        console.log('顯示footer')
+        // console.log('顯示footer')
         document.querySelector("footer ul").classList.add("d-flex");
         document.querySelector("footer ul").classList.remove("d-none");
       }
@@ -112,7 +109,6 @@ export default {
   created() {
     this.footerActive();
     this.checkFooterCart();
-    this.checkTable();
   },
   mounted() {
     this.changePageClass();

@@ -17,8 +17,8 @@
         </div>
       </div>
       <div class="row text-center">
-        <div class="ml-auto mr-auto mb-3">
-          <h2 class="mb-1">{{memberInfo.Tel}}</h2>
+        <div class="ml-auto mr-auto mb-3 mt-3">
+          <h2 class="mb-1 font_lg font_en">{{memberInfo.Tel}}</h2>
           <small class="color_red">若需修改電話號碼，請重新註冊</small>
         </div>
 
@@ -34,7 +34,7 @@
               v-model="memberInfo.Tel"
               autocomplete="off"
               disabled
-            />
+            >
           </div>
           <div class="form-group">
             <label class="sr-only" for="phone">姓名</label>
@@ -46,7 +46,7 @@
               placeholder="姓名"
               v-model="memberInfo.Name"
               autocomplete="off"
-            />
+            >
           </div>
           <div class="form-group">
             <label class="sr-only" for="phone">居住地</label>
@@ -78,7 +78,7 @@
               placeholder="生日"
               autocomplete="off"
               v-model="memberInfo.Birth"
-            />
+            >
           </div>
           <div class="form-group mb-4">
             <label class="sr-only" for="phone">密碼</label>
@@ -90,10 +90,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="memberInfo.NewPassword"
-            />
+            >
           </div>
           <a href="#" class="btn btn_default mb-2" @click.prevent="editMemberInfo">修改</a>
-          <br />
+          <br>
           <small>
             <a href="#" class="color_gray" @click.prevent="logout()">登出</a>
           </small>
@@ -171,6 +171,7 @@ export default {
         if (response.data === "success") {
           this.$swal("登出成功", "", "success");
           this.$router.push({ name: "Login" });
+          localStorage.setItem("totalcart", JSON.stringify([]));
         }
       });
     }

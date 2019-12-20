@@ -3529,6 +3529,8 @@ input:focus {
   margin-bottom: .75rem; }
   .form-control:focus {
     border-radius: 2rem; }
+  .form-control.form-warning {
+    border: 1px solid #f77878; }
 
 select.form-control {
   padding-left: 2.3rem; }
@@ -4207,6 +4209,13 @@ select.form-control {
   background: 0 0;
   border: none; }
 
+.swal2-title {
+  font-size: 1.3rem !important;
+  color: #72bcb3 !important; }
+
+.time-picker input {
+  border-radius: 5px !important; }
+
 .page {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4385,17 +4394,23 @@ header {
     display: none; } }
 
 .card_list .item {
-  -webkit-box-shadow: 0 2px 4px rgba(114, 188, 179, 0.25);
-  box-shadow: 0 2px 4px rgba(114, 188, 179, 0.25);
-  padding: 0.75rem 1.75rem;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 0.75rem .75rem;
   background: #fff;
   margin-bottom: 10px;
   border-radius: 5px;
-  text-align: justify; }
+  text-align: justify;
+  border-left: 5px solid #72bcb3; }
   .card_list .item h2 {
     color: #000;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
     margin-bottom: 0.35rem; }
+  .card_list .item p {
+    margin-bottom: 0 !important; }
+  .card_list .item span {
+    color: #f77878; }
 
 .swiper_nav {
   text-align: center;
@@ -4540,6 +4555,30 @@ footer {
         -webkit-filter: brightness(1);
         filter: brightness(1);
         opacity: 1; }
+      footer ul li.forhere {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center; }
+        footer ul li.forhere a {
+          background: #72bcb3;
+          padding: 0.25rem 0.75rem;
+          border-radius: 8px;
+          pointer-events: none;
+          cursor: default; }
+          footer ul li.forhere a p {
+            color: #fff; }
+          footer ul li.forhere a h3 {
+            font-family: "'Ubuntu', sans-serif";
+            color: #fff;
+            font-size: 2rem;
+            line-height: 1;
+            font-weight: bold; }
   @media (min-width: 576px) {
     footer {
       position: static;
@@ -4669,14 +4708,18 @@ footer {
     -ms-flex-pack: justify;
     justify-content: space-between;
     border-bottom: 1px solid #f1f1f1;
-    padding: 0.75rem 0; }
+    padding: 0.75rem 0;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
     .order_list .item h4 {
       margin: 0;
       white-space: nowrap; }
     .order_list .item input {
       border: 0;
       text-align: right;
-      width: 100%; }
+      width: 100%;
+      font-size: 1rem; }
     .order_list .item:last-child {
       border: 0; }
     .order_list .item .form-check {
