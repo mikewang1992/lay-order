@@ -21,7 +21,7 @@
               共
               <b class="color_default">{{OrderSummary[0].totalQty}}</b> 份
             </h4>
-            <span>{{OrderSummary[0].totalAmout}}</span>
+            <span>${{OrderSummary[0].totalAmount}}</span>
           </li>
           <li class="item">
             <h4>電話</h4>

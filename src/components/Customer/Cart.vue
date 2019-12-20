@@ -19,7 +19,7 @@
                 <h3>{{item.Name}}</h3>
               </div>
               <div class="p_choose">
-                <span v-for="(inneritem,index) in item.Options" :key="index">{{inneritem}},</span>
+                <span v-for="(inneritem,index) in item.Options" class="mr-2" :key="index">{{inneritem}}</span>
               </div>
               <div class="p_num">
                 <div class="btn btn_round btn_white count_box">
@@ -502,24 +502,25 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      this.$http.post(url, data, config).then(response => {
-        if (response == "fail") {
-          this.$swal(response, "", "info");
-        } else {
-          this.$swal("訂餐成功", "", "success");
-          vm.OrderCode = response.data;
-          localStorage.setItem("totalcart", JSON.stringify([]));
-          const url = `${process.env.APIPATH}/Accounts/IsTable`;
-          this.$http.get(url).then(response => {
-            vm.ShowResult = true;
-            if (response.data === "外帶") {
-              this.$router.push({ name: "ResultOut" });
-            } else {
-              this.$router.push({ name: "ResultIn" });
-            }
-          });
-        }
-      });
+      console.log(data);
+      // this.$http.post(url, data, config).then(response => {
+      //   if (response == "fail") {
+      //     this.$swal(response, "", "info");
+      //   } else {
+      //     this.$swal("訂餐成功", "", "success");
+      //     vm.OrderCode = response.data;
+      //     localStorage.setItem("totalcart", JSON.stringify([]));
+      //     const url = `${process.env.APIPATH}/Accounts/IsTable`;
+      //     this.$http.get(url).then(response => {
+      //       vm.ShowResult = true;
+      //       if (response.data === "外帶") {
+      //         this.$router.push({ name: "ResultOut" });
+      //       } else {
+      //         this.$router.push({ name: "ResultIn" });
+      //       }
+      //     });
+      //   }
+      // });
     },
     minusQty(item, index) {
       if (item.Qty > 1) {
