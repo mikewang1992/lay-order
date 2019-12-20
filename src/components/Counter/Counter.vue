@@ -240,7 +240,9 @@
 </template>
 
 <script>
-import "signalr";
+import signalR from "../../assets/js/jquery.signalR-2.4.1.min.js";
+import hub from "../../assets/js/hubs.js";
+// import "signalr";
 export default {
   data() {
     return {
@@ -507,27 +509,40 @@ export default {
           this.showDetail(Oid);
         });
     },
+    websocketbtn() {
+      chat.server.send("我很帥");
+    },
     websocket() {
-      //下面對應到網址的部份
-      let hub = $.hubConnection("https://lay-order.rocket-coding.com");
-      console.log(hub);
-      //下面對應了.net的DefaultHub
-      let proxy = hub.createHubProxy("DefaultHub");
-      console.log(proxy);
-      proxy.on("Get", data => (this.messages = data));
-      //一開始就先去呼叫Get，以確保畫面一開始就有預設的資料
-      hub.start().done(() => {
-        proxy
-          .invoke("Get", { message: "hello" })
-          .done(function() {
-            console.log("websocketok");
-          })
-          .fail(function(error) {
-            console.log("websocketfail");
-            console.log(error);
-          });
+      $(function() {
+        var chat = $.connection.chatHub;
+        chat.client.addNewMessageToPage = function(message) {
+          // 監聽自己發送了甚麼
+          console.log(message);
+        };
+        $.connection.hub.start().done(function() {});
       });
     }
+    // websocket() {
+    //   //下面對應到網址的部份
+    //   let hub = $.hubConnection("https://lay-order.rocket-coding.com");
+    //   console.log(hub);
+    //   //下面對應了.net的DefaultHub
+    //   let proxy = hub.createHubProxy("DefaultHub");
+    //   console.log(proxy);
+    //   proxy.on("Get", data => (this.messages = data));
+    //   //一開始就先去呼叫Get，以確保畫面一開始就有預設的資料
+    //   hub.start().done(() => {
+    //     proxy
+    //       .invoke("Get", { message: "hello" })
+    //       .done(function() {
+    //         console.log("websocketok");
+    //       })
+    //       .fail(function(error) {
+    //         console.log("websocketfail");
+    //         console.log(error);
+    //       });
+    //   });
+    // }
   },
   computed: {},
   watch: {

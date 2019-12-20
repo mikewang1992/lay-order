@@ -12,14 +12,18 @@
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
-              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
             </div>
             <div class="p_info">
               <div class="p_name">
                 <h3>{{item.Name}}</h3>
               </div>
               <div class="p_choose">
-                <span v-for="(inneritem,index) in item.Options" class="mr-2" :key="index">{{inneritem}}</span>
+                <span
+                  v-for="(inneritem,index) in item.Options"
+                  class="mr-2"
+                  :key="index"
+                >{{inneritem}}</span>
               </div>
               <div class="p_num">
                 <div class="btn btn_round btn_white count_box">
@@ -65,7 +69,7 @@
                 maxlength="10"
                 required
                 v-model="loginInfo.Tel"
-              >
+              />
               <p class="mb-0" v-if="Login == 'True'">{{OrderMemberInfo[0]}}</p>
             </li>
             <li class="item">
@@ -75,7 +79,7 @@
                 v-if="Login == 'False'"
                 placeholder="請輸入"
                 v-model="registerInfo.Name"
-              >
+              />
               <p class="mb-0" v-if="Login == 'True'">{{OrderMemberInfo[1]}}</p>
             </li>
             <li class="item" v-if="!ShowTimeSelect">
@@ -94,7 +98,7 @@
                   class="w-auto d-inline"
                   v-model="ShowTimeSelect"
                   @click="CleanTimeBtn()"
-                >
+                />
                 <label for="selectTime">我要指定取餐時間</label>
               </h4>
               <vue-timepicker
@@ -115,12 +119,16 @@
           </ul>
         </form>
       </div>
-      <small
-        class="color_red text-center d-block mt-2 mb-3"
-        v-if="!forhere"
-      >訂單總量超過20份請來電預約<br/>餐點現做，備餐時間約 {{PrepareTime}} min</small>
+      <small class="color_red text-center d-block mt-2 mb-3" v-if="!forhere">
+        訂單總量超過20份請來電預約
+        <br />
+        餐點現做，備餐時間約 {{PrepareTime}} min
+      </small>
       <footer class="d-block text-center fixed_bottom">
-        <div class="col-md-6 offset-md-3"><a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a></div>
+        <div class="col-md-6 offset-md-3">
+          <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a>
+          <a id="sendmessage" @click.prevent="websocketbtn()">websocketbtn</a>
+        </div>
       </footer>
     </div>
 
@@ -133,9 +141,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/login_img.png" alt>
+          <img src="@/assets/img/login_img.png" alt />
           <h2>Hello～歡迎回來！請先登入會員</h2>
-          <br>
+          <br />
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -146,7 +154,7 @@
               maxlength="10"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            >
+            />
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -157,10 +165,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            >
+            />
           </div>
           <a href="#" class="btn btn_default mb-2" @click.prevent="login()">登入</a>
-          <br>
+          <br />
           <small>
             <a @click.prevent="registerAppear=true,ShowPopup=false" class="color_gray">立即註冊</a>
           </small>
@@ -176,10 +184,10 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt>
+          <img src="@/assets/img/phone.png" alt />
           <h2>驗證手機，立即加入會員！</h2>
           <p class="mb-0">註冊會員需驗證手機，請輸入正確的手機號碼</p>
-          <br>
+          <br />
           <!-- 註冊資訊 -->
           <form v-if="!showVertify" @submit.prevent="register">
             <div class="form-group">
@@ -191,7 +199,7 @@
                 placeholder="電話"
                 maxlength="10"
                 v-model="registerInfo.Tel"
-              >
+              />
             </div>
             <div class="form-group">
               <label class="sr-only" for="userName">姓名</label>
@@ -203,7 +211,7 @@
                 placeholder="請輸入姓名"
                 autocomplete="off"
                 v-model="registerInfo.Name"
-              >
+              />
             </div>
             <div class="form-group">
               <label class="sr-only" for="password">密碼</label>
@@ -214,7 +222,7 @@
                 placeholder="請設定密碼"
                 autocomplete="off"
                 v-model="registerInfo.Password"
-              >
+              />
             </div>
             <button type="submit" class="btn btn_default mb-2">註冊</button>
           </form>
@@ -230,10 +238,10 @@
                 placeholder="請輸入簡訊驗證碼"
                 autocomplete="off"
                 v-model="vertifyInfo.Vertify"
-              >
+              />
             </div>
             <button type="submit" class="btn btn_default mb-2">確認</button>
-            <br>
+            <br />
             <a href="#" @click.prevent="ReSendSMS" class="d-block">重新發送驗證碼</a>
           </form>
         </div>
@@ -242,8 +250,10 @@
   </div>
 </template>
 
-
 <script>
+// import "signalr";
+import signalR from "../../assets/js/jquery.signalR-2.4.1.min.js";
+import hub from "../../assets/js/hubs.js";
 import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
 export default {
   data() {
@@ -345,15 +355,15 @@ export default {
       console.log("營業時間", this.isOpenFromCustomer);
       if (this.isOpenFromCustomer == false) {
         this.$swal({
-            title: "目前非營業時間",
-            text: "不開放點餐唷",
-            type: "warning",
-            showCancelButton: false,
-            confirmButtonText: "看看菜單",
-            reverseButtons: true
-          }).then(result => {
-            // this.$router.push({ name: "Product" });
-          });
+          title: "目前非營業時間",
+          text: "不開放點餐唷",
+          type: "warning",
+          showCancelButton: false,
+          confirmButtonText: "看看菜單",
+          reverseButtons: true
+        }).then(result => {
+          // this.$router.push({ name: "Product" });
+        });
       } else {
         if (totalcart === null || totalcart.length === 0) {
           localStorage.setItem("totalcart", JSON.stringify([]));
@@ -753,12 +763,34 @@ export default {
     },
     CleanTimeBtn() {
       this.yourStringTimeValue = this.businesshours[0];
+    },
+    //真正送出訊息只要這段
+    websocketbtn(par = "中原廣播公司現在時間25點整") {
+      console.log("websocket已送出", par);
+      $.connection.chatHub.server.send(par);
     }
+    // 原始碼,但不加也沒差?
+    // websocket() {
+    //   $(function() {
+    //     var chat = $.connection.chatHub;
+    //     chat.client.addNewMessageToPage = function(message) {
+    //       // 監聽自己發送了甚麼
+    //       console.log(message);
+    //     };
+    //     $.connection.hub.start().done(function() {
+    //       $("#sendmessage").click(function() {
+    //         //送出想傳的值
+    //         chat.server.send("中原廣播公司現在時間25點整");
+    //       });
+    //     });
+    //   });
+    // }
   },
   created() {
     this.getCart();
     this.CheckLogin();
     this.getBusinessHours();
+    $.connection.hub.start().done();
   },
   mounted() {
     document.querySelector("footer ul").classList.add("d-none");
