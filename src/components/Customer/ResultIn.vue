@@ -14,7 +14,7 @@
           <br />節省預約時間還可以取得特別優惠歐！
         </p>
       </div>
-      <div class="order_list mb-4">
+      <div class="order_list mb-4 col-md-6 offset-md-3">
         <ul>
           <li class="item total p-0 align-items-center">
             <h4>
@@ -25,7 +25,7 @@
           </li>
         </ul>
       </div>
-      <div class="d-flex text-center">
+      <div class="d-flex col-md-6 offset-md-3 text-center">
         <div class="w-100 mr-1 ml-1" v-if="forhere">
           <a :href="`tel:${ShopPhone}`" class="btn btn_yellow btn_lg d-block">撥打電話</a>
         </div>

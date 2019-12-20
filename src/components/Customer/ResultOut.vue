@@ -14,14 +14,14 @@
           <br />若需調整訂單請撥打電話與我們聯繫！
         </p>
       </div>
-      <div class="order_list mb-4">
+      <div class="order_list mb-4 col-md-6 offset-md-3">
         <ul>
           <li class="item total">
             <h4>
               共
               <b class="color_default">{{OrderSummary[0].totalQty}}</b> 份
             </h4>
-            <span>{{OrderSummary[0].totalAmout}}</span>
+            <span>${{OrderSummary[0].totalAmount}}</span>
           </li>
           <li class="item">
             <h4>電話</h4>
@@ -37,7 +37,7 @@
           </li>
         </ul>
       </div>
-      <div class="d-flex text-center">
+      <div class="d-flex col-md-6 offset-md-3 text-center">
         <div class="col-6">
           <a :href="`tel:${ShopPhone}`" class="btn btn_lg btn_yellow d-block">撥打電話</a>
         </div>

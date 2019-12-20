@@ -1,14 +1,13 @@
 <template>
   <div class="main pb-2">
     <OrderInfo :IdFromOrder="Id" v-if="ShowOrderInfo" @passevent="takeevent"></OrderInfo>
-    <!-- <router-view :IdFromOrder="Id" v-if="ShowOrderInfo"></router-view> -->
     <header v-if="!ShowOrderInfo">
       <h1>訂單狀態</h1>
     </header>
     <div class="content" v-if="!ShowOrderInfo">
       <div class="cart_list status_list">
         <ul>
-          <a v-for="(item,index) in OrderStatus" :key="index">
+          <a v-for="(item,index) in OrderStatus" :key="index" @click.prevent="GoOrderInfo(item.id)">
             <li class="item">
               <div
                 class="p_status"
@@ -22,7 +21,7 @@
                 </div>
                 <div class="p_price">${{item.total}}</div>
               </div>
-              <div class="icon_right iconfont icon-right" @click.prevent="GoOrderInfo(item.id)"></div>
+              <div class="icon_right iconfont icon-right"></div>
             </li>
           </a>
         </ul>

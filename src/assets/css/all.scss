@@ -168,6 +168,7 @@ header {
     padding-bottom: 0;
     margin-bottom: 0;
     background: #fff;
+    border-radius: 0;
 
     header img {
       display: none;
@@ -230,6 +231,9 @@ header {
     span {
       color: $color_red;
     }
+  }
+  @include desktop-sm {
+    min-height: 60vh;
   }
 }
 
@@ -440,6 +444,7 @@ footer {
     background-size: auto 60%;
     max-width: 960px;
     display: block;
+    background-color: #fff;
 
     .nav_logo {
       display: block;
@@ -465,9 +470,11 @@ footer {
 
 .result {
   position: relative;
+  text-align: center;
 
   img {
     width: 100%;
+    margin: 0 auto;
   }
 
   .number {
@@ -497,6 +504,12 @@ footer {
       font-size: 3rem;
       padding-top: 1rem;
       top: 0;
+    }
+  }
+  @include desktop-sm {
+    img {
+      width: 50%;
+      margin: 0 auto;
     }
   }
 }
@@ -558,9 +571,7 @@ footer {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      .item {
-        width: 49%;
-      }
+      
     }
   }
 }
@@ -631,15 +642,10 @@ footer {
       font-weight: bold;
     }
   }
-  @include desktop-md {
-    width: 60%;
-    margin: 0 auto;
-  }
 }
 .cart_list {
   width: 100%;
-  @include desktop-md {
-    width: 60%;
-    margin: 0 auto;
+  a {
+    width: 49%;
   }
 }

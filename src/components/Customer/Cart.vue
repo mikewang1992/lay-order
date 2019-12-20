@@ -8,7 +8,7 @@
     </header>
     <div class="content mb-5" v-if="!ShowResult">
       <!-- 訂單資訊 -->
-      <div class="cart_list">
+      <div class="cart_list col-md-6 offset-md-3 p-0">
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
@@ -19,7 +19,7 @@
                 <h3>{{item.Name}}</h3>
               </div>
               <div class="p_choose">
-                <span v-for="(inneritem,index) in item.Options" :key="index">{{inneritem}},</span>
+                <span v-for="(inneritem,index) in item.Options" class="mr-2" :key="index">{{inneritem}}</span>
               </div>
               <div class="p_num">
                 <div class="btn btn_round btn_white count_box">
@@ -34,7 +34,7 @@
         </ul>
       </div>
       <!-- 內用顧客資訊 -->
-      <div class="order_list" v-if="forhere">
+      <div class="order_list col-md-6 offset-md-3" v-if="forhere">
         <ul>
           <li class="item total pt-0 pb-0">
             <h4>
@@ -46,7 +46,7 @@
         </ul>
       </div>
       <!-- 外帶顧客資訊 -->
-      <div class="order_list" v-if="!forhere">
+      <div class="order_list col-md-6 offset-md-3" v-if="!forhere">
         <form action>
           <ul>
             <li class="item total">
@@ -80,7 +80,7 @@
             </li>
             <li class="item" v-if="!ShowTimeSelect">
               <h4>取餐時間</h4>
-              <p class="color_default mb-0">備餐約 {{PrepareTime}} 分，請於 {{yourStringTimeValue}} 後來店取餐</p>
+              <p class="color_default mb-0">請於 {{yourStringTimeValue}} 後來店取餐</p>
             </li>
             <li class="item" v-if="ShowTimeSelect">
               <h4>取餐時間</h4>
@@ -118,9 +118,9 @@
       <small
         class="color_red text-center d-block mt-2 mb-3"
         v-if="!forhere"
-      >訂單總量超過20份請來電預約,餐點現做，製作時間約 {{PrepareTime}} min</small>
+      >訂單總量超過20份請來電預約<br/>餐點現做，備餐時間約 {{PrepareTime}} min</small>
       <footer class="d-block text-center fixed_bottom">
-        <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a>
+        <div class="col-md-6 offset-md-3"><a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a></div>
       </footer>
     </div>
 
@@ -269,7 +269,7 @@ export default {
       ShowTimeSelect: false
     };
   },
-  props:["forhere"],
+  props: ["forhere", "isOpenFromCustomer"],
   components: { VueTimepicker },
   computed: {
     FullTimeNow() {
@@ -342,20 +342,34 @@ export default {
     getCart() {
       const totalcart = JSON.parse(localStorage.getItem("totalcart"));
       // console.log('取得點菜單產品：',totalcart);
-      if (totalcart === null || totalcart.length === 0) {
-        localStorage.setItem("totalcart", JSON.stringify([]));
+      console.log("營業時間", this.isOpenFromCustomer);
+      if (this.isOpenFromCustomer == false) {
         this.$swal({
-          title: "點菜單沒有東西唷",
-          text: "請至菜單選擇商品^__^",
-          type: "warning",
-          showCancelButton: false,
-          confirmButtonText: "回到菜單",
-          reverseButtons: true
-        }).then(result => {
-          this.$router.push({ name: "Product" });
-        });
+            title: "目前非營業時間",
+            text: "不開放點餐唷",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonText: "看看菜單",
+            reverseButtons: true
+          }).then(result => {
+            // this.$router.push({ name: "Product" });
+          });
       } else {
-        this.CartFromProduct = totalcart;
+        if (totalcart === null || totalcart.length === 0) {
+          localStorage.setItem("totalcart", JSON.stringify([]));
+          this.$swal({
+            title: "點菜單沒有東西唷",
+            text: "請至菜單選擇商品^__^",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonText: "回到菜單",
+            reverseButtons: true
+          }).then(result => {
+            this.$router.push({ name: "Product" });
+          });
+        } else {
+          this.CartFromProduct = totalcart;
+        }
       }
     },
     getTime(time) {
@@ -488,24 +502,25 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      this.$http.post(url, data, config).then(response => {
-        if (response == "fail") {
-          this.$swal(response, "", "info");
-        } else {
-          this.$swal("訂餐成功", "", "success");
-          vm.OrderCode = response.data;
-          localStorage.setItem("totalcart", JSON.stringify([]));
-          const url = `${process.env.APIPATH}/Accounts/IsTable`;
-          this.$http.get(url).then(response => {
-            vm.ShowResult = true;
-            if (response.data === "外帶") {
-              this.$router.push({ name: "ResultOut" });
-            } else {
-              this.$router.push({ name: "ResultIn" });
-            }
-          });
-        }
-      });
+      console.log(data);
+      // this.$http.post(url, data, config).then(response => {
+      //   if (response == "fail") {
+      //     this.$swal(response, "", "info");
+      //   } else {
+      //     this.$swal("訂餐成功", "", "success");
+      //     vm.OrderCode = response.data;
+      //     localStorage.setItem("totalcart", JSON.stringify([]));
+      //     const url = `${process.env.APIPATH}/Accounts/IsTable`;
+      //     this.$http.get(url).then(response => {
+      //       vm.ShowResult = true;
+      //       if (response.data === "外帶") {
+      //         this.$router.push({ name: "ResultOut" });
+      //       } else {
+      //         this.$router.push({ name: "ResultIn" });
+      //       }
+      //     });
+      //   }
+      // });
     },
     minusQty(item, index) {
       if (item.Qty > 1) {
