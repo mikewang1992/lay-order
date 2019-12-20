@@ -27,6 +27,7 @@ import Kitchen from '@/components/Kitchen/Kitchen'
 Vue.use(Router)
 
 export default new Router({
+    mode: 'history',
     routes: [{
         path: '*',
         redirect: '/',

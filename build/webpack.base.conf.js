@@ -1,19 +1,26 @@
-'use strict'
+
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
-function resolve (dir) {
+const webpack = require('webpack')
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
+function getService() {
+  if (process.env.NODE_ENV === 'test') {
+    return resolve('src/services/fake')
+  } else {
+    return resolve('src/services/real')
+  }
+}
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
+    // app: process.env.NODE_ENV === 'development' ? './src/main.js' : './src/main.build.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -26,9 +33,17 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
+      '@': resolve('src')
     }
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      'root.jQuery': 'jquery'
+    }),
+  ],
   module: {
     rules: [
       {

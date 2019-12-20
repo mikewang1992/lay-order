@@ -9,7 +9,7 @@
           :class="{'active':filterMenu.type == 'forhere'}"
           @click.prevent="getProduct('forhere','')"
         >
-          <img src="@/assets/img/icon_kit01.png" alt>
+          <img src="@/assets/img/icon_kit01.png" alt />
           <h3>內用</h3>
         </a>
         <a
@@ -18,7 +18,7 @@
           :class="{'active':filterMenu.type == 'togo'}"
           @click.prevent="getProduct('togo','')"
         >
-          <img src="@/assets/img/icon_kit02.png" alt>
+          <img src="@/assets/img/icon_kit02.png" alt />
           <h3>外帶</h3>
         </a>
       </div>
@@ -29,7 +29,7 @@
           :class="{'active':filterMenu.status == 'paid'}"
           @click.prevent="getProduct('','paid')"
         >
-          <img src="@/assets/img/icon_kit04.png" alt>
+          <img src="@/assets/img/icon_kit04.png" alt />
           <h3>已完成</h3>
         </a>
         <a
@@ -38,7 +38,7 @@
           :class="{'active':filterMenu.status == 'cancel'}"
           @click.prevent="getProduct('','cancel')"
         >
-          <img src="@/assets/img/icon_kit05.png" alt>
+          <img src="@/assets/img/icon_kit05.png" alt />
           <h3>已取消</h3>
         </a>
       </div>
@@ -100,17 +100,17 @@
               </h3>
               <ul>
                 <li>
-                  <span class="iconfont icon-phone"/>
+                  <span class="iconfont icon-phone" />
                   <p class="font_en">{{item.tel}}</p>
                 </li>
                 <li>
-                  <span class="iconfont icon-icon-time"/>
+                  <span class="iconfont icon-icon-time" />
                   <p>
                     <b class="font_en">{{getTime(item.gettime)}}</b> 取餐
                   </p>
                 </li>
                 <li>
-                  <span class="iconfont icon-dollar"/>
+                  <span class="iconfont icon-dollar" />
                   <p class="font_en">{{item.total}}</p>
                 </li>
               </ul>
@@ -195,7 +195,7 @@
                 <img
                   :src="'https://lay-order.rocket-coding.com/Img/product/'+item.img[0]"
                   :key="item.pid"
-                >
+                />
               </div>
               <div class="p_info">
                 <div class="p_name">
@@ -240,6 +240,7 @@
 </template>
 
 <script>
+import "signalr";
 export default {
   data() {
     return {
@@ -254,7 +255,8 @@ export default {
       pages: {
         curPage: 1,
         sum: ""
-      }
+      },
+      websocketData: []
     };
   },
   methods: {
@@ -262,9 +264,7 @@ export default {
       const vm = this;
       this.filterMenu.type = type;
       this.filterMenu.status = status;
-      const url = `${
-        process.env.APIPATH
-      }/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
+      const url = `${process.env.APIPATH}/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
         vm.productList = response.data;
       });
@@ -283,9 +283,7 @@ export default {
     },
     getPages() {
       const vm = this;
-      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${
-        this.filterMenu.type
-      }&status=${this.filterMenu.status}`;
+      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${this.filterMenu.type}&status=${this.filterMenu.status}`;
       this.$http.get(url).then(response => {
         // console.log("頁數",response.data);
         this.pages.sum = response.data;
@@ -382,9 +380,7 @@ export default {
         if (result.value) {
           this.$http
             .get(
-              `${process.env.APIPATH}/Counter/BackToPrepare?Oid=${
-                this.thisOrderID
-              }`
+              `${process.env.APIPATH}/Counter/BackToPrepare?Oid=${this.thisOrderID}`
             )
             .then(response => {
               // console.log(response.data);
@@ -427,9 +423,7 @@ export default {
         if (result.value) {
           this.$http
             .get(
-              `${process.env.APIPATH}/Counter/BackToDone?Oid=${
-                this.thisOrderID
-              }`
+              `${process.env.APIPATH}/Counter/BackToDone?Oid=${this.thisOrderID}`
             )
             .then(response => {
               console.log(response.data);
@@ -512,6 +506,15 @@ export default {
           );
           this.showDetail(Oid);
         });
+    },
+    websocket() {
+      //下面對應到網址的部份
+      let hub = $.hubConnection("http://localhost:8080");
+      //下面對應了.net的DefaultHub
+      let proxy = hub.createHubProxy("DefaultHub");
+      proxy.on("Get", data => (this.websocketData = data));
+      //一開始就先去呼叫Get，以確保畫面一開始就有預設的資料
+      hub.start().done(() => proxy.invoke("Get"));
     }
   },
   computed: {},
@@ -522,6 +525,7 @@ export default {
   },
   created() {
     this.getProduct("forhere", "");
+    this.websocket();
   }
 };
 </script>
