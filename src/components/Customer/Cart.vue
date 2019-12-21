@@ -255,6 +255,7 @@
 import signalR from "../../assets/js/jquery.signalR-2.4.1.min.js";
 import hub from "../../assets/js/hubs.js";
 import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
+
 export default {
   data() {
     return {
@@ -765,12 +766,19 @@ export default {
       this.yourStringTimeValue = this.businesshours[0];
     },
     //真正送出訊息只要這段
-    websocketbtn(par = "中原廣播公司現在時間25點整") {
-      console.log("websocket已送出", par);
+    websocketbtn(par = "Cart") {
+      console.log("websocket送出", par);
       $.connection.chatHub.server.send(par);
+    },
+    // 監聽自己發送了甚麼
+    websocketListen() {
+      $.connection.chatHub.client.addNewMessageToPage = function(message) {
+        console.log("websocket已收到", message);
+      };
+      $.connection.hub.start().done();
     }
     // 原始碼,但不加也沒差?
-    // websocket() {
+    // websocketbtn() {
     //   $(function() {
     //     var chat = $.connection.chatHub;
     //     chat.client.addNewMessageToPage = function(message) {
@@ -787,10 +795,10 @@ export default {
     // }
   },
   created() {
+    this.websocketListen();
     this.getCart();
     this.CheckLogin();
     this.getBusinessHours();
-    $.connection.hub.start().done();
   },
   mounted() {
     document.querySelector("footer ul").classList.add("d-none");

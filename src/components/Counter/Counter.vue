@@ -240,9 +240,10 @@
 </template>
 
 <script>
+// import "signalr";
 import signalR from "../../assets/js/jquery.signalR-2.4.1.min.js";
 import hub from "../../assets/js/hubs.js";
-// import "signalr";
+
 export default {
   data() {
     return {
@@ -269,6 +270,7 @@ export default {
       const url = `${process.env.APIPATH}/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
         vm.productList = response.data;
+        console.log(response.data);
       });
       this.detail = "";
       this.customer = "";
@@ -509,18 +511,21 @@ export default {
           this.showDetail(Oid);
         });
     },
-    websocketbtn() {
-      chat.server.send("我很帥");
+    websocketbtn(par = "counter") {
+      console.log("websocket送出", par);
+      $.connection.chatHub.server.send(par);
     },
-    websocket() {
-      $(function() {
-        var chat = $.connection.chatHub;
-        chat.client.addNewMessageToPage = function(message) {
-          // 監聽自己發送了甚麼
-          console.log(message);
-        };
-        $.connection.hub.start().done(function() {});
-      });
+    websocketListen() {
+      const vm = this;
+      $.connection.chatHub.client.addNewMessageToPage = function(message) {
+        console.log("websocket已收到", message);
+        vm.getProduct(
+          vm.filterMenu.type,
+          vm.filterMenu.status,
+          vm.pages.curPage
+        );
+      };
+      $.connection.hub.start().done();
     }
     // websocket() {
     //   //下面對應到網址的部份
@@ -552,7 +557,7 @@ export default {
   },
   created() {
     this.getProduct("forhere", "");
-    this.websocket();
+    this.websocketListen();
   }
 };
 </script>
