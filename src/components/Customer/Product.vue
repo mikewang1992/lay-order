@@ -197,7 +197,7 @@ export default {
       Orders: {
         Qty: 1,
         Pid: "",
-        Options: [],
+        Options: [null, null, null, null],
         time: "",
         Img: "",
         Name: "",
@@ -324,6 +324,11 @@ export default {
       });
       const vm = this;
       vm.Cart.push(vm.Orders);
+      for (let i = 0; i < vm.Cart.length; i++) {
+        vm.Cart[i].Options = vm.Cart[i].Options.filter(function(item) {
+          return item != null;
+        });
+      }
       localStorage.setItem("totalcart", JSON.stringify(this.Cart));
       vm.Orders = {
         Qty: 1,
