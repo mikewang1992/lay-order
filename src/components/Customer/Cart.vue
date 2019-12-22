@@ -127,7 +127,6 @@
       <footer class="d-block text-center fixed_bottom">
         <div class="col-md-6 offset-md-3">
           <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate">確認點餐</a>
-          <a id="sendmessage" @click.prevent="websocketbtn()">websocketbtn</a>
         </div>
       </footer>
     </div>
