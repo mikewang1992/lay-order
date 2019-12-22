@@ -8,7 +8,7 @@
           :class="{'active':filterMenu.type == ''}"
           @click.prevent="getOrderList('','')"
         >
-          <img src="@/assets/img/icon_kit00.png" alt>
+          <img src="@/assets/img/icon_kit00.png" alt />
           <h3>所有</h3>
         </a>
         <a
@@ -17,7 +17,7 @@
           :class="{'active':filterMenu.type == 'forhere'}"
           @click.prevent="getOrderList('forhere','')"
         >
-          <img src="@/assets/img/icon_kit01.png" alt>
+          <img src="@/assets/img/icon_kit01.png" alt />
           <h3>內用</h3>
         </a>
         <a
@@ -26,7 +26,7 @@
           :class="{'active':filterMenu.type == 'togo'}"
           @click.prevent="getOrderList('togo','')"
         >
-          <img src="@/assets/img/icon_kit02.png" alt>
+          <img src="@/assets/img/icon_kit02.png" alt />
           <h3>外帶</h3>
         </a>
       </div>
@@ -46,7 +46,7 @@
           :class="{'active':filterMenu.status == 'paid'}"
           @click.prevent="getOrderList('','paid')"
         >
-          <img src="@/assets/img/icon_kit04.png" alt>
+          <img src="@/assets/img/icon_kit04.png" alt />
           <h3>已完成</h3>
         </a>
         <a
@@ -55,7 +55,7 @@
           :class="{'active':filterMenu.status == 'cancel'}"
           @click.prevent="getOrderList('','cancel')"
         >
-          <img src="@/assets/img/icon_kit05.png" alt>
+          <img src="@/assets/img/icon_kit05.png" alt />
           <h3>已取消</h3>
         </a>
       </div>
@@ -86,7 +86,13 @@
               <span class="label">{{pItem.option}}</span>
             </li>
           </ul>
-          <a href="#" class="btn btn_green btn_lg" v-if="filterMenu.status !== 'cancel'" v-show="filterMenu.status !== 'paid'" @click="completeOrder(item.orderid)">準備完成</a>
+          <a
+            href="#"
+            class="btn btn_green btn_lg"
+            v-if="filterMenu.status !== 'cancel'"
+            v-show="filterMenu.status !== 'paid'"
+            @click="completeOrder(item.orderid)"
+          >準備完成</a>
         </div>
       </div>
       <footer>
@@ -116,7 +122,7 @@
         <!-- <div class="thisTime">
           <span>11</span>
           <span>30</span>
-        </div> -->
+        </div>-->
       </footer>
     </div>
   </div>
@@ -143,9 +149,7 @@ export default {
       const vm = this;
       this.filterMenu.type = type;
       this.filterMenu.status = status;
-      const url = `${
-        process.env.APIPATH
-      }/Kitchen/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
+      const url = `${process.env.APIPATH}/Kitchen/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
         vm.orderList = response.data;
         // console.log("產品列表", response.data);
@@ -174,9 +178,7 @@ export default {
     getPages() {
       // console.log("頁數");
       const vm = this;
-      const url = `${process.env.APIPATH}/Kitchen/TotalPage?type=${
-        this.filterMenu.type
-      }&status=${this.filterMenu.status}`;
+      const url = `${process.env.APIPATH}/Kitchen/TotalPage?type=${this.filterMenu.type}&status=${this.filterMenu.status}`;
       this.$http.get(url).then(response => {
         this.pages.sum = response.data;
       });
@@ -185,9 +187,7 @@ export default {
       console.log("單品備餐：", "產品ID", Oid, "產品ID", Pid);
       this.$http
         .get(
-          `${
-            process.env.APIPATH
-          }/Kitchen/CompleteOrderItem?Oid=${Oid}&id=${Pid}`
+          `${process.env.APIPATH}/Kitchen/CompleteOrderItem?Oid=${Oid}&id=${Pid}`
         )
         .then(response => {
           console.log(response.data);
@@ -203,13 +203,9 @@ export default {
         });
     },
     completeOrder(Oid) {
-      console.log("整單備餐完成：",Oid);
+      console.log("整單備餐完成：", Oid);
       this.$http
-        .get(
-          `${
-            process.env.APIPATH
-          }/Kitchen/CompleteOrder/${Oid}`
-        )
+        .get(`${process.env.APIPATH}/Kitchen/CompleteOrder/${Oid}`)
         .then(response => {
           console.log(response.data);
           this.$swal({
@@ -222,10 +218,30 @@ export default {
           });
           this.getOrderList(this.filterMenu.type, this.filterMenu.status);
         });
+    },
+    websocketbtn(par = "kitchen") {
+      console.log("websocket送出", par);
+      $.connection.chatHub.server.send(par);
+    },
+    websocketListen() {
+      const vm = this;
+      $.connection.chatHub.client.addNewMessageToPage = function(message) {
+        console.log("websocket已收到", message);
+        console.log(vm.filterMenu.type);
+        console.log(vm.filterMenu.status);
+        console.log(vm.pages.curPage);
+        vm.getOrderList(
+          vm.filterMenu.type,
+          vm.filterMenu.status,
+          vm.pages.curPage
+        );
+      };
+      $.connection.hub.start().done();
     }
   },
   created() {
     this.getOrderList("", "");
+    this.websocketListen();
   }
 };
 </script>

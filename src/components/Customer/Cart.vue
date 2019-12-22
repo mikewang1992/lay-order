@@ -766,7 +766,7 @@ export default {
       this.yourStringTimeValue = this.businesshours[0];
     },
     //真正送出訊息只要這段
-    websocketbtn(par = "Cart") {
+    websocketbtn(par = "cart") {
       console.log("websocket送出", par);
       $.connection.chatHub.server.send(par);
     },
