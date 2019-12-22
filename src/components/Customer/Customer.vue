@@ -29,7 +29,6 @@ export default {
         }
       });
     },
-
     checkTable() {
       const url = `${process.env.APIPATH}/Accounts/IsTable`;
       this.$http.get(url).then(response => {

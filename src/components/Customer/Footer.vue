@@ -1,38 +1,38 @@
 <template>
   <footer>
     <div class="nav_logo">
-      <img src="@/assets/img/logo_nav.png" alt>
+      <img src="@/assets/img/logo_nav.png" alt />
     </div>
     <ul>
       <li :class="{'active':pageActive=='home'}">
         <router-link to="/Product">
-          <img src="@/assets/img/icon_footer01.png" alt>
+          <img src="@/assets/img/icon_footer01.png" alt />
           <p>菜單</p>
         </router-link>
       </li>
       <li :class="{'active':pageActive=='cart'}" class="footer_cart">
         <router-link to="/cart">
-          <img src="@/assets/img/icon_footer02.png" alt>
+          <img src="@/assets/img/icon_footer02.png" alt />
           <p>點菜單</p>
           <span class="label font_price" v-if="footerNumber<20">{{footerNumber}}</span>
         </router-link>
       </li>
       <li :class="{'active':pageActive=='order'}">
         <router-link to="/order">
-          <img src="@/assets/img/icon_footer03.png" alt>
+          <img src="@/assets/img/icon_footer03.png" alt />
           <p>訂單狀態</p>
         </router-link>
       </li>
       <li :class="{'active':pageActive=='member'|| pageActive=='coupon'}" v-if="!forhere">
         <router-link to="/member">
-          <img src="@/assets/img/icon_footer04.png" alt>
+          <img src="@/assets/img/icon_footer04.png" alt />
           <p>會員中心</p>
         </router-link>
       </li>
       <li class="forhere" v-if="forhere">
         <router-link to="/">
           <h3 class="fz_en">{{tableNum}}</h3>
-          <p>內用桌號</p>
+          <p>內用桌號</p>
         </router-link>
       </li>
     </ul>
@@ -55,7 +55,7 @@ export default {
       let nowURL = location.href;
       var index = nowURL.lastIndexOf("/");
       nowURL = nowURL.substring(index + 1, nowURL.length);
-      console.log('目前頁面：',nowURL)
+      console.log("目前頁面：", nowURL);
       if (nowURL == "") {
         nowURL = "home";
         vm.pageActive = nowURL;

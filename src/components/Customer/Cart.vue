@@ -513,25 +513,25 @@ export default {
           "Content-Type": "application/json"
         }
       };
-      console.log(data);
-      // this.$http.post(url, data, config).then(response => {
-      //   if (response == "fail") {
-      //     this.$swal(response, "", "info");
-      //   } else {
-      //     this.$swal("訂餐成功", "", "success");
-      //     vm.OrderCode = response.data;
-      //     localStorage.setItem("totalcart", JSON.stringify([]));
-      //     const url = `${process.env.APIPATH}/Accounts/IsTable`;
-      //     this.$http.get(url).then(response => {
-      //       vm.ShowResult = true;
-      //       if (response.data === "外帶") {
-      //         this.$router.push({ name: "ResultOut" });
-      //       } else {
-      //         this.$router.push({ name: "ResultIn" });
-      //       }
-      //     });
-      //   }
-      // });
+      this.$http.post(url, data, config).then(response => {
+        if (response == "fail") {
+          this.$swal(response, "", "info");
+        } else {
+          this.$swal("訂餐成功", "", "success");
+          vm.OrderCode = response.data;
+          localStorage.setItem("totalcart", JSON.stringify([]));
+          vm.websocketbtn();
+          const url = `${process.env.APIPATH}/Accounts/IsTable`;
+          this.$http.get(url).then(response => {
+            vm.ShowResult = true;
+            if (response.data === "外帶") {
+              this.$router.push({ name: "ResultOut" });
+            } else {
+              this.$router.push({ name: "ResultIn" });
+            }
+          });
+        }
+      });
     },
     minusQty(item, index) {
       if (item.Qty > 1) {
