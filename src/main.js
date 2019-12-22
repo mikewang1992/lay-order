@@ -15,8 +15,11 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 // VueTimepicker
 import VueTimepicker from 'vue2-timepicker'
 import 'vue2-timepicker/dist/VueTimepicker.css'
-// 
+// jquery
 import $ from 'jquery'
+//
+import VueLoading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 // import 'signalr'
 const options = {
     confirmButtonColor: '#72BCB3',
@@ -29,6 +32,16 @@ axios.defaults.withCredentials = true;
 Vue.use(VueAxios, axios)
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueSweetalert2, options)
+Vue.use(VueLoading, {
+    isFullPage: true,
+    canCancel: false,
+    loader: 'dots', //spinner/dots/bars
+    color: '#72bcb3',
+    backgroundColor: '#ffffff',
+    opacity: 0.2,
+    width: 48,
+    height: 48
+});
 
 /* eslint-disable no-new */
 

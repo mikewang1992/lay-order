@@ -264,11 +264,13 @@ export default {
   },
   methods: {
     getProduct(type, status, pages = "1") {
+      let loader = this.$loading.show();
       const vm = this;
       this.filterMenu.type = type;
       this.filterMenu.status = status;
       const url = `${process.env.APIPATH}/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
+        loader.hide();
         vm.productList = response.data;
         console.log(response.data);
       });
