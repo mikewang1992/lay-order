@@ -6,7 +6,7 @@
     </header>
     <!-- banners -->
     <div class="content">
-      <swiper :options="swiperSingle" ref="mySwiper" @someSwiperEvent="swiper()">
+      <swiper :options="swiperSingle" id="swiperSingle" ref="mySwiper" @someSwiperEvent="swiper()">
         <swiper-slide v-for="(item,key,index) in banners" :key="index">
           <img :src="BannerimgUrl+item" alt />
         </swiper-slide>
@@ -54,6 +54,7 @@
         <div class="p_slider">
           <swiper
             :options="swiperSingle"
+            id="swiperSingle" 
             class="swiper_product"
             ref="mySwiper"
             @someSwiperEvent="swiper()"
@@ -86,6 +87,7 @@
                     :value="inneritem"
                     v-model="Orders.Options[0]"
                   />
+                  <span class="radiobtn"></span>
                   <label :for="`option1-${key+1}`">{{inneritem}}</label>
                 </div>
               </div>
@@ -245,7 +247,7 @@ export default {
       const url = `${process.env.APIPATH}/Product/GetProductDetail/${Id}`;
       vm.ShowPopup = Show;
       this.$http.get(url).then(response => {
-        console.log("產品細節", response.data);
+        // console.log("產品細節", response.data);
         if (response.data[0]) {
           vm.Sides = [];
           vm.modalAppear = true;

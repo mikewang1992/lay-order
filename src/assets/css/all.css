@@ -90,6 +90,9 @@ body {
 .fz_md {
   font-size: 1rem !important; }
 
+.fz_xs {
+  font-size: .7rem !important; }
+
 .overflow_hidden {
   overflow: hidden; }
 
@@ -3127,6 +3130,9 @@ body {
 .fz_md {
   font-size: 1rem !important; }
 
+.fz_xs {
+  font-size: .7rem !important; }
+
 .overflow_hidden {
   overflow: hidden; }
 
@@ -4399,7 +4405,7 @@ header {
 .card_list .item {
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  padding: 0.75rem .75rem;
+  padding: 0.75rem 0.75rem;
   background: #fff;
   margin-bottom: 10px;
   border-radius: 5px;
@@ -4445,10 +4451,10 @@ header {
 .swiper_banner img {
   width: 100%; }
 
-.swiper-pagination-bullet {
+#swiperSingle .swiper-pagination-bullet {
   background: #72bcb3;
   opacity: 1; }
-  .swiper-pagination-bullet-active {
+  #swiperSingle .swiper-pagination-bullet-active {
     width: 1rem;
     border-radius: 10px; }
 
@@ -4743,10 +4749,36 @@ footer {
       white-space: nowrap;
       -webkit-box-pack: end;
       -ms-flex-pack: end;
-      justify-content: flex-end; }
+      justify-content: flex-end;
+      position: relative; }
       .order_list .item .form-check input {
         width: auto;
         margin-right: 0.25rem; }
+      .order_list .item .form-check .radiobtn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 50%; }
+      .order_list .item .form-check:hover input ~ .radiobtn {
+        background-color: #ccc; }
+      .order_list .item .form-check input:checked ~ .radiobtn {
+        background-color: #72bcb3; }
+      .order_list .item .form-check .radiobtn:after {
+        content: "";
+        position: absolute;
+        display: none; }
+      .order_list .item .form-check input:checked ~ .radiobtn:after {
+        display: block; }
+      .order_list .item .form-check .radiobtn:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white; }
   .order_list .total {
     border-bottom: 4px solid #f1f1f1; }
     .order_list .total span {

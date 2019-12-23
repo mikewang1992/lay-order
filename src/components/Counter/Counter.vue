@@ -105,8 +105,11 @@
                 </li>
                 <li>
                   <span class="iconfont icon-icon-time" />
-                  <p>
+                  <p v-show="filterMenu.type == 'togo'||filterMenu.type == 'forhere'">
                     <b class="font_en">{{getTime(item.gettime)}}</b> 取餐
+                  </p>
+                  <p v-show="filterMenu.status == 'paid'||filterMenu.status == 'cancel'">
+                    <span>{{getTheDay(item.gettime)}}</span>
                   </p>
                 </li>
                 <li>
@@ -303,6 +306,14 @@ export default {
       }
       const newFullDay = `${year}/${mon}/${day} ${hour}:${min}`;
       return newFullDay;
+    },
+    getTheDay(time) {
+      const date = new Date(time);
+      let year = date.getFullYear();
+      let mon = date.getMonth() + 1;
+      let day = date.getDate();
+      const newDay = `${year}/${mon}/${day}`;
+      return newDay;
     },
     showDetail(id) {
       // console.log('顯示訂單詳情');

@@ -7,11 +7,11 @@
 @import "form";
 @import "datepicker.min";
 .swal2-title {
-  font-size: 1.3rem!important;
-  color: $color_default!important;
+  font-size: 1.3rem !important;
+  color: $color_default !important;
 }
 .time-picker input {
-  border-radius: 5px!important;
+  border-radius: 5px !important;
 }
 .page {
   display: flex;
@@ -212,7 +212,7 @@ header {
 .card_list {
   .item {
     @include shadow_b;
-    padding: 0.75rem .75rem;
+    padding: 0.75rem 0.75rem;
     background: #fff;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -226,7 +226,7 @@ header {
       margin-bottom: 0.35rem;
     }
     p {
-      margin-bottom: 0!important;
+      margin-bottom: 0 !important;
     }
     span {
       color: $color_red;
@@ -272,7 +272,7 @@ header {
   width: 100%;
 }
 
-.swiper-pagination-bullet {
+#swiperSingle .swiper-pagination-bullet {
   background: $color_default;
   opacity: 1;
 
@@ -571,7 +571,6 @@ footer {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      
     }
   }
 }
@@ -625,10 +624,48 @@ footer {
       display: flex;
       white-space: nowrap;
       justify-content: flex-end;
+      position: relative;
 
       input {
         width: auto;
         margin-right: 0.25rem;
+      }
+
+      .radiobtn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 50%;
+      }
+
+      &:hover input ~ .radiobtn {
+        background-color: #ccc;
+      }
+
+      input:checked ~ .radiobtn {
+        background-color: $color_default;
+      }
+
+      .radiobtn:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      input:checked ~ .radiobtn:after {
+        display: block;
+      }
+
+      .radiobtn:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
       }
     }
   }
