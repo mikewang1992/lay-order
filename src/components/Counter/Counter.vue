@@ -49,18 +49,18 @@
       <div class="status">
         <ul v-if="filterMenu.status !== 'cancel'" v-show="filterMenu.status !== 'paid'">
           <li
-            class="font_en"
+            class="font_en all"
             :class="{'active':filterMenu.status == ''}"
             @click="filterMenu.status = ''"
           >All</li>
-          <li
+          <li class="prepare"
             :class="{'active':filterMenu.status == 'prepare'}"
             @click="filterMenu.status = 'prepare'"
           >
             準備中
             <span class="iconfont icon-hourglass"></span>
           </li>
-          <li
+          <li class="togo"
             v-if="filterMenu.type == 'togo'"
             :class="{'active':filterMenu.status == 'ready'}"
             @click="filterMenu.status = 'ready'"
@@ -68,7 +68,7 @@
             待取餐
             <span class="iconfont icon-bellringoutline"></span>
           </li>
-          <li
+          <li class="ready"
             v-if="filterMenu.type == 'forhere'"
             :class="{'active':filterMenu.status == 'ready'}"
             @click="filterMenu.status = 'ready'"
@@ -76,7 +76,7 @@
             待出餐
             <span class="iconfont icon-bellringoutline"></span>
           </li>
-          <li :class="{'active':filterMenu.status == 'done'}" @click="filterMenu.status = 'done'">
+          <li class="done" :class="{'active':filterMenu.status == 'done'}" @click="filterMenu.status = 'done'">
             待收款
             <span class="iconfont icon-dollar-"></span>
           </li>

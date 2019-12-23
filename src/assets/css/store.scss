@@ -196,7 +196,8 @@ p {
       }
 
       //待出餐
-      &.ready,&.finish {
+      &.ready,
+      &.finish {
         .info h3 {
           background: $color_red;
 
@@ -241,7 +242,8 @@ p {
           border: 3px solid $color_green;
         }
 
-        &.ready,&.finish {
+        &.ready,
+        &.finish {
           border: 3px solid $color_red;
         }
 
@@ -280,9 +282,31 @@ p {
       padding: 0.7rem;
 
       &.active {
-        border-bottom: 2px solid $color_default;
-        color: $color_default;
         font-weight: bold;
+      }
+      &.all {
+        color: #000;
+        &.active {
+          border-bottom: 2px solid #000;
+        }
+      }
+      &.prepare {
+        color: $color_default;
+        &.active {
+          border-bottom: 2px solid $color_default;
+        }
+      }
+      &.ready,&.togo {
+        color: $color_red;
+        &.active {
+          border-bottom: 2px solid $color_red;
+        }
+      }
+      &.done {
+        color: $color_green;
+        &.active {
+          border-bottom: 2px solid $color_green;
+        }
       }
     }
   }
@@ -616,7 +640,8 @@ p {
             font-size: 0.95rem;
           }
 
-          &.done,&.ready {
+          &.done,
+          &.ready {
             .label {
               background: $color_default;
             }

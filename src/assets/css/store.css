@@ -3402,9 +3402,23 @@ p {
       width: 100%;
       padding: 0.7rem; }
       .status ul li.active {
-        border-bottom: 2px solid #72bcb3;
-        color: #72bcb3;
         font-weight: bold; }
+      .status ul li.all {
+        color: #000; }
+        .status ul li.all.active {
+          border-bottom: 2px solid #000; }
+      .status ul li.prepare {
+        color: #72bcb3; }
+        .status ul li.prepare.active {
+          border-bottom: 2px solid #72bcb3; }
+      .status ul li.ready, .status ul li.togo {
+        color: #f77878; }
+        .status ul li.ready.active, .status ul li.togo.active {
+          border-bottom: 2px solid #f77878; }
+      .status ul li.done {
+        color: #8bbc72; }
+        .status ul li.done.active {
+          border-bottom: 2px solid #8bbc72; }
 
 .detail {
   width: 35%;
