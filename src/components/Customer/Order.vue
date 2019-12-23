@@ -7,13 +7,17 @@
     <div class="content" v-if="!ShowOrderInfo">
       <div class="cart_list status_list">
         <ul>
-          <a v-for="(item,index) in OrderStatus" :key="index" @click.prevent="GoOrderInfo(item.id)">
+          <a
+            v-for="(item,index) in OrderStatus"
+            :key="item.id"
+            @click.prevent="GoOrderInfo(item.id)"
+          >
             <li class="item">
               <div
                 class="p_status"
                 :class="{'bg_default':item.status==='prepare'||item.status==='ready','bg_yellow':item.status==='finish'||item.status==='done','bg_gray':item.status==='paid'||item.status==='cancel'}"
               >
-                <h4>{{filterTranslate(item.status)}}</h4>
+                <h4>{{item.id}}.{{filterTranslate(item.status)}}</h4>
               </div>
               <div class="p_info">
                 <div class="p_date">
@@ -32,6 +36,8 @@
 
 
 <script>
+import signalR from "../../assets/js/jquery.signalR-2.4.1.min.js";
+import hub from "../../assets/js/hubs.js";
 import OrderInfo from "./OrderInfo";
 export default {
   data() {
@@ -101,9 +107,31 @@ export default {
     },
     takeevent() {
       this.ShowOrderInfo = false;
+    },
+    websocketListen() {
+      const vm = this;
+      $.connection.chatHub.client.addNewMessageToPage = function(message) {
+        console.log("websocket已收到", message);
+        if (
+          message == "cart送出訂單" ||
+          message == "counter單品送餐完成" ||
+          message == "counter訂單送餐完成" ||
+          message == "counter訂單結帳" ||
+          message == "counter訂單取消" ||
+          message == "counter恢復取消單" ||
+          message == "counter恢復完成單" ||
+          message == "kitchen單品備餐完成" ||
+          message == "kitchen訂單備餐完成"
+        ) {
+          console.log("執行位ㄅ");
+          vm.ShowOrderStatus(vm.forhere);
+        }
+      };
+      $.connection.hub.start().done();
     }
   },
   created() {
+    this.websocketListen();
     this.checkFooterCart();
     this.ShowOrderStatus(this.forhere);
   }

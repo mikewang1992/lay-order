@@ -8,7 +8,7 @@
           :class="{'active':filterMenu.type == ''}"
           @click.prevent="getOrderList('','')"
         >
-          <img src="@/assets/img/icon_kit00.png" alt />
+          <img src="@/assets/img/icon_kit00.png" alt>
           <h3>所有</h3>
         </a>
         <a
@@ -17,7 +17,7 @@
           :class="{'active':filterMenu.type == 'forhere'}"
           @click.prevent="getOrderList('forhere','')"
         >
-          <img src="@/assets/img/icon_kit01.png" alt />
+          <img src="@/assets/img/icon_kit01.png" alt>
           <h3>內用</h3>
         </a>
         <a
@@ -26,7 +26,7 @@
           :class="{'active':filterMenu.type == 'togo'}"
           @click.prevent="getOrderList('togo','')"
         >
-          <img src="@/assets/img/icon_kit02.png" alt />
+          <img src="@/assets/img/icon_kit02.png" alt>
           <h3>外帶</h3>
         </a>
       </div>
@@ -43,10 +43,10 @@
         <a
           href="#"
           class="menu_btn"
-          :class="{'active':filterMenu.status == 'paid'}"
-          @click.prevent="getOrderList('','paid')"
+          :class="{'active':filterMenu.status == 'done'}"
+          @click.prevent="getOrderList('','done')"
         >
-          <img src="@/assets/img/icon_kit04.png" alt />
+          <img src="@/assets/img/icon_kit04.png" alt>
           <h3>已完成</h3>
         </a>
         <a
@@ -55,7 +55,7 @@
           :class="{'active':filterMenu.status == 'cancel'}"
           @click.prevent="getOrderList('','cancel')"
         >
-          <img src="@/assets/img/icon_kit05.png" alt />
+          <img src="@/assets/img/icon_kit05.png" alt>
           <h3>已取消</h3>
         </a>
       </div>
@@ -150,7 +150,9 @@ export default {
       const vm = this;
       this.filterMenu.type = type;
       this.filterMenu.status = status;
-      const url = `${process.env.APIPATH}/Kitchen/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
+      const url = `${
+        process.env.APIPATH
+      }/Kitchen/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
         loader.hide();
         vm.orderList = response.data;
@@ -180,7 +182,9 @@ export default {
     getPages() {
       // console.log("頁數");
       const vm = this;
-      const url = `${process.env.APIPATH}/Kitchen/TotalPage?type=${this.filterMenu.type}&status=${this.filterMenu.status}`;
+      const url = `${process.env.APIPATH}/Kitchen/TotalPage?type=${
+        this.filterMenu.type
+      }&status=${this.filterMenu.status}`;
       this.$http.get(url).then(response => {
         this.pages.sum = response.data;
       });
@@ -189,10 +193,13 @@ export default {
       console.log("單品備餐：", "產品ID", Oid, "產品ID", Pid);
       this.$http
         .get(
-          `${process.env.APIPATH}/Kitchen/CompleteOrderItem?Oid=${Oid}&id=${Pid}`
+          `${
+            process.env.APIPATH
+          }/Kitchen/CompleteOrderItem?Oid=${Oid}&id=${Pid}`
         )
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
+          this.websocketbtn("kitchen單品備餐完成");
           this.$swal({
             toast: true,
             position: "top-end",
@@ -209,7 +216,8 @@ export default {
       this.$http
         .get(`${process.env.APIPATH}/Kitchen/CompleteOrder/${Oid}`)
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
+          this.websocketbtn("kitchen訂單備餐完成");
           this.$swal({
             toast: true,
             position: "top-end",
@@ -229,14 +237,21 @@ export default {
       const vm = this;
       $.connection.chatHub.client.addNewMessageToPage = function(message) {
         console.log("websocket已收到", message);
-        console.log(vm.filterMenu.type);
-        console.log(vm.filterMenu.status);
-        console.log(vm.pages.curPage);
-        vm.getOrderList(
-          vm.filterMenu.type,
-          vm.filterMenu.status,
-          vm.pages.curPage
-        );
+        if (
+          message == "cart送出訂單" ||
+          "counter單品送餐完成" ||
+          "counter訂單送餐完成" ||
+          "counter訂單結帳" ||
+          "counter訂單取消" ||
+          "counter恢復取消單" ||
+          "counter恢復完成單"
+        ) {
+          vm.getOrderList(
+            vm.filterMenu.type,
+            vm.filterMenu.status,
+            vm.pages.curPage
+          );
+        }
       };
       $.connection.hub.start().done();
     }

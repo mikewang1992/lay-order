@@ -519,7 +519,7 @@ export default {
           this.$swal("訂餐成功", "", "success");
           vm.OrderCode = response.data;
           localStorage.setItem("totalcart", JSON.stringify([]));
-          vm.websocketbtn();
+          vm.websocketbtn('cart送出訂單');
           const url = `${process.env.APIPATH}/Accounts/IsTable`;
           this.$http.get(url).then(response => {
             vm.ShowResult = true;

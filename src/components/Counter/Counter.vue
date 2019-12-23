@@ -9,7 +9,7 @@
           :class="{'active':filterMenu.type == 'forhere'}"
           @click.prevent="getProduct('forhere','')"
         >
-          <img src="@/assets/img/icon_kit01.png" alt />
+          <img src="@/assets/img/icon_kit01.png" alt>
           <h3>內用</h3>
         </a>
         <a
@@ -18,7 +18,7 @@
           :class="{'active':filterMenu.type == 'togo'}"
           @click.prevent="getProduct('togo','')"
         >
-          <img src="@/assets/img/icon_kit02.png" alt />
+          <img src="@/assets/img/icon_kit02.png" alt>
           <h3>外帶</h3>
         </a>
       </div>
@@ -29,7 +29,7 @@
           :class="{'active':filterMenu.status == 'paid'}"
           @click.prevent="getProduct('','paid')"
         >
-          <img src="@/assets/img/icon_kit04.png" alt />
+          <img src="@/assets/img/icon_kit04.png" alt>
           <h3>已完成</h3>
         </a>
         <a
@@ -38,7 +38,7 @@
           :class="{'active':filterMenu.status == 'cancel'}"
           @click.prevent="getProduct('','cancel')"
         >
-          <img src="@/assets/img/icon_kit05.png" alt />
+          <img src="@/assets/img/icon_kit05.png" alt>
           <h3>已取消</h3>
         </a>
       </div>
@@ -100,17 +100,17 @@
               </h3>
               <ul>
                 <li>
-                  <span class="iconfont icon-phone" />
+                  <span class="iconfont icon-phone"/>
                   <p class="font_en">{{item.tel}}</p>
                 </li>
                 <li>
-                  <span class="iconfont icon-icon-time" />
+                  <span class="iconfont icon-icon-time"/>
                   <p>
                     <b class="font_en">{{getTime(item.gettime)}}</b> 取餐
                   </p>
                 </li>
                 <li>
-                  <span class="iconfont icon-dollar" />
+                  <span class="iconfont icon-dollar"/>
                   <p class="font_en">{{item.total}}</p>
                 </li>
               </ul>
@@ -195,7 +195,7 @@
                 <img
                   :src="'https://lay-order.rocket-coding.com/Img/product/'+item.img[0]"
                   :key="item.pid"
-                />
+                >
               </div>
               <div class="p_info">
                 <div class="p_name">
@@ -268,11 +268,13 @@ export default {
       const vm = this;
       this.filterMenu.type = type;
       this.filterMenu.status = status;
-      const url = `${process.env.APIPATH}/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
+      const url = `${
+        process.env.APIPATH
+      }/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
         loader.hide();
         vm.productList = response.data;
-        console.log(response.data);
+        // console.log(response.data);
       });
       this.detail = "";
       this.customer = "";
@@ -289,7 +291,9 @@ export default {
     },
     getPages() {
       const vm = this;
-      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${this.filterMenu.type}&status=${this.filterMenu.status}`;
+      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${
+        this.filterMenu.type
+      }&status=${this.filterMenu.status}`;
       this.$http.get(url).then(response => {
         // console.log("頁數",response.data);
         this.pages.sum = response.data;
@@ -333,6 +337,7 @@ export default {
         .get(`${process.env.APIPATH}/Counter/OrderDelivered/${id}`)
         .then(response => {
           // console.log(response.data);
+          this.websocketbtn('counter訂單送餐完成');
           this.$swal({
             toast: true,
             position: "top-end",
@@ -365,6 +370,7 @@ export default {
             )
             .then(response => {
               // console.log(response.data);
+              this.websocketbtn('counter訂單取消');
               this.$swal("成功取消", "本筆訂單已移動至取消訂單", "success");
               this.getProduct(
                 this.filterMenu.type,
@@ -386,10 +392,13 @@ export default {
         if (result.value) {
           this.$http
             .get(
-              `${process.env.APIPATH}/Counter/BackToPrepare?Oid=${this.thisOrderID}`
+              `${process.env.APIPATH}/Counter/BackToPrepare?Oid=${
+                this.thisOrderID
+              }`
             )
             .then(response => {
               // console.log(response.data);
+              this.websocketbtn('counter恢復取消單');
               if (response.data == "success") {
                 this.$swal({
                   toast: true,
@@ -429,11 +438,14 @@ export default {
         if (result.value) {
           this.$http
             .get(
-              `${process.env.APIPATH}/Counter/BackToDone?Oid=${this.thisOrderID}`
+              `${process.env.APIPATH}/Counter/BackToDone?Oid=${
+                this.thisOrderID
+              }`
             )
             .then(response => {
               console.log(response.data);
               if (response.data == "success") {
+                this.websocketbtn('counter恢復完成單');
                 this.$swal({
                   toast: true,
                   position: "top-end",
@@ -479,6 +491,7 @@ export default {
             )
             .then(response => {
               // console.log(response.data);
+              this.websocketbtn('counter訂單結帳');
               this.$swal("完成結帳", "發財嚕！", "success");
               this.getProduct(
                 this.filterMenu.type,
@@ -497,6 +510,7 @@ export default {
         )
         .then(response => {
           // console.log(response.data);
+          this.websocketbtn('counter單品送餐完成');
           this.$swal({
             toast: true,
             position: "top-end",
@@ -520,36 +534,22 @@ export default {
     websocketListen() {
       const vm = this;
       $.connection.chatHub.client.addNewMessageToPage = function(message) {
-        console.log("websocket已收到", message);
-        vm.getProduct(
-          vm.filterMenu.type,
-          vm.filterMenu.status,
-          vm.pages.curPage
-        );
+        // console.log('websocket來嚕',message);
+        if (
+          message == "cart送出訂單" ||
+          message == "kitchen單品備餐完成" ||
+          message == "kitchen訂單備餐完成"
+        ) {
+          vm.getProduct(
+            vm.filterMenu.type,
+            vm.filterMenu.status,
+            vm.pages.curPage
+          );
+          vm.showDetail(vm.thisOrderID);
+        }
       };
       $.connection.hub.start().done();
     }
-    // websocket() {
-    //   //下面對應到網址的部份
-    //   let hub = $.hubConnection("https://lay-order.rocket-coding.com");
-    //   console.log(hub);
-    //   //下面對應了.net的DefaultHub
-    //   let proxy = hub.createHubProxy("DefaultHub");
-    //   console.log(proxy);
-    //   proxy.on("Get", data => (this.messages = data));
-    //   //一開始就先去呼叫Get，以確保畫面一開始就有預設的資料
-    //   hub.start().done(() => {
-    //     proxy
-    //       .invoke("Get", { message: "hello" })
-    //       .done(function() {
-    //         console.log("websocketok");
-    //       })
-    //       .fail(function(error) {
-    //         console.log("websocketfail");
-    //         console.log(error);
-    //       });
-    //   });
-    // }
   },
   computed: {},
   watch: {
