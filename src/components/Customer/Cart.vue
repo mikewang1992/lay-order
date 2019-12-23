@@ -441,9 +441,11 @@ export default {
         if (vm.loginInfo.Tel.length === 10) {
           if (vm.loginInfo.Tel.slice(0, 2) === "09") {
             this.$http.post(url, data, config).then(response => {
+              console.log(response.data);
               if (response.data == "登入失敗") {
                 // console.log("還沒登入，顯示 Login popup");
                 this.ShowPopup = true;
+              } else if (response.data == "此電話號碼尚未進行驗證") {
               } else {
                 this.$swal({
                   title: "請先註冊會員才能點餐唷",
@@ -519,7 +521,7 @@ export default {
           this.$swal("訂餐成功", "", "success");
           vm.OrderCode = response.data;
           localStorage.setItem("totalcart", JSON.stringify([]));
-          vm.websocketbtn('cart送出訂單');
+          vm.websocketbtn("cart送出訂單");
           const url = `${process.env.APIPATH}/Accounts/IsTable`;
           this.$http.get(url).then(response => {
             vm.ShowResult = true;
@@ -657,7 +659,7 @@ export default {
     vertify() {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Vertify`;
-      const data = vm.vertifyCodes;
+      const data = vm.vertifyInfo;
       const config = {
         headers: {
           "Content-Type": "application/json"

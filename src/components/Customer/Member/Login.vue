@@ -1,7 +1,7 @@
 <template>
   <div class="main login_content col-lg-4 col-md-6">
     <div class="content">
-      <img src="@/assets/img/logo.png" alt>
+      <img src="@/assets/img/logo.png" alt />
       <ul class="nav_group mb-3">
         <li>
           <router-link to="/login" class="active">登入</router-link>
@@ -22,7 +22,7 @@
             autocomplete="off"
             v-model="loginInfo.Tel"
             maxlength="10"
-          >
+          />
         </div>
         <div class="form-group mb-4">
           <label class="sr-only" for="phone">密碼</label>
@@ -34,10 +34,10 @@
             placeholder="密碼"
             autocomplete="off"
             v-model="loginInfo.Password"
-          >
+          />
         </div>
         <a href="#" class="btn btn_default mb-2" @click.prevent="login">登入</a>
-        <br>
+        <br />
         <small>
           <a href="#" @click.prevent="vertifyAppear = true">忘記密碼</a>
         </small>
@@ -46,7 +46,7 @@
       <form action v-if="vertifyAppear" v-show="!changePasswordAppear">
         <h3 class="mb-3 mt-2">請輸入您的手機並重新發送驗證碼進行驗證</h3>
         <div class="input-group">
-          <input type="text" class="form-control mb-2" v-model="loginInfo.Tel" placeholder="電話">
+          <input type="text" class="form-control mb-2" v-model="loginInfo.Tel" placeholder="電話" />
           <span class="iconfont icon-Mobile"></span>
           <div class="input-group-append">
             <a href="#" @click.prevent="ReSendSMS" class="btn" id>送出驗證碼</a>
@@ -62,7 +62,7 @@
             autocomplete="off"
             maxlength="6"
             v-model="vertifyCode"
-          >
+          />
         </div>
         <a class="btn btn_default mb-2" @click.prevent="vertify()">確認</a>
       </form>
@@ -77,7 +77,7 @@
             placeholder="請輸入新密碼"
             autocomplete="off"
             v-model="loginInfo.Password"
-          >
+          />
         </div>
         <a class="btn btn_default mb-2" @click.prevent="changePassword()">確認</a>
       </form>
@@ -158,15 +158,16 @@ export default {
     vertify() {
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Vertify`;
-      const data = vm.vertifyCodes;
+      const data = { Vertify: vm.vertifyCode, Tel: vm.loginInfo.Tel };
       const config = {
         headers: {
           "Content-Type": "application/json"
         }
       };
       this.$http.post(url, data, config).then(response => {
-        // console.log("驗證簡訊結果", response);
+        console.log("驗證簡訊結果", response);
         if (typeof response.data == "number") {
+          this.$swal("驗證簡訊成功", "歡迎一起躺著點！", "success");
           vm.changePasswordID = response.data;
           vm.changePasswordAppear = true;
         } else {
@@ -187,8 +188,8 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
-        // console.log("修改密碼結果", response.data);
-        if (response.data == "success") {
+        console.log("修改密碼結果", response.data);
+        if (response.data == "succcess") {
           this.$swal("修改成功", "歡迎一起躺著點！", "success");
           this.$router.push({ name: "Product" });
         } else {
@@ -209,10 +210,10 @@ export default {
             const vm = this;
             const url = `${process.env.APIPATH}/Accounts/Login`;
             const data = {
-              Tel:href.split('?')[1].split('&')[1],
-              Password:href.split('?')[1].split('&')[0],
+              Tel: href.split("?")[1].split("&")[1],
+              Password: href.split("?")[1].split("&")[0]
             };
-            console.log(href.split('?')[1].split('&')[0]);
+            console.log(href.split("?")[1].split("&")[0]);
             const config = {
               headers: {
                 "Content-Type": "application/json"
@@ -221,7 +222,11 @@ export default {
             this.$http.post(url, data, config).then(response => {
               console.log(response.data);
               if (response.data == "success") {
-                this.$swal(" 歡迎使用自助點餐工具 ^__^ ", "選擇喜歡的餐點加入點菜單吧！", "success");
+                this.$swal(
+                  " 歡迎使用自助點餐工具 ^__^ ",
+                  "選擇喜歡的餐點加入點菜單吧！",
+                  "success"
+                );
                 this.$router.push({ name: "Product" });
               } else {
                 this.$swal(
