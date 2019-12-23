@@ -38,7 +38,7 @@ Vue.use(VueLoading, {
     loader: 'dots', //spinner/dots/bars
     color: '#72bcb3',
     backgroundColor: '#ffffff',
-    opacity: 0.2,
+    opacity: 0.8,
     width: 48,
     height: 48
 });

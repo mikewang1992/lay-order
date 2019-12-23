@@ -43,6 +43,7 @@ export default {
     };
   },
   components: { OrderInfo },
+  props: ["forhere"],
   methods: {
     checkFooterCart() {
       if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
@@ -51,12 +52,18 @@ export default {
         ).length;
       }
     },
-    ShowOrderStatus() {
+    ShowOrderStatus(forhere) {
       const vm = this;
       const url = `${process.env.APIPATH}/Order/ShowOrderStatus`;
       this.$http.get(url).then(response => {
         console.log(response);
-        this.OrderStatus = response.data;
+        if (forhere == true) {
+          this.OrderStatus = response.data.filter(function(item) {
+            return item.status != "paid" && item.status != "cancel";
+          });
+        } else {
+          this.OrderStatus = response.data;
+        }
       });
     },
     filterTranslate(str) {
@@ -98,7 +105,7 @@ export default {
   },
   created() {
     this.checkFooterCart();
-    this.ShowOrderStatus();
+    this.ShowOrderStatus(this.forhere);
   }
 };
 </script>
