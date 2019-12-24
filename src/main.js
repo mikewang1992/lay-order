@@ -20,6 +20,8 @@ import $ from 'jquery'
 //
 import VueLoading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
+//captcha
+import { VueReCaptcha } from 'vue-recaptcha-v3'
 // import 'signalr'
 const options = {
     confirmButtonColor: '#72BCB3',
@@ -42,7 +44,7 @@ Vue.use(VueLoading, {
     width: 48,
     height: 48
 });
-
+Vue.use(VueReCaptcha, { siteKey: '6LexvsYUAAAAAOBtnklvOefViHQAQo3x6b_Jiu41' })
 /* eslint-disable no-new */
 
 

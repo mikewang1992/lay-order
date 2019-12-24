@@ -27,92 +27,91 @@ import Kitchen from '@/components/Kitchen/Kitchen'
 Vue.use(Router)
 
 export default new Router({
-    mode:'history',
     routes: [{
-            path: '*',
-            redirect: '/',
+        path: '*',
+        redirect: '/',
+    },
+    {
+        path: '/',
+        name: 'Customer',
+        component: Customer,
+        children: [{
+            path: '/',
+            name: 'Product',
+            component: Product
         },
         {
-            path: '/',
-            name: 'Customer',
-            component: Customer,
+            path: '/Cart',
+            name: 'Cart',
+            component: Cart,
             children: [{
-                    path: '/',
-                    name: 'Product',
-                    component: Product
-                },
-                {
-                    path: '/Cart',
-                    name: 'Cart',
-                    component: Cart,
-                    children: [{
-                            path: '/Cart/ResultIn',
-                            name: 'ResultIn',
-                            component: ResultIn
-                        },
-                        {
-                            path: '/Cart/ResultOut',
-                            name: 'ResultOut',
-                            component: ResultOut
-                        }
-                    ]
-                },
-                {
-                    path: '/Order',
-                    name: 'Order',
-                    component: Order,
-                    meta: {
-                        requiresLogin: true
-                    }
-                },
-                {
-                    path: '/register',
-                    name: 'Register',
-                    component: Register
-                },
-                {
-                    path: '/login',
-                    name: 'Login',
-                    component: Login
-                },
-                {
-                    path: '/member',
-                    name: 'Member',
-                    component: Member,
-                    meta: {
-                        requiresLogin: true
-                    }
-                },
-                {
-                    path: '/coupon',
-                    name: 'MemberCoupon',
-                    component: MemberCoupon,
-                    meta: {
-                        requiresLogin: true
-                    }
-                },
+                path: '/Cart/ResultIn',
+                name: 'ResultIn',
+                component: ResultIn
+            },
+            {
+                path: '/Cart/ResultOut',
+                name: 'ResultOut',
+                component: ResultOut
+            }
             ]
         },
         {
-            path: '/counter',
-            name: 'Counter',
-            component: Counter,
+            path: '/Order',
+            name: 'Order',
+            component: Order,
             meta: {
-                requiresEmployeeLogin: true
+                requiresLogin: true
             }
         },
         {
-            path: '/kitchen',
-            name: 'Kitchen',
-            component: Kitchen,
+            path: '/register',
+            name: 'Register',
+            component: Register
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login
+        },
+        {
+            path: '/member',
+            name: 'Member',
+            component: Member,
             meta: {
-                requiresEmployeeLogin: true
+                requiresLogin: true
             }
         },
         {
-            path: '/employeeLogin',
-            name: 'EmployeeLogin',
-            component: EmployeeLogin
+            path: '/coupon',
+            name: 'MemberCoupon',
+            component: MemberCoupon,
+            meta: {
+                requiresLogin: true
+            }
         },
+        ]
+    },
+    {
+        path: '/counter',
+        name: 'Counter',
+        component: Counter,
+        meta: {
+            requiresEmployeeLogin: true
+        }
+    },
+    {
+        path: '/kitchen',
+        name: 'Kitchen',
+        component: Kitchen,
+        meta: {
+            requiresEmployeeLogin: true
+        }
+    },
+    {
+        path: '/employeeLogin',
+        name: 'EmployeeLogin',
+        component: EmployeeLogin
+    },
     ]
 })

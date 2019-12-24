@@ -42,6 +42,7 @@
           <a href="#" @click.prevent="vertifyAppear = true">忘記密碼</a>
         </small>
       </form>
+      <input type="hidden" name="hiddenToken" id="hiddenToken" />
       <!-- 忘記密碼 -->
       <form action v-if="vertifyAppear" v-show="!changePasswordAppear">
         <h3 class="mb-3 mt-2">請輸入您的手機並重新發送驗證碼進行驗證</h3>
@@ -239,10 +240,34 @@ export default {
           }
         }
       });
+    },
+    async recaptcha() {
+      // (optional) Wait until recaptcha has been loaded.
+      await this.$recaptchaLoaded();
+      // Execute reCAPTCHA with action "login".
+      const token = await this.$recaptcha("login");
+      console.log(token);
+      // Do stuff with the received token.
+      const url = `${process.env.APIPATH}/Accounts/Robot`;
+      const data = { hiddenToken: token };
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      this.$http.post(url, data, config).then(response => {
+        console.log(response.data);
+        if (response.data) {
+          alert("robot成功");
+        } else {
+          alert(response.data);
+        }
+      });
     }
   },
   created() {
     this.CheckLogin();
+    this.recaptcha();
   }
 };
 </script>

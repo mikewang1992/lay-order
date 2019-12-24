@@ -777,6 +777,29 @@ export default {
         console.log("websocket已收到", message);
       };
       $.connection.hub.start().done();
+    },
+    async recaptcha() {
+      // (optional) Wait until recaptcha has been loaded.
+      await this.$recaptchaLoaded();
+      // Execute reCAPTCHA with action "login".
+      const token = await this.$recaptcha("login");
+      console.log(token);
+      // Do stuff with the received token.
+      const url = `${process.env.APIPATH}/Accounts/Robot`;
+      const data = { hiddenToken: token };
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      this.$http.post(url, data, config).then(response => {
+        console.log(response.data);
+        if (response.data) {
+          alert("robot成功");
+        } else {
+          alert(response.data);
+        }
+      });
     }
     // 原始碼,但不加也沒差?
     // websocketbtn() {
@@ -800,6 +823,7 @@ export default {
     this.getCart();
     this.CheckLogin();
     this.getBusinessHours();
+    this.recaptcha();
   },
   mounted() {
     document.querySelector("footer ul").classList.add("d-none");

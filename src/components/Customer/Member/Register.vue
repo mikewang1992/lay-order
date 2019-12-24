@@ -1,7 +1,7 @@
 <template>
   <div class="main col-lg-4 col-md-6 login_content">
     <div class="content">
-      <img src="@/assets/img/logo.png" alt>
+      <img src="@/assets/img/logo.png" alt />
       <ul class="nav_group mb-3">
         <li>
           <router-link to="/login">登入</router-link>
@@ -24,7 +24,7 @@
             v-model="registerInfo.Tel"
             required
             maxlength="10"
-          >
+          />
         </div>
         <small class="pb-2 d-block text-left color_gray pl-3">註冊後將發送簡訊驗證碼，請進行驗證</small>
         <div class="form-group">
@@ -40,7 +40,7 @@
             required
             oninvalid="setCustomValidity('請輸入您的姓名');"
             oninput="this.setCustomValidity('')"
-          >
+          />
         </div>
         <div class="form-group">
           <label class="sr-only" for="password">密碼</label>
@@ -55,7 +55,7 @@
             required
             oninvalid="setCustomValidity('請輸入您的密碼');"
             oninput="this.setCustomValidity('')"
-          >
+          />
         </div>
         <div class="form-group">
           <label class="sr-only" for="birth">生日</label>
@@ -68,7 +68,7 @@
             autocomplete="off"
             v-model="registerInfo.Birth"
             ref="inputDate"
-          >
+          />
         </div>
         <div class="form-group mb-4">
           <label class="sr-only" for="county">居住地</label>
@@ -109,7 +109,7 @@
             autocomplete="off"
             v-model="vertifyCodes.Vertify"
             maxlength="6"
-          >
+          />
         </div>
         <button type="submit" class="btn btn_default mb-2">確認</button>
         <a href="#" @click.prevent="ReSendSMS" class="d-block">重新發送驗證碼</a>
@@ -210,7 +210,7 @@ export default {
       const params = vm.vertifyCodes.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
-        console.log('重新發送驗證碼結果',response);
+        console.log("重新發送驗證碼結果", response);
         if (response.data == "已寄發3次驗證碼，請您再次確認電話是否正確") {
           this.$swal(
             "已寄發3次驗證碼，請您再次確認電話是否正確",
@@ -249,10 +249,34 @@ export default {
         // console.log(response);
         vm.TownShips = response.data;
       });
+    },
+    async recaptcha() {
+      // (optional) Wait until recaptcha has been loaded.
+      await this.$recaptchaLoaded();
+      // Execute reCAPTCHA with action "login".
+      const token = await this.$recaptcha("login");
+      console.log(token);
+      // Do stuff with the received token.
+      const url = `${process.env.APIPATH}/Accounts/Robot`;
+      const data = { hiddenToken: token };
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      this.$http.post(url, data, config).then(response => {
+        console.log(response.data);
+        if (response.data) {
+          alert("robot成功");
+        } else {
+          alert(response.data);
+        }
+      });
     }
   },
   created() {
     this.getCounty();
+    this.recaptcha();
   }
 };
 </script>
