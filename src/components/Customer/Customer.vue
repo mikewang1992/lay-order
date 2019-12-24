@@ -32,7 +32,7 @@ export default {
     checkTable() {
       const url = `${process.env.APIPATH}/Accounts/IsTable`;
       this.$http.get(url).then(response => {
-        console.log("確認內用還外帶：", response.data);
+        // console.log("確認內用還外帶：", response.data);
         if (response.data === "內用") {
           this.forhere = true;
           const vm = this;

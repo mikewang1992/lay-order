@@ -387,7 +387,7 @@ export default {
           confirmButtonText: "看看菜單",
           reverseButtons: true
         }).then(result => {
-          // this.$router.push({ name: "Product" });
+          this.$router.push({ name: "Product" });
         });
       } else {
         if (totalcart === null || totalcart.length === 0) {

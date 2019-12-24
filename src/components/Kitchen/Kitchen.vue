@@ -1,5 +1,5 @@
 <template>
-  <div class="main kitchen">
+  <div class="main kitchen" id="store">
     <div class="menu">
       <div class="menu_lg">
         <a

@@ -55,7 +55,7 @@ export default {
       let nowURL = location.href;
       var index = nowURL.lastIndexOf("/");
       nowURL = nowURL.substring(index + 1, nowURL.length);
-      console.log("目前頁面：", nowURL);
+      // console.log("目前頁面：", nowURL);
       if (nowURL == "") {
         nowURL = "home";
         vm.pageActive = nowURL;
@@ -74,22 +74,22 @@ export default {
       }
     },
     changePageClass() {
-      console.log("切換頁面class，現在是", this.pageActive);
+      // console.log("切換頁面class，現在是", this.pageActive);
       if (
         this.pageActive == "login" ||
         this.pageActive == "member" ||
         this.pageActive == "coupon" ||
         this.pageActive == "register"
       ) {
-        console.log("login新增css");
+        // console.log("login新增css");
         document.querySelector(".page").classList.add("login");
       } else {
         document.querySelector(".page").classList.remove("login");
       }
       if (
         this.pageActive == "cart" ||
-        this.pageActive == "Cart/ResultOut" ||
-        this.pageActive == "Cart/ResultIn"
+        this.pageActive == "ResultOut" ||
+        this.pageActive == "ResultIn"
       ) {
         // console.log('隱藏footer')
         document.querySelector("footer ul").classList.remove("d-flex");

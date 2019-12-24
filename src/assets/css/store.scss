@@ -8,7 +8,9 @@
 p {
   margin-bottom: 0;
 }
-
+.grecaptcha-badge {
+  display: none;
+}
 .num {
   font-family: "Roboto Mono", monospace;
 }
@@ -102,6 +104,7 @@ p {
   background: #f5f5f5;
   display: flex;
   flex-direction: column;
+  padding: 0;
 
   .order {
     height: 100%;
@@ -568,7 +571,7 @@ p {
   font-size: 16px;
 }
 
-.kitchen_list {
+#store .kitchen_list {
   display: flex;
   flex-direction: column;
   width: 100%;

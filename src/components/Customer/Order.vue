@@ -1,6 +1,6 @@
 <template>
   <div class="main pb-2">
-    <OrderInfo :IdFromOrder="Id" v-if="ShowOrderInfo" @passevent="takeevent"></OrderInfo>
+    <OrderInfo :forhere="forhere" :IdFromOrder="Id" v-if="ShowOrderInfo" @passevent="takeevent"></OrderInfo>
     <header v-if="!ShowOrderInfo">
       <h1>訂單狀態</h1>
     </header>
