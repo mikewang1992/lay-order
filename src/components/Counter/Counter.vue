@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" id="store">
     <!-- 左選單 -->
     <div class="menu">
       <div class="menu_lg">
@@ -632,7 +632,7 @@ export default {
             toast: true,
             position: "top-end",
             showConfirmButton: false,
-            timer: 3000,
+            timer: 8000,
             type: "success",
             title: "新訂單來囉！"
           });

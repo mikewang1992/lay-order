@@ -390,6 +390,12 @@ footer {
         line-height: 1.1rem;
         z-index: 9;
         font-weight: bold;
+        @include desktop-sm {
+          right: 28%;
+        }
+        @include desktop-md {
+          right: 30%;
+        }
       }
 
       a {

@@ -4563,6 +4563,12 @@ footer {
         line-height: 1.1rem;
         z-index: 9;
         font-weight: bold; }
+        @media (min-width: 576px) {
+          footer ul li .label {
+            right: 28%; } }
+        @media (min-width: 768px) {
+          footer ul li .label {
+            right: 30%; } }
       footer ul li a {
         -webkit-transition: 0.3s ease;
         -o-transition: 0.3s ease;

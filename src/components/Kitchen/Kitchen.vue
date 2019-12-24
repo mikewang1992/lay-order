@@ -242,7 +242,7 @@ export default {
             toast: true,
             position: "top-end",
             showConfirmButton: false,
-            timer: 3000,
+            timer: 8000,
             type: "success",
             title: "新訂單來囉！"
           });

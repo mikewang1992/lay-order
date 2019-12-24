@@ -116,8 +116,8 @@
         </form>
       </div>
       <small class="color_red text-center d-block mt-2 mb-3" v-if="!forhere">
-        訂單總量超過20份請來電預約
-        <br>
+        <!-- 訂單總量超過20份請來電預約
+        <br> -->
         餐點現做，備餐時間約 {{PrepareTime}} min
       </small>
       <footer class="d-block text-center fixed_bottom">
