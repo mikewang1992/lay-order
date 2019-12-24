@@ -9,7 +9,7 @@
           :class="{'active':filterMenu.type == 'forhere'}"
           @click.prevent="getProduct('forhere','')"
         >
-          <img src="@/assets/img/icon_kit01.png" alt />
+          <img src="@/assets/img/icon_kit01.png" alt>
           <h3>內用</h3>
         </a>
         <a
@@ -18,7 +18,7 @@
           :class="{'active':filterMenu.type == 'togo'}"
           @click.prevent="getProduct('togo','')"
         >
-          <img src="@/assets/img/icon_kit02.png" alt />
+          <img src="@/assets/img/icon_kit02.png" alt>
           <h3>外帶</h3>
         </a>
       </div>
@@ -29,7 +29,7 @@
           :class="{'active':filterMenu.status == 'paid'}"
           @click.prevent="getProduct('','paid')"
         >
-          <img src="@/assets/img/icon_kit04.png" alt />
+          <img src="@/assets/img/icon_kit04.png" alt>
           <h3>已完成</h3>
         </a>
         <a
@@ -38,7 +38,7 @@
           :class="{'active':filterMenu.status == 'cancel'}"
           @click.prevent="getProduct('','cancel')"
         >
-          <img src="@/assets/img/icon_kit05.png" alt />
+          <img src="@/assets/img/icon_kit05.png" alt>
           <h3>已取消</h3>
         </a>
       </div>
@@ -53,30 +53,24 @@
             :class="{'active':filterMenu.status == ''}"
             @click="filterMenu.status = ''"
           >All</li>
-          <li class="prepare"
+          <li
+            class="prepare"
             :class="{'active':filterMenu.status == 'prepare'}"
             @click="filterMenu.status = 'prepare'"
           >
             準備中
             <span class="iconfont icon-hourglass"></span>
           </li>
-          <li class="togo"
-            v-if="filterMenu.type == 'togo'"
-            :class="{'active':filterMenu.status == 'ready'}"
-            @click="filterMenu.status = 'ready'"
-          >
-            待取餐
+          <li class="ready" :class="{'active':filterMenu.status == 'ready'}" @click="filterRed()">
+            <span v-if="filterMenu.type == 'forhere'">待出餐</span>
+            <span v-if="filterMenu.type == 'togo'">待取餐</span>
             <span class="iconfont icon-bellringoutline"></span>
           </li>
-          <li class="ready"
-            v-if="filterMenu.type == 'forhere'"
-            :class="{'active':filterMenu.status == 'ready'}"
-            @click="filterMenu.status = 'ready'"
+          <li
+            class="done"
+            :class="{'active':filterMenu.status == 'done'}"
+            @click="filterMenu.status = 'done'"
           >
-            待出餐
-            <span class="iconfont icon-bellringoutline"></span>
-          </li>
-          <li class="done" :class="{'active':filterMenu.status == 'done'}" @click="filterMenu.status = 'done'">
             待收款
             <span class="iconfont icon-dollar-"></span>
           </li>
@@ -100,11 +94,11 @@
               </h3>
               <ul>
                 <li>
-                  <span class="iconfont icon-phone" />
+                  <span class="iconfont icon-phone"/>
                   <p class="font_en">{{item.tel}}</p>
                 </li>
                 <li>
-                  <span class="iconfont icon-icon-time" />
+                  <span class="iconfont icon-icon-time"/>
                   <p v-show="filterMenu.type == 'togo'||filterMenu.type == 'forhere'">
                     <b class="font_en">{{getTime(item.gettime)}}</b> 取餐
                   </p>
@@ -113,7 +107,7 @@
                   </p>
                 </li>
                 <li>
-                  <span class="iconfont icon-dollar" />
+                  <span class="iconfont icon-dollar"/>
                   <p class="font_en">{{item.total}}</p>
                 </li>
               </ul>
@@ -198,7 +192,7 @@
                 <img
                   :src="'https://lay-order.rocket-coding.com/Img/product/'+item.img[0]"
                   :key="item.pid"
-                />
+                >
               </div>
               <div class="p_info">
                 <div class="p_name">
@@ -267,12 +261,48 @@ export default {
       const vm = this;
       this.filterMenu.type = type;
       this.filterMenu.status = status;
-      const url = `${process.env.APIPATH}/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
+      const url = `${
+        process.env.APIPATH
+      }/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
         loader.hide();
         vm.productList = response.data;
         // console.log(response.data);
       });
+      this.detail = "";
+      this.customer = "";
+      this.getPages();
+    },
+    filterRed() {
+      let loader = this.$loading.show();
+      const vm = this;
+      let type = this.filterMenu.type;
+      let page = this.pages.curPage;
+      vm.filterMenu.status = "ready";
+      // 抓 ready 資料
+      this.$http
+        .get(
+          `${
+            process.env.APIPATH
+          }/Counter/ShowOrderList?type=${type}&status=ready&page=${page}`
+        )
+        .then(response => {
+          let productReady = response.data;
+          // console.log("抓 ready 資料", response.data);
+          this.$http
+            .get(
+              `${
+                process.env.APIPATH
+              }/Counter/ShowOrderList?type=${type}&status=finish&page=${page}`
+            )
+            .then(response => {
+              loader.hide();
+              let productFinish = response.data;
+              let productRed = productFinish.concat(productReady);
+              // console.log("抓 finish 資料", response.data);
+              vm.productList = productRed;
+            });
+        });
       this.detail = "";
       this.customer = "";
       this.getPages();
@@ -288,7 +318,9 @@ export default {
     },
     getPages() {
       const vm = this;
-      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${this.filterMenu.type}&status=${this.filterMenu.status}`;
+      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${
+        this.filterMenu.type
+      }&status=${this.filterMenu.status}`;
       this.$http.get(url).then(response => {
         // console.log("頁數",response.data);
         this.pages.sum = response.data;
@@ -349,15 +381,21 @@ export default {
             type: "success",
             title: "此訂單全數出餐完成"
           });
-          this.showDetail(id);
-          this.getProduct(
-            this.filterMenu.type,
-            this.filterMenu.status,
-            this.pages.curPage
-          );
+          if (vm.filterMenu.status == "ready") {
+            vm.filterRed();
+            vm.showDetail(id);
+          } else {
+            vm.getProduct(
+              vm.filterMenu.type,
+              vm.filterMenu.status,
+              vm.pages.curPage
+            );
+            vm.showDetail(id);
+          }
         });
     },
     cancelOrder() {
+      let vm = this;
       this.$swal({
         title: "取消訂單",
         text: "確認要取消此筆訂單嗎？",
@@ -374,17 +412,32 @@ export default {
             .then(response => {
               // console.log(response.data);
               this.websocketbtn("counter訂單取消");
-              this.$swal("成功取消", "本筆訂單已移動至取消訂單", "success");
-              this.getProduct(
-                this.filterMenu.type,
-                this.filterMenu.status,
-                this.pages.curPage
-              );
+              this.$swal({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                type: "success",
+                title: "本筆訂單已移動至取消訂單"
+              });
+
+              if (vm.filterMenu.status == "ready") {
+                vm.filterRed();
+                vm.showDetail(id);
+              } else {
+                vm.getProduct(
+                  vm.filterMenu.type,
+                  vm.filterMenu.status,
+                  vm.pages.curPage
+                );
+                vm.showDetail(id);
+              }
             });
         }
       });
     },
     cancelBack() {
+      let vm = this;
       this.$swal({
         title: "確定要恢復本筆訂單嗎？",
         type: "info",
@@ -395,7 +448,9 @@ export default {
         if (result.value) {
           this.$http
             .get(
-              `${process.env.APIPATH}/Counter/BackToPrepare?Oid=${this.thisOrderID}`
+              `${process.env.APIPATH}/Counter/BackToPrepare?Oid=${
+                this.thisOrderID
+              }`
             )
             .then(response => {
               // console.log(response.data);
@@ -409,11 +464,18 @@ export default {
                   type: "success",
                   title: "成功恢復本筆訂單"
                 });
-                this.getProduct(
-                  this.filterMenu.type,
-                  this.filterMenu.status,
-                  this.pages.curPage
-                );
+
+                if (vm.filterMenu.status == "ready") {
+                  vm.filterRed();
+                  vm.showDetail(id);
+                } else {
+                  vm.getProduct(
+                    vm.filterMenu.type,
+                    vm.filterMenu.status,
+                    vm.pages.curPage
+                  );
+                  vm.showDetail(id);
+                }
               } else {
                 this.$swal({
                   toast: true,
@@ -429,6 +491,7 @@ export default {
       });
     },
     paidBack() {
+      let vm = this;
       this.$swal({
         title: "確定要恢復本筆訂單嗎？",
         type: "info",
@@ -439,7 +502,9 @@ export default {
         if (result.value) {
           this.$http
             .get(
-              `${process.env.APIPATH}/Counter/BackToDone?Oid=${this.thisOrderID}`
+              `${process.env.APIPATH}/Counter/BackToDone?Oid=${
+                this.thisOrderID
+              }`
             )
             .then(response => {
               console.log(response.data);
@@ -453,11 +518,18 @@ export default {
                   type: "success",
                   title: "成功恢復本筆訂單"
                 });
-                this.getProduct(
-                  this.filterMenu.type,
-                  this.filterMenu.status,
-                  this.pages.curPage
-                );
+
+                if (vm.filterMenu.status == "ready") {
+                  vm.filterRed();
+                  vm.showDetail(id);
+                } else {
+                  vm.getProduct(
+                    vm.filterMenu.type,
+                    vm.filterMenu.status,
+                    vm.pages.curPage
+                  );
+                  vm.showDetail(id);
+                }
               } else {
                 this.$swal({
                   toast: true,
@@ -474,7 +546,7 @@ export default {
     },
     checkOrder() {
       // console.log("我要結帳嚕");
-
+      let vm = this;
       this.$swal({
         title: "確認收款",
         text: "訂單完成，收錢嚕！",
@@ -491,17 +563,32 @@ export default {
             .then(response => {
               // console.log(response.data);
               this.websocketbtn("counter訂單結帳");
-              this.$swal("完成結帳", "發財嚕！", "success");
-              this.getProduct(
-                this.filterMenu.type,
-                this.filterMenu.status,
-                this.pages.curPage
-              );
+              this.$swal({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                type: "success",
+                title: "完成結帳"
+              });
+
+              if (vm.filterMenu.status == "ready") {
+                vm.filterRed();
+                vm.showDetail(id);
+              } else {
+                vm.getProduct(
+                  vm.filterMenu.type,
+                  vm.filterMenu.status,
+                  vm.pages.curPage
+                );
+                vm.showDetail(id);
+              }
             });
         }
       });
     },
     itemDelivered(Oid, Pid) {
+      let vm = this;
       // console.log("單品送餐");
       this.$http
         .get(
@@ -518,12 +605,18 @@ export default {
             type: "success",
             title: "出餐完成"
           });
-          this.getProduct(
-            this.filterMenu.type,
-            this.filterMenu.status,
-            this.pages.curPage
-          );
-          this.showDetail(Oid);
+          if (vm.filterMenu.status == "ready") {
+            vm.filterRed();
+            vm.showDetail(Oid);
+            // vm.showDetail(vm.thisOrderID);
+          } else {
+            vm.getProduct(
+              vm.filterMenu.type,
+              vm.filterMenu.status,
+              vm.pages.curPage
+            );
+            vm.showDetail(Oid);
+          }
         });
     },
     websocketbtn(par = "counter") {
@@ -539,12 +632,21 @@ export default {
           message == "kitchen單品備餐完成" ||
           message == "kitchen訂單備餐完成"
         ) {
-          vm.getProduct(
-            vm.filterMenu.type,
-            vm.filterMenu.status,
-            vm.pages.curPage
-          );
-          vm.showDetail(vm.thisOrderID);
+          console.log("現在篩選選單是", vm.filterMenu.status);
+          console.log("目前觀看的訂單 ID:", vm.thisOrderID);
+          if (vm.filterMenu.status == "ready") {
+            vm.filterRed();
+            vm.showDetail(vm.thisOrderID);
+            // vm.showDetail(vm.thisOrderID);
+          } else {
+            vm.getProduct(
+              vm.filterMenu.type,
+              vm.filterMenu.status,
+              vm.pages.curPage
+            );
+            vm.showDetail(vm.thisOrderID);
+            // vm.showDetail(vm.thisOrderID);
+          }
         }
       };
       $.connection.hub.start().done();

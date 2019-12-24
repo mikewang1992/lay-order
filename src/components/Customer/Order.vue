@@ -123,7 +123,6 @@ export default {
           message == "kitchen單品備餐完成" ||
           message == "kitchen訂單備餐完成"
         ) {
-          console.log("執行位ㄅ");
           vm.ShowOrderStatus(vm.forhere);
         }
       };
