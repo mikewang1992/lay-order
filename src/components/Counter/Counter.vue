@@ -9,7 +9,7 @@
           :class="{'active':filterMenu.type == 'forhere'}"
           @click.prevent="getProduct('forhere','')"
         >
-          <img src="@/assets/img/icon_kit01.png" alt />
+          <img src="@/assets/img/icon_kit01.png" alt>
           <h3>內用</h3>
         </a>
         <a
@@ -18,7 +18,7 @@
           :class="{'active':filterMenu.type == 'togo'}"
           @click.prevent="getProduct('togo','')"
         >
-          <img src="@/assets/img/icon_kit02.png" alt />
+          <img src="@/assets/img/icon_kit02.png" alt>
           <h3>外帶</h3>
         </a>
       </div>
@@ -29,7 +29,7 @@
           :class="{'active':filterMenu.status == 'paid'}"
           @click.prevent="getProduct('','paid')"
         >
-          <img src="@/assets/img/icon_kit04.png" alt />
+          <img src="@/assets/img/icon_kit04.png" alt>
           <h3>已完成</h3>
         </a>
         <a
@@ -38,7 +38,7 @@
           :class="{'active':filterMenu.status == 'cancel'}"
           @click.prevent="getProduct('','cancel')"
         >
-          <img src="@/assets/img/icon_kit05.png" alt />
+          <img src="@/assets/img/icon_kit05.png" alt>
           <h3>已取消</h3>
         </a>
       </div>
@@ -53,30 +53,24 @@
             :class="{'active':filterMenu.status == ''}"
             @click="filterMenu.status = ''"
           >All</li>
-          <li class="prepare"
+          <li
+            class="prepare"
             :class="{'active':filterMenu.status == 'prepare'}"
             @click="filterMenu.status = 'prepare'"
           >
             準備中
             <span class="iconfont icon-hourglass"></span>
           </li>
-          <li class="togo"
-            v-if="filterMenu.type == 'togo'"
-            :class="{'active':filterMenu.status == 'ready'}"
-            @click="filterMenu.status = 'ready'"
-          >
-            待取餐
+          <li class="ready" :class="{'active':filterMenu.status == 'ready'}" @click="filterRed()">
+            <span v-if="filterMenu.type == 'forhere'">待出餐</span>
+            <span v-if="filterMenu.type == 'togo'">待取餐</span>
             <span class="iconfont icon-bellringoutline"></span>
           </li>
-          <li class="ready"
-            v-if="filterMenu.type == 'forhere'"
-            :class="{'active':filterMenu.status == 'ready'}"
-            @click="filterMenu.status = 'ready'"
+          <li
+            class="done"
+            :class="{'active':filterMenu.status == 'done'}"
+            @click="filterMenu.status = 'done'"
           >
-            待出餐
-            <span class="iconfont icon-bellringoutline"></span>
-          </li>
-          <li class="done" :class="{'active':filterMenu.status == 'done'}" @click="filterMenu.status = 'done'">
             待收款
             <span class="iconfont icon-dollar-"></span>
           </li>
@@ -100,11 +94,11 @@
               </h3>
               <ul>
                 <li>
-                  <span class="iconfont icon-phone" />
+                  <span class="iconfont icon-phone"/>
                   <p class="font_en">{{item.tel}}</p>
                 </li>
                 <li>
-                  <span class="iconfont icon-icon-time" />
+                  <span class="iconfont icon-icon-time"/>
                   <p v-show="filterMenu.type == 'togo'||filterMenu.type == 'forhere'">
                     <b class="font_en">{{getTime(item.gettime)}}</b> 取餐
                   </p>
@@ -113,7 +107,7 @@
                   </p>
                 </li>
                 <li>
-                  <span class="iconfont icon-dollar" />
+                  <span class="iconfont icon-dollar"/>
                   <p class="font_en">{{item.total}}</p>
                 </li>
               </ul>
@@ -198,7 +192,7 @@
                 <img
                   :src="'https://lay-order.rocket-coding.com/Img/product/'+item.img[0]"
                   :key="item.pid"
-                />
+                >
               </div>
               <div class="p_info">
                 <div class="p_name">
@@ -267,12 +261,48 @@ export default {
       const vm = this;
       this.filterMenu.type = type;
       this.filterMenu.status = status;
-      const url = `${process.env.APIPATH}/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
+      const url = `${
+        process.env.APIPATH
+      }/Counter/ShowOrderList?type=${type}&status=${status}&page=${pages}`;
       this.$http.get(url).then(response => {
         loader.hide();
         vm.productList = response.data;
         // console.log(response.data);
       });
+      this.detail = "";
+      this.customer = "";
+      this.getPages();
+    },
+    filterRed() {
+      let loader = this.$loading.show();
+      const vm = this;
+      let type = this.filterMenu.type;
+      let page = this.pages.curPage;
+      vm.filterMenu.status = "ready";
+      // 抓 ready 資料
+      this.$http
+        .get(
+          `${
+            process.env.APIPATH
+          }/Counter/ShowOrderList?type=${type}&status=ready&page=${page}`
+        )
+        .then(response => {
+          let productReady = response.data;
+          // console.log("抓 ready 資料", response.data);
+          this.$http
+            .get(
+              `${
+                process.env.APIPATH
+              }/Counter/ShowOrderList?type=${type}&status=finish&page=${page}`
+            )
+            .then(response => {
+              loader.hide();
+              let productFinish = response.data;
+              let productRed = productFinish.concat(productReady);
+              // console.log("抓 finish 資料", response.data);
+              vm.productList = productRed;
+            });
+        });
       this.detail = "";
       this.customer = "";
       this.getPages();
@@ -288,7 +318,9 @@ export default {
     },
     getPages() {
       const vm = this;
-      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${this.filterMenu.type}&status=${this.filterMenu.status}`;
+      const url = `${process.env.APIPATH}/Counter/TotalPage?type=${
+        this.filterMenu.type
+      }&status=${this.filterMenu.status}`;
       this.$http.get(url).then(response => {
         // console.log("頁數",response.data);
         this.pages.sum = response.data;
@@ -395,7 +427,9 @@ export default {
         if (result.value) {
           this.$http
             .get(
-              `${process.env.APIPATH}/Counter/BackToPrepare?Oid=${this.thisOrderID}`
+              `${process.env.APIPATH}/Counter/BackToPrepare?Oid=${
+                this.thisOrderID
+              }`
             )
             .then(response => {
               // console.log(response.data);
@@ -439,7 +473,9 @@ export default {
         if (result.value) {
           this.$http
             .get(
-              `${process.env.APIPATH}/Counter/BackToDone?Oid=${this.thisOrderID}`
+              `${process.env.APIPATH}/Counter/BackToDone?Oid=${
+                this.thisOrderID
+              }`
             )
             .then(response => {
               console.log(response.data);
@@ -539,12 +575,19 @@ export default {
           message == "kitchen單品備餐完成" ||
           message == "kitchen訂單備餐完成"
         ) {
-          vm.getProduct(
-            vm.filterMenu.type,
-            vm.filterMenu.status,
-            vm.pages.curPage
-          );
-          vm.showDetail(vm.thisOrderID);
+          if (vm.filterMenu.status == "ready") {
+            console.log('只要ready',vm.thisOrderID);
+            vm.filterRed();
+            vm.showDetail(vm.thisOrderID);
+          } else {
+            console.log('其他重整',vm.thisOrderID);
+            vm.getProduct(
+              vm.filterMenu.type,
+              vm.filterMenu.status,
+              vm.pages.curPage
+            );
+            vm.showDetail(vm.thisOrderID);
+          }
         }
       };
       $.connection.hub.start().done();
