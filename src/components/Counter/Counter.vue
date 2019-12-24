@@ -628,7 +628,7 @@ export default {
       $.connection.chatHub.client.addNewMessageToPage = function(message) {
         // console.log('websocket來嚕',message);
         if(message == "cart送出訂單") {
-          this.$swal({
+          vm.$swal({
             toast: true,
             position: "top-end",
             showConfirmButton: false,
