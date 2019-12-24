@@ -237,6 +237,16 @@ export default {
       const vm = this;
       $.connection.chatHub.client.addNewMessageToPage = function(message) {
         console.log("websocket已收到", message);
+        if (message == "cart送出訂單") {
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "success",
+            title: "新訂單來囉！"
+          });
+        };
         if (
           message == "cart送出訂單" ||
           "counter單品送餐完成" ||
