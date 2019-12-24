@@ -121,8 +121,11 @@ header {
   background-color: #fff;
 
   .content {
-    padding: 15px;
+    padding: 15px 10px;
     padding-top: 0;
+    @include desktop-sm {
+      padding: 15px;
+    }
   }
 
   .open_notice {
@@ -279,10 +282,12 @@ header {
 }
 
 #swiperSingle .swiper-pagination-bullet {
-  background: $color_default;
+  background: #fff;
   opacity: 1;
+  border-radius: 3px;
 
   &-active {
+    background: $color_default;
     width: 1rem;
     border-radius: 10px;
   }
@@ -294,7 +299,7 @@ header {
   flex-wrap: wrap;
 
   .item {
-    @include shadow_b;
+    @include shadow;
 
     margin: 0.25rem;
     border-radius: 5px;
@@ -526,7 +531,7 @@ footer {
   }
 
   .p_status {
-    width: 30%;
+    width: 35%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -691,4 +696,14 @@ footer {
   a {
     width: 49%;
   }
+  .p_choose span {
+    font-size: .95rem;
+    &::after {
+      content: ' / ';
+    }
+  }
+}
+
+#orderInfo .cart_list {
+  padding: 0;
 }

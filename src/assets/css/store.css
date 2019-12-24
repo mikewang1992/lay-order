@@ -280,7 +280,11 @@ h4 {
     .cart_list .p_info .p_num .count_box {
       width: 40%;
       font-size: 1rem;
-      font-weight: bold; }
+      font-weight: bold;
+      padding: 0 .5rem 0 .5rem; }
+      .cart_list .p_info .p_num .count_box a {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem; }
     .cart_list .p_info .p_num .p_price {
       width: 40%;
       font-weight: bold;

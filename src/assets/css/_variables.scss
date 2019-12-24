@@ -354,6 +354,11 @@ h4 {
         width: 40%;
         font-size: 1rem;
         font-weight: bold;
+        padding: 0 .5rem 0 .5rem;
+        a {
+          padding-left: 0.25rem;
+          padding-right: 0.25rem;
+        }
       }
 
       .p_price {

@@ -30,7 +30,7 @@
           @click.prevent="getProduct('','paid')"
         >
           <img src="@/assets/img/icon_kit04.png" alt>
-          <h3>已完成</h3>
+          <h3>已收款</h3>
         </a>
         <a
           href="#"

@@ -283,7 +283,11 @@ h4 {
     .cart_list .p_info .p_num .count_box {
       width: 40%;
       font-size: 1rem;
-      font-weight: bold; }
+      font-weight: bold;
+      padding: 0 .5rem 0 .5rem; }
+      .cart_list .p_info .p_num .count_box a {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem; }
     .cart_list .p_info .p_num .p_price {
       width: 40%;
       font-weight: bold;
@@ -3323,7 +3327,11 @@ h4 {
     .cart_list .p_info .p_num .count_box {
       width: 40%;
       font-size: 1rem;
-      font-weight: bold; }
+      font-weight: bold;
+      padding: 0 .5rem 0 .5rem; }
+      .cart_list .p_info .p_num .count_box a {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem; }
     .cart_list .p_info .p_num .p_price {
       width: 40%;
       font-weight: bold;
@@ -4338,8 +4346,11 @@ header {
   background-position: left top;
   background-color: #fff; }
   .main .content {
-    padding: 15px;
+    padding: 15px 10px;
     padding-top: 0; }
+    @media (min-width: 576px) {
+      .main .content {
+        padding: 15px; } }
   .main .open_notice {
     background: #f77878;
     text-align: center;
@@ -4458,9 +4469,11 @@ header {
   width: 100%; }
 
 #swiperSingle .swiper-pagination-bullet {
-  background: #72bcb3;
-  opacity: 1; }
+  background: #fff;
+  opacity: 1;
+  border-radius: 3px; }
   #swiperSingle .swiper-pagination-bullet-active {
+    background: #72bcb3;
     width: 1rem;
     border-radius: 10px; }
 
@@ -4474,8 +4487,8 @@ header {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap; }
   .product_list .item {
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     margin: 0.25rem;
     border-radius: 5px;
     margin-bottom: 0.5rem; }
@@ -4650,7 +4663,7 @@ footer {
   padding: 0.5rem; }
 
 .status_list .p_status {
-  width: 30%;
+  width: 35%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4796,3 +4809,10 @@ footer {
   width: 100%; }
   .cart_list a {
     width: 49%; }
+  .cart_list .p_choose span {
+    font-size: .95rem; }
+    .cart_list .p_choose span::after {
+      content: ' / '; }
+
+#orderInfo .cart_list {
+  padding: 0; }

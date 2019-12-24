@@ -23,7 +23,7 @@
                 <div class="p_date">
                   <h3>{{getFullTime(item.time)}} 取餐</h3>
                 </div>
-                <div class="p_price">${{item.total}}</div>
+                <div class="p_price font_price">${{item.total}}</div>
               </div>
               <div class="icon_right iconfont icon-right"></div>
             </li>

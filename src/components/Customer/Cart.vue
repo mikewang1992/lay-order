@@ -19,11 +19,7 @@
                 <h3>{{item.Name}}</h3>
               </div>
               <div class="p_choose">
-                <span
-                  v-for="(inneritem,index) in item.Options"
-                  class="mr-2"
-                  :key="index"
-                >{{inneritem}}</span>
+                <span v-for="(inneritem,index) in item.Options" :key="index">{{inneritem}}</span>
               </div>
               <div class="p_num">
                 <div class="btn btn_round btn_white count_box">
@@ -247,7 +243,13 @@
           <form action v-if="showResendSMS" @submit.prevent="vertify">
             <h3 class="mb-3 mt-2">請輸入您的手機並重新發送驗證碼進行驗證</h3>
             <div class="input-group">
-              <input type="text" class="form-control mb-2" :value="loginInfo.Tel" disabled placeholder="電話">
+              <input
+                type="text"
+                class="form-control mb-2"
+                :value="loginInfo.Tel"
+                disabled
+                placeholder="電話"
+              >
               <span class="iconfont icon-Mobile"></span>
               <div class="input-group-append">
                 <a href="#" @click.prevent="ReSendSMS" class="btn" id>送出驗證碼</a>

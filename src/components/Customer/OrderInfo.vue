@@ -1,5 +1,5 @@
 <template>
-  <div class="main pb-2">
+  <div class="main pb-2" id="orderInfo">
     <header>
       <a href class="icon iconfont icon-left" @click.prevent="goback()"></a>
       <h1>訂單詳情</h1>
@@ -28,7 +28,7 @@
               共
               <b class="color_default">{{OrderSummary[0].totalQty}}</b> 份
             </h4>
-            <span class="font_en">TOTAL ${{OrderSummary[0].totalAmount}}</span>
+            <span class="font_en">${{OrderSummary[0].totalAmount}}</span>
           </li>
           <li class="item">
             <h4>電話</h4>
