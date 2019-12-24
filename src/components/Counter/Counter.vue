@@ -381,15 +381,21 @@ export default {
             type: "success",
             title: "此訂單全數出餐完成"
           });
-          this.showDetail(id);
-          this.getProduct(
-            this.filterMenu.type,
-            this.filterMenu.status,
-            this.pages.curPage
-          );
+          if (vm.filterMenu.status == "ready") {
+            vm.filterRed();
+            vm.showDetail(id);
+          } else {
+            vm.getProduct(
+              vm.filterMenu.type,
+              vm.filterMenu.status,
+              vm.pages.curPage
+            );
+            vm.showDetail(id);
+          }
         });
     },
     cancelOrder() {
+      let vm = this;
       this.$swal({
         title: "取消訂單",
         text: "確認要取消此筆訂單嗎？",
@@ -406,17 +412,32 @@ export default {
             .then(response => {
               // console.log(response.data);
               this.websocketbtn("counter訂單取消");
-              this.$swal("成功取消", "本筆訂單已移動至取消訂單", "success");
-              this.getProduct(
-                this.filterMenu.type,
-                this.filterMenu.status,
-                this.pages.curPage
-              );
+              this.$swal({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                type: "success",
+                title: "本筆訂單已移動至取消訂單"
+              });
+
+              if (vm.filterMenu.status == "ready") {
+                vm.filterRed();
+                vm.showDetail(id);
+              } else {
+                vm.getProduct(
+                  vm.filterMenu.type,
+                  vm.filterMenu.status,
+                  vm.pages.curPage
+                );
+                vm.showDetail(id);
+              }
             });
         }
       });
     },
     cancelBack() {
+      let vm = this;
       this.$swal({
         title: "確定要恢復本筆訂單嗎？",
         type: "info",
@@ -443,11 +464,18 @@ export default {
                   type: "success",
                   title: "成功恢復本筆訂單"
                 });
-                this.getProduct(
-                  this.filterMenu.type,
-                  this.filterMenu.status,
-                  this.pages.curPage
-                );
+
+                if (vm.filterMenu.status == "ready") {
+                  vm.filterRed();
+                  vm.showDetail(id);
+                } else {
+                  vm.getProduct(
+                    vm.filterMenu.type,
+                    vm.filterMenu.status,
+                    vm.pages.curPage
+                  );
+                  vm.showDetail(id);
+                }
               } else {
                 this.$swal({
                   toast: true,
@@ -463,6 +491,7 @@ export default {
       });
     },
     paidBack() {
+      let vm = this;
       this.$swal({
         title: "確定要恢復本筆訂單嗎？",
         type: "info",
@@ -489,11 +518,18 @@ export default {
                   type: "success",
                   title: "成功恢復本筆訂單"
                 });
-                this.getProduct(
-                  this.filterMenu.type,
-                  this.filterMenu.status,
-                  this.pages.curPage
-                );
+
+                if (vm.filterMenu.status == "ready") {
+                  vm.filterRed();
+                  vm.showDetail(id);
+                } else {
+                  vm.getProduct(
+                    vm.filterMenu.type,
+                    vm.filterMenu.status,
+                    vm.pages.curPage
+                  );
+                  vm.showDetail(id);
+                }
               } else {
                 this.$swal({
                   toast: true,
@@ -510,7 +546,7 @@ export default {
     },
     checkOrder() {
       // console.log("我要結帳嚕");
-
+      let vm = this;
       this.$swal({
         title: "確認收款",
         text: "訂單完成，收錢嚕！",
@@ -527,17 +563,32 @@ export default {
             .then(response => {
               // console.log(response.data);
               this.websocketbtn("counter訂單結帳");
-              this.$swal("完成結帳", "發財嚕！", "success");
-              this.getProduct(
-                this.filterMenu.type,
-                this.filterMenu.status,
-                this.pages.curPage
-              );
+              this.$swal({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                type: "success",
+                title: "完成結帳"
+              });
+
+              if (vm.filterMenu.status == "ready") {
+                vm.filterRed();
+                vm.showDetail(id);
+              } else {
+                vm.getProduct(
+                  vm.filterMenu.type,
+                  vm.filterMenu.status,
+                  vm.pages.curPage
+                );
+                vm.showDetail(id);
+              }
             });
         }
       });
     },
     itemDelivered(Oid, Pid) {
+      let vm = this;
       // console.log("單品送餐");
       this.$http
         .get(
@@ -554,12 +605,18 @@ export default {
             type: "success",
             title: "出餐完成"
           });
-          this.getProduct(
-            this.filterMenu.type,
-            this.filterMenu.status,
-            this.pages.curPage
-          );
-          this.showDetail(Oid);
+          if (vm.filterMenu.status == "ready") {
+            vm.filterRed();
+            vm.showDetail(Oid);
+            // vm.showDetail(vm.thisOrderID);
+          } else {
+            vm.getProduct(
+              vm.filterMenu.type,
+              vm.filterMenu.status,
+              vm.pages.curPage
+            );
+            vm.showDetail(Oid);
+          }
         });
     },
     websocketbtn(par = "counter") {
@@ -575,18 +632,20 @@ export default {
           message == "kitchen單品備餐完成" ||
           message == "kitchen訂單備餐完成"
         ) {
+          console.log("現在篩選選單是", vm.filterMenu.status);
+          console.log("目前觀看的訂單 ID:", vm.thisOrderID);
           if (vm.filterMenu.status == "ready") {
-            console.log('只要ready',vm.thisOrderID);
             vm.filterRed();
             vm.showDetail(vm.thisOrderID);
+            // vm.showDetail(vm.thisOrderID);
           } else {
-            console.log('其他重整',vm.thisOrderID);
             vm.getProduct(
               vm.filterMenu.type,
               vm.filterMenu.status,
               vm.pages.curPage
             );
             vm.showDetail(vm.thisOrderID);
+            // vm.showDetail(vm.thisOrderID);
           }
         }
       };
