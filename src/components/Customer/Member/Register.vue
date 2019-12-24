@@ -213,8 +213,8 @@ export default {
         console.log("重新發送驗證碼結果", response);
         if (response.data == "已寄發3次驗證碼，請您再次確認電話是否正確") {
           this.$swal(
-            "已寄發3次驗證碼，請您再次確認電話是否正確",
-            "若電話錯誤請您重新註冊",
+            "已寄發3次驗證碼",
+            "無法發送驗證碼囉QQ，請聯繫店家以維護您的權利",
             "warning"
           );
           vm.showVertify = false;

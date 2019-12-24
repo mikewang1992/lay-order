@@ -3,7 +3,7 @@
     <div class="content">
       <img src="@/assets/img/logo.png" alt />
       <ul class="nav_group mb-3">
-        <li>
+        <li @click="vertifyAppear = false">
           <router-link to="/login" class="active">登入</router-link>
         </li>
         <li>
@@ -39,7 +39,7 @@
         <a href="#" class="btn btn_default mb-2" @click.prevent="login">登入</a>
         <br />
         <small>
-          <a href="#" @click.prevent="vertifyAppear = true">忘記密碼</a>
+          <a href="#" @click.prevent="vertifyAppear = true,FromChangePS = true">忘記密碼</a>
         </small>
       </form>
       <input type="hidden" name="hiddenToken" id="hiddenToken" />
@@ -93,7 +93,8 @@ export default {
       vertifyAppear: false,
       changePasswordAppear: false,
       vertifyCode: "",
-      changePasswordID: ""
+      changePasswordID: "",
+      FromChangePS:false,
     };
   },
   methods: {
@@ -170,7 +171,11 @@ export default {
         if (typeof response.data == "number") {
           this.$swal("驗證簡訊成功", "歡迎一起躺著點！", "success");
           vm.changePasswordID = response.data;
-          vm.changePasswordAppear = true;
+          if(vm.FromChangePS == true) {
+            vm.changePasswordAppear = true;
+          }else {
+            this.$router.push({ name: "Product" });
+          }
         } else {
           this.$swal("驗證失敗", "請重新輸入驗證碼", "warning");
         }
