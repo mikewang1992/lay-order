@@ -1,7 +1,7 @@
 <template>
   <div class="main login_content col-lg-4 col-md-6">
     <div class="content">
-      <img src="@/assets/img/logo.png" alt>
+      <img src="@/assets/img/logo.png" alt />
       <ul class="nav_group mb-3">
         <li @click="vertifyAppear = false">
           <router-link to="/login" class="active">登入</router-link>
@@ -22,7 +22,7 @@
             autocomplete="off"
             v-model="loginInfo.Tel"
             maxlength="10"
-          >
+          />
         </div>
         <div class="form-group mb-4">
           <label class="sr-only" for="phone">密碼</label>
@@ -34,20 +34,20 @@
             placeholder="密碼"
             autocomplete="off"
             v-model="loginInfo.Password"
-          >
+          />
         </div>
-        <a href="#" class="btn btn_default mb-2" @click.prevent="login">登入</a>
-        <br>
+        <a href="#" class="btn btn_default mb-2" @click.prevent="recaptcha()">登入</a>
+        <br />
         <small>
           <a href="#" @click.prevent="vertifyAppear = true,FromChangePS = true">忘記密碼</a>
         </small>
       </form>
-      <input type="hidden" name="hiddenToken" id="hiddenToken">
+      <input type="hidden" name="hiddenToken" id="hiddenToken" />
       <!-- 忘記密碼 -->
       <form action v-if="vertifyAppear" v-show="!changePasswordAppear">
         <h3 class="mb-3 mt-2">請輸入您的手機並重新發送驗證碼進行驗證</h3>
         <div class="input-group">
-          <input type="text" class="form-control mb-2" v-model="loginInfo.Tel" placeholder="電話">
+          <input type="text" class="form-control mb-2" v-model="loginInfo.Tel" placeholder="電話" />
           <span class="iconfont icon-Mobile"></span>
           <div class="input-group-append">
             <a href="#" @click.prevent="ReSendSMS" class="btn" id>送出驗證碼</a>
@@ -63,7 +63,7 @@
             autocomplete="off"
             maxlength="6"
             v-model="vertifyCode"
-          >
+          />
         </div>
         <a class="btn btn_default mb-2" @click.prevent="vertify()">確認</a>
       </form>
@@ -78,7 +78,7 @@
             placeholder="請輸入新密碼"
             autocomplete="off"
             v-model="loginInfo.Password"
-          >
+          />
         </div>
         <a class="btn btn_default mb-2" @click.prevent="changePassword()">確認</a>
       </form>
@@ -262,8 +262,8 @@ export default {
       };
       this.$http.post(url, data, config).then(response => {
         console.log(response.data);
-        if (response.data) {
-          alert("robot成功");
+        if (response.data == "success") {
+          this.login();
         } else {
           alert(response.data);
         }
@@ -272,7 +272,6 @@ export default {
   },
   created() {
     this.CheckLogin();
-    this.recaptcha();
   }
 };
 </script>

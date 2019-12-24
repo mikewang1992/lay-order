@@ -12,7 +12,7 @@
         <ul>
           <li class="item" v-for="(item,index) in CartFromProduct" :key="index">
             <div class="p_img">
-              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt>
+              <img :src="`https://lay-order.rocket-coding.com/Img/product/${item.Img[0]}`" alt />
             </div>
             <div class="p_info">
               <div class="p_name">
@@ -65,7 +65,7 @@
                 maxlength="10"
                 required
                 v-model="loginInfo.Tel"
-              >
+              />
               <p class="mb-0" v-if="Login == 'True'">{{OrderMemberInfo[0]}}</p>
             </li>
             <li class="item">
@@ -75,7 +75,7 @@
                 v-if="Login == 'False'"
                 placeholder="請輸入"
                 v-model="registerInfo.Name"
-              >
+              />
               <p class="mb-0" v-if="Login == 'True'">{{OrderMemberInfo[1]}}</p>
             </li>
             <li class="item" v-if="!ShowTimeSelect">
@@ -94,7 +94,7 @@
                   class="w-auto d-inline"
                   v-model="ShowTimeSelect"
                   @click="CleanTimeBtn()"
-                >
+                />
                 <label for="selectTime">我要指定取餐時間</label>
               </h4>
               <vue-timepicker
@@ -117,7 +117,7 @@
       </div>
       <small class="color_red text-center d-block mt-2 mb-3" v-if="!forhere">
         <!-- 訂單總量超過20份請來電預約
-        <br> -->
+        <br>-->
         餐點現做，備餐時間約 {{PrepareTime}} min
       </small>
       <footer class="d-block text-center fixed_bottom">
@@ -136,9 +136,9 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/login_img.png" alt>
+          <img src="@/assets/img/login_img.png" alt />
           <h2>Hello～歡迎回來！請先登入會員</h2>
-          <br>
+          <br />
           <div class="form-group">
             <label class="sr-only" for="phone">電話</label>
             <span class="iconfont icon-message"></span>
@@ -149,7 +149,7 @@
               maxlength="10"
               autocomplete="off"
               v-model="loginInfo.Tel"
-            >
+            />
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">密碼</label>
@@ -160,10 +160,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="loginInfo.Password"
-            >
+            />
           </div>
           <a href="#" class="btn btn_default mb-2" @click.prevent="login()">登入</a>
-          <br>
+          <br />
           <small>
             <router-link to="/login" class="color_gray">忘記密碼</router-link>
           </small>
@@ -179,8 +179,8 @@
       ></a>
       <div class="popup_content col-12 col-lg-6 col-md-8">
         <div class="popup_info">
-          <img src="@/assets/img/phone.png" alt>
-          <br>
+          <img src="@/assets/img/phone.png" alt />
+          <br />
           <!-- 註冊資訊 -->
           <form v-if="!showVertify" v-show="!showResendSMS" @submit.prevent="register">
             <h2>驗證手機，立即加入會員！</h2>
@@ -194,7 +194,7 @@
                 placeholder="電話"
                 maxlength="10"
                 v-model="registerInfo.Tel"
-              >
+              />
             </div>
             <div class="form-group">
               <label class="sr-only" for="userName">姓名</label>
@@ -206,7 +206,7 @@
                 placeholder="請輸入姓名"
                 autocomplete="off"
                 v-model="registerInfo.Name"
-              >
+              />
             </div>
             <div class="form-group">
               <label class="sr-only" for="password">密碼</label>
@@ -217,7 +217,7 @@
                 placeholder="請設定密碼"
                 autocomplete="off"
                 v-model="registerInfo.Password"
-              >
+              />
             </div>
             <button type="submit" class="btn btn_default mb-2">註冊</button>
           </form>
@@ -233,10 +233,10 @@
                 placeholder="請輸入簡訊驗證碼"
                 autocomplete="off"
                 v-model="vertifyInfo.Vertify"
-              >
+              />
             </div>
             <button type="submit" class="btn btn_default mb-2">確認</button>
-            <br>
+            <br />
             <a href="#" @click.prevent="ReSendSMS" class="d-block">重新發送驗證碼</a>
           </form>
           <!-- 重新發送驗證碼 -->
@@ -249,7 +249,7 @@
                 :value="loginInfo.Tel"
                 disabled
                 placeholder="電話"
-              >
+              />
               <span class="iconfont icon-Mobile"></span>
               <div class="input-group-append">
                 <a href="#" @click.prevent="ReSendSMS" class="btn" id>送出驗證碼</a>
@@ -265,7 +265,7 @@
                 autocomplete="off"
                 maxlength="6"
                 v-model="vertifyInfo.Vertify"
-              >
+              />
             </div>
             <button type="submit" class="btn btn_default mb-2">確認</button>
           </form>
@@ -765,7 +765,6 @@ export default {
         }
       });
     },
-    // 也許尚未完善?
     resetBussinessHours() {
       const vm = this;
       vm.businesshours[0] = vm.getTime(vm.TimeWithPrepare(vm.PrepareTime));
@@ -809,12 +808,9 @@ export default {
       $.connection.hub.start().done();
     },
     async recaptcha() {
-      // (optional) Wait until recaptcha has been loaded.
       await this.$recaptchaLoaded();
-      // Execute reCAPTCHA with action "login".
       const token = await this.$recaptcha("login");
       console.log(token);
-      // Do stuff with the received token.
       const url = `${process.env.APIPATH}/Accounts/Robot`;
       const data = { hiddenToken: token };
       const config = {
@@ -824,8 +820,7 @@ export default {
       };
       this.$http.post(url, data, config).then(response => {
         console.log(response.data);
-        if (response.data) {
-          alert("robot成功");
+        if (response.data == "success") {
         } else {
           alert(response.data);
         }
@@ -853,7 +848,6 @@ export default {
     this.getCart();
     this.CheckLogin();
     this.getBusinessHours();
-    this.recaptcha();
   },
   mounted() {
     document.querySelector("footer ul").classList.add("d-none");

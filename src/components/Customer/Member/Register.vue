@@ -11,7 +11,7 @@
         </li>
       </ul>
       <!-- 註冊 div -->
-      <form v-if="!showVertify" @submit.prevent="register">
+      <form v-if="!showVertify" @submit.prevent="recaptcha()">
         <div class="form-group mb-1">
           <label class="sr-only" for="phone">電話</label>
           <span class="iconfont icon-Mobile"></span>
@@ -266,8 +266,8 @@ export default {
       };
       this.$http.post(url, data, config).then(response => {
         console.log(response.data);
-        if (response.data) {
-          alert("robot成功");
+        if (response.data == "success") {
+          this.register();
         } else {
           alert(response.data);
         }
@@ -276,7 +276,6 @@ export default {
   },
   created() {
     this.getCounty();
-    this.recaptcha();
   }
 };
 </script>

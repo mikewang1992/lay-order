@@ -26,7 +26,7 @@
           v-model="loginInfo.Password"
         />
       </div>
-      <a href="#" class="btn btn_default mb-2" @click.prevent="login">登入</a>
+      <a href="#" class="btn btn_default mb-2" @click.prevent="recaptcha()">登入</a>
       <br />
       <small>
         <a href="#" class="color_gray" @click.prevent="employeeLogout()">登出</a>
@@ -74,12 +74,9 @@ export default {
       });
     },
     async recaptcha() {
-      // (optional) Wait until recaptcha has been loaded.
       await this.$recaptchaLoaded();
-      // Execute reCAPTCHA with action "login".
       const token = await this.$recaptcha("login");
       console.log(token);
-      // Do stuff with the received token.
       const url = `${process.env.APIPATH}/Accounts/Robot`;
       const data = { hiddenToken: token };
       const config = {
@@ -89,8 +86,8 @@ export default {
       };
       this.$http.post(url, data, config).then(response => {
         console.log(response.data);
-        if (response.data) {
-          alert("robot成功");
+        if (response.data == "success") {
+          this.login();
         } else {
           alert(response.data);
         }
