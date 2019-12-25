@@ -143,7 +143,7 @@ export default {
       if (vm.registerInfo.Tel.length === 10) {
         if (vm.registerInfo.Tel.slice(0, 2) === "09") {
           // console.log("註冊資訊 registerInfo", data);
-          vm.vertifyCodes.Tel = this.registerInfo.Tel;
+          vm.vertifyCodes.Tel = vm.registerInfo.Tel;
           this.$http.post(url, data, config).then(response => {
             // console.log("註冊回傳", response);
             loader.hide();
