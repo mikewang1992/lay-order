@@ -123,7 +123,6 @@ export default {
       });
     },
     editMemberInfo() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Edit`;
       const data = vm.memberInfo;
@@ -133,6 +132,7 @@ export default {
         }
       };
       console.log(data);
+      let loader = this.$loading.show();
       this.$http.post(url, data, config).then(response => {
         loader.hide();
         if (response.data == "success") {
@@ -166,9 +166,9 @@ export default {
       }
     },
     logout() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Logout`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
         console.log(response);
         if (response.data === "success") {

@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     login() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/EmployeeLogin`;
       const data = vm.loginInfo;
@@ -53,6 +52,7 @@ export default {
           "Content-Type": "application/json"
         }
       };
+      let loader = this.$loading.show();
       this.$http.post(url, data, config).then(response => {
         loader.hide();
         console.log(response.data);
@@ -65,9 +65,9 @@ export default {
       });
     },
     employeeLogout() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/EmployeeLogout`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
         loader.hide();
         console.log(response);

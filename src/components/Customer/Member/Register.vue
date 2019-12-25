@@ -131,7 +131,6 @@ export default {
   },
   methods: {
     register() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Create`;
       const data = vm.registerInfo;
@@ -144,6 +143,7 @@ export default {
         if (vm.registerInfo.Tel.slice(0, 2) === "09") {
           // console.log("註冊資訊 registerInfo", data);
           vm.vertifyCodes.Tel = vm.registerInfo.Tel;
+          let loader = this.$loading.show();
           this.$http.post(url, data, config).then(response => {
             // console.log("註冊回傳", response);
             loader.hide();
@@ -164,7 +164,7 @@ export default {
                 "warning"
               );
             } else {
-              this.$swal("註冊失敗", "請重新確認您的登入資訊", "warning");
+              this.$swal("註冊失敗", "請重新確認您的註冊資訊", "warning");
             }
           });
         } else {
@@ -189,7 +189,6 @@ export default {
       }
     },
     vertify() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Vertify`;
       const data = vm.vertifyCodes;
@@ -198,6 +197,7 @@ export default {
           "Content-Type": "application/json"
         }
       };
+      let loader = this.$loading.show();
       this.$http.post(url, data, config).then(response => {
         loader.hide();
         console.log("驗證簡訊結果", response);
@@ -210,10 +210,10 @@ export default {
       });
     },
     ReSendSMS() {
-      let loader = this.$loading.show();
       const vm = this;
       const params = vm.vertifyCodes.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
         loader.hide();
         console.log("重新發送驗證碼結果", response);

@@ -69,9 +69,9 @@ export default {
   props: ["IdFromOrder", "forhere"],
   methods: {
     ShowOrderDetail(num) {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Order/ShowOrderDetail/${num}`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
         loader.hide();
         console.log(response);
@@ -79,9 +79,9 @@ export default {
       });
     },
     ShowOrderSummary(num) {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Order/ShowOrderSummary/${num}`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
         loader.hide();
         console.log(response);

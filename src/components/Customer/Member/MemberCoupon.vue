@@ -39,9 +39,9 @@ export default {
   },
   methods: {
     getVouchers() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Voucher`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
         loader.hide();
         console.log(response.data);
