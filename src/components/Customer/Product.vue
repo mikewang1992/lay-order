@@ -2,13 +2,13 @@
   <div class="main">
     <div v-if="isOpenFromCustomer==false" class="open_notice">Sorry！本時段不開放預約！</div>
     <header class="hide_lg">
-      <img src="@/assets/img/logo_nav.png" alt />
+      <img src="@/assets/img/logo_nav.png" alt>
     </header>
     <!-- banners -->
     <div class="content">
       <swiper :options="swiperSingle" id="swiperSingle" ref="mySwiper" @someSwiperEvent="swiper()">
         <swiper-slide v-for="(item,key,index) in banners" :key="index">
-          <img :src="BannerimgUrl+item" alt />
+          <img :src="BannerimgUrl+item" alt>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
@@ -37,7 +37,7 @@
         >
           <div class="item open_popup">
             <div class="p_image">
-              <img :src="ProductimgUrl+item.Img[0]" alt />
+              <img :src="ProductimgUrl+item.Img[0]" alt>
             </div>
             <div class="p_info">
               <h3>{{item.Name}}</h3>
@@ -61,7 +61,7 @@
           >
             <swiper-slide v-for="(item,index) in productDetail[0].Img" :key="index">
               <div class="p_img_slier">
-                <img :src="ProductimgUrl+item" alt />
+                <img :src="ProductimgUrl+item" alt>
               </div>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
@@ -71,7 +71,7 @@
           <div class="p_info p-3">
             <h3>{{productDetail[0].Name}}</h3>
             <small>訂單總量超過 20 份請來電預約</small>
-            <hr />
+            <hr>
             <div class="p_text">
               <p>{{productDetail[0].Description}}</p>
             </div>
@@ -79,58 +79,69 @@
               <div class="item" v-for="(item,key,index) in Sides.slice(0,1)" :key="index">
                 <h5>{{item.name}}</h5>
                 <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    :name="item.name"
-                    :id="`option1-${key+1}`"
-                    :value="inneritem"
-                    v-model="Orders.Options[0]"
-                  />
-                  <span class="radiobtn"></span>
-                  <label :for="`option1-${key+1}`">{{inneritem}}</label>
+                  <label :for="`option1-${key+1}`">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      :name="item.name"
+                      :id="`option1-${key+1}`"
+                      :value="inneritem"
+                      v-model="Orders.Options[0]"
+                    >
+                    <span class="radiobtn"></span>
+                    {{inneritem}}
+                  </label>
                 </div>
               </div>
               <div class="item" v-for="(item,key,index) in Sides.slice(1,2)" :key="index">
                 <h5>{{item.name}}</h5>
                 <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    :name="item.name"
-                    :id="`inlineRadio2-${key+1}`"
-                    :value="inneritem"
-                    v-model="Orders.Options[1]"
-                  />
-                  <label :for="`inlineRadio2-${key+1}`">{{inneritem}}</label>
+                  <label :for="`option2-${key+1}`">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      :name="item.name"
+                      :id="`option2-${key+1}`"
+                      :value="inneritem"
+                      v-model="Orders.Options[1]"
+                    >
+                    <span class="radiobtn"></span>
+                    {{inneritem}}
+                  </label>
                 </div>
               </div>
               <div class="item" v-for="(item,key,index) in Sides.slice(2,3)" :key="index">
                 <h5>{{item.name}}</h5>
                 <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    :name="item.name"
-                    :id="`inlineRadio3-${key+1}`"
-                    :value="inneritem"
-                    v-model="Orders.Options[2]"
-                  />
-                  <label :for="`inlineRadio3-${key+1}`">{{inneritem}}</label>
+                  <label :for="`option3-${key+1}`">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      :name="item.name"
+                      :id="`option3-${key+1}`"
+                      :value="inneritem"
+                      v-model="Orders.Options[2]"
+                    >
+                    <span class="radiobtn"></span>
+                    {{inneritem}}
+                  </label>
                 </div>
               </div>
               <div class="item" v-for="(item,key,index) in Sides.slice(3,4)" :key="index">
                 <h5>{{item.name}}</h5>
                 <div class="form-check" v-for="(inneritem,key,index) in item.options" :key="index">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    :name="item.name"
-                    :id="`inlineRadio4-${key+1}`"
-                    :value="inneritem"
-                    v-model="Orders.Options[3]"
-                  />
-                  <label :for="`inlineRadio4-${key+1}`">{{inneritem}}</label>
+                  <label :for="`option4-${key+1}`">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      :name="item.name"
+                      :id="`option4-${key+1}`"
+                      :value="inneritem"
+                      v-model="Orders.Options[3]"
+                    >
+                    <span class="radiobtn"></span>
+                    {{inneritem}}
+                  </label>
                 </div>
               </div>
             </div>
