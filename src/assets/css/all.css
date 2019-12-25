@@ -3510,7 +3510,8 @@ h4 {
     width: 17px;
     background-color: #eee;
     border-radius: 50%;
-    margin-right: 3px; }
+    margin-right: 3px;
+    cursor: pointer; }
   .popup .p_choose input:checked ~ .radiobtn {
     background-color: #72bcb3; }
   .popup .p_choose .radiobtn:after {
