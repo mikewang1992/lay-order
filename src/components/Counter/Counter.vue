@@ -347,7 +347,7 @@ export default {
       const newDay = `${year}/${mon}/${day}`;
       return newDay;
     },
-    showDetail(id) {
+    showDetail(id = this.thisOrderID) {
       // console.log('顯示訂單詳情');
       const vm = this;
       this.thisOrderID = id;
@@ -574,14 +574,14 @@ export default {
 
               if (vm.filterMenu.status == "ready") {
                 vm.filterRed();
-                vm.showDetail(id);
+                vm.showDetail(vm.thisOrderID);
               } else {
                 vm.getProduct(
                   vm.filterMenu.type,
                   vm.filterMenu.status,
                   vm.pages.curPage
                 );
-                vm.showDetail(id);
+                vm.showDetail(vm.thisOrderID);
               }
             });
         }
