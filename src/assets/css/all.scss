@@ -328,6 +328,11 @@ header {
         color: #4a4a4a;
         margin: 0 0 0.3rem 0;
         font-weight: bold;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
       }
 
       p {
@@ -706,6 +711,9 @@ footer {
     font-size: .95rem;
     &::after {
       content: ' / ';
+    }
+    &:last-child::after {
+      content: '';
     }
   }
 }

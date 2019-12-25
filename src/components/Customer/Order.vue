@@ -4,7 +4,7 @@
     <header v-if="!ShowOrderInfo">
       <h1>訂單狀態</h1>
     </header>
-    <div class="content" v-if="!ShowOrderInfo">
+    <div class="content pb-5 mb-3" v-if="!ShowOrderInfo">
       <div class="cart_list status_list">
         <ul>
           <a

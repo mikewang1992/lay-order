@@ -4512,7 +4512,13 @@ header {
       .product_list .item .p_info h3 {
         color: #4a4a4a;
         margin: 0 0 0.3rem 0;
-        font-weight: bold; }
+        font-weight: bold;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical; }
       .product_list .item .p_info p {
         margin: 0;
         color: #72bcb3;
@@ -4819,6 +4825,8 @@ footer {
     font-size: .95rem; }
     .cart_list .p_choose span::after {
       content: ' / '; }
+    .cart_list .p_choose span:last-child::after {
+      content: ''; }
 
 #orderInfo .cart_list {
   padding: 0; }

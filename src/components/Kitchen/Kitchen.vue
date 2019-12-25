@@ -82,7 +82,7 @@
               :key="index"
               @click="completeOrderItem(item.orderid,pItem.Id)"
             >
-              <h4>{{pItem.ProductName}}</h4>
+              <h4>{{pItem.ProductName}} X {{pItem.Qty}}</h4>
               <span class="label">{{pItem.option}}</span>
             </li>
           </ul>
