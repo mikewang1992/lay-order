@@ -122,7 +122,7 @@
       </small>
       <footer class="d-block text-center fixed_bottom">
         <div class="col-md-6 offset-md-3">
-          <a class="btn btn_default d-block btn_lg" @click.prevent="recaptcha()">確認點餐</a>
+          <a class="btn btn_default d-block btn_lg" @click.prevent="CheckBeforeCreate()">確認點餐</a>
         </div>
       </footer>
     </div>
@@ -820,10 +820,8 @@ export default {
       };
       this.$http.post(url, data, config).then(response => {
         console.log(response.data);
-        if (response.data == "success") {
-          this.CheckBeforeCreate();
-        } else {
-          alert(response.data);
+        if (response.data != "success") {
+          this.$router.push({ name: "Product" });
         }
       });
     }
@@ -849,6 +847,7 @@ export default {
     this.getCart();
     this.CheckLogin();
     this.getBusinessHours();
+    this.recaptcha();
   },
   mounted() {
     document.querySelector("footer ul").classList.add("d-none");

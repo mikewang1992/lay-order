@@ -11,7 +11,7 @@
         </li>
       </ul>
       <!-- 註冊 div -->
-      <form v-if="!showVertify" @submit.prevent="recaptcha()">
+      <form v-if="!showVertify" @submit.prevent="register()">
         <div class="form-group mb-1">
           <label class="sr-only" for="phone">電話</label>
           <span class="iconfont icon-Mobile"></span>
@@ -131,6 +131,7 @@ export default {
   },
   methods: {
     register() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Create`;
       const data = vm.registerInfo;
@@ -144,7 +145,8 @@ export default {
           // console.log("註冊資訊 registerInfo", data);
           vm.vertifyCodes.Tel = this.registerInfo.Tel;
           this.$http.post(url, data, config).then(response => {
-            console.log("註冊回傳", response);
+            // console.log("註冊回傳", response);
+            loader.hide();
             if (response.data === "success") {
               vm.showVertify = true;
               this.$swal({
@@ -266,16 +268,15 @@ export default {
       };
       this.$http.post(url, data, config).then(response => {
         console.log(response.data);
-        if (response.data == "success") {
-          this.register();
-        } else {
-          alert(response.data);
+        if (response.data != "success") {
+          this.$router.push({ name: "Product" });
         }
       });
     }
   },
   created() {
     this.getCounty();
+    this.recaptcha();
   }
 };
 </script>

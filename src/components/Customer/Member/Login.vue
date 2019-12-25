@@ -36,7 +36,7 @@
             v-model="loginInfo.Password"
           />
         </div>
-        <a href="#" class="btn btn_default mb-2" @click.prevent="recaptcha()">登入</a>
+        <a href="#" class="btn btn_default mb-2" @click.prevent="login()">登入</a>
         <br />
         <small>
           <a href="#" @click.prevent="vertifyAppear = true,FromChangePS = true">忘記密碼</a>
@@ -99,6 +99,7 @@ export default {
   },
   methods: {
     login() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Login`;
       const data = vm.loginInfo;
@@ -110,6 +111,7 @@ export default {
       if (vm.loginInfo.Tel.length === 10) {
         if (vm.loginInfo.Tel.slice(0, 2) === "09") {
           this.$http.post(url, data, config).then(response => {
+            loader.hide();
             // console.log(response);
             if (response.data == "success") {
               this.$swal("登入成功", "歡迎一起躺著點！", "success");
@@ -247,12 +249,9 @@ export default {
       });
     },
     async recaptcha() {
-      // (optional) Wait until recaptcha has been loaded.
       await this.$recaptchaLoaded();
-      // Execute reCAPTCHA with action "login".
       const token = await this.$recaptcha("login");
       console.log(token);
-      // Do stuff with the received token.
       const url = `${process.env.APIPATH}/Accounts/Robot`;
       const data = { hiddenToken: token };
       const config = {
@@ -262,16 +261,15 @@ export default {
       };
       this.$http.post(url, data, config).then(response => {
         console.log(response.data);
-        if (response.data == "success") {
-          this.login();
-        } else {
-          alert(response.data);
+        if (response.data != "success") {
+          this.$router.push({ name: "Product" });
         }
       });
     }
   },
   created() {
     this.CheckLogin();
+    this.recaptcha();
   }
 };
 </script>
