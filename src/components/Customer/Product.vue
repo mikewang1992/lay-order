@@ -70,7 +70,7 @@
         <div class="p_content">
           <div class="p_info p-3">
             <h3>{{productDetail[0].Name}}</h3>
-            <small>訂單總量超過 20 份請來電預約</small>
+            <!-- <small>訂單總量超過 20 份請來電預約</small> -->
             <hr>
             <div class="p_text">
               <p>{{productDetail[0].Description}}</p>
