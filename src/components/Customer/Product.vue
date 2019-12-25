@@ -54,7 +54,7 @@
         <div class="p_slider">
           <swiper
             :options="swiperSingle"
-            id="swiperSingle" 
+            id="swiperSingle"
             class="swiper_product"
             ref="mySwiper"
             @someSwiperEvent="swiper()"
@@ -234,14 +234,17 @@ export default {
       });
     },
     getProducts(PCid = "") {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProduct?PCid=${PCid}`;
       this.$http.get(url).then(response => {
         // console.log('產品列表',response);
         vm.products = response.data;
+        loader.hide();
       });
     },
     getProductDetail(Id, Show = true) {
+      let loader = this.$loading.show();
       // console.log('產品細節ID',Id);
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProductDetail/${Id}`;
@@ -269,6 +272,7 @@ export default {
             vm.sidesfilter(vm.productDetail[0].Sides4);
           }
         }
+        loader.hide();
       });
     },
     ClosePopup() {
