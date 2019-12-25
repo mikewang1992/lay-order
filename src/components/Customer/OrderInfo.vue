@@ -66,20 +66,24 @@ export default {
       ProductimgUrl: "https://lay-order.rocket-coding.com/Img/product/"
     };
   },
-  props: ["IdFromOrder","forhere"],
+  props: ["IdFromOrder", "forhere"],
   methods: {
     ShowOrderDetail(num) {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Order/ShowOrderDetail/${num}`;
       this.$http.get(url).then(response => {
+        loader.hide();
         console.log(response);
         this.OrderDetail = response.data;
       });
     },
     ShowOrderSummary(num) {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Order/ShowOrderSummary/${num}`;
       this.$http.get(url).then(response => {
+        loader.hide();
         console.log(response);
         this.OrderSummary = response.data;
       });

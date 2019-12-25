@@ -454,6 +454,7 @@ export default {
       });
     },
     CheckBeforeCreate() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Login`;
       const data = vm.loginInfo;
@@ -463,11 +464,13 @@ export default {
         }
       };
       if (this.Login === "True") {
+        loader.hide();
         this.CreateOrder();
       } else if (this.Login === "False") {
         if (vm.loginInfo.Tel.length === 10) {
           if (vm.loginInfo.Tel.slice(0, 2) === "09") {
             this.$http.post(url, data, config).then(response => {
+              loader.hide();
               // console.log('確認有沒有登入過 CheckBeforeCreate',response.data);
               if (response.data == "登入失敗") {
                 // console.log("還沒登入，顯示 Login popup");
@@ -516,6 +519,7 @@ export default {
       }
     },
     CreateOrder() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Order/Create`;
       const data = [];
@@ -545,6 +549,7 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
+        loader.hide();
         if (response == "fail") {
           this.$swal(response, "", "info");
         } else {
@@ -596,6 +601,7 @@ export default {
     },
     // 登入註冊
     login() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Login`;
       const data = vm.loginInfo;
@@ -607,6 +613,7 @@ export default {
       if (vm.loginInfo.Tel.length === 10) {
         if (vm.loginInfo.Tel.slice(0, 2) === "09") {
           this.$http.post(url, data, config).then(response => {
+            loader.hide();
             console.log("登入回傳", response.data);
             if (response.data == "success") {
               this.$swal("登入成功", "", "success");
@@ -644,6 +651,7 @@ export default {
       }
     },
     register() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Create`;
       const data = vm.registerInfo;
@@ -657,6 +665,7 @@ export default {
         // console.log("送出註冊資訊");
         this.vertifyInfo.Tel = data.Tel;
         this.$http.post(url, data, config).then(response => {
+          loader.hide();
           console.log("註冊結果：", response.data);
           if (response.data === "success") {
             vm.showVertify = true;
@@ -687,6 +696,7 @@ export default {
       }
     },
     vertify() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Vertify`;
       const data = vm.vertifyInfo;
@@ -696,6 +706,7 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
+        loader.hide();
         console.log("驗證簡訊結果", response);
         if (typeof response.data == "number") {
           this.$swal("手機驗證成功", "可以來點菜嚕！", "success");
@@ -708,10 +719,12 @@ export default {
       });
     },
     ReSendSMS() {
+      let loader = this.$loading.show();
       const vm = this;
       const params = vm.vertifyInfo.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
+        loader.hide();
         console.log("重新發送驗證碼結果", response);
         if (response.data == "已寄發3次驗證碼，請您再次確認電話是否正確") {
           this.$swal(

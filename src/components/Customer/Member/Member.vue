@@ -34,7 +34,7 @@
               v-model="memberInfo.Tel"
               autocomplete="off"
               disabled
-            >
+            />
           </div>
           <div class="form-group">
             <label class="sr-only" for="phone">姓名</label>
@@ -46,7 +46,7 @@
               placeholder="姓名"
               v-model="memberInfo.Name"
               autocomplete="off"
-            >
+            />
           </div>
           <div class="form-group">
             <label class="sr-only" for="phone">居住地</label>
@@ -78,7 +78,7 @@
               placeholder="生日"
               autocomplete="off"
               v-model="memberInfo.Birth"
-            >
+            />
           </div>
           <div class="form-group mb-4">
             <label class="sr-only" for="phone">密碼</label>
@@ -90,10 +90,10 @@
               placeholder="密碼"
               autocomplete="off"
               v-model="memberInfo.NewPassword"
-            >
+            />
           </div>
           <a href="#" class="btn btn_default mb-2" @click.prevent="editMemberInfo">修改</a>
-          <br>
+          <br />
           <small>
             <a href="#" class="color_gray" @click.prevent="logout()">登出</a>
           </small>
@@ -123,6 +123,7 @@ export default {
       });
     },
     editMemberInfo() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Edit`;
       const data = vm.memberInfo;
@@ -133,6 +134,7 @@ export default {
       };
       console.log(data);
       this.$http.post(url, data, config).then(response => {
+        loader.hide();
         if (response.data == "success") {
           this.$swal("修改成功", "", "success");
         } else {
@@ -164,11 +166,13 @@ export default {
       }
     },
     logout() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Logout`;
       this.$http.get(url).then(response => {
         console.log(response);
         if (response.data === "success") {
+          loader.hide();
           this.$swal("登出成功", "", "success");
           this.$router.push({ name: "Login" });
           localStorage.setItem("totalcart", JSON.stringify([]));

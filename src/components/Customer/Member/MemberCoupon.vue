@@ -20,7 +20,10 @@
         <div class="item" v-for="(item,key,index) in Vouchers" :key="index">
           <h2>{{item.Title}}</h2>
           <p>{{item.Content}}</p>
-          <p>截止日期：<span class="font_en">{{getFullTime(item.EndTime)}}</span></p>
+          <p>
+            截止日期：
+            <span class="font_en">{{getFullTime(item.EndTime)}}</span>
+          </p>
         </div>
       </div>
     </div>
@@ -36,9 +39,11 @@ export default {
   },
   methods: {
     getVouchers() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Voucher`;
       this.$http.get(url).then(response => {
+        loader.hide();
         console.log(response.data);
         if (response.data.length === 0) {
           // this.$swal("目前沒有任何優惠券", "", "warning");

@@ -132,10 +132,12 @@ export default {
     },
     // 忘記密碼
     ReSendSMS() {
+      let loader = this.$loading.show();
       const vm = this;
       const params = vm.loginInfo.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
       this.$http.get(url).then(response => {
+        loader.hide();
         // console.log("重新發送驗證碼結果", response);
         if (response.data == "已寄發3次驗證碼，請您再次確認電話是否正確") {
           this.$swal(
@@ -160,6 +162,7 @@ export default {
       });
     },
     vertify() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Vertify`;
       const data = { Vertify: vm.vertifyCode, Tel: vm.loginInfo.Tel };
@@ -169,6 +172,7 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
+        loader.hide();
         console.log("驗證簡訊結果", response);
         if (typeof response.data == "number") {
           this.$swal("驗證簡訊成功", "歡迎一起躺著點！", "success");
@@ -184,6 +188,7 @@ export default {
       });
     },
     changePassword() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/EditPassword`;
       const data = {
@@ -196,6 +201,7 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
+        loader.hide();
         console.log("修改密碼結果", response.data);
         if (response.data == "succcess") {
           this.$swal("修改成功", "歡迎一起躺著點！", "success");

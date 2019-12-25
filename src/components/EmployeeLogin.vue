@@ -39,11 +39,12 @@
 export default {
   data() {
     return {
-      loginInfo: { id: "cynthia", Password: "cynthia" }
+      loginInfo: { id: "", Password: "" }
     };
   },
   methods: {
     login() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/EmployeeLogin`;
       const data = vm.loginInfo;
@@ -53,6 +54,7 @@ export default {
         }
       };
       this.$http.post(url, data, config).then(response => {
+        loader.hide();
         console.log(response.data);
         if (response.data == "success") {
           this.$swal("登入成功", "Hello！今天也要認真上班ㄛ！", "success");
@@ -63,9 +65,11 @@ export default {
       });
     },
     employeeLogout() {
+      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/EmployeeLogout`;
       this.$http.get(url).then(response => {
+        loader.hide();
         console.log(response);
         if (response.data === "success") {
           this.$swal("登出成功", "", "success");
