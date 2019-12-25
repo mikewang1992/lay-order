@@ -3,7 +3,7 @@
     <router-view :OrderCodeFromCart="OrderCode" v-if="ShowResult"></router-view>
     <!-----------------購物車主體----------------------->
     <header v-if="!ShowResult">
-      <a class="icon iconfont icon-left" @click.prevent="$router.go(-1);"></a>
+      <a class="icon iconfont icon-left" @click.prevent="SaveCartChange()"></a>
       <h1>點菜單</h1>
     </header>
     <div class="content mb-5" v-if="!ShowResult">
@@ -518,6 +518,24 @@ export default {
         }
         loader.hide();
       }
+    },
+    SaveCartChange() {
+      const vm = this;
+      const data = [];
+      for (let i = 0; i < vm.CartFromProduct.length; i++) {
+        const predata = {
+          Img: vm.CartFromProduct[i].Img,
+          Name: vm.CartFromProduct[i].Name,
+          Options: vm.CartFromProduct[i].Options,
+          Pid: vm.CartFromProduct[i].Pid,
+          Price: vm.CartFromProduct[i].Price,
+          Qty: vm.CartFromProduct[i].Qty
+        };
+        data.push(predata);
+        // console.log(data);
+      }
+      localStorage.setItem("totalcart", JSON.stringify(data));
+      this.$router.push({ name: "Product" });
     },
     CreateOrder() {
       let loader = this.$loading.show();
