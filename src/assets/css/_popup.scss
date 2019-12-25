@@ -14,7 +14,7 @@
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
-  overflow-x:hidden;
+  overflow-x: hidden;
   padding-bottom: 30px;
   @include animation;
   opacity: 0;
@@ -140,10 +140,53 @@
     label {
       vertical-align: middle;
       font-size: 0.9rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      input {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+      }
     }
 
     .form-check {
       margin-right: 0.5rem;
+    }
+    .radiobtn {
+      position: relative;
+      display: inline-block;
+      top: 0;
+      left: 0;
+      height: 17px;
+      width: 17px;
+      background-color: #eee;
+      border-radius: 50%;
+      margin-right: 3px;
+      cursor: pointer;
+    }
+
+    input:checked ~ .radiobtn {
+      background-color: $color_default;
+    }
+
+    .radiobtn:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    input:checked ~ .radiobtn:after {
+      display: block;
+    }
+
+    .radiobtn:after {
+      top: 25%;
+      left: 25%;
+      width: 50%;
+      height: 50%;
+      border-radius: 50%;
+      background: white;
     }
   }
 

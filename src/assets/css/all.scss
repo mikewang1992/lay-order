@@ -14,7 +14,7 @@
   border-radius: 5px !important;
 }
 .vue__time-picker .dropdown {
-  z-index: 9999!important;
+  z-index: 9999 !important;
 }
 .grecaptcha-badge {
   display: none;
@@ -652,43 +652,6 @@ footer {
         width: auto;
         margin-right: 0.25rem;
       }
-
-      .radiobtn {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 25px;
-        width: 25px;
-        background-color: #eee;
-        border-radius: 50%;
-      }
-
-      &:hover input ~ .radiobtn {
-        background-color: #ccc;
-      }
-
-      input:checked ~ .radiobtn {
-        background-color: $color_default;
-      }
-
-      .radiobtn:after {
-        content: "";
-        position: absolute;
-        display: none;
-      }
-
-      input:checked ~ .radiobtn:after {
-        display: block;
-      }
-
-      .radiobtn:after {
-        top: 9px;
-        left: 9px;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: white;
-      }
     }
   }
 
@@ -708,12 +671,12 @@ footer {
     width: 49%;
   }
   .p_choose span {
-    font-size: .95rem;
+    font-size: 0.95rem;
     &::after {
-      content: ' / ';
+      content: " / ";
     }
     &:last-child::after {
-      content: '';
+      content: "";
     }
   }
 }
