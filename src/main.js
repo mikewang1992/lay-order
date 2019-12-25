@@ -36,7 +36,7 @@ Vue.use(VueAwesomeSwiper)
 Vue.use(VueSweetalert2, options)
 Vue.use(VueLoading, {
     isFullPage: true,
-    canCancel: false,
+    canCancel: true,
     loader: 'dots', //spinner/dots/bars
     color: '#72bcb3',
     backgroundColor: '#ffffff',

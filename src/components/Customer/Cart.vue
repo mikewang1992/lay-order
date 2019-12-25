@@ -516,6 +516,7 @@ export default {
             title: "手機長度不符"
           });
         }
+        loader.hide();
       }
     },
     CreateOrder() {

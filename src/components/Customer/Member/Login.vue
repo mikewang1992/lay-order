@@ -89,7 +89,7 @@
 export default {
   data() {
     return {
-      loginInfo: {},
+      loginInfo: { Tel: "", Password: "" },
       vertifyAppear: false,
       changePasswordAppear: false,
       vertifyCode: "",
@@ -124,9 +124,11 @@ export default {
             }
           });
         } else {
+          loader.hide();
           this.$swal("哎呀！請輸入正確手機格式", "", "warning");
         }
       } else {
+        loader.hide();
         this.$swal("哎呀！手機長度不符", "", "warning");
       }
     },
