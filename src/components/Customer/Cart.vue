@@ -364,14 +364,6 @@ export default {
       } else {
         return [[0, 59]];
       }
-    },
-    PreTime() {
-      const vm = this;
-      const url = `${process.env.APIPATH}/Company/PreTime`;
-      this.$http.get(url).then(response => {
-        // console.log('餐點準備時間：',response.data);
-        this.PrepareTime = response.data;
-      });
     }
   },
   watch: {},
@@ -764,12 +756,21 @@ export default {
         }
       });
     },
+    PreTime() {
+      const vm = this;
+      const url = `${process.env.APIPATH}/Company/PreTime`;
+      this.$http.get(url).then(response => {
+        // console.log('餐點準備時間：',response.data);
+        this.PrepareTime = response.data;
+      });
+    },
     // 營業時間
     getBusinessHours() {
       const vm = this;
       const url = `${process.env.APIPATH}/Company/BusinessHours`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         // vm.businesshours = response.data;
         vm.businesshours[0] = vm.getTime(vm.TimeWithPrepare(vm.PrepareTime));
         vm.businesshours[1] = response.data[1];
@@ -793,6 +794,7 @@ export default {
             ]
           ];
         }
+        loader.hide();
       });
     },
     resetBussinessHours() {
@@ -874,8 +876,9 @@ export default {
   },
   created() {
     this.websocketListen();
-    this.getCart();
     this.CheckLogin();
+    this.getCart();
+    this.PreTime();
     this.getBusinessHours();
     this.recaptcha();
   },
