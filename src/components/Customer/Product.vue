@@ -2,7 +2,7 @@
   <div class="main">
     <div v-if="isOpenFromCustomer==false" class="open_notice">Sorry！本時段不開放預約！</div>
     <header class="hide_lg">
-      <img src="@/assets/img/logo_nav.png" alt />
+      <img src="@/assets/img/logo_kit.png" alt />
     </header>
     <!-- banners -->
     <div class="content">

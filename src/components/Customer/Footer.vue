@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="nav_logo">
-      <img src="@/assets/img/logo_nav.png" alt />
+      <img src="@/assets/img/logo_kit.png" alt />
     </div>
     <ul>
       <li :class="{'active':pageActive=='home'}">

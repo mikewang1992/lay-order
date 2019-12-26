@@ -80,7 +80,7 @@
               v-for="(pItem,key,index) in item.product"
               :class="pItem.status"
               :key="index"
-              @click="completeOrderItem(item.orderid,pItem.Id)"
+              @click="completeOrderItem(item.orderid,pItem.Id,pItem.status)"
             >
               <h4>{{pItem.ProductName}} X {{pItem.Qty}}</h4>
               <span class="label">{{pItem.option}}</span>
@@ -189,9 +189,11 @@ export default {
         this.pages.sum = response.data;
       });
     },
-    completeOrderItem(Oid, Pid) {
-      console.log("單品備餐：", "產品ID", Oid, "產品ID", Pid);
-      this.$http
+    completeOrderItem(Oid, Pid, status) {
+      console.log("單品備餐：", "產品ID", Oid, "產品ID", Pid, status);
+      if (status == "prepare") {
+        console.log("這個我準備好了");
+        this.$http
         .get(
           `${
             process.env.APIPATH
@@ -208,8 +210,38 @@ export default {
             type: "success",
             title: "本產品備餐完成"
           });
-          this.getOrderList(this.filterMenu.type, this.filterMenu.status);
+          this.getOrderList(
+            this.filterMenu.type,
+            this.filterMenu.status,
+            this.pages.curPage
+          );
         });
+      } else {
+        console.log("這個準備好了但要還原");
+        this.$http
+        .get(
+          `${
+            process.env.APIPATH
+          }/Kitchen/BackToPrepare?Pid=${Pid}`
+        )
+        .then(response => {
+          // console.log(response.data);
+          this.websocketbtn("kitchen單品備餐還原");
+          this.$swal({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "success",
+            title: "本產品備餐還原"
+          });
+          this.getOrderList(
+            this.filterMenu.type,
+            this.filterMenu.status,
+            this.pages.curPage
+          );
+        });
+      }
     },
     completeOrder(Oid) {
       console.log("整單備餐完成：", Oid);
@@ -226,7 +258,11 @@ export default {
             type: "success",
             title: "本產品備餐完成"
           });
-          this.getOrderList(this.filterMenu.type, this.filterMenu.status);
+          this.getOrderList(
+            this.filterMenu.type,
+            this.filterMenu.status,
+            this.pages.curPage
+          );
         });
     },
     websocketbtn(par = "kitchen") {
@@ -246,7 +282,7 @@ export default {
             type: "success",
             title: "新訂單來囉！"
           });
-        };
+        }
         if (
           message == "cart送出訂單" ||
           "counter單品送餐完成" ||

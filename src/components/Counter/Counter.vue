@@ -640,6 +640,7 @@ export default {
         if (
           message == "cart送出訂單" ||
           message == "kitchen單品備餐完成" ||
+          message == "kitchen單品備餐還原" ||
           message == "kitchen訂單備餐完成"
         ) {
           console.log("現在篩選選單是", vm.filterMenu.status);

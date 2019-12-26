@@ -17,7 +17,11 @@
                 class="p_status"
                 :class="{'bg_default':item.status==='prepare'||item.status==='ready','bg_yellow':item.status==='finish'||item.status==='done','bg_gray':item.status==='paid'||item.status==='cancel'}"
               >
-                <h4 class="text-center"><span class="font_lg font_price">{{item.id}}.</span><br>{{filterTranslate(item.status)}}</h4>
+                <h4 class="text-center">
+                  <span class="font_lg font_price">{{item.id}}.</span>
+                  <br>
+                  {{filterTranslate(item.status)}}
+                </h4>
               </div>
               <div class="p_info">
                 <div class="p_date">
@@ -121,6 +125,7 @@ export default {
           message == "counter恢復取消單" ||
           message == "counter恢復完成單" ||
           message == "kitchen單品備餐完成" ||
+          message == "kitchen單品備餐還原" ||
           message == "kitchen訂單備餐完成"
         ) {
           vm.ShowOrderStatus(vm.forhere);
