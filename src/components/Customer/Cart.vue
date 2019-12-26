@@ -578,11 +578,12 @@ export default {
           vm.websocketbtn("cart送出訂單");
           const url = `${process.env.APIPATH}/Accounts/IsTable`;
           this.$http.get(url).then(response => {
-            vm.ShowResult = true;
             if (response.data === "外帶") {
               this.$router.push({ name: "ResultOut" });
+              vm.ShowResult = true;
             } else {
               this.$router.push({ name: "ResultIn" });
+              vm.ShowResult = true;
             }
           });
         }
