@@ -1,0 +1,86 @@
+﻿@*@model sys.Models.ProductList*@
+@model IEnumerable<sys.Models.ProductList>
+@{
+    ViewBag.Title = "刪除類別";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<h3>@ViewBag.Title</h3>
+
+<h4>你確定要刪除該類別嗎?</h4>
+<div>
+    <h4 style="color: red">警告!!!!以下商品也會同步刪除</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductCategory.PCName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sides1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sides2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sides3)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sides4)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductCategory.PCName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sides1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sides2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sides3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sides4)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="確定刪除該類別" class="btn btn-default" /> 
+            <a href="~/Admin/BKCategory" class="btn btn-default" style="padding-left: 10px">取消</a>
+        </div>
+    }
+</div>

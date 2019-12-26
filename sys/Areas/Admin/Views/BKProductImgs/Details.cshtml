@@ -1,0 +1,35 @@
+﻿@model sys.Models.ProductImg
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductImg</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductList.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductList.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pimg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pimg)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index","BKProduct")
+</p>

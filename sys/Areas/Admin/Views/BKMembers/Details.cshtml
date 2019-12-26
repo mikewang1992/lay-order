@@ -1,0 +1,80 @@
+﻿@model sys.Models.Member
+
+@{
+    ViewBag.Title = "員工帳號詳情";
+}
+
+<h3>@ViewBag.Title</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Account)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Img)
+        </dt>
+
+        <dd>
+            @{
+                ViewBag.Img = Model.Img;
+            }
+            <img src="/Admin/UploadFile/Img/@ViewBag.Img">
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Permission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Permission)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <div class="form-actions no-color right">
+        <a href="~/Admin/BKMembers/Edit/@ViewBag.id " class="btn btn-default" style="padding-left: 10px">修改</a>
+        <a href="~/Admin/BKMembers" class="btn btn-default" style="padding-left: 10px">取消</a>
+    </div>
+</p>
+<style>
+    .right {
+        margin-left: 180px;
+    }
+</style>

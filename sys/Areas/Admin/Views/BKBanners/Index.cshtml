@@ -1,0 +1,97 @@
+﻿@using MvcPaging
+@*@model IEnumerable<sys.Models.Banner>*@
+@model MvcPaging.IPagedList<sys.Models.Banner>
+@{
+    ViewBag.Title = "Banner清單";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h3>@ViewBag.Title</h3>
+<p>
+    <a href="/Admin/BKBanners/Create" class="btn btn-success">新增Banner</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Img)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().EndTime)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <img src="~/Img/BannerImg/@item.Img " style="width: 130px">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                <form action="~/Admin/BKBanners/Edit" method="get">
+                    <input type="submit" value="修改" class="submit btn btn-default">
+                    <input type="hidden" name="id" value=@item.Id>
+                </form>
+                <form action="~/Admin/BKBanners/Delete" method="post">
+                    <input style="margin-top: 3px" type="submit" value="刪除" class="submit btn btn-default" onclick="javascript:if(!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;">
+                    <input type="hidden" name="id" value=@item.Id>
+                </form>
+                @*@Html.ActionLink("修改", "Edit", new { id = item.Id }) |
+                <form action="/Admin/BKBanners/Delete" method="post" id="deleteBanner">
+                    <a>刪除</a>
+                    <input type="hidden" name="id" value=@item.Id>
+                </form>
+                <script>
+                    var form = document.querySelectorAll('form');
+                    for (let i = 0; i < form.length; i++) {
+                        form[i].addEventListener("click",
+                            function () {
+                                if (!window.confirm('你確定要刪除嗎?'))
+                                    return;
+                                else {
+                                    form[i].submit();
+                                }
+                            });
+                    }*@
+                                @*//form.forEach(item => {
+                                //    item.addEventListener("click",
+                                //        function () {
+                                //            console.log(item);
+                                //            if (!window.confirm('你確定要刪除嗎?'))
+                                //                return;
+                                //            else {
+                                //                item.submit();
+                                //            }
+                                //        });
+                                //});
+                </script>*@
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+
+

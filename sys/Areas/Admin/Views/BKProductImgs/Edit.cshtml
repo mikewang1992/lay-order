@@ -1,0 +1,74 @@
+﻿@model IEnumerable<sys.Models.ProductImg>
+@{
+    ViewBag.Title = "圖片設定";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<h3>@ViewBag.Title</h3>
+<p>
+    <form action="~/Admin/BKProductImgs/Edit" method="post" enctype="multipart/form-data" style="display: flex">
+        <input type="hidden" value="@ViewBag.id " name="Pid">
+        <input type="file" name="Pimg" accept="image/*" id="Pimg" style="border-bottom: grey solid 1px"> <input type="submit" value="新增圖檔" class="btn btn-info" style="margin-left: 10px">
+    </form>
+<p>
+
+    <hr>
+    <span style="color: darksalmon">*商品主圖為第一張圖片</span>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pimg)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    <img src="/Img/product/@item.Pimg " style="width: 200px">
+                </td>
+
+                <td>
+                    <form action="~/Admin/BKProductImgs/Delete" method="post">
+                        <input type="submit" value="刪除" class="submit btn btn-default" onclick="javascript:if(!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;">
+                        <input type="hidden" name="Id" value=@item.Id>
+                    </form>
+
+
+                    @*<form action="/Admin/ProductImgs/Delete" method="post">
+                            @Html.ActionLink("Edit", "Edit", new {id = item.Id})
+                            <a>刪除</a>
+                            <input type="hidden" name="id" value=@item.Id>
+                        </form>
+                        <script>
+                            var form = document.querySelectorAll('td');
+                            form.forEach(item => {
+                                item.addEventListener("click",
+                                    function() {
+                                        if (!window.confirm('你確定要刪除嗎?'))
+                                            return;
+                                        else {
+                                            this.children().submit();
+                                        }
+                                    });
+                            });
+                        </script>*@
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div>
+        <a href="~/Admin/BKProduct/Edit/@ViewBag.id " class="btn btn-default" style="padding-left: 10px">回到產品編輯頁</a>
+        <a href="~/Admin/BKProductImgs/Check/@ViewBag.id " class="btn btn-default" style="padding-left: 10px">回到產品列表</a>
+
+    </div>

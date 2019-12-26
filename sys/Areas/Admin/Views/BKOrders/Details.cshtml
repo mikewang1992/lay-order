@@ -1,0 +1,93 @@
+﻿
+@using sys.Models
+
+@model List<sys.Models.OrderDetail>
+
+@{
+    ViewBag.Title = "訂單詳情";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    IEnumerable<OrderDetail> orderDetails = ViewBag.holiday;
+}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<h3>@ViewBag.Title</h3>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model[0].order.Account.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model[0].order.Account.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model[0].order.OrderTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model[0].order.OrderTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model[0].order.GetTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model[0].order.GetTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model[0].order.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model[0].order.Status)
+        </dd>
+    </dl>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].ProductList.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Options)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model =>model[0].Qty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Status)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductList.Name)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Options)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+        </tr>
+    }
+
+</table>
+<a href="~/Admin/BKOrders" class="btn btn-default" style="padding-left: 10px">回到列表列</a>
+<style>
+    .dl-horizontal dt {
+        width: 70px;
+    }
+    .dl-horizontal dd {
+        margin-left: 115px;
+    }
+</style>

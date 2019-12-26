@@ -1,0 +1,146 @@
+﻿@using sys.Models
+@model sys.Areas.Admin.ViewModel.BKCompanyViewModel
+@{
+    ViewBag.Title = "營業時間管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    IEnumerable<holiday> holiday = ViewBag.holiday;
+}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<h3>@ViewBag.Title</h3>
+
+
+@using (Html.BeginForm("Edit", "BKCompany"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control",required="" } })
+                @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", type = "time" } })
+                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", type = "time" } })
+                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BigQty, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BigQty, new { htmlAttributes = new { @class = "form-control" ,required=""} })
+                @Html.ValidationMessageFor(model => model.BigQty, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrepareTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PrepareTime, new { htmlAttributes = new { @class = "form-control",required="" } })
+                @Html.ValidationMessageFor(model => model.PrepareTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+@using (Html.BeginForm("Create", "BKCompany"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <label for="HolidayStartTime">假期開始時間</label>
+        <input type="datetime-local" name="StartTime" id="HolidayStartTime" required="">
+
+        <label for="HolidayEndTime">
+            假期結束時間
+        </label>
+        <input type="datetime-local" name="EndTime" id="HolidayEndTime" required="">
+        <input type="submit" value="新增" class="btn btn-info" />
+        <span style="color: red">@ViewBag.Alert</span>
+    </div>
+}
+@using (Html.BeginForm("Delete", "BKCompany"))
+{
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                開始時間
+            </th>
+            <th>
+                結束時間
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in holiday)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+
+                    <form action="/Admin/BKCompany/Delete" method="post">
+                        <input type="submit" value="刪除" class="submit" onclick="javascript:if(!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;">
+                        <input type="hidden" name="id" value=@item.Id>
+                    </form>
+                    @*<script>
+                            var form = document.querySelectorAll(".submit");
+                            form.forEach(item => {
+                                item.addEventListener("click",
+                                    function () {
+                                        if (!window.confirm('你確定要刪除嗎?'))
+                                            console.log(window.confirm('你確定要刪除嗎?'));
+                                            return;
+                                        else {
+                                            this.submit();
+                                        }
+                                    });
+                            });
+                        </script>*@
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
+<style>
+    .form-horizontal {
+        margin-bottom: 20px;
+    }
+</style>
+
+

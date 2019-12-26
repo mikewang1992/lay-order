@@ -1,0 +1,49 @@
+﻿@model IEnumerable<sys.Models.ProductCategory>
+@{
+    ViewBag.Title = "產品類別";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h3>@ViewBag.Title</h3>
+<form action="/Admin/BKCategory/Create" method="post" class="form-magin">
+    <label for="PCName">新增類別</label>
+    <input type="text" name="PCName" id="PCName" required="">
+    <input type="submit" value="新增" class="btn btn-info" />
+    <a href="~/Admin/BKProduct" class="btn btn-success" style="padding-left: 10px">回到產品列表頁</a>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PCName)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PCName)
+            </td>
+            <td>
+                @Html.ActionLink("修改", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("刪除", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<style>
+    .form-magin {
+        margin-bottom: 10px;
+    }
+</style>

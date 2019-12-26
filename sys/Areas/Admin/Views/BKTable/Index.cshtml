@@ -1,0 +1,59 @@
+﻿
+@using MvcPaging
+@model MvcPaging.IPagedList<sys.Models.Account>
+@{
+    ViewBag.Title = "桌次清單";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<h3>@ViewBag.Title</h3>
+
+<p>
+    <a href="/Admin/BKTable/Create" class="btn btn-block btn-success">新增桌次</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            項次
+        </th>
+        <th>
+            桌名
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @(i + Model.PageIndex * Model.PageSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                <a href="~/Admin/BKTable/Edit/@item.Id " class="submit btn btn-default">修改帳號密碼</a> 
+                <form action="~/Admin/BKTable/Delete" method="post">
+                    <input type="submit" value="刪除" class="submit btn btn-default" style="margin-top: 5px" onclick="javascript:if(!window.confirm('你確定要刪除這個桌號嗎?')) window.event.returnValue = false;"> 
+                    <input type="hidden" name="id" value=@item.Id>
+                </form>
+                <form action="~/Admin/BKTable/QRCode" method="post">
+                    <input type="submit" value="QR-code" class="submit btn btn-default" style="margin-top: 5px" >
+                    <input type="hidden" name="id" value=@item.Id>
+                </form>
+            </td>
+        </tr>
+        i++;
+    }
+
+</table>
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+<style>
+    .btn-block {
+        width: 100px;
+    }
+</style>

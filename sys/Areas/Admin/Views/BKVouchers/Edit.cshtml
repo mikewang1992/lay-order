@@ -1,0 +1,60 @@
+﻿@model sys.Models.Voucher
+@{
+    ViewBag.Title = "修改優惠訊息";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var aa = Model;
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<h3>@ViewBag.Title</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="Title" id="Title" style="width: 800px;" required="" value=@ViewBag.VTitle />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea name="Content" style="width: 800px; height: 300px;" required="">@ViewBag.Content</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })*@
+                <input type="date" name="StartTime" required="" value=@ViewBag.StartTime />
+                <span style="color: red">@ViewBag.Message</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })*@
+                <input type="date" name="EndTime" required="" value=@ViewBag.EndTime />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="儲存" class="btn btn-default" />
+                <a href="~/Admin/BKVouchers" class="btn btn-default" style="padding-left: 10px">取消修改</a>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,95 @@
+﻿@*@model IEnumerable<sys.Models.Account>*@
+@using MvcPaging
+@model MvcPaging.IPagedList<sys.Models.Account>
+@{
+    ViewBag.Title = "會員帳號清單";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+   
+<h3>@ViewBag.Title</h3>
+
+<form action="~/Admin/BKAccounts/Index" method="post">
+    <div style="display: flex;">
+    <label style="margin-right:10px">電話</label>
+    <input type="text" name="Tel" style="margin-right:10px"/>
+    <label style="margin-right:10px">姓名</label>
+    <input type="text" name="Name" style="margin-right:10px"/>
+    <input type="submit" value="搜尋" class="btn btn-block btn-info" style="font-weight: bold">
+    </div>
+    <hr/>
+</form>
+<table class="table">
+    <tr>
+        <th>
+            項次
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Tel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Birth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().County)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Dist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Sent)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@(i + Model.PageIndex * Model.PageSize)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.County)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dist)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sent)
+            </td>
+            <td>
+                <form action="~/Admin/BKAccounts/Edit" method="post">
+                    <input type="submit" value="重設驗證簡訊次數" class="submit btn btn-default" onclick="javascript:if (!window.confirm('你確定要重設驗證簡訊次數嗎?')) window.event.returnValue = false;">
+                    <input type="hidden" name="id" value=@item.Id>
+                </form>
+                <form action="~/Admin/BKAccounts/Delete" method="post">
+                    <input style="margin-top: 3px" type="submit" value="刪除" class="submit btn btn-default" onclick="javascript:if(!window.confirm('你確定要刪除嗎?')) window.event.returnValue = false;">
+                    <input type="hidden" name="id" value=@item.Id>
+                </form>
+            </td>
+        </tr>
+        i++;
+    }
+
+</table>
+
+<div class="pager">
+    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+</div>
+
+<style>
+    input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].btn-block {
+        width: 6%;
+    }
+</style>

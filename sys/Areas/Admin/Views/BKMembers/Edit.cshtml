@@ -1,0 +1,129 @@
+﻿@model sys.Models.Member
+
+@{
+    ViewBag.Title = "修改會員資料";
+}
+
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link href="/Admin/dist/bootree.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="/Admin/dist/bootree.min.js" type="text/javascript"></script>
+
+<h3>@ViewBag.Title</h3>
+@using (Html.BeginForm("Create","BKMembers",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <input type="hidden" value="@ViewBag.initDate " name="initDate">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control" ,required=""} })
+                @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="password" name="NewPassword" class="form-control" />
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <input type="hidden" name="Password" value=@ViewBag.PWD />
+            <input type="hidden" name="PasswordSalt" value=@ViewBag.salt />
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" ,required=""} })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Gender, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" ,required=""} })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Img, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <img src="/Admin/UploadFile/Img/@ViewBag.Img" style="width: 100px">
+                <input type="hidden" name="Img" value="@ViewBag.Img ">
+                <input type="file" class="form-control" name="NewImg" id="NewImg" />
+                @Html.ValidationMessageFor(model => model.Img, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Permission, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="container">
+                    <div class="row">
+                        <div id="tree"></div>
+                    </div>
+                </div>
+                <input type="hidden" id="Permission" name="Permission" value="@ViewBag.Permission " />
+                <br />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="儲存" class="btn btn-default" />
+                <a href="~/Admin/BKMembers" class="btn btn-default" style="padding-left: 10px">取消</a>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var tree = $('#tree').tree({
+            primaryKey: 'id',
+            uiLibrary: 'bootstrap',
+            dataSource: [
+                @Html.Raw(ViewBag.data)
+            ],
+            checkboxes: true
+        });
+        tree.on('checkboxChange', function (e, $node, record, state) {
+            var checkedIds = tree.getCheckedNodes();
+            $('#Permission').val(','+checkedIds+',');
+        });
+        console.log(tree);
+    });
+</script>
+<style>
+    .formbyc {
+        padding: 20px;
+    }
+
+    .btn-block {
+        width: 135px;
+    }
+</style>

@@ -1,0 +1,102 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="~/Admin/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/form-elements.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/style.css">
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="~/Admin/assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Admin/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Admin/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Admin/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/Admin/assets/ico/apple-touch-icon-57-precomposed.png">
+
+</head>
+
+<body>
+
+    <!-- Top content -->
+    <div class="top-content">
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1 style="color:grey"><strong>LayOrder</strong> Login Form</h1>
+                        <div class="description">
+                            <p style="color:grey">
+                                歡迎使用lay-order後台管理系統
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>Login to our site</h3>
+                                <p>請輸入您的帳號密碼，忘記密碼請洽管理者</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            @using (Html.BeginForm("Login", "BKHome"))
+                            {
+                                <div class="login-form">
+
+                                    <div class="form-group">
+                                        <label class="sr-only" for="Account">Username</label>
+                                        <input type="text" name="Account" placeholder="Username..." class="form-username form-control" id="Account">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="Password">Password</label>
+                                        <input type="password" name="Password" placeholder="Password..." class="form-password form-control" id="Password">
+                                    </div>
+                                    <span style="color: blueviolet">@ViewBag.Message</span>
+                                    <button type="submit" class="btn">登入</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Javascript -->
+    <script src="~/Admin/assets/js/jquery-1.11.1.min.js"></script>
+    <script src="~/Admin/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Admin/assets/js/jquery.backstretch.min.js"></script>
+    <script src="~/Admin/assets/js/scripts.js"></script>
+
+    <style>
+        .top-content {
+            background-image: url("/Admin/assets/img/backgrounds/1.jpg");
+            background-position: center;
+            background-size: cover;
+        }
+        .inner-bg {
+            padding: 50px 0 65px 0;
+        }
+        .form-top {
+            padding: 0 25px;
+        }
+    </style>
+</body>
+
+</html>
