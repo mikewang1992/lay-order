@@ -47,7 +47,13 @@
       <form action v-if="vertifyAppear" v-show="!changePasswordAppear">
         <h3 class="mb-3 mt-2">請輸入您的手機並重新發送驗證碼進行驗證</h3>
         <div class="input-group">
-          <input type="text" class="form-control mb-2" v-model="loginInfo.Tel" placeholder="電話" />
+          <input
+            type="text"
+            class="form-control mb-2"
+            v-model="loginInfo.Tel"
+            placeholder="電話"
+            maxlength="10"
+          />
           <span class="iconfont icon-Mobile"></span>
           <div class="input-group-append">
             <a href="#" @click.prevent="ReSendSMS" class="btn" id>送出驗證碼</a>
@@ -99,7 +105,6 @@ export default {
   },
   methods: {
     login() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Login`;
       const data = vm.loginInfo;
@@ -110,6 +115,7 @@ export default {
       };
       if (vm.loginInfo.Tel.length === 10) {
         if (vm.loginInfo.Tel.slice(0, 2) === "09") {
+          let loader = this.$loading.show();
           this.$http.post(url, data, config).then(response => {
             loader.hide();
             // console.log(response);
@@ -124,20 +130,18 @@ export default {
             }
           });
         } else {
-          loader.hide();
           this.$swal("哎呀！請輸入正確手機格式", "", "warning");
         }
       } else {
-        loader.hide();
         this.$swal("哎呀！手機長度不符", "", "warning");
       }
     },
     // 忘記密碼
     ReSendSMS() {
-      let loader = this.$loading.show();
       const vm = this;
       const params = vm.loginInfo.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
         loader.hide();
         // console.log("重新發送驗證碼結果", response);
@@ -164,7 +168,6 @@ export default {
       });
     },
     vertify() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Vertify`;
       const data = { Vertify: vm.vertifyCode, Tel: vm.loginInfo.Tel };
@@ -173,6 +176,7 @@ export default {
           "Content-Type": "application/json"
         }
       };
+      let loader = this.$loading.show();
       this.$http.post(url, data, config).then(response => {
         loader.hide();
         console.log("驗證簡訊結果", response);
@@ -190,7 +194,6 @@ export default {
       });
     },
     changePassword() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/EditPassword`;
       const data = {
@@ -202,6 +205,7 @@ export default {
           "Content-Type": "application/json"
         }
       };
+      let loader = this.$loading.show();
       this.$http.post(url, data, config).then(response => {
         loader.hide();
         console.log("修改密碼結果", response.data);

@@ -2,13 +2,13 @@
   <div class="main">
     <div v-if="isOpenFromCustomer==false" class="open_notice">Sorry！本時段不開放預約！</div>
     <header class="hide_lg">
-      <img src="@/assets/img/logo_nav.png" alt>
+      <img src="@/assets/img/logo_nav.png" alt />
     </header>
     <!-- banners -->
     <div class="content">
       <swiper :options="swiperSingle" id="swiperSingle" ref="mySwiper" @someSwiperEvent="swiper()">
         <swiper-slide v-for="(item,key,index) in banners" :key="index">
-          <img :src="BannerimgUrl+item" alt>
+          <img :src="BannerimgUrl+item" alt />
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
@@ -37,7 +37,7 @@
         >
           <div class="item open_popup">
             <div class="p_image">
-              <img :src="ProductimgUrl+item.Img[0]" alt>
+              <img :src="ProductimgUrl+item.Img[0]" alt />
             </div>
             <div class="p_info">
               <h3>{{item.Name}}</h3>
@@ -61,7 +61,7 @@
           >
             <swiper-slide v-for="(item,index) in productDetail[0].Img" :key="index">
               <div class="p_img_slier">
-                <img :src="ProductimgUrl+item" alt>
+                <img :src="ProductimgUrl+item" alt />
               </div>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
@@ -71,7 +71,7 @@
           <div class="p_info p-3">
             <h3>{{productDetail[0].Name}}</h3>
             <!-- <small>訂單總量超過 20 份請來電預約</small> -->
-            <hr>
+            <hr />
             <div class="p_text">
               <p>{{productDetail[0].Description}}</p>
             </div>
@@ -87,7 +87,7 @@
                       :id="`option1-${key+1}`"
                       :value="inneritem"
                       v-model="Orders.Options[0]"
-                    >
+                    />
                     <span class="radiobtn"></span>
                     {{inneritem}}
                   </label>
@@ -104,7 +104,7 @@
                       :id="`option2-${key+1}`"
                       :value="inneritem"
                       v-model="Orders.Options[1]"
-                    >
+                    />
                     <span class="radiobtn"></span>
                     {{inneritem}}
                   </label>
@@ -121,7 +121,7 @@
                       :id="`option3-${key+1}`"
                       :value="inneritem"
                       v-model="Orders.Options[2]"
-                    >
+                    />
                     <span class="radiobtn"></span>
                     {{inneritem}}
                   </label>
@@ -138,7 +138,7 @@
                       :id="`option4-${key+1}`"
                       :value="inneritem"
                       v-model="Orders.Options[3]"
-                    >
+                    />
                     <span class="radiobtn"></span>
                     {{inneritem}}
                   </label>
@@ -245,9 +245,9 @@ export default {
       });
     },
     getProducts(PCid = "") {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Product/GetProduct?PCid=${PCid}`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
         // console.log('產品列表',response);
         vm.products = response.data;

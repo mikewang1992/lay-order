@@ -454,7 +454,6 @@ export default {
       });
     },
     CheckBeforeCreate() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Login`;
       const data = vm.loginInfo;
@@ -464,11 +463,11 @@ export default {
         }
       };
       if (this.Login === "True") {
-        loader.hide();
         this.CreateOrder();
       } else if (this.Login === "False") {
         if (vm.loginInfo.Tel.length === 10) {
           if (vm.loginInfo.Tel.slice(0, 2) === "09") {
+            let loader = this.$loading.show();
             this.$http.post(url, data, config).then(response => {
               loader.hide();
               // console.log('確認有沒有登入過 CheckBeforeCreate',response.data);
@@ -516,7 +515,6 @@ export default {
             title: "手機長度不符"
           });
         }
-        loader.hide();
       }
     },
     SaveCartChange() {
@@ -538,7 +536,6 @@ export default {
       this.$router.push({ name: "Product" });
     },
     CreateOrder() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Order/Create`;
       const data = [];
@@ -567,6 +564,7 @@ export default {
           "Content-Type": "application/json"
         }
       };
+      let loader = this.$loading.show();
       this.$http.post(url, data, config).then(response => {
         loader.hide();
         if (response == "fail") {
@@ -621,7 +619,6 @@ export default {
     },
     // 登入註冊
     login() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Login`;
       const data = vm.loginInfo;
@@ -632,6 +629,7 @@ export default {
       };
       if (vm.loginInfo.Tel.length === 10) {
         if (vm.loginInfo.Tel.slice(0, 2) === "09") {
+          let loader = this.$loading.show();
           this.$http.post(url, data, config).then(response => {
             loader.hide();
             console.log("登入回傳", response.data);
@@ -671,7 +669,6 @@ export default {
       }
     },
     register() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Create`;
       const data = vm.registerInfo;
@@ -680,10 +677,10 @@ export default {
           "Content-Type": "application/json"
         }
       };
-
       if (data.Tel !== "" && data.Name !== "" && data.Password !== "") {
         // console.log("送出註冊資訊");
         this.vertifyInfo.Tel = data.Tel;
+        let loader = this.$loading.show();
         this.$http.post(url, data, config).then(response => {
           loader.hide();
           console.log("註冊結果：", response.data);
@@ -716,7 +713,6 @@ export default {
       }
     },
     vertify() {
-      let loader = this.$loading.show();
       const vm = this;
       const url = `${process.env.APIPATH}/Accounts/Vertify`;
       const data = vm.vertifyInfo;
@@ -725,6 +721,7 @@ export default {
           "Content-Type": "application/json"
         }
       };
+      let loader = this.$loading.show();
       this.$http.post(url, data, config).then(response => {
         loader.hide();
         console.log("驗證簡訊結果", response);
@@ -739,10 +736,10 @@ export default {
       });
     },
     ReSendSMS() {
-      let loader = this.$loading.show();
       const vm = this;
       const params = vm.vertifyInfo.Tel;
       const url = `${process.env.APIPATH}/Accounts/ReSendSMS?Tel=${params}`;
+      let loader = this.$loading.show();
       this.$http.get(url).then(response => {
         loader.hide();
         console.log("重新發送驗證碼結果", response);
