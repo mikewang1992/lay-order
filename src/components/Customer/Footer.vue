@@ -14,7 +14,7 @@
         <router-link to="/cart">
           <img src="@/assets/img/icon_footer02.png" alt />
           <p>點菜單</p>
-          <span class="label font_price" v-if="footerNumber<20">{{footerNumber}}</span>
+          <span class="label font_price">{{footerNumber}}</span>
         </router-link>
       </li>
       <li :class="{'active':pageActive=='order'}">

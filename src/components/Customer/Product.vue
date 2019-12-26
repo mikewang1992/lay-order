@@ -361,7 +361,7 @@ export default {
       this.checkFooterCart();
     },
     checkFooterCart() {
-      // console.log("確認點菜單數量");
+      console.log("確認點菜單數量");
       if (JSON.parse(localStorage.getItem("totalcart")) !== null) {
         let cartNum = JSON.parse(localStorage.getItem("totalcart")).length;
         document.querySelector(

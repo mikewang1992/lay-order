@@ -69,6 +69,7 @@ export default {
     this.ShowOrderSummary(this.OrderCodeFromCart);
     console.log(this.OrderCodeFromCart);
     this.GetTel();
+    document.querySelector("footer .footer_cart .label").innerHTML = 0;
   }
 };
 </script>

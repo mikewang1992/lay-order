@@ -5,13 +5,13 @@
     </header>
     <div class="content">
       <div class="result out">
-        <img src="@/assets/img/result_ok.png" alt />
+        <img src="@/assets/img/result_ok.png" alt>
         <div class="number">{{this.OrderCodeFromCart}}</div>
         <p class="text-center mb-4">
           謝謝您的訂餐！
-          <br />請於您指定的時間憑
+          <br>請於您指定的時間憑
           <span class="color_default">取餐編號</span>來店取餐
-          <br />若需調整訂單請撥打電話與我們聯繫！
+          <br>若需調整訂單請撥打電話與我們聯繫！
         </p>
       </div>
       <div class="order_list mb-4 col-md-6 offset-md-3">
@@ -89,6 +89,7 @@ export default {
     this.ShowOrderSummary(this.OrderCodeFromCart);
     console.log(this.OrderCodeFromCart);
     this.GetTel();
+    document.querySelector("footer .footer_cart .label").innerHTML = 0;
   }
 };
 </script>
