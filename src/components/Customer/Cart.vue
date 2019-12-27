@@ -538,7 +538,9 @@ export default {
           Options: vm.CartFromProduct[i].Options,
           Qty: vm.CartFromProduct[i].Qty.toString(),
           orderTime: vm.FullTimeNow,
-          getTime: vm.yourStringTimeValue
+          getTime: vm.getFullTime(
+            vm.GetTimeReplacedOrderTime(vm.yourStringTimeValue)
+          )
         };
         let str = "";
         for (let j = 0; j < vm.CartFromProduct[i].Options.length; j++) {
@@ -548,9 +550,10 @@ export default {
           str = str.substring(0, str.length - 1);
         }
         predata.Options = str;
+        // console.log(predata);
         data.push(predata);
       }
-      // console.log('POST 餐點資訊：',data);
+      // console.log("POST 餐點資訊：", data);
       const config = {
         headers: {
           "Content-Type": "application/json"
@@ -822,6 +825,17 @@ export default {
       var min = d.getMinutes();
       var s = d.getSeconds();
       d = new Date(year, month, day, hour, min + prepare, s);
+      return d;
+    },
+    GetTimeReplacedOrderTime(getTime) {
+      var d = new Date();
+      var year = d.getFullYear();
+      var month = d.getMonth();
+      var day = d.getDate();
+      var hour = getTime.split(":")[0];
+      var min = getTime.split(":")[1];
+      var s = d.getSeconds();
+      d = new Date(year, month, day, hour, min, s);
       return d;
     },
     CleanTimeBtn() {
