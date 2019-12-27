@@ -42,7 +42,7 @@
 export default {
   data() {
     return {
-      OrderSummary: {},
+      OrderSummary: [{name:"",totalQty:"",totalAmount:""}],
       ShopPhone: ""
     };
   },
@@ -67,7 +67,7 @@ export default {
   },
   created() {
     this.ShowOrderSummary(this.OrderCodeFromCart);
-    console.log(this.OrderCodeFromCart);
+    console.log('桌號',this.OrderCodeFromCart);
     this.GetTel();
     document.querySelector("footer .footer_cart .label").innerHTML = 0;
   }
